@@ -1,0 +1,84 @@
+<div class="quicksetup-modal" style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <div class="modal-title">
+      <label class="font_black"><span class="fas fa-check-square"></span><span class="margin_left_5">Confirmation</span></label>
+    </div>
+    <button type="button" class="close" (click)="close(false)"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body clearfix" style="max-height:82vh;overflow:auto">
+    <div class="container">
+      <div class="row">
+        The following information will be used for verifying your identity:
+      </div>
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">Name:</div>
+        <div class="col" *ngIf="userInfo.firstName && userInfo.firstName != ''">
+          <span>{{userInfo.firstName}} {{userInfo.lastName}}</span>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">Address:</div>
+        <div class="col" *ngIf="userInfo.address && userInfo.address != ''">
+          <span *ngIf="userInfo.address.street">{{userInfo.address.street}}</span> <br> <span *ngIf="userInfo.address.postalCode">{{userInfo.address.postalCode}}</span>
+           , <span *ngIf="userInfo.address.city">{{userInfo.address.city}}</span> , <span *ngIf="userInfo.address.state">{{userInfo.address.state}}</span>
+          <br> <span *ngIf="userInfo.address.country">{{userInfo.address.country}}</span></div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">Firm Name:</div>
+        <div class="col" *ngIf="userInfo.firstName && userInfo.firstName != ''">
+          <span>{{userInfo.firmName}}</span>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">Phone:</div>
+        <div class="col" *ngIf="userInfo.phoneNo && userInfo.phoneNo != ''">
+          <span>{{userInfo.phoneNo}}</span>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">Email:</div>
+        <div class="col" *ngIf="userInfo.email && userInfo.email != ''">
+          <span>{{userInfo.email}}</span>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">Recovery Email:</div>
+        <div class="col" *ngIf="userInfo.recoveryEmail && userInfo.recoveryEmail != ''">
+          <span>{{userInfo.recoveryEmail}}</span>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">SSN:</div>
+        <div class="col" *ngIf="userInfo.ssn && userInfo.ssn != ''">
+          <span>{{userInfo.ssn}}</span>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">EIN:</div>
+        <div class="col" *ngIf="userInfo.ein && userInfo.ein != ''">
+          <span>{{userInfo.ein}}</span>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-6 font-weight-bold">EFIN:</div>
+        <div class="col" *ngIf="userInfo.efin && userInfo.efin != ''">
+          <span>{{userInfo.efin}}</span>
+        </div>
+      </div>
+
+      <!-- <div class="row mt-2 error-msg">
+        Note: Once you press "yes" and successfully complete verification, the above
+        preparer information will be locked. You can edit them once your verification status is clear.
+      </div> -->
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="float-right">
+      <button type="button" class="btn btn-outline-primary mr-2" (click)="close(true)">Yes</button>
+      <button type="button" class="btn btn-outline-primary" (click)="close(false)">No</button>
+    </div>
+  </div>
+</div>

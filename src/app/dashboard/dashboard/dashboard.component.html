@@ -1,0 +1,398 @@
+<div class="row mt-5" *ngIf="!widgetsOptions">
+  <div class="col-24 text-center mt-5">
+    <div id="squaresWaveG">
+      <div id="squaresWaveG_1" class="squaresWaveG"></div>
+      <div id="squaresWaveG_2" class="squaresWaveG"></div>
+      <div id="squaresWaveG_3" class="squaresWaveG"></div>
+      <div id="squaresWaveG_4" class="squaresWaveG"></div>
+      <div id="squaresWaveG_5" class="squaresWaveG"></div>
+      <div id="squaresWaveG_6" class="squaresWaveG"></div>
+      <div id="squaresWaveG_7" class="squaresWaveG"></div>
+      <div id="squaresWaveG_8" class="squaresWaveG"></div>
+    </div>
+  </div>
+</div>
+<div id="dashboardMainWrapper">
+  <grid-stack #gridStackMain id="gridStackMain" class="grid-stack" *ngIf="widgetsOptions">
+
+    <!-- RETURN SUMMARY START -->
+    <grid-stack-item #returnSummaryWidgets class="grid-stack-item" [option]="widgetsOptions.returnSummary" [hidden]="!widgetsOptions.returnSummary.visible"
+      id="step1">
+      <div class="dashboard-box" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}"
+        [class.no-clicking]="!permission.canListReturn">
+        <div class="lock-wrapper-msg">
+          <span>This feature is coming soon for 2019.</span>
+        </div>
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.returnSummary.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-return-summary"></i></div>
+            <div class="title-txt text-truncate">Recent Returns</div>
+            <i class="title-action-icon fas fa-redo-alt" [class.rotate]='refresh.returnSummaryComponent' [ngClass]="{'':!permission.canListReturn}"
+              (click)="refreshReturnSummaryWidget()"></i>
+            <i class="title-action-icon fas fa-ellipsis-v" (click)="openFilterDialog()" [ngClass]="{'':!permission.canListReturn}"></i>
+            <i class="title-action-icon fas fa-pencil-alt" *ngIf="isSettingsEnabled && (widgetsOptions.returnSummary.config.canHide || widgetsOptions.returnSummary.config.canChangeColor || widgetsOptions.returnSummary.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentReturnSummary" container="body" #returnSummary="ngbPopover"></i>
+            <ng-template #popContentReturnSummary>
+              <app-dashboard-settings widgetName="returnSummary" [settings]="widgetsOptions.returnSummary" (cancel)="revertSettings($event)"
+                (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap content-scroll">
+          <app-return-summary #recentReturnComponent [columnName]="columnConfiguration.returnSummary" *ngIf="widgetsOptions.returnSummary.visible"
+            [rowColor]="widgetsOptions.returnSummary.rowColor" [backgroundColor]="widgetsOptions.returnSummary.backgroundColor">
+          </app-return-summary>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- EFILE SUMMARY START -->
+    <grid-stack-item #efileSummaryWidgets class="grid-stack-item" [option]="widgetsOptions.efileSummary" [hidden]="!widgetsOptions.efileSummary.visible">
+      <div class="dashboard-box" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}"
+        [class.no-clicking]="!permission.canGetEfileList">
+
+        <div class="lock-wrapper-msg">
+          <span>This feature is coming soon for 2019.</span>
+        </div>
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.efileSummary.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-efile"></i></div>
+            <div class="title-txt"> E-File Summary</div>
+            <i class="title-action-icon fas fa-redo-alt" [class.rotate]='refresh.eFileSummaryComponent' (click)="refreshEFileSummary()"></i>
+            <i class="title-action-icon fas fa-pencil-alt" *ngIf="isSettingsEnabled && (widgetsOptions.efileSummary.config.canHide || widgetsOptions.efileSummary.config.canChangeColor || widgetsOptions.efileSummary.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentEfileSummary" container="body" #efileSummary="ngbPopover"></i>
+            <ng-template #popContentEfileSummary>
+              <app-dashboard-settings widgetName="efileSummary" [settings]="widgetsOptions.efileSummary" (cancel)="revertSettings($event)"
+                (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-efile-summary #eFileSummaryComponent [columnConfig]="columnConfiguration.efileSummary" *ngIf="widgetsOptions.efileSummary.visible"
+            [rowColor]="widgetsOptions.efileSummary.rowColor">
+          </app-efile-summary>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- NEWS SUMMARY -->
+    <grid-stack-item #newsSummaryWidgets class="grid-stack-item" [option]="widgetsOptions.newsSummary" [hidden]="!widgetsOptions.newsSummary.visible"
+      *ngIf="features.news">
+      <div class="dashboard-box">
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.newsSummary.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-news"></i></div>
+            <div class="title-txt"> News Summary</div>
+            <i class="title-action-icon fas fa-redo-alt" [class.rotate]='refresh.newsSummaryComponent' (click)="refreshNewsSummary()"></i>
+            <i class="title-action-icon fas fa-pencil-alt" *ngIf="isSettingsEnabled && (widgetsOptions.newsSummary.config.canHide || widgetsOptions.newsSummary.config.canChangeColor || widgetsOptions.newsSummary.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentNewsSummary" container="body" #newsSummary="ngbPopover"></i>
+            <ng-template #popContentNewsSummary>
+              <app-dashboard-settings widgetName="newsSummary" [settings]="widgetsOptions.newsSummary" (cancel)="revertSettings($event)"
+                (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-news-summary #newsSummaryComponent *ngIf="widgetsOptions.newsSummary.visible" [rowColor]="widgetsOptions.newsSummary.rowColor"
+            [foregroundColor]="widgetsOptions.newsSummary.foregroundColor">
+          </app-news-summary>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- QUICK RETURN SUMMARY -->
+    <grid-stack-item #quickReturnSummaryWidgets class="grid-stack-item" [option]="widgetsOptions.quickReturnSummary"
+      [hidden]="!widgetsOptions.quickReturnSummary.visible" id="step4">
+      <div class="dashboard-box efilebox-set" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}"
+        [class.no-clicking]="!permission.canOpenReturn">
+
+        <div class="lock-wrapper-msg">
+          <span>This feature is coming soon for 2019.</span>
+        </div>
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.quickReturnSummary.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-quick-return-summary"></i></div>
+            <div class="title-txt Efile-title" *ngIf="betaOnly()"> Quick Return Search / E-File Status</div>
+            
+            <div class="title-txt Efile-title" *ngIf="!betaOnly()"> E-File Status / Quick Return Summary</div>
+            <div class="efile-box" *ngIf="!betaOnly()">
+                <div class="form-group mr-2">
+                  <select class="form-control bg-white" [(ngModel)]="maskType" (ngModelChange)="setMaskId();quickReturnSummerycomponent.setTaskMask($event);ssnorein = undefined;">
+                    <option value="SSN">SSN</option>
+                    <option value="EIN">EIN</option>
+                    <option value="Name">Name</option>
+                    <option value="Phone">Phone</option>
+                    <option value="Email">Email</option>
+                  </select>
+                </div>
+                <div class="form-group" style="width: 115px;">
+                  <input *ngIf="maskType == 'SSN' || maskType =='EIN' || maskType =='Phone'" type="text" class="form-control bg-white"
+                    [dropSpecialCharacters]="false" [(ngModel)]="ssnorein" [mask]="taxMaskId" [showMaskTyped]="showMask"
+                    (keypress)="quickReturnSummerycomponent.keyPress($event)" (blur)="quickReturnSummerycomponent.getReturnStummary()">
+                  <input *ngIf="maskType !== 'SSN' && maskType !=='EIN' && maskType !='Phone'" type="text" class="form-control bg-white"
+                    [(ngModel)]="ssnorein" (keypress)="quickReturnSummerycomponent.keyPress($event)" (blur)="quickReturnSummerycomponent.getReturnStummary()">
+                </div>
+              </div>
+            <i class="title-action-icon fas fa-redo-alt mt-1" [class.rotate]='reloadQuickReturnSummery' (click)="quickReturnSummerycomponent.getReturnStummary();reloadQuickReturnSummary(true);"></i>
+            <i class="title-action-icon fas fa-pencil-alt mt-1" *ngIf="isSettingsEnabled && (widgetsOptions.quickReturnSummary.config.canHide || widgetsOptions.quickReturnSummary.config.canChangeColor || widgetsOptions.quickReturnSummary.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentQuickReturnSummary" container="body" #quickReturnSummary="ngbPopover"></i>
+            <ng-template #popContentQuickReturnSummary>
+              <app-dashboard-settings widgetName="quickReturnSummary" [settings]="widgetsOptions.quickReturnSummary"
+                (cancel)="revertSettings($event)" (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-quick-return-summary (isRefresh)="reloadQuickReturnSummary($event)" *ngIf="widgetsOptions.quickReturnSummary.visible"
+            #quickReturnSummerycomponent [ssnorein]="ssnorein" [rowColor]="widgetsOptions.quickReturnSummary.rowColor"></app-quick-return-summary>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- YOUR FIRM -->
+    <grid-stack-item #yourFirmWidgets class="grid-stack-item" [option]="widgetsOptions.yourFirm" [hidden]="!widgetsOptions.yourFirm.visible"
+      id="step8">
+      <div class="dashboard-box">
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.yourFirm.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-firm"></i></div>
+            <div class="title-txt"> Your Firm</div>
+            <!-- <i class="title-action-icon fas fa-redo-alt"></i> -->
+            <i class="title-action-icon fas fa-pencil-alt" *ngIf="isSettingsEnabled && (widgetsOptions.yourFirm.config.canHide || widgetsOptions.yourFirm.config.canChangeColor || widgetsOptions.yourFirm.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentYourFirm" container="body" #yourFirm="ngbPopover"></i>
+            <ng-template #popContentYourFirm>
+              <app-dashboard-settings widgetName="yourFirm" [settings]="widgetsOptions.yourFirm" (cancel)="revertSettings($event)"
+                (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-your-firm *ngIf="widgetsOptions.yourFirm.visible" [rowColor]="widgetsOptions.yourFirm.rowColor">
+          </app-your-firm>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- MY TAX PORTAL -->
+    <grid-stack-item #myTaxPortalWidgets class="grid-stack-item" [option]="widgetsOptions.myTaxPortal" [hidden]="!widgetsOptions.myTaxPortal.visible">
+      <div class="dashboard-box" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}">
+
+        <div class="lock-wrapper-msg">
+          <span>This feature is coming soon for 2019.</span>
+        </div>
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.myTaxPortal.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-mytaxportal"></i></div>
+            <div class="title-txt">MyTAXPortal</div>
+            <!-- <i class="title-action-icon fas fa-redo-alt"></i> -->
+            <i class="title-action-icon fas fa-pencil-alt" *ngIf="isSettingsEnabled && (widgetsOptions.myTaxPortal.config.canHide || widgetsOptions.myTaxPortal.config.canChangeColor || widgetsOptions.myTaxPortal.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentMyTaxPortal" container="body" #myTaxPortal="ngbPopover"></i>
+            <ng-template #popContentMyTaxPortal>
+              <app-dashboard-settings widgetName="myTaxPortal" [settings]="widgetsOptions.myTaxPortal" (cancel)="revertSettings($event)"
+                (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-mytaxportal *ngIf="widgetsOptions.myTaxPortal.visible" [rowColor]="widgetsOptions.myTaxPortal.rowColor">
+          </app-mytaxportal>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- TO DO SUMMARY -->
+    <!-- <grid-stack-item #toDoSummaryWidgets class="grid-stack-item" [option]="widgetsOptions.toDoSummary"
+    [hidden]="!widgetsOptions.toDoSummary.visible">
+    <div class="dashboard-box" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}">
+      <div class="dashboard-title-wrap">
+        <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.toDoSummary.noMove">
+          <div class="title-lg-icon"><i class="fas fa-pencil-alt"></i></div>
+          <div class="title-txt"> To Do Summary</div>
+          <i class="title-action-icon fas fa-redo-alt"></i>
+          <i class="title-action-icon fas fa-pencil-alt"
+            *ngIf="isSettingsEnabled && (widgetsOptions.toDoSummary.config.canHide || widgetsOptions.toDoSummary.config.canChangeColor || widgetsOptions.toDoSummary.config.canResize)"
+            [autoClose]="'outside'" [ngbPopover]="popContentToDoSummary" container="body"
+            #toDoSummary="ngbPopover"></i>
+          <ng-template #popContentToDoSummary>
+            <app-dashboard-settings widgetName="toDoSummary" [settings]="widgetsOptions.toDoSummary"
+              (cancel)="revertSettings($event)" (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+            </app-dashboard-settings>
+          </ng-template>
+        </div>
+      </div>
+      <div class="dashboard-content-wrap  content-scroll">
+        <app-to-do-summary *ngIf="widgetsOptions.toDoSummary.visible"></app-to-do-summary>
+      </div>
+    </div>
+  </grid-stack-item> -->
+
+    <!-- BANK APPLICATION SUMMARY -->
+    <!-- <grid-stack-item #bankApplicationSummaryWidgets class="grid-stack-item"
+    [option]="widgetsOptions.bankApplicationSummary" [hidden]="!widgetsOptions.bankApplicationSummary.visible"
+    *ngIf="features.bank">
+    <div class="dashboard-box" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}" [class.no-clicking]="!permission.canGetEfileList">
+      <div class="dashboard-title-wrap">
+        <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.bankApplicationSummary.noMove">
+          <div class="title-lg-icon"><i class="fas fa-pencil-alt"></i></div>
+          <div class="title-txt"> Bank Application Summary</div>
+          <i class="title-action-icon fas fa-redo-alt"></i>
+          <i class="title-action-icon fas fa-pencil-alt"
+            *ngIf="isSettingsEnabled && (widgetsOptions.bankApplicationSummary.config.canHide || widgetsOptions.bankApplicationSummary.config.canChangeColor || widgetsOptions.bankApplicationSummary.config.canResize)"
+            [autoClose]="'outside'" [ngbPopover]="popContentBankApplicationSummary"
+            container="body" #bankApplicationSummary="ngbPopover"></i>
+          <ng-template #popContentBankApplicationSummary>
+            <app-dashboard-settings widgetName="bankApplicationSummary"
+              [settings]="widgetsOptions.bankApplicationSummary" (cancel)="revertSettings($event)"
+              (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+            </app-dashboard-settings>
+          </ng-template>
+        </div>
+      </div>
+      <div class="dashboard-content-wrap  content-scroll">
+        <app-bank-application-summary *ngIf="widgetsOptions.bankApplicationSummary.visible">
+        </app-bank-application-summary>
+      </div>
+    </div>
+  </grid-stack-item> -->
+
+    <!-- REJECTED RETURNS -->
+    <grid-stack-item #rejectedReturnsWidgets class="grid-stack-item" [option]="widgetsOptions.rejectedReturns" [hidden]="!widgetsOptions.rejectedReturns.visible"
+      id="step7">
+      <div class="dashboard-box" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}"
+        [class.no-clicking]="!permission.canGetEfileList">
+
+        <div class="lock-wrapper-msg">
+          <span>This feature is coming soon for 2019.</span>
+        </div>
+        <div class="dashboard-title-wrap reject-set">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.rejectedReturns.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-rejected-summary"></i></div>
+            <div class="title-txt"> Rejected Summary</div>
+            <div class=""><a class="dashboard-btn" href="https://training.mytaxprepoffice.com/#/training/fixing-rejected-returns%C2%A0/783edb49-4b7d-43f3-a475-5bdae551351b"
+                target="_blank"><span>How to fix Rejected Returns</span></a></div>
+            <i class="title-action-icon fas fa-redo-alt" [class.no-clicking]="!permission.canGetEfileList"
+              [class.rotate]='refresh.rejectedReturnComponent' (click)="refreshRejectedReturnWidget()"></i>
+            <i class="title-action-icon fas fa-pencil-alt" *ngIf="isSettingsEnabled && (widgetsOptions.rejectedReturns.config.canHide || widgetsOptions.rejectedReturns.config.canChangeColor || widgetsOptions.rejectedReturns.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentRejectedReturns" container="body" #rejectedReturns="ngbPopover"></i>
+            <ng-template #popContentRejectedReturns>
+              <app-dashboard-settings widgetName="rejectedReturns" [settings]="widgetsOptions.rejectedReturns" (cancel)="revertSettings($event)"
+                (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-rejected-return #rejectedReturnComponent [column]='columnConfiguration.rejectedReturns' *ngIf="widgetsOptions.rejectedReturns.visible"
+            [rowColor]="widgetsOptions.rejectedReturns.rowColor">
+          </app-rejected-return>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- APPOINTMENTLIST -->
+    <grid-stack-item #appointmentListWidgets class="grid-stack-item" [option]="widgetsOptions.appointmentList" [hidden]="!widgetsOptions.appointmentList.visible">
+      <div class="dashboard-box">
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.appointmentList.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-appointment"></i></div>
+            <div class="title-txt"> Appointment List</div>
+            <i class="title-action-icon fas fa-redo-alt" [class.no-clicking]="!permission.canListCalender"
+              [class.rotate]='refresh.appointmentListComponent' (click)="refreshAppointmentListWidget()"></i>
+            <i class="title-action-icon fas fa-pencil-alt" *ngIf="isSettingsEnabled && (widgetsOptions.appointmentList.config.canHide || widgetsOptions.appointmentList.config.canChangeColor || widgetsOptions.appointmentList.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentAppointmentList" container="body" #appointmentList="ngbPopover"></i>
+            <ng-template #popContentAppointmentList>
+              <app-dashboard-settings widgetName="appointmentList" [settings]="widgetsOptions.appointmentList" (cancel)="revertSettings($event)"
+                (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-appointment-list [rowColor]="widgetsOptions.appointmentList.rowColor" *ngIf="widgetsOptions.appointmentList.visible"
+            #appointmentListComponent>
+          </app-appointment-list>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- FINANCIAL PRODUCTS -->
+    <!-- [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}" -->
+    <grid-stack-item #financialProductsWidgets class="grid-stack-item" [option]="widgetsOptions.financialProducts"
+      [hidden]="!widgetsOptions.financialProducts.visible" >
+      <div class="dashboard-box" id="step5">
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.financialProducts.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-financial-product"></i></div>
+            <div class="title-txt">Financial Products</div>
+            <i class="title-action-icon fas fa-redo-alt" [class.no-clicking]="!permission.canOpenBank"
+              [class.rotate]='refresh.financialProductsComponent' (click)="refreshFinancialProductsWidget()"></i>
+            <i class="title-action-icon fas fa-pencil-alt"
+              *ngIf="isSettingsEnabled && (widgetsOptions.financialProducts.config.canHide || widgetsOptions.financialProducts.config.canChangeColor || widgetsOptions.financialProducts.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentFinancialProducts" container="body"
+              #financialProducts="ngbPopover"></i>
+            <ng-template #popContentFinancialProducts>
+              <app-dashboard-settings widgetName="financialProducts" [settings]="widgetsOptions.financialProducts"
+                (cancel)="revertSettings($event)" (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-financial-products #financialProductsComponent [rowColor]="widgetsOptions.financialProducts.rowColor"
+            *ngIf="widgetsOptions.financialProducts.visible">
+          </app-financial-products>
+        </div>
+      </div>
+    </grid-stack-item>
+
+    <!-- TOOLBOX -->
+    <!-- <grid-stack-item #toolBoxWidgets class="grid-stack-item" [option]="widgetsOptions.toolBox"
+      [hidden]="!widgetsOptions.toolBox.visible" >
+      <div class="dashboard-box" [ngClass]="{'lock_wrapper': taxYear == '2019' &&  betaOnly() == false}" id="step6">
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.toolBox.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-repairing-service"></i></div>
+            <div class="title-txt">ToolBox</div>
+            <i class="title-action-icon fas fa-pencil-alt"
+              *ngIf="isSettingsEnabled && (widgetsOptions.toolBox.config.canHide || widgetsOptions.toolBox.config.canChangeColor || widgetsOptions.toolBox.config.canResize)"
+              [autoClose]="'outside'" [ngbPopover]="popContentToolBox" container="body" #toolBox="ngbPopover"></i>
+            <ng-template #popContentToolBox>
+              <app-dashboard-settings widgetName="toolBox" [settings]="widgetsOptions.toolBox"
+                (cancel)="revertSettings($event)" (changeSettings)="changeColor($event)" (save)="saveSettings($event)">
+              </app-dashboard-settings>
+            </ng-template>
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-toolbox *ngIf="widgetsOptions.toolBox.visible" [rowColor]="widgetsOptions.toolBox.rowColor">
+          </app-toolbox>
+        </div>
+      </div>
+    </grid-stack-item> -->
+
+    <!-- HIDDEN WIDGETS -->
+    <grid-stack-item class="grid-stack-item" #hiddenWidgetsWidgets [option]="widgetsOptions.hiddenWidgets" [hidden]="!widgetsOptions.hiddenWidgets.visible">
+      <div class="dashboard-box">
+        <div class="dashboard-title-wrap">
+          <div class="dashboard-title" [class.cursor-move]="!widgetsOptions.hiddenWidgets.noMove">
+            <div class="title-lg-icon"><i class="mtpo mtpo-hidden-widget"></i></div>
+            <div class="title-txt">Hidden Widgets</div>
+            <!-- <span class="float-right pointer">Show all</span> -->
+          </div>
+        </div>
+        <div class="dashboard-content-wrap  content-scroll">
+          <app-hidden-widget [hiddenWidgets]="hiddenWidgets" (unhide)="unhideWidget($event)" *ngIf="widgetsOptions.hiddenWidgets.visible"
+            [rowColor]="widgetsOptions.hiddenWidgets.rowColor">
+          </app-hidden-widget>
+        </div>
+      </div>
+    </grid-stack-item>
+  </grid-stack>
+  <ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
+</div>

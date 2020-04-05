@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <style>
+        /* .dropdown-menu {
+            min-width: 100% !important;
+        } */
+
+        .middle-wrap{
+            overflow: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+
+    <div class="inner_col_second clearfix border-0"
+        data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <!-- <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="MANAGECLIENTLETTERLIST_HEADER" translate-default="Client Letter"></span>
+        </section> -->
+        <div class="inner_padding_15 clearfix allowScrollSync" ng-style="{height:headerNav.screenHeight-150}"
+            style="overflow-y:auto;">
+            <div ng-cloak>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 row_height_31">
+                        <!-- This will filter $data in ng-repeat instead of in Grid. -->
+                        <div class="input-group">                                                                                                   
+                        <input type="text" class="form-control cus-forminput row_height_31"
+                            placeholder="Filter by Any Value" ng-model="searchField" value="{{searchField}}" />
+                        <div class="input-group-append" data-ng-if="searchField.length">
+                            <span class="input-group-text cursor_pointer" data-ng-click="clearSearch()"> <i
+                                    class="fa fa-times"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-10 col-sm-10 col-xs-margin_top_10 pl-0">
+                    <button class="btn btn-outline-primary" translate="CLIENTLIST_NEW_BTN" translate-default="New"
+                        data-ng-click="create()" data-ng-disabled="!userCan('CAN_CREATE_CLIENTLETTER')"></button>
+                    <button class="btn btn-outline-primary" translate="CLIENTLIST_DELETE_BTN"
+                        translate-default="Delete" data-ng-click="del();"
+                        data-ng-disabled="!userCan('CAN_REMOVE_CLIENTLETTER')"></button>
+                </div>
+            </div>
+            <div class="clearfix custom-table my-3 padding_l_r_0 table-responsive">
+                <table ng-table="availableClientLetterList" class="table">
+                    <tr data-ng-repeat="letter in $data">
+                        <td data-title="'LETTER NAME'" width='22%' sortable="'name'">
+                            <div class="row">
+                                <div class="list-checkbox text-center ml-0">
+                                    <button class="custom_input_dark float-left margin_right_5"
+                                        data-ng-model="letter.isSelected"
+                                        data-ng-class="{'active':letter.isSelected, 'no-clicking disabled': letter.isPredefined == true}"
+                                        data-ng-disabled="letter.isPredefined == true"
+                                        data-ng-click="letter.isSelected =! letter.isSelected"></button>
+                                </div>
+                                <div class="float-left col-20 p-0 margin_left_3">
+                                    <a data-ng-click="edit(letter);"
+                                        data-ng-class="{'no-clicking disabled': !userCan('CAN_OPEN_CLIENTLETTER')}"
+                                        class="" style="color:#00628e;">{{letter.name}}</a>
+                                </div>
+
+                                <!-- <input type="checkbox" data-ng-model="letter.isSelected" data-ng-class="{'no-clicking disabled': letter.isPredefined == true}" class="float-left" /> -->
+
+                            </div>
+                        </td>
+
+                        <td data-title="'LETTER DESCRIPTION'" sortable="'description'">
+                            <div class="float-left">
+                                {{letter.description}}
+                            </div>
+                        </td>
+
+                        <td data-title="'ACTIONS'">
+                            <!-- <div class="dropdown" dropdown="">
+                                    <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="typeFilter" data-toggle="dropdown">
+                                        <i class="fas fa-cog padding_right_5"></i> <span class="caret font_size_12"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter">
+                                        <li class="dropdown-item">
+                                            <a  data-ng-click="del(letter);" data-ng-class="{'no-clicking disabled': letter.isPredefined == true || !userCan('CAN_REMOVE_CLIENTLETTER')}">
+                                                <span translate="CLIENTLIST_DELETE_LBL" translate-default="Delete"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle" id="typeFilter"
+                                    data-toggle="dropdown">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" data-ng-click="del(letter);"
+                                        data-ng-class="{'no-clicking disabled': letter.isPredefined == true || !userCan('CAN_REMOVE_CLIENTLETTER')}"
+                                        translate="CLIENTLIST_DELETE_LBL" translate-default="Delete"></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<div class="modal-header">
+  <div class="col-24">
+    <div class="row">
+      <div class="col-2">
+        <i class="far fa-bell"></i>
+      </div>
+      <div class="col-22">
+        <div class="text-center">{{appointmentDetail.appointments.length}} <span>Reminder(s)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <!-- Appointment-reminder working
+   {{appointmentDetail.appointments | json}} -->
+  <div class="input-group-lg row_height_30">
+    <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+      <span><i class="fas fa-calendar-alt color_gray font_size_20"></i></span><span class="font_size_20">
+        {{appointment.title}}</span>
+    </div>
+    <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_15">
+      <span class="margin_left_30 "> {{appointment.start | date:'shortTime'}}</span>
+    </div>
+    <div class="snooze_wrapper col-sm-24 col-md-24 col-xs-24">
+      <div class="clearfix" *ngFor="let appointmentObj of appointmentDetail.appointments"
+        [ngClass]="{'selected':appointment.id == appointmentObj.id,'not-selected':appointment.id != appointmentObj.id}"
+        (click)="selectAppointment(appointmentObj)">
+        <div class="float-left">
+          <span><i class="fas fa-calendar-alt color_gray"></i></span>
+          <span>{{appointmentObj.title}}</span>
+        </div>
+        <div class="float-right">
+
+          <span>{{appointmentObj.start | date:'shortTime'}} </span>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix">
+      <button class="margin_top_10 btn btn-outline-primary float-right" (click)="dismissAppointment()">Dismiss</button>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="submit" class="btn btn-outline-primary" (click)="saveCustomerId()">Generate</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Close</button> -->
+  <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24">
+      <div class="row">
+          <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 pl-0 pr-0 clearfix text-left">Snooze For</div>
+          <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 pl-0 pr-0 clearfix">
+            <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0">
+                      <select class="form-control cus-forminput float-left" [(ngModel)]="selectedSnoozeTime">
+                          <option *ngFor="let snoozeValue of appointmentDetail.snoozeTimeList" [ngValue]="snoozeValue.value">{{snoozeValue.displayText}}
+                            </option>
+                      </select>
+                
+                      <button type="button" class="btn btn-outline-primary float-left margin_left_10"
+                        (click)="snoozeAppointment()"><span>Snooze</span></button>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0">
+                    <button type="button" class="btn btn-outline-primary float-right margin_right_10 ml-auto"
+                      (click)="dismissAll()"><span>Dismiss All</span></button>
+                  </div>
+            </div>      
+          </div>
+        </div>
+  </div>  
+</div>

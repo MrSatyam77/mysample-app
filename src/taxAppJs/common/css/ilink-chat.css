@@ -1,0 +1,297 @@
+a {
+    cursor: pointer;
+}
+#lhc_status_container_chatbox.hide-status {
+    display: none !important;
+}
+
+#lhc_status_container_chatbox * {
+    direction: ltr;
+    text-align: left;
+    font-family: arial;
+    font-size: 12px;
+    box-sizing: content-box;
+    zoom: 1;
+    margin: 0;
+    padding: 0;
+}
+
+#lhc_status_container_chatbox .status-icon {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    display: block;
+    text-align:center;
+    width: 100%;
+    /* padding: 10px 10px 10px 35px; */
+    /* background: url('https://chat.mytaxprepoffice.com/lhc_web/design/customtheme/images/icons/user_green_chat.png') no-repeat left center; */
+}
+
+#lhc_status_container_chatbox:hover {}
+
+#lhc_need_help_image {
+    padding-right: 10px;
+    float: left;
+    cursor: pointer;
+}
+#lhc_status_container_chatbox #offline-icon {
+    background-image: url('/taxAppJs/images/Offline-pop-up.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 107px;
+}
+
+#lhc_status_container_chatbox {
+    box-sizing: content-box;
+    /* -webkit-border-top-left-radius: 20px; */
+    -moz-border-radius-topleft: 20px;
+    /* border-top-left-radius: 20px; */
+    /* -webkit-box-shadow: -1px -1px 5px rgba(50,50,50,0.17); */
+    /* border: 1px solid #e3e3e3; */
+    /* border-right: 0; */
+    /* border-bottom: 0; */
+    -moz-box-shadow: -1px -1px 5px rgba(50,50,50,0.17);
+    /* box-shadow: -1px -1px 5px rgba(50,50,50,0.17); */
+    /* padding: 5px 0px 0px 5px; */
+    text-align: center;
+    width: 275px;
+    /* font-family: arial; */
+    /* font-size: 12px; */
+    position: fixed;
+    /* background-color: #f6f6f6; */
+    z-index: 9989;
+}
+
+.left_top_bar {
+    top: 0px;
+    left: 0px;
+    position: fixed !important;
+    height: 30px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 0px;
+}
+
+.left_center_bar {
+    top: 50%;
+    left: 0px;
+    position: fixed !important;
+    height: 30px;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.left_bottom_bar {
+    bottom: 0px !important;
+    left: 0px;
+    position: fixed !important;
+    height: 30px;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 20px;
+}
+
+.center_top_bar {
+    top: 0px;
+    left: 50%;
+    position: fixed !important;
+    height: 30px;
+    border-top-left-radius: 0px !important;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.center_center_bar {
+    top: 50%;
+    left: 50%;
+    position: fixed !important;
+    height: 30px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.center_bottom_bar {
+    bottom: 0px !important;
+    left: 50%;
+    position: fixed !important;
+    height: 30px;
+    border-top-right-radius: 20px;
+}
+
+
+
+.right_top_bar {
+    top: 0px;
+    right: 0px !important;
+    position: fixed !important;
+    height: 30px;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 20px;
+}
+
+.right_center_bar {
+    top: 50%;
+    right: 0px !important;
+    position: fixed !important;
+    height: 30px;
+    border-bottom-left-radius: 20px;
+}
+
+.right_bottom_bar {
+    bottom: 0px !important;
+    right: 0px !important;
+    position: fixed !important;
+    /* height: 30px; */
+}
+
+
+@media only screen and (max-width : 640px) {
+    #lhc_need_help_container {
+        display: none!important;
+    }
+}
+    @media only screen and (max-width: 640px){
+    #lhc_status_container_chatbox {
+        position: absolute!important;
+        /* top: 0; */
+        right: 0!important;
+        bottom: 0!important;
+        /* left: -10px; */
+        width: 100%;
+        /* border-radius: 2px; */
+        box-shadow: none;
+        /* margin-bottom: 5px; */
+    }
+     #lhc_status_container_chatbox .status-icon{
+         text-align: right!important;
+     }
+     #lhc_status_container_chatbox #offline-icon{
+         background-position: right!important;
+     }
+
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container {
+    background: url("https://sales.advanced-taxsolutions.com/modules/my-apostrophe-assets/images/Chat-Box.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border: 0px solid #dbe257 !important;
+    width: 233px !important;
+    height: 250px !important;
+    margin-left: 0px !important;
+    margin-top: 0px;
+    right: 18px !important;
+    padding: 0px !important;
+    position: absolute;
+    top: -415px;
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_triangle {
+    right: 30px !important;
+    border-top: 15px solid #000000 !important;
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_image {
+    display: block !important;
+    height: 99% !important;
+    width: 89% !important;
+    border: 0px solid #ffffff !important;
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_image img {
+    display: none !important;
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_main_title {
+    display: none !important;
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_sub_title {
+    display: none !important;
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_close {
+    /* background: #636466 !important; */
+    position: relative;
+    right: 25px!important;
+    top: 8px!important;
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_close:hover {
+    /* background: #3D3D3D !important;
+    color: #ffffff !important; */
+}
+
+#lhc_need_help_container {
+    border-radius: 0px !important;
+}
+
+/* 
+#lhc_status_container_chatbox {
+    width: 170px !important;
+} */
+
+#lhc_status_container_chatbox .status-icon {
+    /* padding: 5px 10px 5px 35px !important; */
+}
+
+#lhc_status_container_chatbox #lhc_need_help_container {
+    top: -230px !important;
+}
+
+#lhc_need_help_triangle {
+    border-left: 10px solid transparent !important;
+    border-right: 10px solid transparent !important;
+    border-top: 10px solid #92b830 !important;
+    bottom: -10px !important;
+}
+
+#lhc_need_help_triangle {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid #92B830;
+    position: absolute;
+    bottom: -14px;
+}
+
+
+#lhc_status_container_chatbox #lhc_need_help_container #lhc_need_help_triangle {
+    border-top: 10px solid #444444 !important;
+}
+
+#lhc_need_help_close {
+    /* background: #636466 none repeat scroll 0 0 !important; */
+    position: relative;
+    right: 1px !important;
+    top: 3px !important;
+}
+
+#lhc_need_help_close {
+    float: right;
+    border-radius: 10px;
+    
+    /* padding: 0px 6px; */
+    color: #FFF;
+    right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 0px;
+    line-height: 20px;
+}
+
+@media (min-width:768px) and (max-width:1279px) {
+    #lhc_status_container_chatbox #lhc_need_help_container {
+        width: 176px !important;
+        height: 198px !important;
+    }
+    #lhc_status_container_chatbox #lhc_need_help_container {
+        top: -180px !important;
+    }
+    #lhc_status_container_chatbox{
+        width:214px!important ;
+    }
+}

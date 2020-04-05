@@ -1,0 +1,56 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333; overflow:hidden;">
+  <form [formGroup]="sendTextMessageForm" (ngSubmit)="sendTextMessage()">
+    <div class="modal-header dialog-header-confirm">
+      <h4 class="modal-title">New Text Message
+      </h4>
+    </div>
+    <div class="modal-body clearfix">
+      <div class="wrapper_class">
+        <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_10">
+          <div class="row">
+            <div class="col-lg-5 col-sm-10 col-md-7 col-xs-12 padding_l_0">
+              <label>Recipient:</label>
+            </div>
+            <div class="col-lg-19 col-sm-14 col-md-17 col-xs-12 float-left row_height_31 padding_l_0">
+              <label>{{dialogDisplayData.recipientName}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_10">
+          <div class="row">
+            <div class="col-lg-5 col-sm-10 col-md-7 col-xs-12 padding_l_0">
+              <label>Phone Number:</label>
+            </div>
+            <div class="col-lg-19 col-sm-14 col-md-17 col-xs-12 float-left row_height_31 padding_l_0">
+              <input type="text" name="phoneNumber" id="phoneNumber" [mask]="phoneMask" formControlName="phoneNumber">
+            </div>
+          </div>
+        </div>
+        <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15">
+          <div class="row">
+            <div class="col-lg-5 col-sm-24 col-md-7 col-xs-24 padding_l_0">
+              <label>Message</label>
+            </div>
+            <div class="col-lg-19 col-sm-24 col-md-17 col-xs-24 float-left padding_l_r_0">
+              <textarea name="massage" maxlength="300" class="textarea_chat" formControlName="message"></textarea>
+              <div class="row">
+                <div class=" col-lg-24 col-sm-24 col-md-24 col-xs-24">
+                  <span class="float-right"> Max 300 Characters</span>
+                  <span class="float-right mr-2" *ngIf="sendTextMessageForm.value.message">{{sendTextMessageForm.value.message.length}} / 300 </span>
+                  <span class="float-right mr-2" *ngIf="!sendTextMessageForm.value.message">0 / 300 </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-primary"
+        [disabled]="sendTextMessageForm.invalid"><span>Send</span></button>
+      <button type="button" class="btn btn-outline-primary" (click)="close()"><span>Close</span></button>
+    </div>
+  </form>
+
+</div>

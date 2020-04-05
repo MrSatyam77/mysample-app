@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link href="taxAppJs/conversion/css/conversion.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <div class="inner_col_second clearfix"
+        data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="MANAGEUSERLIST_HEADER"
+                translate-default="Convert Returns"></span>
+            <i class="m-2 refresh-loader fas fa-redo float-right color_gray font_size_14 cursor_pointer"
+                data-ng-class="{'rotate':refreshStart}" data-ng-click="manuallyRefresh();refreshStart=true;"></i>
+        </section>
+        <div class="inner_padding_15 clearfix allowScrollSync" ng-style="{height:headerNav.screenHeight-106}"
+            style="overflow-y:auto;">
+            <div ng-cloak>
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <!-- This will filter $data in ng-repeat instead of in Grid. -->
+                        <div class="input-group">
+                            <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+                                ng-model="searchField" value="{{searchField}}" />
+                            <div class="input-group-append" data-ng-if="searchField.length">
+                                <span class="input-group-text cursor_pointer" data-ng-click="clearSearch()"> <i
+                                        class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-margin_top_10">
+                        <button class="btn btn-outline-primary float-left"
+                            data-ng-class="{'no-clicking disabled':!userCan('CAN_DO_CONVERSION')}"
+                            translate="CONVERSION_NEW_BTN" translate-default="New"
+                            data-ng-click="uploadNewConversion()"></button>
+
+
+                    </div>
+
+                </div>
+                <div class="clearfix margin_top_15 custom-table table-responsive padding_l_r_0">
+                    <table ng-table="conversionListTable" class="table">
+                        <tr data-ng-repeat="conversion in $data">
+                            <td data-title="'SOFTWARE'" sortable="'softwareName.text'">{{conversion.softwareName.text}}
+                            </td>
+                            <td data-title="'YEAR'" sortable="'taxYear'">{{conversion.taxYear}}</td>
+                            <td data-title="'STATUS'" sortable="'status'">
+                                <span
+                                    data-ng-if="conversion.status != 'Error' && conversion.status != 6 && conversion.status != 5">{{conversion.status}}<span
+                                        data-ng-if="conversion.count && conversion.count != ''">({{conversion.count}})</span></span>
+                                <span data-ng-if="conversion.status == 6 || conversion.status == 5">In Process</span>
+                                <a data-ng-click="isShow = true;" style="cursor:pointer;"><span
+                                        data-ng-show="conversion.status == 'Error'" translate="CONVERSIONSTATUS_ERROR"
+                                        translate-default="Error"></span></a>
+                                <span data-ng-show="isShow && conversion.failedMessage && conversion.failedMessage!=''"
+                                    style="position:relative">
+                                    <div class="popover bottom"
+                                        style="display:block !important;position:absolute;top:16px;left:-155px;">
+                                        <div class="arrow"></div>
+                                        <div class="popover-inner">
+                                            <span class='popover_close'><a data-ng-click='isShow = false;'><i
+                                                        class='fas fa-times color_black'></i></a></span>
+                                            <div class="popover-content">
+
+                                                <div
+                                                    style="width: 250px;word-wrap:break-word;padding-top:6px;padding-right:5px;">
+                                                    {{conversion.failedMessage}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+
+                            </td>
+                            <td data-title="'DATE SUBMITTED'" sortable="'createdDate'">{{conversion.createdDate}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+
+</html>

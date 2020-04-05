@@ -1,0 +1,39 @@
+<div class="col-24 p-0 bg-white border">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding title_height_40">
+        <span class="page_title_lg ng-binding ng-scope">Subscription</span>
+        <div class="row float-right mt-2">
+          <button class="btn btn-outline-primary pl-2" (click)="backToHomeScreen()">Back
+            To Dashboard</button>
+
+        </div>
+      </span>
+    </section>
+  </div>
+
+  <div class="form-group input-group-lg row_height_30">
+    <div class="p-3 clearfix">
+      <div class="col">
+        <div class="row">
+          <span>Enrollment with our financial partners is not included in your Free Trial license.</span>
+        </div>
+        <div class="row mt-1">
+          <span>To complete the enrollment process, please upgrade your license by clicking on the Upgrade button below.</span>
+        </div>
+      </div>
+   
+    <div class="col-lg-22 col-md-22 col-xl-22 col-sm-22 padding_l_r_0">
+      <hr class="light_line">
+      <div class="row pr-3 float-right">
+        <button type="button" class="btn btn-outline-primary" (click)="subscribe()"
+          *ngIf="hasCustomerId == true && hasFeature('SUBSCRIPTION')"><span>Upgrade</span></button>
+        <button type="button" class="btn btn-outline-primary ml-2" (click)="backToHomeScreen()"
+          *ngIf="hasCustomerId != true"><span>Ok</span></button>
+        <button type="button" class="btn btn-outline-primary ml-2"
+          (click)="backToHomeScreen()"><span>Cancel</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

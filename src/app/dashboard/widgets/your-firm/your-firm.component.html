@@ -1,0 +1,38 @@
+<div class="dashboard-content">
+    <perfect-scrollbar>
+        <div class="dashboard-data-wrap scroll-y">
+            <div class="list-ui-wrap">
+                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListLocation || !permission.canListPrepare'
+                    (click)='routingBasedOnFirmName("QuickOfficeSetup")'>
+                    <div class="raw-main-lbl">Firm Setup</div>
+                    <div *ngIf="yourFirmDetails.singleOfficePreparer"
+                        [ngClass]="{'attraction_icons_red' : !yourFirmDetails.isSetupCompleted, 'attraction_icons_green' : yourFirmDetails.isSetupCompleted}">
+                        <i class="fa" [class.fa-check]="yourFirmDetails.isSetupCompleted"
+                            [class.fa-exclamation-triangle]="!yourFirmDetails.isSetupCompleted"
+                            [class.text-danger]="!yourFirmDetails.isSetupCompleted"></i>
+                    </div>
+                </div>
+                <!-- <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListLocation'
+                    (click)='routingBasedOnFirmName("Office")'>
+                    <div class="raw-main-lbl">Office</div>
+                </div>
+                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListLocation'
+                    (click)='routingBasedOnFirmName("Preparer")'>
+                    <div class="raw-main-lbl">Preparer</div>
+                </div>
+
+                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListUser'
+                    (click)='routingBasedOnFirmName("User")'>
+                    <div class="raw-main-lbl">User</div>
+                </div> -->
+                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListRole'
+                    (click)='routingBasedOnFirmName("Role")'>
+                    <div class="raw-main-lbl">Custom Roles</div>
+                </div>
+                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListEin' *ngIf="hasFeaturePermission">
+                    <div class="raw-main-lbl" (click)="goToSubscription()">Edit License</div>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>

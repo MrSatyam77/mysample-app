@@ -1,0 +1,10 @@
+:host ::ng-deep .ag-standard-grid-container-wrapper{
+    width: 100%; 
+    height: 100% !important;
+    min-height: calc(100vh - 225px);
+    border: 1px solid #dee2e6 !important;
+}
+.inner_col_second  
+{   
+    height: calc(100vh - 160px) !important; 
+}

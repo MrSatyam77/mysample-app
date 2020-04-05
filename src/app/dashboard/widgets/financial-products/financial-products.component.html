@@ -1,0 +1,35 @@
+<div class="dashboard-content">
+    <perfect-scrollbar>
+        <div class="dashboard-data-wrap scroll-y">
+            <div class="list-ui-wrap" *ngIf="bankProductList.length!==0 ">
+                <!-- <div class="list-ui-raw no-pointer" [ngStyle]="{'background-color':rowColor}">
+                        <div class="raw-main-lbl pull-left width_full_70">NAME</div>
+                        <div class="raw-other-lbl pull-right width_full_30 text-right text-wrap-elippses">STATUS</div>
+                </div> -->
+                <!-- <div class="list-ui-raw">
+                <div class="raw-main-lbl">EPS</div>
+                <div class="raw-other-lbl">Not Enrolled</div>
+            </div>
+            <div class="list-ui-raw">
+                <div class="raw-main-lbl">TPG</div>
+                <div class="raw-other-lbl">Not Enrolled</div>
+            </div>
+            <div class="list-ui-raw">
+                <div class="raw-main-lbl">Refund Advantage</div>
+                <div class="raw-other-lbl">Not Enrolled</div>
+            </div> -->
+                <ng-template ngFor let-bankProduct [ngForOf]="bankProductList">
+                    <div *ngIf="bankProduct.hasFeature" class="list-ui-raw" [ngStyle]="{'background-color':rowColor}"
+                        (click)="goToBank(bankProduct)"
+                        [class.tile-bank-product-box-shadow-outset]="bankProduct.hasFeature && !permission.canOpenBank"
+                        [class.no-clicking]="!permission.canOpenBank">
+
+                        <div class="raw-main-lbl pull-left width_full_70">{{bankProduct.displayName}}</div>
+                        <div class="raw-other-lbl pull-right width_full_30 text-right text-wrap-elippses"
+                            [class.cursor_pointer]="bankProduct.hasFeature"> {{bankProduct.status}}</div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>

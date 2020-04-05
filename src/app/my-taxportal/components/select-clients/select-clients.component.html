@@ -1,0 +1,21 @@
+<div class="clearfix border-bottom pb-4 mb-4">
+  <div class="row">
+    <div class="col">
+      <label class="font-weight-bold mb-3">Choose a client</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <label class="pt-2">Please select client(s) for invitation.</label> <!-- *ngIf="!(selectedClients && selectedClients.length > 0)" -->
+    </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-outline-primary" (click)="selectClients()">Select Clients</button>
+    </div>
+  </div>
+
+  <app-standard-ag-grid class="p-2 mt-3 bg-light ng-star-inserted d-inline-block w-100" *ngIf="selectedClients && selectedClients.length > 0" #myTaxportalSelectedClientList
+      name="myTaxportalSelectedClientList" [gridOptions]="gridOptions" [result]="rowData" [(filter)]="filter"
+      (onStandardGridReady)="onGridReady($event)" (action)="onActionClicked($event)" [rowSelection]="'multiple'">
+    </app-standard-ag-grid>
+</div>

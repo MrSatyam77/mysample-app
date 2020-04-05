@@ -1,0 +1,262 @@
+@import "./src/sass/abstracts/flex-mixins";
+
+
+$small-phone: "only screen and (max-width : 320px)";
+$portrait-phone: "only screen and (max-width: 575.98px)";
+$landscape-phone: "only screen and (min-width: 576px) and (max-width: 767.98px)";
+$tablets: "only screen and (min-width: 768px) and (max-width: 991.98px)";
+$desktops: "only screen and (min-width: 992px) and (max-width: 1199.98px)";
+$large-desktops: "only screen and (min-width: 1200px)";
+
+#dashboardMainWrapper{padding: 10px 5px 0px 5px;}
+#dashboardMainWrapper .grid-stack{margin-bottom: 10px;}
+%div-data-row{
+    @include flexbox;
+    @include flex;
+    padding: 5px 10px;
+    margin-bottom: 8px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    &:focus {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+    }    
+}
+
+.scroll-y{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.content-scroll{
+    height: calc(100% - 30px);
+}
+
+a.dashboard-btn {
+    @include text-with-dot;
+    padding: 5px 5px 5px 25px;
+    position: relative;
+    cursor: pointer;
+    height: 31px;
+    color: #ffffff;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:after {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: "\f30b";
+        position: absolute;
+        left: 5px;
+        line-height: 22px;
+    }
+    // @media #{$small-phone} {
+    //     width: 145px;
+    //     display: block;
+    // }
+    
+    // @media #{$portrait-phone} {
+    //     width: 145px;
+    //     display: block;
+    // }
+}
+
+.dashboard-box {
+    padding: 10px;
+    height: 100%;
+    margin-bottom: 10px;
+    width: 100%;
+    @include flexbox;
+    @include flex-direction(column);
+
+    .dashboard-title {
+        @include flexbox;
+        @include flex;
+
+        .title-lg-icon {
+            flex: 0 0 30px;
+
+            i {
+                font-size: 24px;
+            }
+        }
+
+        .title-action-icon {
+            height: 24px;
+            width: 24px;
+            text-align: center;
+            padding-top: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .title-txt {
+            font-size: 1.5rem;
+            padding: 0px 5px 0px 5px;
+            line-height: 22px;
+            flex: 1;
+        }
+    }
+
+    .dashboard-content-wrap {
+        flex: 1; 
+
+        .dashboard-content {
+            @include flexbox;
+            @include flex-direction(column);
+            height: 100%;
+
+            .dashboard-data-wrap {
+                padding-top: 5px;
+                flex: 1;
+                height: calc(100% - 30px);
+                overflow: hidden;
+                display: inline-block;
+                width: 100%;
+
+                &.no-scroll{
+                    overflow: inherit !important;
+                }
+
+                .list-ui-wrap {
+                    .list-ui-raw {
+                        @extend %div-data-row;
+                        .raw-main-lbl {
+                            flex: 1;
+                        }
+
+                        .raw-other-lbl {
+                            padding-left: 10px;
+                        }
+
+                        &:last-child{
+                            margin-bottom: 0px !important;
+                        }
+                    }
+                }
+                
+                .list-ui-with-round-count {
+                    .list-ui-raw-with-round {
+                        @include flexbox;
+                        @include flex;
+                        padding: 5px 10px;
+                        width: 100%;
+                        cursor: pointer;
+                        border-bottom: 1px dashed #ffffff;
+
+                        &:hover {
+                            background-color: rgba(0, 0, 0, 0.2);
+                        }
+
+                        .raw-with-round-lbl {
+                            @include flexbox;
+                            @include flex;
+                            @include align-items(center);
+                        }
+
+                        .round-count-ui {
+                            height: 30px;
+                            width: 30px;
+                            border-radius: 50%;
+                            background: #ffffff;
+                            color: #888888;
+                            font-size: 14px;
+                            font-weight: bold;
+                            @include flexbox;
+                            @include align-items(center);
+                            @include justify-content(center);
+                        }
+                    }
+                }
+
+                .dashboard-center-data-wrap {
+                    font-size: 1.5rem;
+                    text-align: center;
+                    @include all-center;
+                    height: 100%;
+                    padding: 10px;
+                }
+
+                .returns-table{  
+                        height: 100%;  
+
+                    .returns-table-row{
+                        @extend %div-data-row;
+                    }
+                    
+                    .return-table-content{
+                        height: calc(100% - 70px);
+                        overflow: auto;
+                    }
+                }
+            }
+
+            .dashboard-footer-wrap {
+                @include flexbox;
+                @include flex-direction(row-reverse);
+                @include justify-content(space-between);
+
+                a.footer-btn {
+                    @include text-with-dot;
+                    padding: 5px 5px 5px 25px;
+                    position: relative;
+                    cursor: pointer;
+                    height: 31px;
+
+                    &:hover {
+                        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+                    }
+
+                    &:after {
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        content: "\f30b";
+                        position: absolute;
+                        left: 5px;
+                        line-height: 22px;
+                    }
+
+                    &:first-of-type {
+                        margin-left: 10px;
+                    }
+                }
+
+
+            }
+
+        }
+    }
+}
+.no-pointer {
+    cursor: default !important;
+
+    &:hover {
+        box-shadow: none !important;
+    }
+
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.popover { min-width: 500px !important; z-index: 1; }
+#dashboardMainWrapper{ height: calc(100vh - 56px); }
+
+.efile-box {
+    display: inline-flex;
+}
+.efilebox-set .ps-content {
+    width: 100%;
+    height: 100%;
+    .dashboard-center-data-wrap {
+        padding-top: 30px !important;
+    }
+}   
+

@@ -1,0 +1,84 @@
+<!-- <ngb-tabset #t="ngbTabset">
+    <ngb-tab id="notifications">
+        <ng-template ngbTabTitle>
+            <div>Authorize Device Notifications</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div style="min-height: 85px">
+            <div class="p-3" *ngIf="newDeviceRequest==true">
+                <p>There are New Device waiting to Authorize, Click on <span
+                        class="text-primary font-weight-bold">"View"</span> for Action.</p>
+                <div class="float-right my-3">
+                    <button type="button" class="btn btn-primary"
+                        (click)="redirectToAuthorizeDevice();">View</button>
+                    <button type="button" class="btn btn-outline-primary ml-2" (click)="disconnect();">Dismiss</button>
+                    
+                </div>
+            </div>
+            </div>
+
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="deviceinfo">
+        <ng-template ngbTabTitle>
+            <div>Active Sessions</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div class="p-2" *ngIf="expression">
+              
+                <table class="table border-0 table-border-none">
+                    <thead class="bg-light">
+                        <th width="40%" class=" border-0">Device Name</th>
+                        <th width="30%" class=" border-0">Time</th>
+                        <th width="30%" class=" border-0">Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="deviceInfo && deviceInfo.deviceName">
+                            <td class="align-middle border-0">{{deviceInfo.deviceName}}</td>
+                            <td class="align-middle border-0">{{deviceInfo.time}}</td>
+                            <td class="align-middle border-0"><button type="button" class="btn btn-primary"
+                                    (click)="disconnect(dataItem);">Disconnect</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset> -->
+<div style="padding: 15px;background: #005074; color: #ffff">Active Sessions</div>
+<div class="p-2">
+              
+    <table class="table border-0 table-border-none">
+        <thead class="bg-light">
+            <th width="40%" class=" border-0">Device Name</th>
+            <th width="30%" class=" border-0">Time</th>
+            <th width="30%" class=" border-0">Actions</th>
+        </thead>
+        <tbody>
+            <tr *ngIf="deviceInfo && deviceInfo.deviceName">
+                <!-- <td width="20%">1</td> -->
+                <td class="align-middle border-0">{{deviceInfo.deviceName}}</td>
+                <td class="align-middle border-0">{{deviceInfo.time}}</td>
+                <td class="align-middle border-0"><button type="button" class="btn btn-primary"
+                        (click)="disconnect(dataItem);">Disconnect</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+  <!-- Loading bar section start-->
+  <div *ngIf="enableLoading === true">
+    <div class="loading_background"></div>
+    <div class="preloader">
+      <div class="preloader-container">
+        <span class="animated-preloader"></span>
+      </div>
+    </div>
+  </div>
+  <!-- Loading bar section ends -->
+</div>
+<!-- 
+<ng-template #disconnectActionCell let-dataItem>
+    <button type="button" class="btn btn-success mt-1" (click)="disconnect(dataItem);">Disconnect</button>
+
+</ng-template> -->

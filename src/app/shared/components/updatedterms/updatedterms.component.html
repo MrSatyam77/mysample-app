@@ -1,0 +1,32 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span>Terms and Conditions Update</span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="row margin_bottom_15 font_size_16 margin_left_5">
+            <span>MyTAXPrepOffice has had significant growth since we wrote our Terms and Conditions of Use. Due to this
+                growth, we have updated our Terms and Conditions of Use and our Privacy Policy.</span>
+        </div>
+        <div class="row margin_bottom_15 font_size_16 margin_left_5">
+            <div class="mtpo-custom-checkbox d-inline mr-4">
+                <button class="mtpo-checkbox" id="isAgreeToTerms" (click)="isAgreeToTerms = !isAgreeToTerms" [disabled]="isAgreeToTerms === true"
+                    [ngClass]="{'active': isAgreeToTerms === true}"></button>
+                <label class="d-inline" for="isAgreeToTerms"> <span class="margin_left_10">
+                        By checking this box, you agree to the updated <a class="pointer" href="http://www.myTaxPrepOffice.com/terms-of-use"
+                            target="terms" id="terms">Terms and Conditions of Use</a>
+                        and <a class="pointer" href="http://www.myTaxPrepOffice.com/privacy-policy" id="privacyPolicy" target="privacyPolicy">Privacy
+                            Policy</a> of MyTAXPrepOffice. Your continued use of this site constitutes agreement to the terms
+                        of the policies.
+                    </span></label>
+            </div>
+            <!-- <button type="button" class="custom_input_dark float-left margin_right_5" [(ngModel)]="isAgreeToTerms" [ngClass]="{'active':isAgreeToTerms}" (click)="isAgreeToTerms = !isAgreeToTerms" required="isAgreeToTerms"></button> -->
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="close()" [ngClass]="{'no-clicking': !isAgreeToTerms}"><span>{{buttonText}}</span></button>
+
+    </div>
+</div>

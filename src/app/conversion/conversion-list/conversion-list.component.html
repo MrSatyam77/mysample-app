@@ -1,0 +1,49 @@
+<div class="inner_col_second clearfix">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding title_height_40">
+        <span class="page_title_lg ng-binding ng-scope">Convert {{taxYear}} Returns</span>
+        <div class="row float-right d-none d-md-block">
+          <button class="btn btn-outline-primary pl-2" (click)="backToHomeScreen()">Back
+            To Dashboard</button>
+          <i class="m-2 refresh-loader fas fa-redo float-right color_gray font_size_14 cursor_pointer" [ngClass]="{'rotate':firstRefreshStart}"
+            (click)="manuallyRefreshTraining();"></i>
+        </div>
+      </span>
+    </section>
+  </div>
+  <!-- <section class="page_title_wrap title_height_40 clearfix">
+    <span class="page_title_lg">Convert Returns</span>
+    <div class="row float-right mt-2">
+      <i class="pl-2 fas fa-redo float-right color_gray font_size_20  mt-2 text-center cursor_pointer mr-2"
+        [ngClass]="{'rotate':firstRefreshStart}" (click)="manuallyRefreshTraining()"></i>
+    </div>
+  </section> -->
+  <div>
+    <div class="clearfix p-2">
+      <div class="form-group row m-1">
+        <div class="col-sm-4 col-md-6 col-lg-4 col-xl-4 pl-0">
+          <div class="input-group">
+            <input type="text" class="form-control cus-forminput" aria-describedby="emailHelp" [(ngModel)]="searchText"
+              (keyup)="onFilterTextBoxChanged($event)" placeholder="Filter by any value">
+            <div class="input-group-append" *ngIf="searchText.length">
+              <span class="input-group-text cursor_pointer" (click)="clearSearch()"> <i class="fa fa-times"></i></span>
+            </div>
+          </div>
+          <!-- <input type="text" class="form-control cus-forminput" aria-describedby="emailHelp"
+            (keyup)="onFilterTextBoxChanged($event)" placeholder="Filter by any value"> -->
+        </div>
+        <div class="col-sm-20 col-md-8 col-lg-6 col-xl-6 padding_l_0">
+          <button class="btn btn-outline-primary set-mb" (click)="addNew()" [disabled]="!hasUploadCompleted || isLoading">New</button>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix">
+      <ag-grid-angular #agGrid id="myGrid" class="ag-theme-balham" [rowData]="conversionList" [rowSelection]="'single'"
+        (gridReady)="onGridReady($event)" [columnDefs]="columnDefs" [masterDetail]="true" [detailCellRendererParams]="detailcolumnDef"
+        [getRowNodeId]="getRowNodeId" style="width: 100%; height: 80vh;" (gridSizeChanged)="onGridSizeChanged($event)"
+        [pagination]="true" [paginationPageSize]="paginationPageSize">
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+$header-background-color:#eaeaea;
+$hover-color: white;
+$odd-row-background-color: white;
+$secondary-foreground-color:#212529;
+$active: #3d8baf;
+$font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$header-height:42px;
+$row-height: 42px;
+$row-border-width:0px;
+$font-size:14px;
+$secondary-font-size:14px;
+$secondary-font-weight:bold;
+
+@import "~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
+@import "~ag-grid-community/src/styles/ag-grid.scss";
+
+// Override the Classes of ag-grid
+.ag-theme-balham .ag-root {border: 0px solid #BDC3C7;}
+.ag-theme-balham .ag-header {background: #eaeaea;}
+.ag-header-group-cell-label, .ag-header-cell-label {color: #212529;font-size: 14px;font-weight: bold;text-transform: uppercase;}
+.ag-theme-balham .ag-row-selected {border-color: #d1e6f1;background-color: #e9f4f9;}
+.ag-theme-balham .ag-row-odd {background-color: #ffffff;}
+.ag-cell-wrapper .ag-cell-value, .ag-cell-wrapper .ag-group-value {color: #212529;}
+.ag-theme-balham .ag-cell{line-height: 25px !important;}
+// Action Button dropdown opens inside 
+// .ag-cell { overflow:hidden; }
+.ag-grid-action-wrapper{ overflow:visible !important; }
+.ag-row { z-index: 0; }
+.ag-row.ag-row-focus { z-index: 1; }
+.ag-root.ag-layout-auto-height, .ag-body-viewport.ag-layout-auto-height, .ag-body-viewport-wrapper.ag-layout-auto-height { overflow: visible; }
+
+// Focus Removed
+ag-grid-angular.ag-theme-balham .ag-root-wrapper-body.ag-layout-auto-height .ag-center-cols-clipper .ag-center-cols-viewport {
+    overflow-x: hidden;
+}
+    
+.ag-floating-top,
+.ag-floating-top .ag-body-viewport.ag-layout-auto-height.ag-row-animation, 
+.ag-pinned-left-cols-container.ag-hidden, 
+.ag-root-wrapper-body.ag-layout-auto-height .ag-root.ag-unselectable.ag-layout-auto-height, 
+.ag-root-wrapper-body.ag-layout-auto-height .ag-root.ag-unselectable.ag-layout-auto-height .ag-center-cols-clipper, .ag-center-cols-container{
+    min-height: 27px !important;
+}
+
+.ag-cell-focus,.ag-cell-no-focus{
+    border:none !important;
+    outline: none;
+}
+
+/* enable basic browser text selection in grid cells */
+// div.ag-root .ag-cell-focus {
+//     -webkit-user-select: text;
+//     -moz-user-select: text;
+//     -ms-user-select: text;
+//     user-select: text;
+// }

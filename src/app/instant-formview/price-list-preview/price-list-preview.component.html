@@ -1,0 +1,183 @@
+<div class="pdf-container price-list-container" style="padding:15px;width: 100%;margin: 0px auto;height: 1198px;position: relative;display: block;max-width: 918px; box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.12);padding: 35px;">
+        <div class="header-area">
+            <div class="col-md-priceList-12 margin-bottom-10">
+                <span class="bill-username">{{priceListDetail.prepareFName}}</span>
+            </div>
+            <div class="col-md-priceList-12 margin-bottom-10">
+                    <span class="bill-firmName">{{priceListDetail.strprfrmnm}}</span>
+                </div>
+            <div class="clearfix"></div>
+            <div class="col-md-priceList-6">
+                <span class="bill-address">{{priceListDetail.prepareAdd}}<br>
+                    {{priceListDetail.prepareCSZ}}</span>
+            </div>
+            <div class="col-md-priceList-6">
+                <span class="bill-phone">{{priceListDetail.preparePh}}</span>
+                <span class="bill-email">{{priceListDetail.prepareEmail}}</span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-priceList-12 margin-top-50">
+                <span class="bill-invoice-title">Invoice</span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="bill-details margin-top-30">
+                <div class="bill-header">
+                    <div class="col-md-priceList-4">
+                        <span class="bill-title">
+                            Bill to
+                        </span>
+                    </div>
+                    <div class="col-md-priceList-4">
+                        <span class="bill-title">
+                            invoice #
+                        </span>
+                    </div>
+                    <div class="col-md-priceList-2">
+                        <span class="bill-title">
+                            Date
+                        </span>
+                    </div>
+                    <div class="col-md-priceList-2">
+                        <span class="bill-title text-right">
+                            Due Date
+                        </span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="bill-details-inner margin-top-10">
+                    <div class="col-md-priceList-4">
+                        <span class="bill-content">
+                            {{priceListDetail.PreparerName}}<br>
+                            {{priceListDetail.firmStreet1}}<br>
+                            {{priceListDetail.firmCSZ}}
+                        </span>
+                    </div>
+                    <div class="col-md-priceList-4">
+                        <span class="bill-content">
+                            {{priceListDetail.invoiceNumber}}
+                        </span>
+                    </div>
+                    <div class="col-md-priceList-2">
+                        <span class="bill-content">
+                            {{priceListDetail.date}}
+                        </span>
+                    </div>
+                    <div class="col-md-priceList-2">
+                        <span class="bill-content text-right">
+                            {{priceListDetail.duedate}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="margin-top-50">
+                <div class="bill-footer-title">
+                    <div class="col-md-priceList-6">
+                        <span>DESCRIPTION</span>
+                    </div>
+                    <div class="col-md-priceList-6 text-right">
+                        <span>AMOUNT</span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="bill-footer-body" *ngFor="let pricedata of priceListDetail.summerizePriceListData">
+                    <div class="col-md-priceList-12">
+                        <div class="col-md-priceList-6 margin-top-15">
+                            <span style="margin-left: 5px;">{{pricedata.description}}</span>
+                        </div>
+                        <div class="col-md-priceList-6 margin-top-15 text-right">
+                            <span style="margin-right: 8px;">$ {{pricedata.total}}</span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-priceList-12">
+                        <hr class="border-bottom-gray margin-top-5">
+                    </div>
+                    <!-- <div class="col-md-priceList-12">
+                        <div class="col-md-priceList-6 margin-top-15">
+                            <span style="margin-left: 5px;">Discount</span>
+                        </div>
+                        <div class="col-md-priceList-6 margin-top-15 text-right">
+                            <span style="margin-right: 8px;">-$ 25.00</span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-priceList-12">
+                        <hr class="border-bottom-gray margin-top-5">
+                    </div> -->
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-priceList-12">
+                <div class="vertical-align-middle">
+                    <div class="col-md-priceList-7">
+                        <div class="col-md-priceList-10">
+                            <span class="gray-text font-14">Thank you for allowing us to serve your tax filing needs
+                                this year. The services performed for this tax return
+                            and their respective fees are indicated above.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-priceList-5 text-right">
+                        <div class="col-md-priceList-12">
+                            <hr class="border-bottom-black margin-top-5">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-priceList-12 margin-top-15">
+                            <div class="col-md-priceList-7">
+                                <span class="text-left gray-text">SUB TOTAL</span>
+                            </div>
+                            <div class="col-md-priceList-5">
+                                <span>$ {{priceListDetail.totalwithDiscount}}</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-priceList-12 margin-top-15">
+                            <div class="col-md-priceList-7">
+                                <span class="text-left gray-text">TAX</span>
+                            </div>
+                            <div class="col-md-priceList-5">
+                                <span>$ {{priceListDetail.TotalPercentChargeAmttax}}</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-priceList-12 margin-top-15">
+                            <div class="col-md-priceList-7">
+                                <span class="text-left gray-text">TOTAL AMOUNT</span>
+                            </div>
+                            <div class="col-md-priceList-5">
+                                <span>$ {{priceListDetail.TotalPayment}}</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-priceList-12 margin-top-15">
+                            <div class="col-md-priceList-7">
+                                <span class="text-left gray-text">SERVICE CHARGES</span>
+                            </div>
+                            <div class="col-md-priceList-5">
+                                <span>$ {{priceListDetail.ServicesCharges}}</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-priceList-12 margin-top-15">
+                            <div class="col-md-priceList-7">
+                                <span class="text-left gray-text">OTHER CHARGES</span>
+                            </div>
+                            <div class="col-md-priceList-5">
+                                <span>$ {{priceListDetail.TotalOtherCharge}}</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-priceList-12 margin-top-15">
+                            <div class="col-md-priceList-7">
+                                <span class="text-left gray-text">BALANCE DUE</span>
+                            </div>
+                            <div class="col-md-priceList-5">
+                                <span >$ {{priceListDetail.TotalCharges}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+    
+        </div>
+    </div>

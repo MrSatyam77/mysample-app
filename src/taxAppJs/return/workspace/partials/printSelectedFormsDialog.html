@@ -1,0 +1,21 @@
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title" translate="PRINTSELECTEDFORMSDIALOG_HEADER" translate-default="Select Forms for Printing"></h4>
+</div>
+<div class="modal-body clearfix">	
+	<ng-form name="nameDialog" role="form">
+            <div class="margin_bottom_5" >
+                <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-model="selectAll" data-ng-class="{'active':selectAll==true}" data-ng-click="selectAll =! selectAll;selectAllForm(selectAll)"></button>
+                <span class="margin_left_5"><span translate="PRINTSELECTEDFORMSDIALOG_SELECTALL_LABEL" translate-default="Select All"></span></span>
+            </div>
+	<div class="form-group input-group-lg row_height_30 modelbody_scroll">
+		<div class="checkbox row_height_30 clearfix" data-ng-repeat="form in activeForms">
+            <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-model="form.isSelected" data-ng-class="{'active':form.isSelected==true}" data-ng-click="form.isSelected =! form.isSelected;"></button>
+            <span class="margin_left_5">{{form.extendedProperties.displayName}} &nbsp; {{form | formPrefix}}</span>
+        </div>
+	</div>
+	</ng-form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="PRINTSELECTEDFORMSDIALOG_CANCEL_BUTTON" translate-default="Cancel"></span></button>
+	<button type="button" class="btn btn-outline-primary" data-ng-click="save()"><span translate="PRINTSELECTEDFORMSDIALOG_PRINT_BUTTON" translate-default="Print"></span></button>
+</div>

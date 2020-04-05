@@ -1,0 +1,24 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            Notification
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <ng-form name="noncachedDialog" role="form">
+            <div class="input-group-lg row_height_30">
+                    <div>
+                        <span translate="NON_CACHED_STATE_DIALOG_DESCRIPTION1" translate-default="In order for this return to be available offline, the Federal system and/or state(s) listed below need to be pre-cached."></span>
+                        <span translate="NON_CACHED_STATE_DIALOG_DESCRIPTION2" translate-default="Once you are online please go back to the Offline Preferences screen and select the Federal system and/or desired state(s) you wish to use offline."></span>
+                    </div>
+                <br />
+                <div class="height_20">
+                    <div data-ng-repeat="state in statelist"><i class="fa fa-circle margin_right_5 color_gray font_size_10" style="vertical-align: baseline;"></i>{{state | uppercase}}</div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="NON_CACHED_STATE_DIALOG_LATER_SPAN" translate-default="Ok"></span></button>
+    </div>
+</div>

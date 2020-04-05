@@ -1,0 +1,29 @@
+<div class="drop-box upload_main" ngf-drop ngf-drag-over-delay="100" ngf-drag-over-class="" ngf-drop-available="dropSupported=true" ngf-change="onFileSelect($files)" ng-show="dropSupported">
+    <div class="margin_top_50">
+        <span class="text-center font_size_24">Drag here</span>
+    </div>
+    <div class="row">
+        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+            <div class="text-center margin_top_10">Or if you prefer</div>
+            <div class="btn btn-outline-primary btn_conversion selectbutton margin_top_10  margin_bottom_10">
+            <i class="fa fa-folder-open margin_right_3"></i>
+            Select file
+                <input type="file" ngf-select="onFileSelect($files)" accept="{{acceptFileType}}" data-max-size="100">
+            </div>
+        </div>
+        <div class="row col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_10" style="height:30px;" >
+            <progressbar data-ng-show="uploadProgress" animate="true" class="progress-striped active" value="uploadProgress" type="success"><b>{{uploadProgress}}%</b></progressbar>
+        </div>
+        <div class="row text-danger" data-ng-show="fileSizeMessage">
+            <span>Your selected file is more than 3 GB in size.</span>           
+        </div>   
+        <div class="row text-danger col-lg-24 col-sm-24 col-md-24 col-xs-24" data-ng-show="uploadErrMessage">
+        	<span>An error occurred while uploading your file. Please try again later.</span>
+        </div>       
+        <div class="row text-danger padding_10" data-ng-show="invalidFileType">
+            <span>Your browser is trying to upload a file of type</span>
+             {{fileType}}  
+            <span>Please make sure your browser is uploading a zip file by verifying the extension is .zip. Please refer to the trouble shooting conversions in training.</span>
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span>{{headerText}}</span>
+        </h4>
+    </div>
+
+    <div class="modal-body clearfix">
+        <ng-form name="emailPrintedAssets" role="form">
+            <!-- <div class="input-group-lg row_height_30">
+                <div class="height_20">
+                    <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                        <div class="clearfix">
+                            <input type="text" data-ng-model="email" ng-required="!email"  class="form-control" placeholder="Enter Email Address" />
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_12 padding_l_r_0">
+                    <span>Please enter email Address to send <b>{{headerText}}</b></span>
+            </div>
+            <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_10 padding_l_r_0">
+                <div class="col-lg-6 col-sm-10 col-md-7 col-xs-12 padding_l_0" style="padding-top: 5px;">
+                  <label translate="EMAIL_ADDRESS_ASSETS" translate-default="Email Address"></label>
+                </div>
+                <div class="col-lg-15 col-sm-14 col-md-17 col-xs-12 pull-left row_height_31 padding_l_0">
+                  <input type="text" name="emailAdress" id="emailAdress" tax-mask-use-view-value="true" data-ng-model="email" class="form-control"
+                    ng-required="!email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+                    <span style="color:Red" ng-show="isClickOnSend&&emailPrintedAssets.emailAdress.$dirty&&emailPrintedAssets.emailAdress.$error.pattern">Please Enter Valid Email</span>
+
+                </div>
+              </div>
+        </ng-form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="sendMail()"><span translate="RENEWALNOTIFICATION_DLG_BTN_OK"
+                translate-default="Send"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="RENEWALNOTIFICATION_DLG_BTN_CANCEL"
+                translate-default="Cancel"></span></button>
+    </div>
+</div>

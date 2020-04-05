@@ -1,0 +1,239 @@
+<div *ngIf="!betaOnly()">
+  <div class="dashboard-content">
+    <perfect-scrollbar>
+      <div class="dashboard-data-wrap scroll-y">
+        <!-- <perfect-scrollbar> -->
+        <!-- <div class="row mt-2" > -->
+        <!-- <div class="col-10 text-center">
+                <i class="fas fa-credit-card fa-7x"></i>
+              </div> -->
+        <!-- <div class="col-14"> -->
+        <div class="dashboard-center-data-wrap mt-5 mt-sm-0"
+          *ngIf="message != undefined && message != '' && (!quickSummary.taxPayerDetail || !quickSummary.returnInfoDetail)">
+          {{message}}
+        </div>
+        <!-- </div> -->
+        <!-- </div> -->
+
+        <div
+          *ngIf="(maskType == 'EIN' || maskTypeDisplayValue == 'EIN') && quickSummary.partnership && quickSummary.returnInfoDetail">
+          <div class="row px-3">
+            <div class="col-24">
+              <div class="row summary-title border-bottom">
+                {{quickSummary.partnership.companyName}}
+              </div>
+              <div class="row mt-1">
+                <div class="col">
+                  <div class="row">
+                    <div class="col font-weight-bold">
+                      Phone #:
+                    </div>
+                    <div class="col-18">
+                      {{quickSummary.taxPayerDetail.phoneNo}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col font-weight-bold">
+                      Email:
+                    </div>
+                    <div class="col-18">
+                      {{quickSummary.partnership.email}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3 border-bottom summary-title">
+                <div class="col font-wight-bold">{{quickSummary.packageName}}</div>
+                <div class="col font-wight-bold text-uppercase"><span
+                    *ngIf="quickSummary.stateName">{{quickSummary.stateName}}</span></div>
+                <div class="col font-wight-bold">Payment Option</div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <div *ngIf="quickSummary.federalData">
+                    <div class="row">
+                      <div class="col font-weight-bold">AGI:</div>
+                      <div class="col">{{quickSummary.incomeDetail.adjustedGrossIncome | currency}}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold" *ngIf="quickSummary.federalData.balanceDue > 0">Bal Due:</div>
+                      <div class="col" *ngIf="quickSummary.federalData.balanceDue > 0">{{quickSummary.federalData.balanceDue
+                            |
+                            currency}}</div>
+                      <div class="col font-weight-bold" *ngIf="quickSummary.federalData.expectedRefund > 0">Refund:
+                      </div>
+                      <div class="col" *ngIf="quickSummary.federalData.expectedRefund > 0">{{quickSummary.federalData.expectedRefund
+                            | currency}}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold">
+                        {{efileStatusLookup[quickSummary.federalData.status].displayText}}
+                      </div>
+                      <div class="col">{{quickSummary.federalData.createdDate | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div *ngIf="quickSummary.stateData && quickSummary.stateName">
+                    <div class="row">
+                      <div class="col font-weight-bold"></div>
+                      <div class="col"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold" *ngIf="quickSummary.stateData.balanceDue > 0">Bal Due:</div>
+                      <div class="col" *ngIf="quickSummary.stateData.balanceDue > 0">{{quickSummary.stateData.balanceDue
+                            |
+                            currency}}</div>
+                      <div class="col font-weight-bold" *ngIf="quickSummary.stateData.expectedRefund > 0">Refund:</div>
+                      <div class="col" *ngIf="quickSummary.stateData.expectedRefund > 0">{{quickSummary.stateData.expectedRefund
+                            | currency}}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold">{{efileStatusLookup[quickSummary.stateData.status].displayText}}
+                      </div>
+                      <div class="col">{{quickSummary.stateData.createdDate | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <span
+                    *ngIf="quickSummary.bankDetail && quickSummary.bankDetail.paymentOption">{{quickSummary.bankDetail.paymentOption}}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="(maskType == 'SSN' || maskTypeDisplayValue == 'SSN') && quickSummary.taxPayerDetail && quickSummary.returnInfoDetail">
+          <div class="row px-3">
+            <div class="col-24">
+              <div class="row summary-title border-bottom">
+                {{quickSummary.taxPayerDetail.firstName}} {{quickSummary.taxPayerDetail.lastName}}
+              </div>
+              <div class="row mt-1">
+                <div class="col">
+                  <div class="row">
+                    <div class="col font-weight-bold">
+                      Phone #:
+                    </div>
+                    <div class="col-18">
+                      {{quickSummary.taxPayerDetail.phoneNo}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col font-weight-bold">
+                      Email:
+                    </div>
+                    <div class="col-18">
+                      {{quickSummary.taxPayerDetail.email}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2 border-bottom summary-title">
+                <div class="col font-wight-bold">{{quickSummary.packageName}}</div>
+                <div class="col font-wight-bold text-uppercase"><span
+                    *ngIf="quickSummary.stateName">{{quickSummary.stateName}}</span></div>
+                <div class="col font-wight-bold">Payment Option</div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <div *ngIf="quickSummary.federalData">
+                    <div class="row">
+                      <div class="col font-weight-bold">AGI:</div>
+                      <div class="col">{{quickSummary.incomeDetail.adjustedGrossIncome | currency}}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold" *ngIf="quickSummary.federalData.balanceDue > 0">Bal Due:</div>
+                      <div class="col" *ngIf="quickSummary.federalData.balanceDue > 0">{{quickSummary.federalData.balanceDue
+                            |
+                            currency}}</div>
+                      <div class="col font-weight-bold" *ngIf="quickSummary.federalData.expectedRefund > 0">Refund:
+                      </div>
+                      <div class="col" *ngIf="quickSummary.federalData.expectedRefund > 0">{{quickSummary.federalData.expectedRefund
+                            | currency}}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold">
+                        {{efileStatusLookup[quickSummary.federalData.status].displayText}}
+                      </div>
+                      <div class="col">{{quickSummary.federalData.createdDate | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div *ngIf="quickSummary.stateData">
+                    <div class="row">
+                      <div class="col font-weight-bold"></div>
+                      <div class="col"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold" *ngIf="quickSummary.stateData.balanceDue > 0">Bal Due:</div>
+                      <div class="col" *ngIf="quickSummary.stateData.balanceDue > 0">{{quickSummary.stateData.balanceDue
+                            |
+                            currency}}</div>
+                      <div class="col font-weight-bold" *ngIf="quickSummary.stateData.expectedRefund > 0">Refund:</div>
+                      <div class="col" *ngIf="quickSummary.stateData.expectedRefund > 0">{{quickSummary.stateData.expectedRefund
+                            | currency}}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col font-weight-bold">{{efileStatusLookup[quickSummary.stateData.status].displayText}}
+                      </div>
+                      <div class="col">{{quickSummary.stateData.createdDate | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <span
+                    *ngIf="quickSummary.bankDetail && quickSummary.bankDetail.paymentOption">{{quickSummary.bankDetail.paymentOption}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- </perfect-scrollbar> -->
+      </div>
+    </perfect-scrollbar>
+
+    <div class="dashboard-footer-wrap" *ngIf="quickSummary.taxPayerDetail && quickSummary.returnInfoDetail">
+      <a class="footer-btn" (click)="loadMoreDetail()">More</a>
+    </div>
+  </div>
+</div>
+<div *ngIf="betaOnly()">
+  <div class="dashboard-content">
+    <div class="dashboard-data-wrap scroll-y">
+      <div class="efile-box d-flex justify-content-center mt-3">
+        <div class="form-group mr-3">
+          <select class="form-control bg-white default-theme" [(ngModel)]="maskType"
+            (ngModelChange)="setMaskId();setTaskMask($event);ssnorein = undefined;setSelectedType()">
+            <option value="SSN">SSN</option>
+            <option value="EIN">EIN</option>
+            <option value="Name">Name</option>
+            <option value="Phone">Phone</option>
+            <option value="Email">Email</option>
+          </select>
+        </div>
+        <div class="form-group row position-relative E-file-search" style="width: 500px;">
+          <div class="col">
+            <input type="text" name="asd" class="form-control bg-white default-theme" [(ngModel)]="ssnorein"
+              (keypress)="keyPress($event)" container="body" [ngbTypeahead]="search" [resultTemplate]="rt"
+              (blur)="getReturnStummary()" placeholder="Quick Return Search… “SSN, EIN, Name, Phone, or Email"
+              [inputFormatter]="formatter" (selectItem)="goToDetail()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-template #rt let-r="result" let-t="term">
+    <ngb-highlight style="max-height: 200px" [result]="r[selectedType]" [term]="t"></ngb-highlight>
+  </ng-template>
+</div>

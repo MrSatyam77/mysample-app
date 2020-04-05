@@ -1,0 +1,54 @@
+/* Hides pager in exported pdf start. */
+.k-pdf-export .k-grid-toolbar,
+.k-pdf-export .k-icon,
+.k-pdf-export .k-pager-wrap{display: none;}
+/* Hides pager in exported pdf end. */
+   	
+/* Header settings for grid start. */
+   	.k-grid-header .k-header .k-grid-header .k-header,.k-grid-header .k-link,.k-grid-header .k-link:link,.k-pager-info,.k-scheduler-header,.k-scheduler-agendaview .k-scheduler-datecolumn
+		{color: #333333 !important;} /* header color changed */
+	.k-grid-header th.k-header{font-weight: bold !important;border-bottom: 2px solid #dddddd;background: #eaeaea ;} 
+	.k-widget, .k-block, .k-inline-block, .k-draghandle{border-width:0px !important;}
+	.k-grid-header th.k-header, .k-filter-row th{border-width:0 0 2px 0px !important}
+	
+	/* for text alignments in header and row start */
+	.k-grid td{border-width:0px 0px 1px 0px !important; padding: 0.929em 0.940em !important;}		   
+     @-moz-document url-prefix(){.k-grid td{padding: 0.929em 1em !important;}}     
+	.k-grid-header th.k-header>.k-link{font-size:14px !important; padding-left:5px !important; margin:0px !important; padding-right:0px !important;}
+	/* for text alignments in header and row end */
+	
+	/* for text wrap in header start */
+	.k-grid-header th.k-header, .k-filter-row th{  padding: 0.2em 0.6em !important;white-space: pre-wrap !important; word-wrap:break-word !important}
+	.k-grid-header th.k-header:focus, .k-filter-row th:focus{padding:0.429em 0.6em 0.571em !important;}	
+   	.k-grid table {table-layout: fixed;}   
+   	.k-pager-sizes {float: right !important;}
+    .k-grid-header th.k-header {vertical-align: top  !important;}
+    .k-grid-header .k-grid-filter, .k-grid-header .k-header-column-menu { margin: 0 0 -0.1em -0.1em !important; padding: 0.357em 0.3em 0.5em !important;}
+    .k-grid {min-height: 200px;}
+	/* for text wrap in header end */
+/* Header settings for grid end. */
+		
+/*select report dropdown start*/
+.form_outer_spacing { padding: 5px 15px 5px 15px;width: 760px;}
+#scroll_main {width: 100%;  border-spacing: 0;margin-bottom:0;}
+#scroll_main th,#scroll_main td,#scroll_main tr,#scroll_main thead { display: block; }
+#scroll_main tbody { display: block; max-height:500px; }
+#scroll_main thead tr {width:100%;}
+#scroll_main tr:after {content: ' '; display: block; visibility: hidden; clear: both;}
+#scroll_main tbody {min-height:19px; overflow-y: auto; overflow-x: auto;}/* height:320px; */
+#scroll_main tbody tr {border-bottom:1px solid #dddddd;    }
+#scroll_main tbody td{ float:left; border-bottom:none !important;}
+#scroll_main thead th {float: left;}
+.invoice.dropdown-menu{left:auto;right:0;}
+.selectReport table tr:hover,.selectReport table tr:focus{background:#eaeaea;cursor:pointer;}	
+/*select report dropdown end*/
+
+/* move pager start */
+.setMinHeight{min-height: 200px !important;}
+.movePager {position: absolute !important; bottom: 0 !important; width: 100% !important;}
+/* move pager end */
+
+/* ON exporting pdf we need to hide default progress bar */
+.no-loading{display: none;}
+
+    

@@ -1,0 +1,94 @@
+<div class="bg-white border clearfix">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg title_height_40">
+        <span class="page_title_lg">
+          Write To Us
+        </span>
+      </span>
+    </section>
+  </div>
+  <form>
+    <div class="clearfix p-3 static_form_wrap">
+      <div class="form-group row">
+        <div class="col col-sm-4">
+          <label>Please Select Subject</label>
+        </div>
+        <div class="col col-sm-14">
+          <select class="form-control" name="subject" [(ngModel)]="emailAttachmentDetail.subject"
+            [required]="!emailAttachmentDetail.subject" (ngModelChange)="onChangeSubject()">
+            <option value="Preparing Returns">Preparing Returns</option>
+            <option value="License">License</option>
+            <option value="Bank Products">Bank Products</option>
+            <option value="E-File">E-File</option>
+            <option value="Printing">Printing</option>
+            <option value="Training Webinar">Training Webinar</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col col-sm-4">
+          <label>Please Select Subject</label>
+        </div>
+        <div class="col col-sm-14">
+          <quill-editor [required]="!emailAttachmentDetail.message" name="message"
+            [(ngModel)]="emailAttachmentDetail.message">
+          </quill-editor>
+        </div>
+        <div class="col">
+          <div class="file-upload-box">
+            <div class="upload-ui">
+              <div ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                class="row cursor_pointer pl-1">
+                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0 upload-details">
+                  <perfect-scrollbar>
+                    <div class="row" *ngFor="let file of files; let i=index">
+                      <div class="col-lg-21 col-md-21 col-sm-21 col-xs-21 text-truncate padding_r_0">
+                        {{file.name}}
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding_l_r_0">
+                        <i class="fa fa-times cursor_pointer" aria-hidden="true" (click)="removeFile(i)"></i>
+                      </div>
+                      <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0"
+                        *ngIf="file.progress && file.progress.data && file.progress.data.percentage > 0 && file.progress.data.percentage < 100">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                            [style.width]="file.progress.data.percentage + '%'"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </perfect-scrollbar>
+                </div>
+                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0 upload-pdf-icon">
+                  <input #uploader name="uploadDocument" type="file" ngFileSelect [options]="options"
+                    (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [disabled]="disabledUpload"
+                    [accept]="acceptedFileType">
+                  <span class="upload-pdf-txt" style="font-weight:normal;">
+                    <span class="d-block mb-3">Drag here or </span><span class="btn btn-outline-primary">Browse</span>
+                  </span>
+                </div>
+                <div class="text-danger col-lg-24 col-md-24 col-sm-24 col-xs-24 text-center pt-1" *ngIf="errorType">
+                  <span *ngIf="errorType === 'other'">An error occurred while uploading your file. Please try again
+                    later.</span>
+                  <span *ngIf="errorType === 'invalid'">Please attach a valid file type.</span>
+                  <span *ngIf="errorType === 'size'">Your selected file is more than 2MB in size.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 clearfix p-3 border-top">
+      <div class="float-right">
+        <button id="step3" class="btn btn-outline-primary mr-2" (click)="save()"
+          [disabled]="!(emailAttachmentDetail.subject && emailAttachmentDetail.message && !disabledUpload)">
+          Submit
+        </button>
+        <button class="btn btn-outline-primary" (click)="gotoHome()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,130 @@
+<div class="clearfix">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title" *ngIf="isAnyDeviceRegistered!==false">
+      <span>Capture Signature</span>
+    </h4>
+    <h4 class="modal-title" *ngIf="isAnyDeviceRegistered===false && (isError==undefined || isError==false)">
+      <span>No Authorized Devices</span>
+    </h4>
+    <i class="fa fa-times " (click)="close()" style="margin-top: 5px;" aria-hidden="true"></i>
+  </div>
+  <div class="modal-body padding_l_r_0 clearfix">
+    <div class="clearfix">
+      <div class="clearfix padding_left_15 padding_right_15" *ngIf="isError==true">
+        An error is currently being encountered. Please try again later.
+      </div>
+      <div class="clearfix padding_left_15 padding_right_15"
+        *ngIf="isAnyDeviceRegistered===false && (isError==undefined || isError==false)">
+        The signature cannot be captured because no authorized devices have been found. Please locate <b>Signature
+          Devices</b> under <b>Toolbox</b> in the left Menu. From there, click on <b>New</b> to add a device.
+      </div>
+      <div class="clearfix" *ngIf="isAnyDeviceRegistered===true && (isError==undefined || isError==false)">
+        <div class="clearfix">
+          <div class="col-lg-24 col-md-24 col-sm-24" *ngIf="signatureCaptureStatus===0">
+            <div class="clearfix qr_code_info_txt">
+              "Open the {{appName}} Signature Pad App on your authorized device. Select Capture Signature to scan this
+              Capture Signature QR Code."
+            </div>
+            <div class="qr_code_wrap row justify-content-center">
+                <ngx-qrcode 
+                qrc-element-type="url" 
+                [qrc-value] = "signatureCaptureData"></ngx-qrcode>
+            </div>
+          </div>
+          <div class="col-lg-24 col-md-24 col-sm-24 signature-animated-image-wrapper"
+            *ngIf="signatureCaptureStatus===5">
+            <div class="signature-animated-image">
+              <img src="taxAppJs/images/signature_waiting.gif" class="img-fluid" />
+            </div>
+          </div>
+          <div class="col-lg-24 col-md-24 col-sm-24 signature-animated-image-wrapper"
+            *ngIf="signatureCaptureStatus===6">
+            <div class="signature-animated-image">
+              <img src="taxAppJs/images/capturing-signature.gif" class="img-fluid" />
+            </div>
+          </div>
+          <div class="col-lg-24 col-md-24 col-sm-24 signature-animated-image-wrapper"
+            *ngIf="signatureCaptureStatus===7">
+            <div class="signature-animated-image">
+              <img src="taxAppJs/images/review.gif" class="img-fluid" />
+            </div>
+          </div>
+          <div class="col-lg-24 col-md-24 col-sm-24 signature-animated-image-wrapper"
+            *ngIf="signatureCaptureStatus===8">
+            <div class="signature-animated-image">
+              <img src="taxAppJs/images/uploading-cloud.gif" class="img-fluid" />
+            </div>
+          </div>
+        </div>
+        <div class="clearfix" *ngIf="signatureCaptureStatus===9">
+          <div class="clearfix padding_left_15 padding_right_15">
+            <div class="clearfix signater_wrap" *ngFor="let signatureData of signatureDataList">
+              <div class="col-lg-24 col-md-24 col-sm-24">
+                <div class="row">
+                  <div class="clearfix signature_title">
+                    <span class="font_bold font_size_16">{{signatureTypeLookup[signatureData.type].displayText}} <span
+                        *ngIf="signatureData.name">- {{signatureData.name}}</span></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="clearfix signature_img_wrap">
+                    <img [src]="signatureData.imageData" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="clearfix signature_conform_txt_wrap">
+                    <div class="sign_conform_chk_wrap">
+                      <button type="button " ngDefaultControl  class="custom_input_dark float-left margin_right_5 "
+                        [ngClass]="{ 'active':signatureData.isApprove==true} " [(ngModel)]="signatureData.isApprove "
+                        [required]="signatureData.isApprove==undefined || signatureData.isApprove==false"
+                        (click)="signatureData.isApprove=!signatureData.isApprove "></button>
+                    </div>
+                    <span class="conform_txt">{{signatureConsentsLookup[signatureData.type].displayText }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix" *ngIf="signatureCaptureStatus===10">
+          <div class="col-lg-24 col-md-24 col-sm-24">
+            <span>Error occurred in uploading Signature</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="clearfix qr_waiting_ui_wrap"
+      *ngIf="isAnyDeviceRegistered===true && isError==false && signatureCaptureStatus===0">
+      <div class="qr-waiting-loader "> <span>Waiting for QR code scan...</span></div>
+    </div>
+    <div class="clearfix qr_waiting_ui_wrap"
+      *ngIf="isAnyDeviceRegistered===true && isError==false && signatureCaptureStatus===5">
+      <div class="qr-waiting-loader "><span>Waiting to capture </span>
+        {{signatureTypeLookup[signatureType].displayText}} <span> signature </span> </div>
+    </div>
+    <div class="clearfix qr_waiting_ui_wrap"
+      *ngIf="isAnyDeviceRegistered===true && isError==false && signatureCaptureStatus===6">
+      <div class="qr-waiting-loader "><span>Capturing </span> {{signatureTypeLookup[signatureType].displayText}} <span>
+          Signature</span></div>
+    </div>
+    <div class="clearfix qr_waiting_ui_wrap"
+      *ngIf="isAnyDeviceRegistered===true && isError==false && signatureCaptureStatus===7">
+      <div class="qr-waiting-loader "><span>Review Signature</span></div>
+    </div>
+    <div class="clearfix qr_waiting_ui_wrap"
+      *ngIf="isAnyDeviceRegistered===true && isError==false && signatureCaptureStatus===8">
+      <div class="qr-waiting-loader "> <span>Uploading Signature</span></div>
+    </div>
+
+    <button type="button " class="btn btn-outline-primary "
+      *ngIf="signatureCaptureStatus===9 && isAnyDeviceRegistered===true" [disabled]="!getIsCheckAll() "
+      (click)="approve() "><span>Approve</span></button>
+    <button type="button " class="btn btn-outline-primary "
+      *ngIf="(signatureCaptureStatus===9 && isAnyDeviceRegistered===true) && isScocketConnection===true"
+      (click)="redraw()"><span>Recapture</span></button>
+    <button type="button " class="btn btn-outline-primary "
+      *ngIf="signatureCaptureStatus===9 || isAnyDeviceRegistered===false" (click)="close()"><span>Close</span></button>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="mtpo-action float-right">
+  <!-- <button class="btn btn-sm btn-clean float-left" *ngIf="!officeDetail.efinStatus || officeDetail.efinStatus !== 2"><i class="fa fa-exclamation-circle text-danger"
+      placement="right" ngbTooltip="Not Ready for E-Filing!" container="body" tooltipClass="error"></i></button>
+  <button class="btn btn-sm btn-clean float-left" *ngIf="officeDetail.efinStatus === 2"><i class="fa fa-check-circle text-success" placement="right"
+      ngbTooltip="Ready for E-Filing." container="body" tooltipClass="success"></i></button> -->
+  <button class="btn btn-sm btn-clean float-left" (click)="editOffice()" *ngIf="userCan.openOffice === true && userCan.saveOffice === true"><i
+      class="fa fa-pencil-alt"></i></button>
+  <button class="btn btn-sm btn-clean float-left" (click)="removeOffice()" *ngIf="hasFeature.deleteOffice && !officeDetail.isPredefined"
+    [disabled]="!userCan.removeOffice || currentLocationId === officeDetail.key">
+    <i class="fa fa-trash-alt"></i>
+  </button>
+</div>
+<address *ngIf="officeDetail.address">
+  <div class="row" *ngIf="officeDetail.address.street || officeDetail.address.city || officeDetail.address.state || officeDetail.address.country || officeDetail.address.zipCode">
+    <div class="col-2 text-center"><span><i class="fa fa-map-marker-alt text-primary"></i></span></div>
+    <div class="col-auto">
+      <span class="d-block" *ngIf="officeDetail.address.street">{{officeDetail.address.street}}</span>
+      <span class="d-block">
+        <span *ngIf="officeDetail.address.city">{{officeDetail.address.city}}</span>
+        <span *ngIf="officeDetail.address.state">, {{officeDetail.address.state}}</span>
+        <span *ngIf="officeDetail.address.country">, {{officeDetail.address.country}}</span>
+        <span *ngIf="officeDetail.address.zipCode">, {{officeDetail.address.zipCode}}</span>
+      </span>
+    </div>
+  </div>
+  <div class="row mt-3" *ngIf="officeDetail.address.telephone">
+    <div class="col-2 text-center"><span><i class="fa fa-phone-alt text-primary"></i></span></div>
+    <div class="col-auto"><span class="d-block">{{officeDetail.address.telephone | mask: '(000) 000-0000'}}</span></div>
+  </div>
+</address>
+<div class="row mt-3" *ngIf="officeDetail.efin">
+  <div class="col-2 text-center"><span><i class="mtpo mtpo-efin-icon text-primary font-weight-bold " style="font-size: 10px;"></i></span></div>
+  <div class="col-22">
+    {{officeDetail.efin}}
+  </div>
+</div>

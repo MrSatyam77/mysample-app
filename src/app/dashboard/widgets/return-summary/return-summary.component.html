@@ -1,0 +1,55 @@
+<div class="dashboard-content">
+    <div class="dashboard-data-wrap">
+        <div class="returns-table" *ngIf="recentReturnsList.length !== 0">
+            <div class="returns-table-row no-pointer" [ngStyle]="{'background-color':rowColor}">
+                <div [class]="column.className" *ngFor="let column of colum[columnName.columnNumber]"
+                    [title]="column.displayText">{{column.displayText}} </div>
+            </div>
+            <perfect-scrollbar>
+                <div class="return-table-content">
+                    <div class="returns-table-row" [ngStyle]="{'background-color':rowColor}"
+                        *ngFor="let return of recentReturnsList | slice:0:columnName.count"
+                        [ngClass]="{'tile-recent-return-box-shadow-outset':return.isCheckedOut==false,'no-clicking':!permission.canGetOpenReturn} "
+                        (click)="openReturn(return)">
+                        <div [class]="column.className"
+                            *ngFor="let column of colum[columnName.columnNumber]; let i=index">
+                            <i [class]="return.className + ' pr-1'" *ngIf="i === 0"></i>
+                            <span [title]="return[column.fieldName]">{{return[column.fieldName]}}</span>
+                        </div>
+                    </div>
+                </div>
+            </perfect-scrollbar>
+        </div>
+
+        <div class="dashboard-center-data-wrap">
+            <div *ngIf="recentReturnsList.length === 0">
+                <div class="tile-recent-return-inner_left">
+                    <i class="fa fa-list-alt"></i>
+                </div>
+                <div class="tile-recent-return-inner_right_content">
+                    <div *ngIf="returnListStatus === 'sampleReturnMessage'"
+                        class="margin_top_30 text-left margin_left_60">
+                        Let's start preparing returns.</div>
+                    <div class="margin_left_30" *ngIf="returnListStatus === 'sampleReturnMessage'">
+                        <span class="tile-recent-return-box-shadow-outset add-sample-return-btn"
+                            (click)="addSampleReturns()"
+                            style="border: 2px solid #fff; background-color: rgba(255,255,255,0.2);"><i
+                                class="fas fa-plus-circle" aria-hidden="true"></i> <span>
+                                Add Sample Returns</span></span>
+                    </div>
+                    <div *ngIf="returnListStatus === 'filterMessage'" class="dashboard-center-data-wrap">No returns
+                        available for selected criteria.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-footer-wrap">
+        <!-- tile-recent-return-box-shadow-outset red_bg_for_tooltip -->
+        <a class="footer-btn" [style.background]="backgroundColor" (click)="goTo('return/list')" [ngClass]="{'no-clicking ':!permission.canGetListReturn}"
+            id="step3">Return List</a>
+        <a class="footer-btn" [style.background]="backgroundColor" (click)="goTo('return/new')" [ngClass]="{'no-clicking ':!permission.canGetCreateList}"
+            id="step2">New
+            Return</a>
+    </div>
+</div>

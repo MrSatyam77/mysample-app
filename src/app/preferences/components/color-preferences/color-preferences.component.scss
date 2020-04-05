@@ -1,0 +1,27 @@
+.color-picker-wrap{
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #cccccc;
+    cursor: pointer;
+}
+// .border-r-b-dotted{border-style: dotted;border-top: 0;border-left: 0;}
+// .border-b-dotted{border-style: dotted;border-top: 0;border-left: 0;border-right: 0;}
+.padding-15{padding: 15px;}
+
+.modernTheme {
+    border: none;
+    border-bottom: 1px solid;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid;
+        padding-bottom: 0px;
+    }
+}

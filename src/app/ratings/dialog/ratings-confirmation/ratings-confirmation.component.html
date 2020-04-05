@@ -1,0 +1,20 @@
+<div class="modal-content">
+  <div class="modal-header dialog-header-confirm">
+    <h5 class="modal-title">Your Opinion Matters</h5>
+    <button type="button" class="close text-secondary" data-dismiss="modal" (click)="closeDialog()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <h5 class="mb-3">Hello <span>{{userName}}</span></h5>
+    <p>Your opinion matters to us! Could you please take a quick minute to rate your MyTAXPrepOffice experience?</p>
+    <p>We appreciate your help!</p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveRattings('TakeMeThere')">Yes !</button>
+    <button type="button" class="btn btn-outline-primary" data-dismiss="modal" (click)="saveRattings('MayBeLater')">Maybe
+      Later</button>
+    <button type="button" class="btn btn-outline-primary" data-dismiss="modal" (click)="saveRattings('NoThanks')">No,
+      Thanks</button>
+  </div>
+</div>

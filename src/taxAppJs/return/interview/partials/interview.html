@@ -1,0 +1,316 @@
+﻿<link href="taxAppJs/common/css/Styles.css" rel="stylesheet" />
+<link href="taxAppJs/return/interview/css/interview.css" rel="stylesheet" />
+<style type="text/css">
+    .selectRow {
+        background-color: #f5f5f5;
+    }
+
+    .displayNone {
+        display: none !important;
+    }
+
+    .ng-table-pager {
+        display: none
+    }
+
+    .state_form_wrap button {
+        vertical-align: 0px;
+    }
+
+    .state_form_wrap .row {
+        margin-bottom: 10px;
+        height: 30px;
+    }
+
+    .state_form_wrap label {
+        display: inline-block;
+        max-width: 100%;
+        font-weight: normal;
+        word-wrap: break-word;
+        vertical-align: -moz-middle-with-baseline;
+    }
+
+    .state_form_wrap .custom_input.active:hover:after {
+        content: "\2713";
+        position: absolute;
+        left: -1px;
+        top: -18px;
+        font-size: 26px;
+        color: #555555;
+    }
+
+    .state_form_wrap .custom_input.active:focus:after {
+        content: "\2713";
+        position: absolute;
+        left: -1px;
+        top: -18px;
+        font-size: 26px;
+        color: #555555;
+    }
+
+    #taxform .custom_input.active:hover:after {
+        content: "\2713";
+        position: absolute;
+        left: -1px;
+        top: -18px;
+        font-size: 26px;
+        color: #555555;
+    }
+
+    #taxform .custom_input.active:focus:after {
+        content: "\2713";
+        position: absolute;
+        left: -1px;
+        top: -18px;
+        font-size: 26px;
+        color: #555555;
+    }
+
+    #taxform .interview_checkbox button.active:hover:after {
+        content: "\2713";
+        position: absolute;
+        left: 1px;
+        top: -18px;
+        font-size: 26px;
+        color: #555555;
+    }
+    .inner_col_third{width:300px;}
+    #taxform .interview_checkbox button.active:focus:after {
+        content: "\2713";
+        position: absolute;
+        left: 1px;
+        top: -18px;
+        font-size: 26px;
+        color: #555555;
+    }
+    .middle-wrap{overflow: hidden;}
+    body #tax_estimator_tabnew .tab-content{ height: calc(100vh - 300px) !important;}
+    .table.ng-table thead tr{border-bottom: 3px solid #dee2e6; }
+    .table.ng-table thead tr th {border-bottom: 0px solid #dee2e6; }
+</style>
+
+ 
+
+<div ng-cloak data-ng-controller="interviewController" class="col_second strech_left" data-ng-class="{'strech_right':headerNav.collapseRightPane==true,'strech_right_animation':headerNav.applyRightAnimation==true,'strech_right_remove':headerNav.applyRightAnimation==true,'strech_left_remove':headerNav.applyLeftAnimation==true}">
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="INTERVIEW_HEADER" translate-default="Interview Questions"></span>
+        </section>
+        <div class="inner_page_wrap clearfix inner_padding_15" ng-style="" style="">
+            <div id="tax_estimator_tabnew" ng-style="">
+                <ul class="nav nav-tabs dropdown-tab interview_tab_main" id='tabHeading'>
+                    <li data-ng-repeat="tabOPtion in interviewTabsConfig" role="presentation" data-ng-class="{'active':isActive(tabOPtion) && tabOPtion.status == undefined,'displayNone':tabOPtion.masterId != undefined}"
+                        class="cursor_pointer {{tabOPtion.className}}" data-ng-if="isTabToDisplay(tabOPtion)">
+                        <a data-ng-click="updateAllTabConfig();changeTab(tabOPtion);" data-ng-if="tabOPtion.isMaster == undefined && tabOPtion.masterId == undefined">{{tabOPtion.title}}</a>
+                        <a data-ng-if="tabOPtion.isMaster == true" data-ng-click="changeTab(tabOPtion)">
+                            <span>{{tabOPtion.title}}</span>
+                            <span data-ng-if="tabOPtion.isState == true">
+                                <span class="color_green clearfix float-right padding_left_10" ng-show="(returnStates|filter:{name:tabOPtion.title})[0].stateRefund!=undefined">{{(returnStates|filter:{name:tabOPtion.title})[0].stateRefund|currency}}</span>
+                                <span class="color_red clearfix float-right padding_left_10" ng-show="(returnStates|filter:{name:tabOPtion.title})[0].stateOwe!=undefined">{{(returnStates|filter:{name:tabOPtion.title})[0].stateOwe|currency}}</span>
+                            </span>
+                        </a>
+
+                    </li>
+                </ul>
+                <div class="tab-content col-lg-24 col-sm-24 col-md-24 {{tabHeadingBottomLineColor}}">
+                    <!-- Instance grid -->
+
+                    <div style="">
+                        <span class="width_full margin_top_4 clearfix">
+                            <div class="float-left">
+                                <ul class="nav nav-tabs dropdown-tab" data-ng-if="showChildTabProp.hasParent">
+                                    <li data-ng-repeat="groupMember in interviewTabsConfig" data-ng-class="{'active':isActive(groupMember) && groupMember.status == undefined}"
+                                        data-ng-if="groupMember.masterId == showChildTabProp.masterTabId && isTabToDisplay(groupMember)"
+                                        data-ng-click="updateAllTabConfig();changeTab(groupMember)" class="cursor_pointer {{groupMember.className}}">
+                                        <a style="padding-bottom:8px;padding-top:8px;">{{groupMember.title}}</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="float-right">
+                                <span class="float-left clearfix">
+                                    <img src="taxAppJs/return/workspace/images/print.gif" height="23" width="20" ng-show="isPrinting" />
+                                    <img src="taxAppJs/return/workspace/images/calculator.gif" height="23" width="20" ng-show="isCalcRunning && !isRecalculateReturn"
+                                    />
+                                </span>
+                                <span class="float-left  font_size_15 margin_left_10 padding_top_2 clearfix" data-ng-if="client.packageName == '1040' || client.packageName == '1041'">
+                                    <div class="float-left">
+                                        <span class="font_bold color_gray" translate="RETURNWORKSPACELEFT_AGI_LBL" translate-default="AGI" data-ng-show="formTree.fedAGI!=undefined"></span>
+                                        <span class="color_gray padding_right_20"> {{formTree.fedAGI|currency}}</span>
+                                    </div>
+                                    <span class="float-right padding_left_20" ng-class="{'float-left': getFedFiguresLength() > 14}" style="border-left:1px solid #ddd">
+                                        <span class="font_bold color_gray" translate="INTERVIEWMODE_REFUND_LBL" translate-default="Refund" data-ng-show="formTree.fedRefund!=undefined"></span>
+                                        <span class="font_bold color_gray" translate="INTERVIEWMODE_AMOUNTDUE_LBL" translate-default="Amount Due" data-ng-show="formTree.fedOwe!=undefined"></span>
+                                        <span class="color_green" data-ng-show="formTree.fedRefund!=undefined">{{formTree.fedRefund|currency}}</span>
+                                        <span class="color_red" data-ng-show="formTree.fedOwe!=undefined">{{formTree.fedOwe|currency}}</span>
+                                    </span>
+                                </span>
+                                <span class="float-left width_full font_size_15 margin_left_10 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1065'">
+                                    <span class="font_bold color_gray" translate="RETURNWORKSPACELEFT_BIS_LBL" translate-default="BIS" data-ng-show="formTree.fedBIS!=undefined"></span>
+                                    <span class="color_gray"> {{formTree.fedBIS|currency}}</span>
+                                </span>
+                                <span class="float-left width_full font_size_15 margin_left_10 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1120' || client.packageName == '990'">
+                                    <span class="font_bold color_gray" translate="RETURNWORKSPACELEFT_TAX_LBL" translate-default="TAX" data-ng-show="formTree.fedTAX!=undefined"></span>
+                                    <span class="color_gray"> {{formTree.fedTAX|currency}}</span>
+                                    <span class="float-right" ng-class="{'float-left': getFedFiguresLength() > 14}">
+                                        <span class="font_bold color_gray" translate="INTERVIEWMODE_REFUND_LBL" translate-default="Refund" data-ng-show="formTree.fedRefund!=undefined"></span>
+                                        <span class="font_bold color_gray" translate="INTERVIEWMODE_AMOUNTDUE_LBL" translate-default="Amount Due" data-ng-show="formTree.fedOwe!=undefined"></span>
+                                        <span class="color_green" data-ng-show="formTree.fedRefund!=undefined">{{formTree.fedRefund|currency}}</span>
+                                        <span class="color_red" data-ng-show="formTree.fedOwe!=undefined">{{formTree.fedOwe|currency}}</span>
+                                    </span>
+                                </span>
+                                <span class="float-left width_full font_size_15 margin_left_10 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1120s'">
+                                    <span class="font_bold color_gray" translate="RETURNWORKSPACELEFT_TAX_LBL" translate-default="TAX" data-ng-show="formTree.fedTAX!=undefined"></span>
+                                    <span class="color_gray"> {{formTree.fedTAX|currency}}</span>
+                                    <span class="float-right" ng-class="{'float-left': getFedFiguresLength() > 14}">
+                                        <span class="font_bold color_gray" translate="INTERVIEWMODE_REFUND_LBL" translate-default="Refund" data-ng-show="formTree.fedRefund!=undefined"></span>
+                                        <span class="font_bold color_gray" translate="INTERVIEWMODE_AMOUNTDUE_LBL" translate-default="Amount Due" data-ng-show="formTree.fedOwe!=undefined"></span>
+                                        <span class="color_green" data-ng-show="formTree.fedRefund!=undefined">{{formTree.fedRefund|currency}}</span>
+                                        <span class="color_red" data-ng-show="formTree.fedOwe!=undefined">{{formTree.fedOwe|currency}}</span>
+                                    </span>
+                                </span>
+
+                            </div>
+                        </span>
+
+                        <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0" data-ng-if="client.packageName != undefined && showChildTabProp.hasParent != true">
+                            <hr data-ng-class="{'margin_top_custom_1':showChildTabProp.hasParent}" class="light_line">
+                        </div>
+                        <div class="col-lg-24 col-sm-24 col-md-24 padding_l_r_0 margin_top_custom_1 {{childTabHeadingBottomLineColor}}" data-ng-if="showChildTabProp.hasParent == true"></div>
+                    </div>
+                    <div id="formListBlock">
+                        <div ng-if="instanceGridColumns.length>0 && !fixedScreen" data-ng-class="{'table_max_height_140':showForm,'table_max_height_full':!showForm,'slidenew':showForm}">
+                            <table ng-table="instanceGrid" class="table" id="scroll" style="float: left;">
+                                <!-- column headers -->
+                                <thead id="instanceGridHead">
+                                    <tr>
+                                        <th data-ng-repeat="column in instanceGridColumns" class="sortable {{column.headerClass}}" ng-class="{'sort-asc': instanceGrid.isSortBy('{{column.field}}', 'asc'), 'sort-desc': instanceGrid.isSortBy('{{column.field}}', 'desc')}"
+                                            ng-click="instanceGrid.sorting({'{{column.field}}' : instanceGrid.isSortBy('{{column.field}}', 'asc') ? 'desc' : 'asc'})">
+                                            <div class="sort-indicator">{{column.title}}</div>
+                                        </th>
+
+                                        <!-- Action column -->
+                                        <th class="col-lg-4 col-md-4 col-sm-4">
+                                            <div>Actions</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!-- data -->
+                                <tbody id="instanceGridBody">
+                                    <tr data-ng-repeat="instanceDetail in $data" data-ng-class="{'selectRow':formScope.currentForm.docIndex==instanceDetail.docIndex,'errBorder':isError(instanceDetail.docIndex),'cursor_pointer':true}"
+                                        id="instanceGridRow-{{instanceDetail.docIndex}}">
+                                        <td data-ng-repeat="column in instanceGridColumns" class="{{::column.headerClass}}" ng-click="loadIsntanceGridForm(instanceDetail.docIndex)">
+                                            {{::instanceDetail[column.field]|formatThousandSeparator:instanceDetail.docName:column.field}}
+                                        </td>
+                                        <!-- action column -->
+                                        <td>
+                                            <!-- <div class="dropdown" dropdown="" is-open="instanceGridActionToggle.isOpen">
+                                                <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="instanceGridActionToggle" data-toggle="dropdown">
+                                                <i class="fas fa-cog padding_right_5"></i> <span class="caret font_size_12"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="instanceGridActionToggle">
+                                                    <li role="presentation" class="dropdown-item"> <a role="menuitem" tabindex="-1"  ng-click="removeInstanceGridForm(instanceDetail.docIndex)">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div> -->
+                                            <div class="dropdown" is-open="instanceGridActionToggle.isOpen">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle" id="instanceGridActionToggle" data-toggle="dropdown">
+                                                    <i class="fas fa-cog"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                  <a class="dropdown-item" tabindex="-1"  ng-click="removeInstanceGridForm(instanceDetail.docIndex)">Delete</a>      
+                                                </div>
+                                              </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="clearfix margin_top_10 form_btn_wrpr" data-ng-if="instanceGridColumns.length > 0 && !fixedScreen">
+                        <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+                            <hr class="light_line">
+                        </div>
+                        <button class="btn btn-outline-primary float-right margin_left_10 " data-ng-click="saveFormInstance()" ng-disabled="">Save</button>
+                        <button class="btn btn-outline-primary float-right" data-ng-click="addInstanceGridForm()">New</button>
+                    </div>
+
+                    <!-- Instance Grid End -->
+                    <div id="errorBlock">
+                        <div data-ng-if="errorSummary.length>0" style="">
+                            <div class="col-lg-24 col-md-24 col-sm-24">
+                                <div data-ng-class="{'message alert alert-danger':error.severity == 'Reject','message alert alert-warning':error.severity != 'Reject'}"
+                                    role="alert" ng-repeat="error in errorSummary">
+                                    <a class="cursor_pointer" ng-click="goToERCTab(error)" ng-if="error.key=='Required'"><span>Missing
+                                            required information, click here to jump to the required field</span></a>
+                                    <a class="cursor_pointer" ng-click="goToERCTab(error)" ng-if="error.key!='Required'"><span>{{error.message}}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-ng-if="errorSummary.length>0">
+                        <hr class="light_line">
+                    </div>
+                    <div class="loadingStop vertical_center_formload" data-ng-class="{loadingStart:isInterviewFormLoading || isOtherOPerationInProcess}">
+                        <div id="squaresWaveG">
+                            <div id="squaresWaveG_1" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_2" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_3" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_4" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_5" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_6" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_7" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_8" class="squaresWaveG"></div>
+                        </div>
+                    </div>
+                    <!-- Forms  -->
+                    <!-- taxform is the id used to scroll top when new form loaded -->
+                    <!-- Note:id of tax-form is needed so don't remove -->
+                    <div data-ng-show="isAmountDue == true">
+                        <span class="message alert alert-danger"><b>Interview Mode</b> does not support balance due returns. To complete this return, please click on the <b>Forms Mode </b> button at the bottom left of your screen.</span>
+                    </div>
+                    <div id="fixedScreen" data-ng-show="fixedScreen==true && isAmountDue != true" data-ng-style="{height:headerNav.screenHeight-blockHeight.tabHeading-blockHeight.reviewGridHeight-(200+blockHeight.defaultSubValue)+'px'}"></div>
+                    <div data-ng-style="" style="overflow-y:auto;overflow-x: hidden; float: left; width: 100%;" data-ng-class="{'form_data_height2':currentTabId == 'dependentInfo' || currentTabId == 'dayCareProvider' || currentTabId == 'w2' || currentTabId == '1099INT' || currentTabId == '1099DIV' || currentTabId == '1099G' , 'form_data_height' : currentTabId 
+                  != 'dependentInfo' && currentTabId != 'dayCareProvider' && currentTabId != 'w2' && currentTabId != '1099INT' && currentTabId != '1099DIV' && currentTabId != '1099G'}"
+                        data-ng-show="fixedScreen != true && showForm == true">
+                        <div class="col-lg-24" data-ng-class="{'state_form_wrap':isStateTab == true}">
+                            <tax-form ng-hide="isInterviewFormLoading || isOtherOPerationInProcess" id="taxform"></tax-form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="interview-footer-new">
+                <div class="row">
+                    <div class="col-lg-24 col-md-24 col-sm-24">
+                        <hr class="light_line">
+                    </div>
+                </div>
+                <div class="row_height_35 clearfix">
+                    <button class="btn btn-outline-primary float-left margin_right_15" data-ng-click="goToInputMode()" data-ng-disabled="isInterviewFormLoading">Forms
+                        Mode</button>
+                    <button class="btn btn-outline-primary float-left margin_right_15" data-ng-click="recalcReturn()">Recalculate</button>
+                    <button class="btn btn-outline-primary float-left" data-ng-click="signatureUnLock()" data-ng-show="SignlockToggle.isRemoteSignLocked">
+                        <i class="margin_right_3 fa fa-unlock-alt"></i><span translate="RETURNWORKSPACETOOL_UNLOCKRETURN_LBL"
+                            translate-default="Unlock"></span>
+                    </button>
+                    <button class="btn btn-outline-primary float-left" data-ng-click="onUnlockReturn()" data-ng-show="lockToggle.isLocked">
+                        <i class="margin_right_3 fa fa-unlock-alt"></i><span translate="RETURNWORKSPACETOOL_UNLOCKRETURN_LBL"
+                            translate-default="Unlock"></span>
+                    </button>
+                    <div class="float-right">
+                        <button class="btn btn-outline-primary float-left margin_right_15"  data-ng-click="closeInterviewReturn();" data-ng-disabled="isInterviewFormLoading"><span
+                                translate="RETURNWORKSPACETOOL_CLOSE_LBL" translate-default="Close"></span></button>
+                        <button class="btn btn-outline-primary float-left margin_right_15" data-ng-disabled="!previousBtnEnable || isInterviewFormLoading"
+                            data-ng-click="onPreviousClick()">Previous</button>
+                        <button class="btn btn-outline-primary float-left margin_right_15" data-ng-click="updateAllTabConfig();changeTab()" data-ng-disabled="isInterviewFormLoading">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div>-->
+
+    <data-ng-include src="'taxAppJs/return/workspace/partials/returnWorkspace-rightpane.html'"></data-ng-include>
+</div>

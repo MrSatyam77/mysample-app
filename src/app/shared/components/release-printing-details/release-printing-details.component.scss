@@ -1,0 +1,13 @@
+.modal-lg{width:80vw;}
+.releaseStateDetailsWithStimatedDate table thead tr th { padding: 2px 0px;}
+.releaseStateDetailsWithStimatedDate table tbody tr td { padding: 3px 4px; text-align: left;}  
+
+.table-container { max-height: 500px; overflow: auto;}
+.table-padding-right { padding-right: 15px; background: #eaeaea;}    
+
+@media(max-width:1150px)
+{
+    .modal-body .row_height_30 { overflow: auto; }
+    .table-container, .table-padding-right { width: 1105px !important; }
+    .modal-lg{width:95vw;}
+}

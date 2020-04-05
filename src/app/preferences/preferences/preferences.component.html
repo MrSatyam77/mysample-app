@@ -1,0 +1,112 @@
+<div class="bg-white border">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding title_height_40">
+        <span class="page_title_lg ng-binding ng-scope">
+          {{isAdmin ? 'Admin ' : ''}}
+          Preferences
+        </span>
+        <div class="row float-right d-none d-md-block">
+          <button class="btn btn-outline-primary margin_left_5 pl-2" (click)="backToHomeScreen()">Back
+            To Dashboard</button>
+          <i class="m-2 refresh-loader fas fa-redo float-right color_gray font_size_14  cursor_pointer"
+            [class.rotate]="refreshStart" (click)="initializePreferences();"></i>
+        </div>
+      </span>
+    </section>
+  </div>
+  <div class="row mt-5" *ngIf="isLoading">
+    <div class="col-24 text-center mt-5">
+      <div id="squaresWaveG">
+        <div id="squaresWaveG_1" class="squaresWaveG"></div>
+        <div id="squaresWaveG_2" class="squaresWaveG"></div>
+        <div id="squaresWaveG_3" class="squaresWaveG"></div>
+        <div id="squaresWaveG_4" class="squaresWaveG"></div>
+        <div id="squaresWaveG_5" class="squaresWaveG"></div>
+        <div id="squaresWaveG_6" class="squaresWaveG"></div>
+        <div id="squaresWaveG_7" class="squaresWaveG"></div>
+        <div id="squaresWaveG_8" class="squaresWaveG"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="clearfix" *ngIf="!isLoading">
+    <!-- <ngb-tabset #t="ngbTabset">
+    <ngb-tab>
+      <ng-template ngbTabTitle>Return Workspace</ng-template>
+      <ng-template ngbTabContent>
+        <app-return-workspace-preferences></app-return-workspace-preferences>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle>Client Organizer</ng-template>
+      <ng-template ngbTabContent>
+        <app-client-organizer-preferences></app-client-organizer-preferences>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset> -->
+    <!-- Nav tabs -->
+    <ul class="nav custom-line-tab bg-primary-light">
+      <li class="nav-item" [class.tab-current]="option === 'theme'">
+        <a class="nav-link" [class.active]="option === 'theme'" (click)="changeTab('theme')" data-toggle="tab">Theme</a>
+      </li>
+      <li class="nav-item" [class.tab-current]="option === 'dashboard'">
+        <a class="nav-link" [class.active]="option === 'dashboard'" (click)="changeTab('dashboard')"
+          data-toggle="tab">Dashboard Settings</a>
+      </li>
+      <li class="nav-item" [class.tab-current]="option === 'return-workspace'">
+        <a class="nav-link" [class.active]="option === 'return-workspace'" (click)="changeTab('return-workspace')"
+          data-toggle="tab">Return Workspace</a>
+      </li>
+      <li class="nav-item" [class.tab-current]="option === 'client-organizer'">
+        <a class="nav-link" [class.active]="option === 'client-organizer'" (click)="changeTab('client-organizer')"
+          data-toggle="tab">Client Organizer</a>
+      </li>
+      <!-- <li class="nav-item" [class.tab-current]="option === 'color'" *ngIf="isAdmin">
+        <a class="nav-link" [class.active]="option === 'color'" (click)="changeTab('color')" data-toggle="tab">Color
+          Preferences</a>
+      </li> -->
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content border-0">
+      <div class="tab-pane" id="themePreferences" *ngIf="allPreferences.themePreferences"
+        [class.active]="option === 'theme'">
+        <app-theme-preferences id="themepreferencesInfo" #themepreferencesInfo [lookup]="lookup"
+          [(themePreferences)]="allPreferences.themePreferences" [userId]="userId" [userDetails]="userDetails"
+          [officeList]="officeList" [isAdmin]="isAdmin" [view]="view" (getUpdatedPreferences)="updatePreferences()"
+          [(colorPreferences)]="allPreferences.color">
+        </app-theme-preferences>
+      </div>
+      <div class="tab-pane" id="dashboardPreferences" [class.active]="option === 'dashboard'">
+        <app-miscellaneous-preferences id="miscellaneouspreferencesInfo" #miscellaneouspreferencesInfo [lookup]="lookup"
+          [(miscPreferences)]="allPreferences.miscellaneous" [userId]="userId" [userDetails]="userDetails"
+          [officeList]="officeList" (getUpdatedPreferences)="updatePreferences()" [isAdmin]="isAdmin" [view]="view">
+        </app-miscellaneous-preferences>
+      </div>
+      <div class="tab-pane" id="returnWorkspace" *ngIf="allPreferences.returnWorkspace"
+        [class.active]="option === 'return-workspace'">
+        <app-return-workspace-preferences [lookup]="lookup" id="returnworkspacepreferencesInfo"
+          #returnworkspacepreferencesInfo [(returnWorkspacePreferences)]="allPreferences.returnWorkspace"
+          [userId]="userId" [userDetails]="userDetails" [officeList]="officeList"
+          (getUpdatedPreferences)="updatePreferences()" [isAdmin]="isAdmin" [view]="view">
+        </app-return-workspace-preferences>
+      </div>
+      <div class="tab-pane" id="clientOrganizer" *ngIf="allPreferences.clientOrganizer"
+        [class.active]="option === 'client-organizer'">
+        <app-client-organizer-preferences [lookup]="lookup" id="clientorganizerpreferencesInfo"
+          #clientorganizerpreferencesInfo [(clientOrganizerPreferences)]="allPreferences.clientOrganizer"
+          [userId]="userId" [userDetails]="userDetails" [officeList]="officeList"
+          (getUpdatedPreferences)="updatePreferences()" [isAdmin]="isAdmin" [view]="view">
+        </app-client-organizer-preferences>
+      </div>
+      <!-- <div class="tab-pane" id="colorPreferences" *ngIf="isAdmin && allPreferences.color"
+        [class.active]="option === 'color'">
+        <app-color-preferences id="colorpreferencesInfo" #colorpreferencesInfo [lookup]="lookup"
+          [(colorPreferences)]="allPreferences.color" [userId]="userId" [userDetails]="userDetails"
+          [officeList]="officeList" (getUpdatedPreferences)="updatePreferences()" [isAdmin]="isAdmin">
+        </app-color-preferences>
+      </div> -->
+    </div>
+  </div>

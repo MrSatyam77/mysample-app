@@ -1,0 +1,119 @@
+<div class="card p-5">
+  <!-- Set Ratings -->
+  <div class="opinion row" *ngIf="isShowScreen.opinion">
+    <div class="col col-lg-16 offset-lg-4">
+      <div class="row">
+        <div class="col-24 mt-3 text-center">
+          <h2 class="font-weight-bold mb-4">We value your opinion.</h2>
+          <p class="mt-3 ">At MyTAXPrepOffice, we are committed to remaining at the cutting-edge of tax preparation technology
+            while offering expert customer support. Customers using our software in different states and for various tax
+            preparation functions are our most valuable resource when it comes to software enhancement feedback and customer
+            support improvements.
+          </p>
+        </div>
+        <div class="col-24 text-center mt-3 ">
+          <p class="font-weight-bold mb-3"><span>Please rate your overall experience with MyTAXPrepOffice.</span></p>
+          <div class="rating-star-wrap" *ngIf="ratings < 1">
+            <ul class="rating-star list-unstyled">
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 1"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 2"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 3"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 4"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 5"></li>
+            </ul>
+          </div>
+          <div class="rating-star-wrap" *ngIf="ratings >= 1 && ratings < 2">
+            <ul class="rating-star list-unstyled">
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 1"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 2"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 3"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 4"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 5"></li>
+            </ul>
+          </div>
+          <div class="rating-star-wrap" *ngIf="ratings >= 2 && ratings < 3">
+            <ul class="rating-star list-unstyled">
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 1"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 2"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 3"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 4"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 5"></li>
+            </ul>
+          </div>
+          <div class="rating-star-wrap" *ngIf="ratings >= 3 && ratings < 4">
+            <ul class="rating-star list-unstyled">
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 1"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 2"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 3"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 4"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 5"></li>
+            </ul>
+          </div>
+          <div class="rating-star-wrap" *ngIf="ratings >= 4 && ratings < 5">
+            <ul class="rating-star list-unstyled">
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 1"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 2"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 3"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 4"></li>
+              <li><img src="assets/images/star_blank.svg" alt="star" (click)="ratings = 5"></li>
+            </ul>
+          </div>
+          <div class="rating-star-wrap" *ngIf="ratings >= 5">
+            <ul class="rating-star list-unstyled">
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 1"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 2"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 3"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 4"></li>
+              <li><img src="assets/images/star_filled.svg" alt="star" (click)="ratings = 5"></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-24 mt-3 text-center mt-5">
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal" (click)="showScreenBasedOnRatings()" [disabled]="ratings == 0 ? true:false">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- if rating <= 3 -->
+  <div class="leavefeedback row" *ngIf="!isShowScreen.opinion && isShowScreen.feedBack">
+    <div class="col col-lg-16 offset-lg-4">
+      <form name="feedbackForm" #feedbackForm="ngForm">
+        <div class="col-24 mt-3 text-center">
+          <h2 class="font-weight-bold mb-4">We value your feedback.</h2>
+          <p class="mt-3">Thank you for taking a minute to share with us your feedback about our products. To help us continue
+            to improve our products and services, please let us know what we can do earn your 5 star rating.
+          </p>
+        </div>
+
+        <div class="col-sm-20 offset-sm-2 mt-5">
+          <label class="col-for-label">Leave Us Feedback*</label>
+          <textarea class="form-control textarea_big" rows="8" [(ngModel)]="feedBack" name="feedBack"></textarea>
+        </div>
+
+        <div class="col-24 text-center mt-5 mb-5">
+          <button type="button" class="btn btn-outline-primary" (click)="sendFeedback()">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- if rating > 3 -->
+  <div class="feedback row" *ngIf="!isShowScreen.opinion && isShowScreen.shareLove">
+    <div class="col col-lg-16 offset-lg-4">
+      <div class="row">
+        <div class="col-24 mt-3 text-center">
+          <h2 class="font-weight-bold mb-4">Share the Love</h2>
+          <p class="mt-3 ">Positive reviews from awesome customers like you help others to feel confident about choosing
+            MyTAXPrepOffice, too. Could you take 60 seconds to choose your favorite review site and share your happy experience?</p>
+          <p class="mt-4">We will be forever grateful. Thank you for helping us out!</p>
+        </div>
+        <div class="col-24 text-center mt-5 mb-5">
+          <button type="button" class="btn btn-outline-primary text-capitalize col-6" (click)="redirectToSelectedReviewSite('BBB')">Better Business Bureau</button>
+          <button type="button" class="btn btn-outline-primary text-capitalize ml-2 col-6" (click)="redirectToSelectedReviewSite('SiteJabber')">Sitejabber</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

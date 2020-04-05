@@ -1,0 +1,20 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		<span translate="REGISTERNOW_LABEL" translate-default="{{content.title}}" translate-values="{'title' : content.title}"></span>
+	</h4>
+</div>
+<div class="modal-body clearfix">
+	<ng-form name="nameDialog" role="form">
+	<div class="form-group input-group-lg row_height_30">
+		<div>				
+			<span translate="REGISTERNOW_MESSAGE_SPAN" translate-default="{{content.message}}" translate-values="{'message' : content.message}"></span>
+		 </div>		
+	</div>
+	</ng-form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-primary" data-ng-click="registerNow()"><span translate="REGISTERNOW_BUTTON" translate-default="Register Now"></span></button>
+	<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="REGISTERNOW_CONTINUE_BUTTON" translate-default="Continue Demo Account"></span></button>		
+</div>
+</div>

@@ -1,0 +1,75 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;"
+    class="verificationqanda">
+    <div *ngIf="isDataLoading">
+        <div class="loading_background"></div>
+        <div class="preloader">
+            <div class="preloader-container">
+                <span class="animated-preloader"></span>
+            </div>
+        </div>
+    </div>
+    <form name="verificationQuestions">
+        <div class="modal-header dialog-header-confirm  quicksetup-modal verificationqanda-modal">
+            <div class="modal-title" *ngIf="isQuestionAnswersVerified != true">
+                <label class="font_black">Verification Questions & Answers</label>
+            </div>
+            <div class="modal-title" *ngIf="isQuestionAnswersVerified == true">
+                <label class="font_black"><img src="taxAppJs/images/verified-grey-header.png" class="modal-heade
+r-icon">Verification
+                    Successful</label>
+            </div>
+
+        </div>
+
+        <div class="modal-body clearfix">
+
+            <div class="col-lg-24" *ngIf="isQuestionAnswersVerified != true">
+                <p *ngIf="numberofAttept == 0" class="font-size-12 font_gray">In order to complete the verification of
+                    your identity, please answer the
+                    following security questions:</p>
+                <p *ngIf="numberofAttept == 1" class="color-red">We have few more questions for you as your answers
+                    were not considered correct.</p>
+            </div>
+            <div class="wrapper_class">
+                <div *ngIf="isQuestionAnswersVerified != true">
+                    <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 mt-2 px-0 " *ngFor="let question of questionsAnswersList ; index as i">
+                        <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 que-area">{{i+1}})
+                            {{question.text}}</div>
+
+                        <div class="answer-area row mt-1 mx-2">
+                            <span class="col-6 mt-2 padding_l_0" *ngFor="let answer of question.Answer">
+                                <div class="form-group checkbox-container old-checkbox padding_l_0">
+                                    <button class="custom_input_dark margin_right_5" [ngClass]="{'active':question.userAnswerID == answer.id}"
+                                        (click)="question.userAnswerID = answer.id; question.userAnswer = answer.$t; setCountOfAttendedQuestions(question.type);"></button>
+                                    <span class="checkbox-label">{{answer.$t}}</span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 mt-2 px-0" *ngIf="isQuestionAnswersVerified == true">
+                    <div class="verificationqanda-container">
+                        <div class="verificationqanda-inner">
+                            <div class="content-title">
+                                <i class="fa fa-smile-o" aria-hidden="true"></i> Congratulations!
+                            </div>
+                            <div class="text-center">
+                                <span class="font_gray mt-2">Your identity was verified successfully.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" *ngIf="isQuestionAnswersVerified != true">
+            <button type="button" class="btn btn-outline-primary mr-2" (click)="verificationQuestionAnswers()"
+                [disabled]="(AtteptAnswer && AtteptAnswer.length) < (questionsAnswersList && questionsAnswersList.length)">
+                <span>Verify</span>
+            </button>
+            <button type="button" class="btn btn-outline-primary mr-2" (click)="close()"><span>Cancel</span></button>
+        </div>
+        <div class="modal-footer" *ngIf="isQuestionAnswersVerified === true">
+            <button type="button" class="btn btn-outline-primary mr-2" (click)="close(true)"><span>Close</span></button>
+        </div>
+    </form>
+</div>

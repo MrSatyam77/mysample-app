@@ -1,0 +1,23 @@
+<style>
+@media (max-width: 1200px){
+    .xml_popup{max-height: 600px !important;}
+}
+
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333; overflow:hidden;">
+    <form name="createdXMLForm">
+	    <div class="modal-header dialog-header-confirm">
+	        <h4 class="modal-title" translate="RETURNWORKSPACETOOL_CREATEDXML_LBL" translate-default="Generated XML">
+	        </h4>
+	    </div>
+	    <div class="modal-body clearfix" style="max-height:70vh;overflow:auto">
+                    <pre>{{ xml | prettyXml }}</pre>
+                    <div ng-if="validationError" style="max-height: 300px;overflow: auto;">
+                        <pre>{{ validationError | prettyXml }}</pre>
+                    </div>
+	    </div>
+	    <div class="modal-footer">
+	        <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="DIALOG_CLOSE_BTN" translate-default="Close"></span></button>
+	    </div>
+    </form>
+</div>

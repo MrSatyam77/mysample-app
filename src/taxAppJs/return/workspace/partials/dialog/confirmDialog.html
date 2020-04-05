@@ -1,0 +1,21 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title"><span><i class="fa fa-check-square"></i></span><span class="margin_left_5" translate="CONFIRMATION" translate-default="Confirmation"></span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix" style="max-height:70vh;overflow:auto">
+         <div class="float-left margin_top_10"> <span>{{data.text}}</span></div>
+         <div class="float-left margin_top_10">
+               
+            </div>
+       </div>    
+    <div class="modal-footer">
+     <div class="float-left mr-auto"><button class="custom_input_dark float-left margin_right_5" data-ng-model="doNotAsk" data-ng-class="{'active':doNotAsk}" data-ng-click="doNotAsk = !doNotAsk"></button>
+        <span translate="CONFIRMATION_DONOTASK_LBL" translate-default="Do not ask again."></span></div>
+        <div class="float-right">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close('yes')" tax-focus-me="focusMe"><span translate="CONFIRMATION_DIALOG_YES_BTN" translate-default="Yes"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close('no')"><span translate="CONFIRMATION_DIALOG_NO_BTN" translate-default="No"></span></button>
+        </div>
+    </div>
+    </div>
+</div>

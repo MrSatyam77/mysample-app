@@ -1,0 +1,204 @@
+@-moz-document url-prefix() { .custom_input.active:after {top: -16px;}}
+@-moz-document url-prefix() { .custom_input.active:after {top: -16px;}}
+@-moz-document url-prefix(){input[type="radio"][required], input[type="checkbox"][required] {outline-offset:-2px;box-shadow:none;}}
+@-moz-document url-prefix() { .custom_input.active:after {top: -16px;}}
+@media all and  (-ms-high-contrast: active),(-ms-high-contrast: none){.custom_input_dark_user {padding:1px; }}
+@media (min-width:300px) and (max-width:767px){.quickrefresh_home{margin-right: 2%;margin-top:-33px;}}
+
+@-moz-document url-prefix(){
+.fullWorkspace input[type="text"] {padding-bottom:0px!important}
+ .fullWorkspace input[type="text"][required]{padding-bottom:2px !important;}
+ .fullWorkspace input[type="text"][readonly]{padding-bottom:0px !important;}
+ .fullWorkspace input[type="text"][overridden]{padding-bottom: 0px !important;}
+ .fullWorkspace input[type="text"][disabled]{padding-bottom:0px!important;}
+ .fullWorkspace input[type="email"] {padding-bottom:0px!important;}
+ .fullWorkspace input[type="email"][required]{padding-bottom:0px!important;}
+ .fullWorkspace input[type="email"][readonly]{padding-bottom:0px!important;}
+ .fullWorkspace input[type="email"][overridden]{padding-bottom:0px!important;}
+ .fullWorkspace input[type="email"][disabled]{padding-bottom:0px!important;}
+ .fullWorkspace input[type="password"] {padding-bottom:0px!important}
+ .fullWorkspace input[type="password"][required]{padding-bottom:0px!important;}
+
+}
+ /*css for removing jumping in all the pages except return work space start*/ 
+@media all and  (-ms-high-contrast: active),(-ms-high-contrast: none) {
+ input[type="text"]{padding: 6px 12px;}
+ input[type="text"][required]{padding: 6px 12px;}
+ input[type="text"][readonly]{padding: 6px 12px;}
+ input[type="text"][overridden]{padding: 6px 12px;}
+ input[type="text"][disabled]{padding: 6px 12px;}
+ input[type="email"] {padding: 6px 12px;}
+ input[type="email"][required]{padding: 6px 12px;}
+ input[type="email"][readonly]{padding: 6px 12px;}
+ input[type="email"][overridden]{padding: 6px 12px;}
+ input[type="email"][disabled]{padding: 6px 12px;}
+ input[type="password"] {padding: 6px 12px;}
+ input[type="password"][required]{padding: 6px 12px;}
+ .fullWorkspace input[type="text"] {padding: 6px 12px !important}
+ .fullWorkspace input[type="text"][required]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="text"][readonly]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="text"][overridden]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="text"][disabled]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="email"] {padding: 6px 12px !important;}
+ .fullWorkspace input[type="email"][required]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="email"][readonly]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="email"][overridden]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="email"][disabled]{padding: 6px 12px !important;}
+ .fullWorkspace input[type="password"] {padding: 6px 12px !important}
+ .fullWorkspace input[type="password"][required]{padding: 6px 12px !important;}
+ .custom_input:hover,.custom_input:focus {padding:1px !important;}
+ .custom_input_dark:hover,.custom_input_dark:focus {padding:1px !important; }
+.custom_input.active:after {content: "\2713"; position: absolute; left: 1px; top: -16px; font-size: 26px;color: #555555;}
+
+/*css for removing jumping in ie 11 end*/
+}
+
+@-moz-document url-prefix() {
+    input[type="text"] {padding-bottom:0px !important;}
+    input[type="text"]:hover,input[type="text"]:focus {padding-bottom:0px !important;}
+    input[type="text"][required]{padding-bottom:0px !important;}
+    input[type="text"][required]:hover,input[type="text"][required]:focus {padding-bottom:0px !important;}
+    input[type="text"][readonly]{padding-bottom:0px !important;}
+    input[type="text"][readonly]:hover,input[type="text"][readonly]:focus {padding-bottom:0px !important;}
+    input[type="text"][overridden]{padding-bottom:0px !important;}
+    input[type="text"][overridden]:hover,input[type="text"][overridden]:focus {padding-bottom:0px !important;}
+    input[type="email"]{padding-bottom:0px !important;}
+    input[type="email"]:hover,input[type="email"]:focus {padding-bottom:0px !important;}
+    input[type="email"][required]{padding-bottom:0px !important;}
+    input[type="email"][required]:hover,input[type="email"][required]:focus {padding-bottom:0px !important;}
+    input[type="email"][readonly]{padding-bottom:0px !important;}
+    input[type="email"][readonly]:hover,input[type="email"][readonly]:focus {padding-bottom:0px !important;}
+    input[type="email"][overridden]{padding-bottom:0px !important;}
+    input[type="email"][overridden]:hover,input[type="email"][overridden]:focus {padding-bottom:0px !important;}
+    input[type="email"][disabled]{padding-bottom:0px !important;}
+    input[type="email"][disabled]:hover,input[type="email"][disabled]:focus {padding-bottom:0px !important;}
+    input[type="password"] {padding-bottom:0px !important;}
+    input[type="password"][required]{padding-bottom:0px !important;}
+    
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.custom_input[type="estimated"].active:hover::after{left: -2px !important; top: -17px !important;}
+.custom_input[type="overridden"][type="estimated"].active:hover::after{left: -2px !important; top: -17px !important;}
+.custom_input[type="estimated"][type="overridden"].active:hover::after{left: -2px !important; top: -17px !important;}
+}
+
+.form-control{  border-radius: 3px !important; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; color: #555555; display: block; font-size: 14px; height:30px; line-height: 1.42857; transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s; width: 100%;}
+input[type="email"],
+input[type="password"],
+input[type="text"]
+ {background: transparent none repeat scroll 0 0; border: 1px solid #000; padding: 6px 12px; outline: medium none;}
+/* input[type="email"],
+input[type="password"],
+input[type="text"]
+ {padding-bottom: 0 !important;} */
+ 
+
+input[type="email"]:focus,
+input[type="email"]:hover,
+input[type="text"]:focus,
+input[type="text"]:hover
+{border: 1px solid #000; box-shadow: 0 -1px 70px -31px rgba(102, 102, 102, 1) inset !important;}
+input[type="password"]:focus,
+input[type="password"]:hover
+{border: 1px solid #000; box-shadow: 0 -1px 70px -31px rgba(102, 102, 102, 1) inset !important;}
+input[type="email"][required],
+input[type="text"][required]
+ {border-bottom: 1px solid #ff0000 !important; cursor: text; padding: 6px 12px; border: none !important; }
+input[type="email"][required]:focus, 
+input[type="email"][required]:hover,
+input[type="text"][required]:focus,
+input[type="text"][required]:hover,
+input[type="password"][required]:focus,
+input[type="password"][required]:hover
+ {border-bottom: 1px solid #ff0000 !important; border: none !important; box-shadow: 0 -1px 70px -31px rgba(255, 0, 0, 1) inset !important; cursor: text; padding-bottom: 0 !important;}
+input[type="email"][disabled] {border: 1px solid #d9e5d9 !important; box-shadow: none !important; cursor: default; outline: medium none; padding: 6px 12px;}
+.registration_box select{text-transform: none;vertical-align: -60%;width:100%;max-width:100%;overflow:auto;border:none; border:1px solid #000;outline:none;padding:3px 6px;border-radius:3px;/*margin-bottom:2px;*/height:30px;}
+.registration_box select:hover{border:1px solid #000;outline:none;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important; height:30px;max-width:100%;}
+.registration_box select:focus{border:1px solid #000;outline:none;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important; height:30px;max-width:100%;}
+.registration_box select.custom_input_ddl[required]{text-transform: none;vertical-align: -60%;width:100% !important;max-width:130px;overflow:auto;border:none;border:1px solid #ff0000; outline:none; outline-width:0px;padding:3px 6px;border-radius:3px;max-width:100%;height: 30px;}
+.registration_box select.custom_input_ddl[required]:hover,.registration_box select.custom_input_ddl[required]:focus{border:1px solid #ff0000;outline:none;-webkit-padding-bottom:2px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;height:100%;padding:3px 6px;border-bottom:1px solid #ff0000 !important;height: 30px;}
+
+
+/*custom input dark start*/
+.custom_input_dark {height:18px; width:18px; border:1px solid #000;background:none; position:relative; border-radius:3px;}
+.custom_input_dark:hover,.custom_input_dark:focus {height:18px; width:18px; border:2px solid #000; outline:none; -webkit-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important; border-radius:3px;}
+.custom_input_dark.active:after {content: "\2713"; position: absolute; left: 1px; top: -15px; font-size: 26px;color: #555555;}
+@-moz-document url-prefix() { .custom_input.active:after {top: -16px;}}/*adding hack code for mozilla*/
+.custom_input_dark.active:hover:after {content: "\2713"; position: absolute; left: 0px; top: -16px; font-size: 26px;color: #555555;}
+.custom_input_dark.active:focus:after {content: "\2713"; position: absolute; left: 0px; top: -16px; font-size: 26px;color: #555555;}
+.custom_input_dark[required] {border:1px solid #ff0000;border-radius:3px;} /*add class for reqired chack box will show read color*/
+.custom_input_dark[required]:hover,.custom_input_dark[required]:focus {border:2px solid #ff0000;outline:none;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;border-radius:3px;}/*add class for reqired chack box will show read color*/
+.custom_input_dark[disabled]{border:none;cursor:default;border:1px solid #999 !important;outline:none;border-radius:3px;}
+.custom_input_dark[disabled].active:after {content: "\2713"; position: absolute; left: 1px; top: -15px; font-size: 26px;color: #555555;}
+.custom_input_dark[disabled].active:hover:after {content: "\2713"; position: absolute; left: 1px; top: -16px; font-size: 26px;color: #555555;}
+.custom_input_dark[disabled].active:focus:after {content: "\2713"; position: absolute; left: 1px; top: -16px; font-size: 26px;color: #555555;}
+/*custom input dark end*/
+
+.custom_input.active[estimated] {border-width:2px; border-radius: 3px;}
+
+/*Color Preferences theam input css start*/
+input[type="FormFields"]{border: none;   padding: 6px 12px; display: block; width: 100%; padding: 6px 12px; font-size: 14px; line-height: 1.42857143; color: #555555; height: 30px; background-color: #ffffff; background-image: none; border: 1px solid #cccccc; border-radius: 3px !important; }
+input[type="FormFields"]:focus,input[type="FormFields"]:hover{border:none;border:1px solid #000;}
+input[type="FormFields"]:focus{}
+/*Color Preferences theam input css end*/
+/*textarea css start*/
+textarea.form-control{border:1px solid #000;padding: 6px 12px;height:auto}
+textarea.form-control:focus,textarea.form-control:hover{border:1px solid #000;outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(102,102,102,1) !important;}
+
+
+textarea[required].form-control{border-bottom:1px solid #ff0000 !important; padding: 6px 12px;height:auto}
+textarea[required].form-control:focus,textarea[required].form-control:hover{border-bottom:1px solid #ff0000 !important; outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(255,0,0,1) !important;}
+
+
+textarea[readonly].form-control{border:1px solid #ffd800;padding: 6px 12px;height:auto}
+textarea[readonly].form-control:focus,textarea[readonly].form-control:hover{border:1px solid #ffd800;outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(255,216,0,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(255,216,0,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(255,216,0,1) !important;}
+
+
+textarea[disabled].form-control{border:1px solid #d9e5d9;padding: 6px 12px;height:auto}
+textarea[disabled].form-control:focus,textarea[disabled].form-control:hover{border:1px solid #d9e5d9;outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(217,229,227,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(217,229,227,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(217,229,227,1) !important;}
+
+textarea[overridden].form-control{border:1px solid #c0c0c0;padding: 6px 12px;height:auto}
+textarea[overridden].form-control:focus,textarea[overridden].form-control:hover{border:1px solid #c0c0c0;outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(192,192,192,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(192,192,192,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(192,192,192,1) !important;}
+
+textarea[estimated].form-control{border:1px solid #3c763d;padding: 6px 12px;height:auto}
+textarea[estimated].form-control:focus,textarea[estimated].form-control:hover{border:1px solid #3c763d;outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;}
+
+
+textarea[overridden][estimated].form-control{border:1px solid #3c763d;padding: 6px 12px;height:auto}
+textarea[overridden][estimated].form-control:focus,textarea[overridden][estimated].form-control:hover{border:1px solid #3c763d;outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;}
+
+
+textarea[estimated][overridden].form-control{border:1px solid #3c763d;padding: 6px 12px;height:auto}
+textarea[estimated][overridden].form-control:focus,textarea[estimated][overridden].form-control:hover{border:1px solid #3c763d;outline:none;padding: 6px 12px;-webkit-box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;
+-moz-box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;
+box-shadow: inset 0px -1px 70px -31px rgba(60,118,61,1) !important;}
+
+
+/*textarea css end*/
+
+
+

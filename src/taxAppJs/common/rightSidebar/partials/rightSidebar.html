@@ -1,0 +1,35 @@
+<div class="inner_col_third" data-ng-class="{'inner_collapse_right':headerNav.collapseRightPane==true,'inner_collapse_right_animation':headerNav.applyRightAnimation==true,'inner_collapse_right_remove':headerNav.collapseRightPane==false}">
+    <div class="inner_col_third_wrapper" ng-style="{height:headerNav.screenHeight-55}" style="overflow-y:hidden;">
+        <accordion close-others="true">
+            <!--training start-->
+            <accordion-group is-open="rightPane.rightPaneFirstAccordionOpen" ng-init="rightPane.rightPaneFirstAccordionOpen=true">
+                <accordion-heading>
+                    <a >
+                        <h4 class="panel-title">
+                            <span class="color_gray">Training</span>
+                            <span class="color_gray">({{trainingDataList.length}})</span>
+                            <span class="rightpanegeneralall" data-ng-click="rightPane.rightPaneFirstAccordionOpen=false;manuallyRefreshTraining();firstRefreshStart=true;" data-ng-class="{'rotate':firstRefreshStart}"> <i class="fas fa-redo float-right right_panel_refresh_icon color_gray"></i></span>
+                        </h4>
+                    </a>
+                </accordion-heading>
+                 <div class="clearfix allowScrollSync" data-ng-style="{height:headerNav.screenHeight-145 +'px'}" style="overflow:auto;"><training-widget></training-widget></div>
+            </accordion-group>
+            <!--training end-->
+            <!-- Line Help start-->
+            <accordion-group is-open="rightPane.rightpanefifthaccordionopen" data-ng-if="(curRoutingPath == '/manage/quicksetup/m' || curRoutingPath == '/manage/quicksetup')" ng-init="rightPane.rightpanefifthaccordionopen=true; rightPane.rightPaneFirstAccordionOpen = false">
+                <accordion-heading>
+                    <a>
+                        <h4 class="panel-title">
+                            <span class="color_gray">Line Help</span>
+                        </h4>
+                    </a>
+                </accordion-heading>
+                <div class="clearfix allowScrollSync" data-ng-style="{height:headerNav.screenHeight-145 +'px'}" style="overflow:auto;">
+                    <line-help-widget></line-help-widget>
+                </div>
+            </accordion-group>
+            <!--Line Help end-->
+        </accordion>
+    </div>
+
+</div>

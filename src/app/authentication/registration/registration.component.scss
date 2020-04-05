@@ -1,0 +1,473 @@
+$small-phone: "only screen and (max-width : 320px)";
+$portrait-phone: "only screen and (max-width: 575.98px)";
+$landscape-phone: "only screen and (min-width: 576px) and (max-width: 767.98px)";
+$phone: "only screen and (max-width: 767.98px)";
+$tablets: "only screen and (min-width: 768px) and (max-width: 991.98px)";
+$desktops: "only screen and (min-width: 992px) and (max-width: 1199.98px)";
+$large-desktops: "only screen and (min-width: 1200px)";
+
+html, body { height: 100% !important;} /*This wilwidl enable full th for ng-view (For example - To get full background in login page)*/
+.popover-content {
+width: 330px;
+ color: #f0514a;
+    font-size: 14px;
+}
+.form-control{
+    color:  #005074;
+}
+.navbar-brand{
+    width: 100px;
+}
+.registration_box
+{
+    height:520px;
+    width: 55%;
+    left:200px;
+   bottom: 150px;
+   
+}  
+
+.margin_top_10{
+    margin-left: 250px;
+    color: white;
+}
+.btn-success{
+    width:120px;
+}
+.popover{
+    margin-left: 600px;
+    margin-top: 130px;
+}
+
+
+$primary:#005074;
+$orange:#F8981d;
+
+
+.text-orange{
+    color: $orange;
+}
+.btn-orange{
+    background-color: $orange;
+    border-color: $orange;
+    color: #FFFFFF;
+
+    &:hover, &:focus, &:active{
+        background-color: darken($orange, 5%);
+    }
+}
+
+.link-hover{
+    position: relative;
+
+    &::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(255,255,255,1);
+        visibility: hidden;
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    &:hover{
+        &::before{
+            visibility: visible;
+            -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+    }
+}
+
+
+.form-control{
+    height: 45px;    
+    box-shadow: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da !important;
+}
+.form-group label{
+    font-weight: 600;
+}
+input[type="email"], input[type="password"], input[type="text"]{
+    background-color: #FFF !important;
+    padding-bottom: 6px !important;
+
+    &:focus, &:hover{
+        box-shadow: none !important;
+        padding-bottom: 6px !important;
+    }
+}
+
+input:-webkit-autofill:hover, input:-webkit-autofill:focus{
+    background-color: transparent !important;
+}
+
+.form-group{
+    margin-bottom: 14px !important;
+}
+
+.show-password{
+    position: absolute;
+    right: 5px;
+    top: 0;
+    width: 30px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    i{
+        color: rgba(0,0,0,0.5);
+    }
+}
+
+.navbar-brand{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: auto;
+
+    &.reseller-logos{
+        width: auto !important;
+        max-width: 260px;
+        max-height: 80px;
+    }
+}
+
+.mtpo-main-wrap{
+    
+    height: 100vh;
+    position: relative;
+    // background-image: url("../../../assets/images/login-bg.jpg");
+    background-size: cover;
+    z-index: 1;
+
+    &::before{
+        background-color: rgba(0,0,0,0.7);    
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+    }
+    .login-box-wraper{
+        z-index: 1;
+        height: 100vh;
+        overflow: auto;
+    
+        .mtpo-wrap{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            height: calc(100vh - 75px);
+            position: relative;
+            z-index: 1;
+            @media #{$tablets} {
+                padding: 0;
+            }
+            @media #{$portrait-phone} {
+                padding: 0;
+            }
+        
+            .flex-wrap{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @media #{$phone} {
+                    justify-content: center;
+                }
+
+                .d-flex{
+                    @media #{$phone} {
+                        display: inline-block !important;
+                    }
+                }
+
+                .reg-info {
+                    display: flex;
+                    justify-content: start;
+                    align-items: start;
+                    flex: 1;
+                    p{
+                        width: 360px;
+
+                        @media #{$tablets} {
+                            width: 100%;
+                        }
+                        @media #{$phone} {
+                            width: 100%;
+                        }
+                    }
+                }
+        
+                .login-box-wrapper{
+                    background-color: #FFFFFF;
+                    border: 1px solid transparent;
+                    width: 360px;
+                    height: auto;
+                    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+                    min-height: 462px;
+                    margin: 8px;
+                    padding: 20px;
+
+                    @media #{$tablets} {
+                        width: 340px;
+                    }
+                    @media #{$phone} {
+                        width: 100%;
+                        max-width: 360px;
+                        margin: 5px auto;
+                    }
+                }
+            
+                .info-wrap{
+                    display: flex;
+                    flex-direction: column;
+                    // margin-top: 15px;
+                    @media #{$portrait-phone} {
+                        margin-bottom: 5px;
+                    }
+                    
+            
+                    .info-box-wrap{
+                        background-color: aquamarine;
+                        width: 360px;
+                        height: auto;
+                        margin: 8px;
+                        padding: 15px;         
+                        height: 50% !important;    
+                        @media #{$tablets} {
+                            width: 320px;
+                        }
+                        @media #{$phone} {
+                            width: 100%;
+                            max-width: 360px;
+                            margin: 5px auto;
+                            height: auto !important;
+                        }      
+                    }
+                    .box-news{
+                        background-color:rgba(255, 140, 0, 0.6);
+                    }
+                    .box-tips{
+                        background-color:rgba(255,255,255,0.7);
+                    }
+                }
+            }
+        
+            
+        }
+        
+    }
+    
+}
+
+.progress{
+    height: 15px;
+}
+
+.passwordhint{
+    position: absolute;
+    background: lightyellow;
+    padding: 60px 10px 15px 10px;
+    box-sizing: border-box;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    border-radius: 4px;
+    display: none;
+
+    .password-info{
+        li{
+            display: flex;
+            align-items: flex-start;
+
+            i{
+                font-size: 7px;
+                width: 15px;
+                text-align: center;
+                height: 22px;
+                color: rgba(0,0,0,0.6);
+                line-height: 22px;
+            }            
+
+            &:first-child{
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.passwordhint-right{
+    position: absolute;
+    background: white;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: block;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    top: -15px;
+    right: -375px;
+
+    .arrow {
+        width: 15px;
+        height: 15px;
+        background: #FFF;
+        position: absolute;        
+        z-index: 1;
+        transform: rotate(45deg);
+        left: -7px;
+        top: 30px;
+    }
+
+    .password-info{
+        li{
+            display: flex;
+            align-items: flex-start;
+    
+            i{
+                font-size: 7px;
+                width: 15px;
+                text-align: center;
+                height: 22px;
+                line-height: 22px;
+            }            
+    
+            // i,span{
+            //     color: #a0a0a0;
+            // }
+    
+            &:first-child{
+                font-weight: 600;
+            }
+    
+            
+            &.done{
+                i, span{
+                    color: green;
+                }
+            }
+        }
+    }
+    
+}
+
+.passwordhint-bottom{
+    position: absolute;
+    background: white;
+    padding: 15px;
+    box-sizing: border-box;    
+    border-radius: 4px;
+    display: block;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    z-index: 1;
+    bottom: -230px;
+    right: 0px;
+
+    .arrow {
+        width: 15px;
+        height: 15px;
+        background: #FFF;
+        position: absolute;        
+        z-index: 1;
+        transform: rotate(45deg);
+        left: 15px;
+        top: -7px;
+    }
+
+    .password-info{
+        li{
+            display: flex;
+            align-items: flex-start;
+    
+            i{
+                font-size: 7px;
+                width: 15px;
+                text-align: center;
+                height: 22px;
+                line-height: 22px;
+            }            
+    
+            // i,span{
+            //     color: #a0a0a0;
+            // }
+    
+            &:first-child{
+                font-weight: 600;
+            }
+    
+            
+            &.done{
+                i, span{
+                    color: green;
+                }
+            }
+        }
+    }
+    
+}
+
+
+.input-password{
+    .passwordhint{
+        display: block;
+    } 
+}
+
+
+@media (max-width: 991.98px) {
+    .collapse:not(.show) {
+        display: block;        
+    }
+    .navbar-nav{
+        justify-content: flex-end;
+        flex-direction: row;
+
+        .nav-link{
+            display: inline-block;
+            padding: 0.5rem 1rem;
+        }
+    }
+}
+
+
+@media #{$phone} {
+    .navbar{
+        padding: 0 !important;
+
+        .navbar-collapse{
+            text-align: center;
+
+            .navbar-brand{
+                position: relative;
+                top: 20px;
+                left: 0px;
+                width: 120px;
+                height: auto;
+            }
+
+            .navbar-nav{
+                margin-top: 30px;
+                display: inline-block;
+                width: 100%;
+
+                .nav-link{
+                    padding: 0.3rem;
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+}

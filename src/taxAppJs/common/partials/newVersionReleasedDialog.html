@@ -1,0 +1,22 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		<span translate="NEWVERSIONRELEASED_LABEL" translate-default="New Updates Available"></span>
+	</h4>
+</div>
+<div class="modal-body clearfix">	
+	<div class="form-group input-group-lg row_height_30">
+		<div>				
+			<span translate="NEWVERSIONRELEASED_DISCRIPTION1" translate-default="The application requires reloading to apply new updates."></span>
+		 </div>
+		 <div>
+		 	<span translate="NEWVERSIONRELEASED_DISCRIPTION2" translate-default="Your work will be saved before reloading the application."></span>
+		 </div>		 		
+	</div>	
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-primary" ng-class="{'no-clicking':isProcessing==true}" data-ng-click="close()"><span translate="DIALOG_DOITLATER" translate-default="Do It Later"></span></button>	
+	<button ng-show="isProcessing==false" type="button" class="btn btn-outline-primary" data-ng-click="reloadPage()"><span translate="DIALOG_DOITNOW" translate-default="Do It Now"></span></button>
+	<button ng-show="isProcessing==true" type="button" class="btn btn-outline-primary no-clicking"><span translate="DIALOG_SAVING" translate-default="Saving..."></span></button>		
+</div>
+</div>

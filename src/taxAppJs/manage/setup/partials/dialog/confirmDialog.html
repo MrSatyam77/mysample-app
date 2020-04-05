@@ -1,0 +1,398 @@
+<style>
+    .modal-md {
+        width: 50vw;
+    }
+
+    @media(max-width:768px) {
+        .modal-md {
+            width: 90vw;
+        }
+    }
+</style>
+<div class="quicksetup-modal" style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <div class="modal-title">
+            <label class="font_black"><span class="far fa-check-square"></span><span class="margin_left_5" translate="CONFIRMATION"
+                    translate-default="Confirmation"></span></label>
+        </div>
+        <button type="button" class="close" ng-click="close(false)"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body clearfix" style="max-height:82vh;overflow:auto" data-ng-if="type == 'preparer'">
+        <!-- 70vh -->
+        <div class="clearfix">
+            <div class="col-lg-24 margin_top_20">
+                <div class="font_medium">
+                    <label translate="CONFIRMATION_INFO" translate-default="The following information will be used for verifying your identity:"></label>
+                </div>
+            </div>
+        </div>
+        <div class="text-center clearfix">
+            <div class="col-lg-22 col-md-24 col-sm-24 col-xs-24 float-none margin_top_20">
+                
+                <div class="margin_top_10 details-field text-left" data-ng-if="preparerInfo.preparerFname && preparerInfo.preparerFname != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_ADDRESS_LBL" translate-default="Name & Address:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{preparerInfo.preparerFname}} {{preparerInfo.preparerLname}}</span>
+                    </div>
+                </div>
+                <div data-ng-if="officeInfo.addressDiffFromPreparer == false">
+                        <div class="details-field text-left" data-ng-if="addressType == 'usAddress'">
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                <!-- <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Office Address:"></label> -->
+                            </div>
+                            <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                <div><span>{{officeInfo.usAddress.street}}</span>
+                                    <br> <span>{{officeInfo.usAddress.city}}</span>, <span>{{officeInfo.usAddress.state}}</span> <span>{{officeInfo.usAddress.zipCode}}</span></div>
+                            </div>
+                        </div>
+                        <div class="details-field text-left" data-ng-if="addressType == 'foreignAddress'">
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                <!-- <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Office Address:"></label> -->
+                            </div>
+                            <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                <div><span>{{officeInfo.foreignAddress.street}}</span> <br> <span>{{officeInfo.foreignAddress.postalCode}}</span>
+                                    <br> <span>{{officeInfo.foreignAddress.city}}</span> <br> <span>{{officeInfo.foreignAddress.state}}</span>
+                                    <br> <span>{{officeInfo.foreignAddress.country}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="details-field text-left" data-ng-if="officeInfo.addressDiffFromPreparer == true && addressTypeOwner == 'usAddress'">
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                            <!-- <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Preparer Address:"></label> -->
+                        </div>
+                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                            <div><span>{{preparerInfo.usAddress.street}}</span> <br>
+                                <span>{{preparerInfo.usAddress.city}}</span>, <span>{{preparerInfo.usAddress.state}}</span> <span>{{preparerInfo.usAddress.zipCode}}</span></div>
+                        </div>
+                    </div>
+                    <div class="details-field text-left" data-ng-if="officeInfo.addressDiffFromPreparer == true && addressTypeOwner == 'foreignAddress'">
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                            <!-- <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Preparer Address:"></label> -->
+                        </div>
+                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                            <div><span>{{preparerInfo.foreignAddress.street}}</span> <br> <span>{{preparerInfo.foreignAddress.postalCode}}</span>
+                                <br> <span>{{preparerInfo.foreignAddress.city}}</span> <br> <span>{{preparerInfo.foreignAddress.state}}</span>
+                                <br> <span>{{preparerInfo.foreignAddress.country}}</span></div>
+                        </div>
+                    </div>
+                    
+                            <div class="margin_top_10 details-field text-left">
+                                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24" data-ng-if="officeInfo.addressDiffFromPreparer == true">
+                                    <label class="font_bold" translate="CONFIRMATION_FIRMNAME_LBL" translate-default="Firm Name & Address:"></label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24" data-ng-if="officeInfo.addressDiffFromPreparer != true">
+                                        <label class="font_bold" translate="CONFIRMATION_FIRMNAME_LBL" translate-default="Firm Name:"></label>
+                                    </div>
+                                <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                    <span>{{officeInfo.name}}</span>
+                                </div>
+                            </div>
+                            <div data-ng-if="officeInfo.addressDiffFromPreparer == true">
+                                    <div class="details-field text-left" data-ng-if="addressType == 'usAddress'">
+                                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                            <!-- <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Office Address:"></label> -->
+                                        </div>
+                                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                            <div><span>{{officeInfo.usAddress.street}}</span>
+                                                <br> <span>{{officeInfo.usAddress.city}}</span>, <span>{{officeInfo.usAddress.state}}</span> <span>{{officeInfo.usAddress.zipCode}}</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="details-field text-left" data-ng-if="addressType == 'foreignAddress'">
+                                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                            <!-- <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Office Address:"></label> -->
+                                        </div>
+                                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                            <div><span>{{officeInfo.foreignAddress.street}}</span> <br> <span>{{officeInfo.foreignAddress.postalCode}}</span>
+                                                <br> <span>{{officeInfo.foreignAddress.city}}</span> <br> <span>{{officeInfo.foreignAddress.state}}</span>
+                                                <br> <span>{{officeInfo.foreignAddress.country}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                <!-- </br>
+                <div class="row float-left" style="font-size: 20px;">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Preparer"></label>
+                    </div>
+                </br></br> -->
+
+
+                <!-- </br>
+                <div class="row float-left" style="font-size: 20px;">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Office"></label>
+                    </div>
+                </br></br> -->
+
+                <!-- <div data-ng-if="officeInfo.addressDiffFromPreparer !== true">
+                    <div class="margin_top_10 details-field text-left" data-ng-if="addressTypeOwner == 'usAddress'">
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                            <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Office's Address:"></label>
+                        </div>
+                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                            <div><span>{{preparerInfo.usAddress.street}}</span> <br>
+                                <span>{{preparerInfo.usAddress.city}}</span> <span>{{preparerInfo.usAddress.state}}</span>
+                                <span>{{preparerInfo.usAddress.zipCode}}</span> </div>
+                        </div>
+                    </div>
+                    <div class="margin_top_10 details-field text-left" data-ng-if="addressTypeOwner == 'foreignAddress'">
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                            <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Office's Address:"></label>
+                        </div>
+                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                            <div><span>{{preparerInfo.foreignAddress.street}}</span> <br> <span>{{preparerInfo.foreignAddress.postalCode}}</span>
+                                <br> <span>{{preparerInfo.foreignAddress.city}}</span> <br> <span>{{preparerInfo.foreignAddress.state}}</span>
+                                <br> <span>{{preparerInfo.foreignAddress.country}}</span></div>
+                        </div>
+                    </div>
+                </div> -->
+                
+
+                <!-- </br>
+                <div class="row float-left" style="font-size: 20px;">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Preparer"></label>
+                    </div>
+                </br></br> -->
+
+                <div class="margin_top_10 details-field text-left" data-ng-if="preparerInfo.telephone && preparerInfo.telephone != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Preparer Cell Phone:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{preparerInfo.telephone}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left" data-ng-if="officeInfo.businessPhone && officeInfo.businessPhone != ''  && officeInfo.phoneDiffFromPreparer == true">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_EFIN_LBL" translate-default="Office Cell Phone:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.businessPhone}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left" data-ng-if="preparerInfo.email && preparerInfo.email != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Preparer Email:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{preparerInfo.email}}</span>
+                    </div>
+                </div>
+
+
+                <!-- </br>
+                <div class="row float-left" style="font-size: 20px;">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Office"></label>
+                    </div>
+                </br></br> -->
+
+
+                <div class="margin_top_10 details-field text-left" data-ng-if="officeInfo.businessMail && officeInfo.businessMail != ''  && officeInfo.emailDiffFromPreparer == true">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_EFIN_LBL" translate-default="Office Email:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.businessMail}}</span>
+                    </div>
+                </div>
+
+
+
+
+                <div class="margin_top_10 details-field text-left" data-ng-if="preparer.recoveryEmail && preparer.recoveryEmail != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Recovery Email:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{preparer.recoveryEmail}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left" data-ng-if="preparerInfo.preparerSsn && preparerInfo.preparerSsn != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_SSN_LBL" translate-default="SSN:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{preparerInfo.preparerSsn}}</span>
+                    </div>
+                </div>
+
+
+                <div class="margin_top_10 details-field text-left" data-ng-if="officeInfo.ein && officeInfo.ein != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_EFIN_LBL" translate-default="EIN:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.ein}}</span>
+                    </div>
+                </div>
+
+
+
+                <div class="margin_top_10 details-field text-left" data-ng-if="preparerInfo.preparerTin && preparerInfo.preparerTin != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="PTIN:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{preparerInfo.preparerTin}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left" data-ng-if="officeInfo.efin && officeInfo.efin != ''">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="EFIN:"></label>
+                    </div>
+                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.efin}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-lg-24 margin_top_20">
+                <div class="font_medium">
+                    <label translate="CONFIRMATION_CONF_LBL" translate-default="Are you sure all the information you have provided is correct?"></label>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-lg-24 margin_top_20 margin_bottom_30">
+                <div class="error-msg">
+                    <label class="font_small" translate="CONFIRMATION_NOTE_LBL" translate-default='Note: Once you press "yes" and successfully complete verification, the above preparer information will be locked. You can edit them once your verification status is clear.'></label>
+                </div>
+            </div>
+        </div>
+        <div class="margin_top_10" data-ng-if="confirmType == 'office'">
+            <span class="font_bold" translate="CONFIRMATION_TIME_LBL" translate-default='IRS verification may take up to 4 day.'></span>
+            <span translate="CONFIRMATION_STATUS_LBL" translate-default="Please check your Quick Office Setup for the status of your verification.If verification has been denied, please make sure the information matches your IRS EFIN verification and resubmit."></span>
+        </div>
+    </div>
+
+    <!-- <div class="modal-body clearfix" style="max-height:70vh;overflow:auto" data-ng-if="type == 'office'">
+        <div class="clearfix">
+            <div class="col-lg-24 margin_top_20">
+                <div class="font_medium">
+                    <label translate="CONFIRMATION_INFO" translate-default="The following information will be used for verifying office identity:"></label>
+                </div>
+            </div>
+        </div>
+        <div class="text-center clearfix">
+            <div class="col-lg-22 col-md-24 col-sm-24 col-xs-24 float-none margin_top_20">
+                <div class="margin_top_10 details-field text-left">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_EFIN_LBL" translate-default="EFIN:"></label>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.efin}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_NAME_LBL" translate-default="Name:"></label>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                        <span>{{preparerInfo.preparerFname}} {{preparerInfo.preparerLname}}</span>
+                    </div>
+                </div>
+                <div data-ng-if="officeInfo.addressDiffFromPreparer !== true">
+                    <div class="margin_top_10 details-field text-left" data-ng-if="addressTypeOwner == 'usAddress'">
+                        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                            <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Address:"></label>
+                        </div>
+                        <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                            <div><span>{{preparerInfo.usAddress.street}}</span> <br>
+                                <span>{{preparerInfo.usAddress.city}}</span> <span>{{preparerInfo.usAddress.state}}</span>
+                                <span>{{preparerInfo.usAddress.zipCode}}</span> </div>
+                        </div>
+                    </div>
+                    <div class="margin_top_10 details-field text-left" data-ng-if="addressTypeOwner == 'foreignAddress'">
+                        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                            <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Address:"></label>
+                        </div>
+                        <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                            <div><span>{{preparerInfo.foreignAddress.street}}</span> <br> <span>{{preparerInfo.foreignAddress.postalCode}}</span>
+                                <br> <span>{{preparerInfo.foreignAddress.city}}</span> <br> <span>{{preparerInfo.foreignAddress.state}}</span>
+                                <br> <span>{{preparerInfo.foreignAddress.country}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div data-ng-if="officeInfo.addressDiffFromPreparer == true">
+                    <div class="margin_top_10 details-field text-left" data-ng-if="addressType == 'usAddress'">
+                        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                            <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Address:"></label>
+                        </div>
+                        <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                            <div><span>{{officeInfo.usAddress.street}}</span>
+                                <br> <span>{{officeInfo.usAddress.city}}</span> <span>{{officeInfo.usAddress.state}}</span>
+                                <span>{{officeInfo.usAddress.zipCode}}</span></div>
+                        </div>
+                    </div>
+                    <div class="margin_top_10 details-field text-left" data-ng-if="addressType == 'foreignAddress'">
+                        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                            <label class="font_bold" translate="CONFIRMATION_ADDRESS_LBL" translate-default="Address:"></label>
+                        </div>
+                        <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                            <div><span>{{officeInfo.foreignAddress.street}}</span> <br> <span>{{officeInfo.foreignAddress.postalCode}}</span>
+                                <br> <span>{{officeInfo.foreignAddress.city}}</span> <br> <span>{{officeInfo.foreignAddress.state}}</span>
+                                <br> <span>{{officeInfo.foreignAddress.country}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_FIRMNAME_LBL" translate-default="Firm Name:"></label>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.name}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left" data-ng-if="officeInfo.ein && officeInfo.ein != ''">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_EFIN_LBL" translate-default="EIN:"></label>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.ein}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left" data-ng-if="officeInfo.businessPhone && officeInfo.businessPhone != ''">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_EFIN_LBL" translate-default="Phone:"></label>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.businessPhone}}</span>
+                    </div>
+                </div>
+                <div class="margin_top_10 details-field text-left" data-ng-if="officeInfo.businessMail && officeInfo.businessMail != ''">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-24">
+                        <label class="font_bold" translate="CONFIRMATION_EFIN_LBL" translate-default="Email:"></label>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-sm-16 col-xs-24">
+                        <span>{{officeInfo.businessMail}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-lg-24 margin_top_20">
+                <div class="font_medium">
+                    <label translate="CONFIRMATION_CONF_LBL" translate-default="Are you sure all the information you have provided is correct?"></label>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-lg-24 margin_top_20 margin_bottom_30">
+                <div class="error-msg">
+                    <label class="font_small" translate="CONFIRMATION_NOTE_LBL" translate-default='Note: Once you press "yes" and successfully complete verification, the above office information will be locked. You can edit them once your verification status is clear.'></label>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="modal-footer">
+
+        <div class="float-right">
+            <button type="button" class="btn custom-btn" data-ng-click="close(true)" tax-focus-me="focusMe"><span translate="CONFIRMATION_DIALOG_YES_BTN"
+                    translate-default="Yes"></span></button>
+            <button type="button" class="btn custom-btn" data-ng-click="close(false)"><span translate="CONFIRMATION_DIALOG_NO_BTN"
+                    translate-default="No"></span></button>
+        </div>
+    </div>
+</div>

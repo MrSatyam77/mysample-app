@@ -1,0 +1,19 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857146;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <span class="modal-title" style="font-size: 18px;">
+      Answer History
+    </span>
+    <i class="fa fa-times mt-2 cursor_pointer" (click)="close()" aria-hidden="true"></i>
+  </div>
+  <div class="modal-body">
+    <div class="col-24 padding_l_r_0 custom-table margin_top_15 table-responsive">
+      <app-standard-ag-grid #myTaxportalAnswerHistory name="myTaxportalAnswerHistory" [gridOptions]="gridOptions"
+        (onStandardGridReady)="onGridReady($event)" [result]="rowData" (action)="onActionClicked($event)">
+      </app-standard-ag-grid>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Close</button>
+  </div>
+</div>

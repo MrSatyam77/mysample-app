@@ -1,0 +1,21 @@
+<div class="dashboard-content">
+        <perfect-scrollbar>
+                <div class="dashboard-data-wrap scroll-y">
+                        <div class="list-ui-wrap" >
+                                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" (click)="goToList('settings')"
+                                        [class.no-clicking]='!permission.canViewClientSetting ' >
+                                        <div class="raw-main-lbl">Settings</div>
+                                </div>
+                                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" (click)="goToList('invite-clients')"
+                                        [class.no-clicking]='!permission.canInviteClient '>
+                                        <div class="raw-main-lbl">Invite Clients</div>
+                                </div>
+
+                                <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" (click)="goToList('manage-invited-clients')"
+                                        [class.no-clicking]='!permission.canViewInvitedClient'>
+                                        <div class="raw-main-lbl">Manage Invited Clients</div>
+                                </div>
+                        </div>
+                </div>
+        </perfect-scrollbar>
+</div>

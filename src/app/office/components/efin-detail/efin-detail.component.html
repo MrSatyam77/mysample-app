@@ -1,0 +1,51 @@
+<div class="mtpo-action float-right">
+  <button class="btn btn-sm btn-clean float-left" *ngIf="loggedInUserDetail.isAdministrator === true || loggedInUserDetail.isERO === true"
+    (click)="editEFIN()"><i class="fa fa-pencil-alt"></i></button>
+  <button class="btn btn-sm btn-clean float-left" (click)="removeEFIN()" [disabled]="efinDetail.dispalyedLocations && efinDetail.dispalyedLocations.length > 0">
+    <i class="fa fa-trash-alt"></i>
+  </button>
+</div>
+<div class="row">
+  <div class="col-8">
+    <address>
+      <div class="row mt-3">
+        <div class="col-9 font-weight-bold">EFIN: </div>
+        <div class="col-auto">{{efinDetail.efin}}</div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-9 font-weight-bold">Firm Name: </div>
+        <div class="col-auto">{{efinDetail.firmName}}</div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-9 font-weight-bold">Tracking Number: </div>
+        <div class="col-auto">{{efinDetail.trackingNumber}}</div>
+      </div>
+      <!-- <div class="row mt-3">
+        <div class="col-9 font-weight-bold">Effective Date: </div>
+        <div class="col-auto">{{efinDetail.effectiveDate}}</div>
+      </div> -->
+    </address>
+  </div>
+  <div class="col-8">
+    <div class="row mt-3">
+      <div class="col-8 font-weight-bold">Associated Locations:</div>
+      <div class="col-auto">
+        <div class="row mb-3" *ngFor="let office of efinDetail.dispalyedLocations">
+          <div class="col-2 text-center"><span><i class="fa fa-building text-primary"></i></span></div>
+          <div class="col-auto">{{office.locationName}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="row mt-3">
+      <div class="col-4 font-weight-bold">ERO: </div>
+      <div class="col-auto">
+        <div class="row mb-3" *ngFor="let ero of efinDetail.displayedEROS">
+          <div class="col-2 text-center"><span><i class="fas fa-user-tie text-primary"></i></span></div>
+          <div class="col-auto">{{ero.firstName}} {{ero.lastName}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

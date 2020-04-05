@@ -1,0 +1,26 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            License
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <ng-form name="nameDialog" role="form">
+            <div class="form-group input-group-lg row_height_30">
+                <div>
+                    <div> <span>{{data.package}} E-File is not available in your license for tax year {{data.taxYear}}.</span></div>
+                    
+                    <div> <span translate="BUSINESS_EFILE_SUBSCRIPTION_DIALOG_DESCRIPTION3" translate-default="If you would like to upgrade your license, please "></span> <a data-ng-click='close();' href="/manage/support/email/License"><span translate="BUSINESS_EFILE_SUBSCRIPTION_DIALOG_DESCRIPTION4" translate-default=" write to us"></span></a> <span> or contact our chat support.</span></div>
+                </div>                
+            </div>
+        </ng-form>
+    </div>
+    <div class="modal-footer">
+    	<!-- Temporary -->
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="RETURNSUBSCRIPTION_OK_SPAN" translate-default="OK"></span></button>
+        <!-- Below buttons will be enabled after we implement change subscription -->
+        <!-- <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="RETURNSUBSCRIPTION_CANCEL_SPAN" translate-default="Cancel"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="subscribe()" data-ng-if="hasCustomerId == true"><span translate="RETURNSUBSCRIPTION_BUYNOW_SPAN" translate-default="Buy Now"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()" data-ng-if="hasCustomerId != true"><span translate="RETURNSUBSCRIPTION_OK_SPAN" translate-default="Ok"></span></button> -->
+    </div>
+</div>

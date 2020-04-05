@@ -1,0 +1,64 @@
+<div class="dashboard-content">
+    <perfect-scrollbar>
+        <div class="dashboard-data-wrap scroll-y">
+            <div class="list-ui-wrap">
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" *ngIf="(taxYearInNumber > 2016 && taxYearInNumber !== 2019) || (taxYearInNumber === 2018 && enableConversion == true)"
+                    [class.no-clicking]="!permission.canListConversion" (click)="goToConversion()">
+
+                    <div class="raw-main-lbl">Conversion</div>
+
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" *ngIf="taxYearInNumber !== 2014" [class.no-clicking]='!permission.canListPreforma'
+                    (click)="routingBasedOnToolBoxName('Proforma')">
+                    <div class="raw-main-lbl">Proforma / Prior Year Carry Forward</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListPricelist'
+                    (click)="routingBasedOnToolBoxName('PriceList')">
+                    <div class="raw-main-lbl">Price List</div>
+                </div>
+
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListClientLetter'
+                    (click)="routingBasedOnToolBoxName('ClientLetter')">
+                    <div class="raw-main-lbl">Client Letter</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListClientToOraganizer'
+                    (click)="routingBasedOnToolBoxName('ClientOrganizer')">
+                    <div class="raw-main-lbl">Client Organizer</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListEin' (click)="routingBasedOnToolBoxName('EINLibraries')">
+                    <div class="raw-main-lbl">EIN Library</div>
+                </div>
+
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canViewReport'
+                    (click)="routingBasedOnToolBoxName('Reports')">
+                    <div class="raw-main-lbl">Reports</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canBackupReturn '
+                    (click)="routingBasedOnToolBoxName('BackupReturns')">
+                    <div class="raw-main-lbl">Backup Returns</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canRestoreReturn'
+                    (click)="routingBasedOnToolBoxName('RestoreReturns')">
+                    <div class="raw-main-lbl">Restore Returns</div>
+                </div>
+
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListTemplate'
+                    (click)="routingBasedOnToolBoxName('CustomReturnTemplate')">
+                    <div class="raw-main-lbl">Custom Return Template</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" *ngIf="taxYearInNumber !== 2014 && taxYearInNumber !== 2015"
+                    (click)="routingBasedOnToolBoxName('PrintPackets')" [class.no-clicking]='!permission.canOpenPrintSet'>
+                    <div class="raw-main-lbl">Print Packets</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}" [class.no-clicking]='!permission.canListDevice'
+                    (click)="routingBasedOnToolBoxName('SignatureDevices')" *ngIf="hasFeaturePermission">
+                    <div class="raw-main-lbl">Signature Devices</div>
+                </div>
+                <div class="list-ui-raw pointer" [ngStyle]="{'background-color':rowColor}"
+                    (click)="routingBasedOnToolBoxName('instantFormView')" *ngIf="hasFeaturePermission">
+                    <div class="raw-main-lbl">Instant Form View</div>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>

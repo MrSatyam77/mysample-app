@@ -1,0 +1,32 @@
+<!-- <ngx-loading-bar [includeSpinner]="false"></ngx-loading-bar>
+<app-toast-container></app-toast-container>
+<router-outlet></router-outlet>
+<div ng-view></div>
+<div appTaxIdle *ngIf="isAuthenticated"></div>
+<div appTaxSession24 *ngIf="isAuthenticated"></div> -->
+
+
+<ngx-loading-bar [includeSpinner]="false"></ngx-loading-bar>
+<div class="theam_wrapper" data-background-color="dark">
+    <header class="header-wrap" *ngIf="isAuthenticated && !isHideHeader">
+        <app-header [toggle]="toggler" (sidebarToggler)="togglerPanels($event)"></app-header>
+
+    </header>
+    <div [class.main-content-wrap]="isAuthenticated">
+        <nav class="left-sidebar-wrap p-0" *ngIf="isAuthenticated && showLeftPanel" [@inOutLeftAnimation]>
+            <app-side-bar></app-side-bar>
+        </nav>
+        <!-- [class.no-scroll]="layout.noScroll" -->
+        <div class="middle-wrap" [class.no-height]="layout.noheight" [class.no-space]="layout.noSpace">
+            <router-outlet></router-outlet>
+            <div ng-view></div>
+        </div>
+        <aside class="right-sidebar-wrap" *ngIf="isAuthenticated && showRightPanel" [@inOutRightAnimation]>
+            <app-right-bar></app-right-bar>
+        </aside>
+    </div>
+</div>
+<app-toast-container></app-toast-container>
+
+<div appTaxIdle *ngIf="isAuthenticated"></div>
+<div appTaxSession24 *ngIf="isAuthenticated"></div>

@@ -1,0 +1,325 @@
+<div class="inner_col_second clearfix">
+  <div class="bg-white">
+    <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+      <section class="page_title_wrap title_height_40 clearfix">
+        <span class="page_title_lg ng-binding title_height_40">
+          <span class="page_title_lg ng-binding ng-scope" *ngIf="!Id">Add Appointment</span>
+          <span class="page_title_lg ng-binding ng-scope" *ngIf="Id">Edit Appointment</span>
+        </span>
+      </section>
+    </div>
+    <div class="inner_padding_15 allowScrollSync site-set-form-auto">
+      <div>
+        <form class="form-inline" [formGroup]="appointmentRegisterForm">
+          <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pb-2">
+            <div class="row">
+
+              <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24">
+                <div class="row">
+                  <div class="col-4 col-xl-4 col-md-4 col-sm-4 col-lg-4 pl-0 pt-2">
+                    <label for="text" class="float-left">Subject</label>
+                  </div>
+                  <div class="col-7 col-xl-7 col-md-7 col-sm-7 col-lg-7">
+                    <input type="text" formControlName="subject" class="form-control w-100" name="text">
+                  </div>
+                </div>
+              </div>
+              <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-4">
+                <div class="row">
+                  <div class="col-4 col-xl-4 col-md-4 col-sm-4 col-lg-4 pl-0 pt-2">
+                    <label for="text" class="float-left">Description</label>
+                  </div>
+                  <div class="col-7 col-xl-7 col-md-7 col-sm-7 col-lg-7">
+                    <textarea style="resize:none;" formControlName="description" class="form-control w-100" rows="3"
+                      id="comment"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pl-0 pr-0 page_title_wrap">
+            <h4> Contact Information</h4>
+          </div> -->
+
+          <!-- <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pl-0 pt-3 pb-2">
+            <div class="row">
+              <div class="col-8 col-xl-8 col-md-8 col-sm-8 col-lg-8 pr-0">
+                <div class="row col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24">
+                  <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-0">
+                    <div class="efile-box">
+                      <div class="form-group mr-2">
+                        <select class="form-control bg-white" formControlName="maskType" (ngModelChange)="setMaskId();">
+                          <option value="SSN">SSN</option>
+                          <option value="EIN">EIN</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-14 col-sm-14 col-md-14 col-lg-14 col-xl-14 pr-0">
+                    <div class="form-group">
+                      <input *ngIf="maskType == 'SSN' || maskType =='EIN'" type="text" class="form-control w-100 bg-white"
+                        [dropSpecialCharacters]="false" formControlName="returnno" [mask]="taxMaskId"
+                        [showMaskTyped]="showMask">
+                    </div>
+                  </div>
+                </div>
+                <div class="row col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-2">
+                  <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-0">
+                    <label for="text" class="float-left">First Name and Initial</label>
+                  </div>
+                  <div class="col-14 col-sm-14 col-md-14 col-lg-14 col-xl-14 pr-0">
+                    <input type="text" formControlName="firstName" class="form-control w-100 " name="text">
+                  </div>
+                </div>
+                <div class="row col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-2">
+                  <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-0">
+                    <label for="text" class="float-left">Last Name</label>
+                  </div>
+                  <div class="col-14 col-sm-14 col-md-14 col-lg-14 col-xl-14 pr-0">
+                    <input type="text" formControlName="lastName" class="form-control w-100" name="text">
+                  </div>
+                </div>
+                <div class="row col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-2">
+                  <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-0">
+                    <label for="text" class="float-left">Cell Number </label>
+                  </div>
+                  <div class="col-14 col-sm-14 col-md-14 col-lg-14 col-xl-14 pr-0">
+                    <input type="text" formControlName="cellPhone" class="form-control w-100" name="text">
+                  </div>
+                </div>
+                <div class="row col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-2">
+                  <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-0">
+                    <label for="text" class="float-left">Email Address</label>
+                  </div>
+                  <div class="col-14 col-sm-14 col-md-14 col-lg-14 col-xl-14 pr-0">
+                    <input type="text" formControlName="emailAddress" class="form-control w-100" name="text">
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-8 col-xl-8 col-md-8 col-sm-8 col-lg-8">
+                <div class="row col-24 col-md-24 col-xl-24 col-lg-24 col-sm-24">
+                  <label for="text" class="float-left">Street (US Address)</label>
+                </div>
+                <div class="row col-24 col-md-24 col-xl-24 col-lg-24 col-sm-24 pt-2">
+                  <input type="text" formControlName="street" class="form-control w-100" name="text">
+                </div>
+                <div class="row col-24 col-md-24 col-xl-24 col-lg-24 col-sm-24 pt-2">
+                  <div class="col-8 col-xl-8 col-md-8 col-lg-8 col-sm-8 pl-0">
+                    Zip-Code
+                  </div>
+                  <div class="col-8 col-xl-8 col-md-8 col-lg-8 col-sm-8">
+                    City
+                  </div>
+                  <div class="col-8 col-xl-8 col-md-8 col-lg-8 col-sm-8 pr-0">
+                    State
+                  </div>
+                </div>
+                <div class="row col-24 col-md-24 col-xl-24 col-lg-24 col-sm-24 pt-2">
+                  <div class="col-8 col-xl-8 col-md-8 col-lg-8 col-sm-8 pl-0">
+                    <input type="text" formControlName="zipCode" class="form-control w-100" name="text">
+                  </div>
+                  <div class="col-8 col-xl-8 col-md-8 col-lg-8 col-sm-8">
+                    <input type="text" formControlName="city" class="form-control w-100" name="text">
+                  </div>
+                  <div class="col-8 col-xl-8 col-md-8 col-lg-8 col-sm-8 pr-0">
+                    <input type="text" formControlName="state" class="form-control w-100" name="text">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pl-0 pr-0 page_title_wrap">
+            <h4></h4>
+          </div> -->
+
+          <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-3">
+            <div class="row">
+              <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12 pl-0">
+                <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pl-0">
+                  <h4>Schedule</h4>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    Start Date
+                  </div>
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    Start Time
+                  </div>
+                </div>
+                <div class="row pt-3 align-items-center">
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12 pt-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="sd" [footerTemplate]="footerTemplate" formControlName="startDate"
+                          ngbDatepicker #d="ngbDatepicker" >
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary fas fa-calendar-alt" (click)="d.toggle()"
+                            type="button">
+                          </button>
+                        </div>
+                        <ng-template #footerTemplate>
+                          <hr class="my-0">
+                          <div class="m-1 clearfix">
+                            <button class="btn btn-outline-primary btn-sm m-1 float-left" (click)="setTodayDate(); d.close()">Today</button>
+                            <button class="btn btn-outline-primary btn-sm m-1 float-left" (click)="setClear(); d.close()">Clear</button>
+                           
+                          </div>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    <ngb-timepicker name="st" class="custom-ngb-timepicker" formControlName="startTime"
+                      [meridian]="meridian"></ngb-timepicker>
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    End Date
+                  </div>
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    End Time
+                  </div>
+                </div>
+                <div class="row pt-3 align-items-center">
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12 pt-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="ed" [footerTemplate]="footerTemplatee" formControlName="endDate"
+                        ngbDatepicker #m="ngbDatepicker" [minDate]="appointmentRegisterForm.value.startDate">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary fas fa-calendar-alt" (click)="m.toggle()"
+                            type="button">
+                          </button>
+                        </div>
+                      </div>
+                      <ng-template #footerTemplatee>
+                        <hr class="my-0">
+                        <div class="m-1 clearfix">
+                          <button class="btn btn-outline-primary btn-sm m-1 float-left" (click)="setTodayEndDate(); m.close()">Today</button>
+                          <button class="btn btn-outline-primary btn-sm m-1 float-left" (click)="setEndClear(); m.close()">Clear</button>
+                         
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    <ngb-timepicker name="et" class="custom-ngb-timepicker" formControlName="endTime"
+                      [meridian]="meridian"></ngb-timepicker>
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    Remind me
+                  </div>
+                  <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                    <div class="efile-box">
+                      <div class="form-group mr-2">
+                        <select class="form-control" id="sel1" style="width: 100%" formControlName="remindMe">
+                          <option *ngFor="let remind of remindMe" [ngValue]="remind.value">{{remind.displayText}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-12 col-lg-12 col-md-12 col-xl-12 col-sm-12">
+                <h3>Send:</h3>
+                <div class="col-24 col-lg-24 col-md-24 col-xl-24 col-sm-24 pl-0">
+                  <div class="form-check pt-2 justify-content-start"
+                    *ngFor="let dep of appointmentRegisterForm.controls.sendList['controls']; let i=index">
+                    <label class="form-check-label" formArrayName="sendList">
+                      <input type="checkbox" class="form-check-input mx-2" [formControlName]="i">
+                      {{sendList[i].name}}
+                    </label>
+                  </div>
+                </div>
+              </div> -->
+              <div class="col-12 col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pl-0">
+                  <h4>Other Participants</h4>
+                </div>
+                <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-1">
+                  <div class="row">
+                    <div class="col-8 col-xl-8 col-md-8 col-sm-8 col-lg-8 pl-0 pr-0">
+                      <div class="form-group  mr-2 custom-ngSelect">
+                        <ng-select [items]="participants" bindLabel="firstName" bindValue="key" [multiple]="true" [closeOnSelect]="false"
+                          [searchable]="false" formControlName="userList" placeholder="Select Participants"
+                          #participantSelect>
+                          <ng-template ng-header-tmp>
+                            <button (click)="selectAll()" class="btn btn-sm btn-secondary mr-4">Select all</button>
+                            <button (click)="unselectAll()" class="btn btn-sm btn-secondary">Unselect all</button>
+                            <input class="w-100 mt-2" type="text" placeholder="Search..."
+                              (input)="participantSelect.filter($event.target.value)" />
+                          </ng-template>
+                          <ng-template ng-multi-label-tmp let-items="items">
+                            Total : {{appointmentRegisterForm.get('userList').value?.length}}
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                           <div class="row pl-2">
+                            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                              <span class="pl-1">{{item.firstName}} {{item.lastName}}</span>
+                           </div>   
+                          </ng-template>
+                          <!-- <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                            <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                              <span class="ng-value-label">{{item.firstName}}</span>
+                              <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                            </div>
+                            <div class="ng-value" *ngIf="items.length > 1">
+                              <span class="ng-value-label">{{items.length - 1}} more...</span>
+                            </div>
+                          </ng-template> -->
+
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div class="col-8 col-xl-8 col-md-8 col-sm-8 col-lg-8 pt-lg-2">
+                      <ul class="list-unstyled">
+                        <div>
+                          <div
+                            *ngFor="let user of appointmentRegisterForm.get('userList').value | slice:0: limitList === undefined ? appointmentRegisterForm.get('userList').value?.length : limitList  ; let i=index">
+                            <span><i class="fas fa-user"></i>&nbsp;{{getUserName(user)}}</span>
+                          </div>
+                          <div *ngIf="appointmentRegisterForm.get('userList').value?.length > 5 && limitList === 5">
+                            <button class="btn btn-outline-primary float-right" (click)="limitList=undefined">More</button>
+                            <!-- <button class="btn btn-outline-primary" *ngIf="!more">Less</button> -->
+                          </div>
+                          <div *ngIf="appointmentRegisterForm.get('userList').value?.length > 5 && !limitList">
+                            <button class="btn btn-outline-primary float-right" (click)="limitList = 5">Less</button>
+                          </div>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-24 col-xl-24 col-md-24 col-sm-24 col-lg-24 pt-3">
+            <div class="row">
+              <div class="col border-top pt-4 pr-0">
+                <div class="float-right">
+                  <button class="btn btn-outline-primary" (click)="save()" [disabled]="!appointmentRegisterForm.valid">
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">
+                    Cancel
+                  </button>
+                  <button class="btn btn-outline-primary ml-2" [disabled]="!Id" (click)="deleteAppointment()">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  
+</div>
+

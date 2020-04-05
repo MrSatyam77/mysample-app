@@ -1,0 +1,18 @@
+<link href="taxAppJs/common/widgets/training/css/training.css" rel="stylesheet" />  
+<div class="clearfix video_area">
+    <div ng-repeat="training in trainingDataList">
+        <div class="video_wrap_without_padding margin_bottom_10">
+            <div class="video_player_without_padding clearfix">
+                <a ng-href="{{training.link}}" target="_blank" class="float-left">
+                    <div class="width_full_30 float-left padding_5" ng-if="training.video || training.image"> <img ng-src={{training.image}} ng-if="training.image" height="65" class="back_video" /><img ng-src={{training.video}} ng-if="training.video" height="65" class="back_video" /></div>
+                    <div class="float-left" data-ng-class="{'width_full_65':training.video||training.image,'width_full padding_10 padding_bottom_8':!training.video && !training.image}" >
+                        <div class=" video_title">{{training.title}}</div>
+                        <!--<div ng-if="betaOnly() == false" class="video_txt_info font_size_12">{{training.description}}</div> -->
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

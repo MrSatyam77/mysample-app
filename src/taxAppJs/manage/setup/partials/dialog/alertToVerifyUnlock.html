@@ -1,0 +1,35 @@
+<style>
+    .modal-md {
+        width: 950px;
+    }
+    @media(max-width:768px)
+        {
+            .modal-md { width: 90vw; }          
+        }
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;" class="verificationqanda">
+    <form name="alertToVerifyUnlock">
+        <div class="modal-header dialog-header-confirm quicksetup-modal verificationqanda-modal">
+            <h4 class="modal-title" ><img src="taxAppJs/images/danger.png" align="middle" class="modal-header-icon"> Alert!</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-ng-click="dismiss()"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body clearfix">
+            <div data-ng-if="type == 'prepare'" class="wrapper_class" style="color: red">
+                    If you make changes to preparer information, then you will have to undergo the verification process again.
+            </div>
+            <div data-ng-if="type == 'office'" class="wrapper_class" style="color: red">
+                If you make changes to office information, then you will have to undergo the verification process again.
+        </div>
+        </br>
+            <div>
+                Are you sure you want to unlock?
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn custom-btn" data-ng-click="close(true)">
+                <span translate="DIALOG_SEND_BTN" translate-default="Yes"></span>
+            </button>
+            <button type="button" class="btn custom-btn" data-ng-click="dismiss()"><span translate="DIALOG_CLOSE_BTN" translate-default="No"></span></button>
+        </div>
+    </form>
+</div>

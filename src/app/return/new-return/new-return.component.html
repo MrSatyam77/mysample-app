@@ -1,0 +1,136 @@
+<div class="p-sm-0 clr-body bg-white">
+
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0 mb-3">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg title_height_40">
+        <span class="page_title_lg" *ngIf="newReturn.returnType == 'normalReturn'">New Return</span>
+        <span class="page_title_lg" *ngIf="newReturn.returnType == 'customReturnTemplate'">New Custom Return Template
+        </span>
+        <div class="row float-right mt-2">
+          <button class="btn btn-outline-primary pl-2 mr-3" (click)="backToHomeScreen()">Back To Dashboard</button>
+        </div>
+      </span>
+    </section>
+  </div>
+  <div class="col">
+    <form [formGroup]="newReturnForm">
+      <div class="form-group row">
+        <label class="col-lg-4 col-md-8 col-sm-8 col-form-label">Return Type</label>
+        <div class="col-lg-4 col-md-8 col-sm-8">
+          <div class="dropdown">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle" data-toggle="dropdown" id="typeFilter">
+              {{newReturn.returnTypeTitle}}
+            </button>
+            <div class="dropdown-menu" style="cursor: pointer;">
+              <a class="dropdown-item" *ngFor="let returnType of returnTypes" tabindex="-1" (click)="onReturnTypeChange(returnType)">{{returnType.title}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="newReturn.returnType == 'normalReturn'">
+        <!-- SSN start -->
+        <div class="form-group row pt-2" *ngIf="newReturn.returnTypeId == '1040'">
+          <label class="col-lg-4 col-md-8 col-sm-8 col-form-label">SSN</label>
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <input type="text" class="form-control" id="ssn" formControlName="ssn" mask="000-00-0000">
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-4" *ngIf="taxYear != '2014' && taxYear != '2015'">
+            <div class="mtpo-custom-checkbox d-inline">
+              <button class="mtpo-checkbox" id="applyW7" (click)="newReturn.applyForW7=!newReturn.applyForW7;updateFormValidation();newReturnForm.controls.ssn.setValue('')"
+                [ngClass]="{'active': newReturn.applyForW7 === true}"></button>
+              <label class="d-inline" for="applyW7">Apply W7</label>
+            </div>
+          </div>
+        </div>
+        <!-- SSN ends -->
+
+        <!-- EIN starts -->
+        <div class="form-group row pt-2" *ngIf="newReturn.returnTypeId == '1065' || newReturn.returnTypeId == '1120' || newReturn.returnTypeId == '1120s'
+         || newReturn.returnTypeId == '1041' || newReturn.returnTypeId == '990'">
+          <label class="col-lg-4 col-md-8 col-sm-8 col-form-label">EIN</label>
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <input type="text" class="form-control" id="ein" formControlName="ein" mask="00-0000000">
+          </div>
+        </div>
+        <!-- EIN ends -->
+
+        <!-- First name starts -->
+        <div class="form-group row pt-2" *ngIf="newReturn.returnTypeId == '1040'">
+          <label class="col-lg-4 col-md-8 col-sm-8 col-form-label">First Name</label>
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+          </div>
+        </div>
+        <!-- First name ends -->
+
+        <!-- Last Name starts -->
+        <div class="form-group row pt-2" *ngIf="newReturn.returnTypeId == '1040'">
+          <label class="col-lg-4 col-md-8 col-sm-8 col-form-label">Last Name</label>
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+          </div>
+        </div>
+        <!-- Last Name ends -->
+
+        <!-- Company name starts-->
+        <div class="form-group row pt-2" *ngIf="newReturn.returnTypeId == '1065' || newReturn.returnTypeId == '1120' || newReturn.returnTypeId == '1120s'
+         || newReturn.returnTypeId == '1041' || newReturn.returnTypeId == '990'">
+          <label class="col-lg-4 col-md-8 col-sm-8 col-form-label" *ngIf="newReturn.returnTypeId == '1065' || newReturn.returnTypeId == '1120' || newReturn.returnTypeId == '1120s'
+          || newReturn.returnTypeId == '990'">Company Name</label>
+          <label class="col-lg-4 col-md-8 col-sm-8 col-form-label" *ngIf="newReturn.returnTypeId == '1041'">Estate or Trust
+            Name
+          </label>
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <input type="text" class="form-control" id="companyName" formControlName="companyName">
+          </div>
+        </div>
+        <!-- company name ends -->
+
+        <div class="form-group row pt-2">
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <label>Use custom return template</label>
+          </div>
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <div class="dropdown">
+              <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle" id="typeFilter" data-toggle="dropdown">
+                {{newReturn.selectedDefaultReturn}}
+              </button>
+              <div class="dropdown-menu" style="cursor: pointer;">
+                <a class="dropdown-item" (click)="newReturn.selectedDefaultReturn='Please Select';newReturn.returnWithDefault=''"></a>
+                <a class="dropdown-item" *ngFor="let return of defaultReturnList" tabindex="-1" (click)="newReturn.returnWithDefault=return.returnId;newReturn.selectedDefaultReturn=return.displayName">{{return.displayName}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf="newReturn.returnType == 'customReturnTemplate'">
+        <div class="form-group row pt-2">
+          <label class="col-lg-4 col-md-8 col-sm-8 col-form-label">Template Name</label>
+          <div class="col-lg-4 col-md-8 col-sm-8">
+            <input type="text" class="form-control" id="templateName" formControlName="templateName">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 col-md-16 col-sm-16">
+          <hr class="light_line" />
+        </div>
+      </div>
+
+      <div class="row mt-2 pb-3">
+        <div class="col-lg-8 col-md-16 col-sm-16">
+          <!-- button will be disabled for package other then 1040 -->
+          <button type="submit" class="btn btn-md btn-outline-primary float-right" [disabled]="!newReturnForm.valid || newReturn.saveReturnInProcess === true" (click)="createReturn()">Continue</button>
+          <button *ngIf="newReturn.returnTypeId == '1040' && taxYear != '2014' && newReturn.applyForW7!==true" type="button" class="btn btn-md btn-outline-primary float-right mr-2"
+            (click)="createReturn('interview')" [disabled]="!newReturnForm.valid  || newReturn.saveReturnInProcess === true">Interview
+            Mode</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

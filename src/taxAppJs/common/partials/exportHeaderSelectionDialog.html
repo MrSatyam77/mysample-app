@@ -1,0 +1,27 @@
+﻿<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            Select columns to export
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <ng-form name="nameDialog" role="form">
+            <div class="form-group input-group-lg row_height_30">
+                <div>
+                    <div class="checkbox row_height_30 clearfix" ng-repeat="header in headerList">
+                        <label ng-init="header.isSelected=true">
+                            <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-model="header.isSelected" data-ng-class="{'active':header.isSelected==true}" data-ng-click="header.isSelected =! header.isSelected;"></button>
+                            <span class="margin_left_5">{{header.text}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-hide="type==='csv'" data-ng-click="printPdf()"><span translate="COMMONSUBSCRIPTION_OK_BUTTON" translate-default="Export"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-hide="type==='pdf'" ng-csv="getSelectedDataList()" filename="{{exportFileName}}.csv" data-ng-click="cancel()" csv-header="getHeaderListForCSV()"><span translate="COMMONSUBSCRIPTION_OK_BUTTON" translate-default="Export"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="cancel()"><span translate="COMMONSUBSCRIPTION_OK_BUTTON" translate-default="Cancel"></span></button>
+        
+    </div>
+</div>

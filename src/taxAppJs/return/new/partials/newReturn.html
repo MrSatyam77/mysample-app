@@ -1,0 +1,230 @@
+﻿<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- Header -->
+
+<!--ng-class="{'inner_page_wrap_strech':headerNav.collapseRightPane==true}"-->
+<!--data-ng-class="{'strech_left':headerNav.collapseLeftPane==true,'strech_right':headerNav.collapseRightPane==true,'strech_left_remove':headerNav.collapseLeftPane==false,'strech_right_remove':headerNav.collapseRightPane==false}"-->
+<div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+
+	<div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+		<section class="page_title_wrap title_height_40 clearfix" data-ng-if="newReturnType == 'normalReturn'">
+			<span class="page_title_lg ng-binding title_height_40">
+				<span class="page_title_lg ng-binding" translate="NEWRETURN_HEADER" translate-default="New Return"></span>
+				<div class="row float-right mt-2">
+					<button class="btn btn-outline-primary pl-2 mr-3" translate="BACKTOHOMESCREEN_BTN" translate-default="Back To Dashboard"
+					 data-ng-click="backToHomeScreen()"></button>
+				</div>
+			</span>
+		</section>
+	</div>
+
+	<!-- <section class="page_title_wrap title_height_40 clearfix" data-ng-if="newReturnType == 'normalReturn'">
+		<span class="page_title_lg ng-binding" translate="NEWRETURN_HEADER" translate-default="New Return"></span>
+	</section> -->
+	<section class="page_title_wrap title_height_40 clearfix" data-ng-if="newReturnType == 'customReturnTemplate'">
+		<span class="page_title_lg ng-binding" translate="NEWCUSTOMRETURNTEMPLATE_HEADER" translate-default="New Custom Return Template"></span>
+	</section>
+	<div ng-style="{height:headerNav.screenHeight-106}" style="overflow-y:auto;">
+		<form name="form" class="static_form_wrap inner_padding_15" data-ng-submit="createReturn()">
+			<div class="row">
+				<div class="col-lg-4 col-md-8 col-sm-8">
+					<label translate="NEWRETURN_RETURNTYPE_LBL" translate-default="Return Type"></label>
+				</div>
+				<div class="col-lg-4 col-md-8 col-sm-8" id="step1">
+					<!-- <div class="dropdown" dropdown="" is-open="returnTypeToggle.isOpen">
+						<button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="typeFilter" data-toggle="dropdown">{{newReturn.returnTypeTitle}}
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter" style="cursor: pointer;">
+							<li role="presentation" data-ng-repeat="returnType in returnTypes" class="dropdown-item"><a role="menuitem" tabindex="-1"
+								  data-ng-click="newReturn.returnTypeId=''+returnType.id;newReturn.returnTypeTitle=''+returnType.title;returnTypeToggle.isOpen=false;">{{returnType.title}}</a>
+							</li>
+						</ul>
+					</div> -->
+					<div class="dropdown" is-open="returnTypeToggle.isOpen">
+						<button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle" data-toggle="dropdown" id="typeFilter">
+							{{newReturn.returnTypeTitle}}
+						</button>
+						<div class="dropdown-menu" style="cursor: pointer;">
+							<a class="dropdown-item" data-ng-repeat="returnType in returnTypes" tabindex="-1" data-ng-click="newReturn.returnTypeId=''+returnType.id;newReturn.returnTypeTitle=''+returnType.title;returnTypeToggle.isOpen=false;">{{returnType.title}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<!-- For More return type we need to write conditions here -->
+				<!--  1040  start -->
+				<div data-ng-if="newReturn.returnTypeId == '1040'">
+					<div class="row" data-ng-if="newReturnType == 'normalReturn'">
+						<div class="col-lg-4 col-md-8 col-sm-8">
+							<label translate="NEWRETURN_SSN_LBL" translate-default="SSN"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step2">
+							<input type="text" class="form-control " data-ng-model="newReturn.ssn" ng-required="!newReturn.ssn && !newReturn.applyForW7"
+							 tax-mask="999-99-9999" tax-mask-use-view-value="true" value="{{newReturn.ssn}}" data-ng-disabled="newReturn.applyForW7"
+							/>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-4 col-xs-margin_top_10 margin_top_5" data-ng-if="taxYear != '2014' && taxYear != '2015'">
+							<!-- W7-->
+							<button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':newReturn.applyForW7==true}"
+							 data-ng-model="newReturn.applyForW7" data-ng-click="newReturn.applyForW7=!newReturn.applyForW7;newReturn.ssn=''"></button><span
+							 class="float-left" translate="NEWRETURN_ITIN_APPLY_LBL" translate-default="Apply W7"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'normalReturn'">
+							<label translate="NEWRETURN_FIRSTNAME_LBL" translate-default="First Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'customReturnTemplate'">
+							<label translate="NEWRETURN_TEMPLATE_NAME" translate-default="Template Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step3">
+							<input type="text" class="form-control " data-ng-model="newReturn.firstName" ng-required="!newReturn.firstName" value="{{newReturn.firstName}}"
+							/>
+						</div>
+					</div>
+
+					<div class="row" data-ng-if="newReturnType == 'normalReturn'">
+						<div class="col-lg-4 col-md-8 col-sm-8">
+							<label translate="NEWRETURN_LASTNAME_LBL" translate-default="Last Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step4">
+							<input type="text" class="form-control " data-ng-model="newReturn.lastName" ng-required="!newReturn.lastName" value="{{newReturn.lastName}}"
+							/>
+						</div>
+					</div>
+				</div>	
+				<!--  1040  end -->
+
+				<!-- Bussiness return start -->
+				<div data-ng-if="newReturn.returnTypeId == '1065' || newReturn.returnTypeId == '1120' || newReturn.returnTypeId == '1120s' ">
+					<div class="row" data-ng-if="newReturnType == 'normalReturn'">
+						<div class="col-lg-4 col-md-8 col-sm-8">
+							<label translate="NEWRETURN_EIN_LBL" translate-default="EIN"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step2">
+							<input type="text" class="form-control " data-ng-model="newReturn.ein" ng-required="!newReturn.ein" tax-mask="99-9999999"
+							 tax-mask-use-view-value="true" value="{{newReturn.ein}}" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'normalReturn'">
+							<label translate="NEWRETURN_COMPANYNAME_LBL" translate-default="Company Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'customReturnTemplate'">
+							<label translate="NEWRETURN_TEMPLATE_NAME" translate-default="Template Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step3">
+							<input type="text" class="form-control " data-ng-model="newReturn.companyName" ng-required="!newReturn.companyName" value="{{newReturn.companyName}}"
+							/>
+						</div>
+					</div>
+				</div>
+				<!-- Bussiness return end -->
+
+				<!-- other return start -->
+				<div data-ng-if="newReturn.returnTypeId == '1041'">
+					<div class="row" data-ng-if="newReturnType == 'normalReturn'">
+						<div class="col-lg-4 col-md-8 col-sm-8">
+							<label translate="NEWRETURN_EIN_LBL" translate-default="EIN"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step2">
+							<input type="text" class="form-control " data-ng-model="newReturn.ein" ng-required="!newReturn.ein" tax-mask="99-9999999"
+							 tax-mask-use-view-value="true" value="{{newReturn.ein}}" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'normalReturn'">
+							<label translate="NEWRETURN_COMPANYNAME_LBL" translate-default="Estate or Trust Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'customReturnTemplate'">
+							<label translate="NEWRETURN_TEMPLATE_NAME" translate-default="Template Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step3">
+							<input type="text" class="form-control " data-ng-model="newReturn.companyName" ng-required="!newReturn.companyName" value="{{newReturn.companyName}}"
+							/>
+						</div>
+					</div>
+				</div>
+				<!-- other return end -->
+
+				<!-- other return start -->
+				<div data-ng-if="newReturn.returnTypeId == '990'">
+					<div class="row" data-ng-if="newReturnType == 'normalReturn'">
+						<div class="col-lg-4 col-md-8 col-sm-8">
+							<label translate="NEWRETURN_EIN_LBL" translate-default="EIN"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step2">
+							<input type="text" class="form-control " data-ng-model="newReturn.ein" ng-required="!newReturn.ein" tax-mask="99-9999999"
+							 tax-mask-use-view-value="true" value="{{newReturn.ein}}" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'normalReturn'">
+							<label translate="NEWRETURN_COMPANYNAME_LBL" translate-default="Company Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" data-ng-if="newReturnType == 'customReturnTemplate'">
+							<label translate="NEWRETURN_TEMPLATE_NAME" translate-default="Template Name"></label>
+						</div>
+						<div class="col-lg-4 col-md-8 col-sm-8" id="step3">
+							<input type="text" class="form-control " data-ng-model="newReturn.companyName" ng-required="!newReturn.companyName" value="{{newReturn.companyName}}"
+							/>
+						</div>
+					</div>
+				</div>
+				<!-- other return end -->
+				<div class="row" data-ng-if="newReturnType == 'normalReturn'">
+					<div class="col-lg-4 col-md-8 col-sm-8">
+						<label translate="NEWRETURN_COPYRETURN_LBL" translate-default="Use custom return template"></label>
+					</div>
+					<div class="col-lg-4 col-md-8 col-sm-8" data-ng-class="{'no-clicking':!isOnline}">
+						<!-- <div class="dropdown" dropdown="" is-open="defaultReturnToggle.isOpen">
+							<button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="typeFilter" data-toggle="dropdown">{{newReturn.selectedDefaultReturn}}
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter" style="cursor: pointer;">
+								<li class="dropdown-item"><a  data-ng-click="newReturn.selectedDefaultReturn='Please Select'" class="height_26"></a>
+								</li>
+								<li role="presentation" data-ng-repeat="return in defaultReturnList | orderBy:'displayName'| customReturnTemplateListFilter:newReturn.returnTypeId"
+								 class="dropdown-item"> <a role="menuitem" tabindex="-1"  data-ng-click="newReturn.returnWithDefault=''+return.returnId;newReturn.selectedDefaultReturn=''+return.displayName;defaultReturnToggle.isOpen=false">{{return.displayName}}</a>
+								</li>
+							</ul>
+						</div> -->
+						<div class="dropdown" is-open="defaultReturnToggle.isOpen">
+							<button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle" id="typeFilter" data-toggle="dropdown">
+								{{newReturn.selectedDefaultReturn}}
+							</button>
+							<div class="dropdown-menu" style="cursor: pointer;">
+								<a class="dropdown-item" data-ng-click="newReturn.selectedDefaultReturn='Please Select'"></a>
+								<a class="dropdown-item" data-ng-repeat="return in defaultReturnList | orderBy:'displayName'| customReturnTemplateListFilter:newReturn.returnTypeId"
+								 tabindex="-1" data-ng-click="newReturn.returnWithDefault=''+return.returnId;newReturn.selectedDefaultReturn=''+return.displayName;defaultReturnToggle.isOpen=false">{{return.displayName}}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-lg-8 col-md-16 col-sm-16">
+					<hr class="light_line" />
+				</div>
+			</div>
+
+			<div class="row margin_top_10">
+				<div class="col-lg-8 col-md-16 col-sm-16">
+					<!-- button will be disabled for package other then 1040 -->
+					<input id="step5" type="submit" class="btn btn-md btn-outline-primary float-right" value="Continue" ng-disabled="form.$invalid  || saveReturnInProcess == true"
+					 translate="NEWRETURN_SUBMIT_LBL" translate-default="Continue">
+					<input data-ng-if="newReturn.returnTypeId == '1040' && taxYear != '2014' && newReturn.applyForW7!=true" id="step6" type="button"
+					 class="btn btn-md btn-outline-primary float-right margin_right_10" value="Interview Mode" ng-disabled="form.$invalid || saveReturnInProcess == true"
+					 translate="INTERVIEWMODE" translate-default="Interview Mode" data-ng-click="createReturn('interview')">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!--data-ng-class="{'rightsidebar_wrap':headerNav.collapseRightPane==false,'rightsidebar_wrap_remove':headerNav.collapseRightPane==true}"-->
+<!--data-ng-class="{'collapse-right':headerNav.collapseRightPane==true,'collapse-right_remove':headerNav.collapseRightPane==false}"-->
+<!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->

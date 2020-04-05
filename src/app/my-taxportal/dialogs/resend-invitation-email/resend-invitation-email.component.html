@@ -1,0 +1,28 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857146;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <span class="modal-title" style="font-size: 18px;">
+      Resend
+    </span>
+    <i class="fa fa-times mt-2 cursor_pointer" (click)="close()" aria-hidden="true"></i>
+  </div>
+  <form [formGroup]="resendInvitationForm">
+    <div class="modal-body static_form_wrap clearfix">
+      <div class="input-group-lg row_height_30">
+        <div class="col-lg-24 col-md-24 col-xs-24 padding_l_r_0 margin_bottom_10">
+          <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+            The invitation will be resent to the taxpayer to the email address displayed below. If you need
+            to send the invitation to a different email address, please update before pressing Resend.
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 padding_l_r_0 margin_top_5">
+            <input type="email" name="newEmail" class="form-control" formControlName="newEmail" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="resendEmail()" [disabled]="resendInvitationForm.invalid">Resend</button>
+      <button type="button" class="btn btn-outline-primary" (click)="close()">Cancel</button>
+    </div>
+  </form>
+</div>

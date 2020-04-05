@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Generate Trusted Device PIN</h4>
+  <button type="button" class="close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="text-center h5 my-4">Enter the PIN below in the Authorized Device to start Instant Form View</div>
+  <div class="text-center"><b>PIN</b></div>
+  <div class="text-center border border-secondary mx-auto h4 w-25 mt-2 letter-space">{{data.pinNumber}}</div>
+  <div *ngIf="showResendButton == false" class="text-center mt-2"><b>Time Remaining</b>:{{time | getTimeInMinutesAndSeconds}}</div>
+  <div  *ngIf="showResendButton == true" class="text-center mt-2">Your OTP expired.Please Regenerate.</div>
+  <div class="text-center my-3">Note:The PIN expires in 2 minutes.</div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" *ngIf="showResendButton" (click)="resendPIN()">Create New PIN</button>
+  <button type="button" class="btn btn-outline-primary" (click)="close()">Close</button>
+</div>

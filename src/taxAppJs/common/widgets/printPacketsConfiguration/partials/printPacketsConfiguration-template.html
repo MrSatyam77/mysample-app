@@ -1,0 +1,223 @@
+<link href="taxAppJs/common/widgets/printPacketsConfiguration/css/printPacketsConfiguration.css" rel="stylesheet" />
+<div class="clearfix print_set_main_wrap">
+    <div class="clearfix">
+        <div class="row">
+            <div class="col-lg-6 col-sm-10 col-md-6">
+                <div class="padding_10 margin_top_10 print_option_wrapper"
+                    ng-style="{height:$root.headerNav.screenHeight-206}" style="overflow-y:hidden;">
+
+                    <div class="row">
+                        <div class="col-lg-24 col-sm-24 col-md-24"><label translate="PACKAGE_LBL"
+                                translate-default="Package"></label></div>
+                        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_5">
+                            <select data-ng-model="selectedPackageName" ng-change="refreshFilter()"
+                                data-ng-options="item.id as item.title for item in returnTypes"
+                                class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="row margin_top_10">
+                        <div class="col-lg-24 col-sm-24 col-md-24"><label translate="PRINTPACKET_LBL"
+                                translate-default="Print Packet"></label></div>
+                        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_5">
+                            <select data-ng-model="selectedPacketName" class="form-control"
+                                data-ng-options="packet.value as packet.displayText for packet in  printPacket"></select>
+                        </div>
+                    </div>
+                    <div class="row margin_top_20">
+                        <hr class="light_line">
+                    </div>
+                    <div class="clearfix margin_top_10">
+                        <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                            <button type="button" class="custom_input_dark float-left margin_right_5"
+                                data-ng-class="{'active':waterMarkDetails[selectedPacketName].isChecked==true}"
+                                ng-disabled="selectedPacketName =='filing'"
+                                data-ng-click="waterMarkDetails[selectedPacketName].isChecked = !waterMarkDetails[selectedPacketName].isChecked;waterMarkDetails[selectedPacketName].isChecked == false ? waterMarkDetails[selectedPacketName].value = '':waterMarkDetails[selectedPacketName].value;"></button>
+                            <span translate="WATERMARK_LBL" translate-default="Watermark"></span>
+                        </div>
+                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_6 padding_l_r_0">
+                            <input type="text" name="waterMarkText" class="form-control padding_bottom_4_important"
+                                data-ng-model="waterMarkDetails[selectedPacketName].value"
+                                placeholder="Enter Watermark Here"
+                                ng-disabled="waterMarkDetails[selectedPacketName].isChecked==undefined ||waterMarkDetails[selectedPacketName].isChecked == false" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-18 col-sm-14 col-md-18 col-xs-24">
+                <div class="padding_10 margin_top_10 clearfix print-wrapper"
+                    ng-style="{height:$root.headerNav.screenHeight-206}" style="overflow-y:hidden;">
+
+
+                    <div class="clearfix padding_top_5">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-12 col-md-12">
+                                <div class="clearfix padding_top_3">
+                                    <select data-ng-model="selectedStateName" class="form-control float-right"
+                                        ng-change="refreshFilter()"
+                                        data-ng-options="state as state for state in stateList"></select>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 col-sm-12 col-md-12 col-xs-24">
+                                <div class="clearfix padding_top_3">
+                                    <div class="row_height_31">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Filter by Any Value"
+                                                ng-model="searchField" value="{{searchField}}" />
+                                            <div class="input-group-append" data-ng-if="searchField.length">
+                                                <span class="input-group-text cursor_pointer"
+                                                    data-ng-click="clearSearch()"> <i class="fa fa-times"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-16 col-sm-24 col-md-12 col-xs-24 float-right">
+                                <div class="float-right">
+                                    <button class="btn btn-outline-primary row_height_31" ng-click="closeAllItems();"
+                                        translate="COLLAPSEALL_LBL" translate-default="Collapse all"></button>
+                                    <button class="btn btn-outline-primary row_height_31" ng-click="openAllItems();"
+                                        translate="EXPANDALL_LBL" translate-default="Expand all"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-24 col-sm-24 col-md-24 clearfix">
+
+                            <div class="clearfix">
+                                <hr class="light_line">
+                            </div>
+
+                            <div class="clearfix form-outer-area">
+                                <div class="form-wrapper">
+                                    <!--Loading bar start-->
+                                    <div data-ng-if="enableLoading == true">
+                                        <div class="loading_background"></div>
+                                        <div class="preloader">
+                                            <div class="preloader-container">
+                                                <span class="animated-preloader"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Loading bar end-->
+                                    <div class="clearfix margin_bottom_10 forms-header">
+                                        <div class="float-left margin_left_15"><label class="font_bold"
+                                                translate="FORMS_LBL" translate-default="FORMS"></label></div>
+                                        <div class="float-right margin_right_43"><label class="font_bold"
+                                                translate="WHENTOPRINT_LBL" translate-default="WHEN TO PRINT"></label>
+                                        </div>
+                                    </div>
+                                    <div ng-style="{height:$root.headerNav.screenHeight-105}" style="overflow-y:auto;"
+                                        class="form_body">
+                                        <!--   {{formList|json}} -->
+                                        <!-- <accordion close-others="false">
+                                    <accordion-group ng-repeat="category in categories track by $index" is-open="category.isOpen">
+                                        <accordion-heading>
+                                            <a>
+                                                <h4 class="panel-title">
+                                                    <i class="fa fa-chevron-right color_gray" aria-hidden="true" ng-class="{'fa fa-chevron-down': category.isOpen, 'fa fa-chevron-right': !category.isOpen}"></i>
+                                                    <span class="color_gray">{{::category.displayText}}</span>
+                                                </h4>
+                                            </a>
+                                        </accordion-heading>
+                                        <div class="clearfix allowScrollSync">
+                                            <div class="col-lg-24 col-sm-24 col-md-24 accordian_row clearfix" ng-repeat="form in formList | printPacketsFormListFilter:searchField | printPacketsCategoryFilter:category.value | orderBy:('printOrder.' + selectedPacketName) track by form.id"
+                                                 data-ng-class="{'active':selectedFormId==form.id}" data-ng-click="selectForm(form.id)">
+                                                <div class="float-left">
+                                                    <label class="padding_top_5">{{::form.displayName}}</label>
+                                                </div>
+                                                <div class="float-right">
+                                                    <select data-ng-model="form.whenToPrint[selectedPacketName]" class="form-control" data-ng-options="packet.value as packet.displayText for packet in whenToPrint" id="Form-WhenToPrint-{{::form.id}}"
+                                                            data-ng-change="changeWhenToPrint(form);"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </accordion-group>
+                                </accordion>  -->
+                                        <div id="printPacketsConfigurationId" class="my-accordion">
+                                            <div class="card" ng-repeat="category in categories track by $index">
+                                                <div class="card-header" ng-click="category.isOpen = !category.isOpen">
+                                                    <a class="collapsed card-link" data-toggle="collapse"
+                                                        data-target="#printPacketsConfiguration{{$index}}">
+                                                        <div>
+
+                                                            <span>{{category.displayText}}</span>
+                                                            <span aria-hidden="true"
+                                                                ng-class="{'accordion-right-icon-wrap accordion-close': !category.isOpen , 'accordion-right-icon-wrap accordion-open': category.isOpen == true}"></span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div id="printPacketsConfiguration{{$index}}" class="collapse"
+                                                    data-ng-class="{'show': category.isOpen == true}"
+                                                    data-parent="#printPacketsConfiguration{{$index}}">
+                                                    <div class="card-body">
+                                                        <div class="clearfix allowScrollSync">
+                                                            <div class="col-lg-24 col-sm-24 col-md-24 accordian_row clearfix"
+                                                                ng-repeat="form in formList | printPacketsFormListFilter:searchField | printPacketsCategoryFilter:category.value | orderBy:('printOrder.' + selectedPacketName) track by form.id"
+                                                                data-ng-class="{'active':selectedFormId==form.id}"
+                                                                data-ng-click="selectForm(form.id)">
+                                                                <div class="float-left">
+                                                                    <label
+                                                                        class="padding_top_5">{{::form.displayName}}</label>
+                                                                </div>
+                                                                <div class="float-right">
+                                                                    <select
+                                                                        data-ng-model="form.whenToPrint[selectedPacketName]"
+                                                                        class="form-control"
+                                                                        data-ng-options="packet.value as packet.displayText for packet in whenToPrint"
+                                                                        id="Form-WhenToPrint-{{::form.id}}"
+                                                                        data-ng-change="changeWhenToPrint(form);"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="print-wrapper_inner">
+                                    <button class="btn btn-outline-primary font_bold font_size_20"
+                                        data-ng-click="updatePrintOrder('first')"><i class="fa fa-angle-double-up"
+                                            aria-hidden="true"></i></button>
+                                    <button class="btn btn-outline-primary margin_top_10 font_bold font_size_20"
+                                        data-ng-click="updatePrintOrder('up')"><i class="fa fa-angle-up"
+                                            aria-hidden="true"></i></button>
+                                    <button class="btn btn-outline-primary margin_top_10 font_bold font_size_20"
+                                        data-ng-click="updatePrintOrder('down')"><i class="fa fa-angle-down"
+                                            aria-hidden="true"></i></button>
+                                    <button class="btn btn-outline-primary margin_top_10 font_bold font_size_20"
+                                        data-ng-click="updatePrintOrder('last')"><i class="fa fa-angle-double-down"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+            <!--<hr class="light_line">-->
+            <div class="row_height_30 float-right padding_top_20">
+                <button class="btn btn-outline-primary" translate="PRINTSET_SAVE_BTN" translate-default="Save"
+                    data-ng-click="save()" data-ng-disabled="!userCan('CAN_SAVE_PRINTSET')"></button>
+                <button class="btn btn-outline-primary" translate="PRINTSET_RESET_BTN" translate-default="Reset"
+                    data-ng-click="ResetPrintPackets();" data-ng-disabled="!userCan('CAN_SAVE_PRINTSET')"></button>
+                <button class="btn btn-outline-primary" translate="PRINTSET_CANCEL_BTN" translate-default="Cancel"
+                    data-ng-if="backUrl == 'home'" data-ng-click="cancel()"></button>
+                <button class="btn btn-outline-primary" translate="PRINTSET_CLOSE_BTN" translate-default="Close"
+                    data-ng-if="backUrl == 'dialog'" data-ng-click="cancel()"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,269 @@
+<div class="mtpo-action float-right">
+  <button type="submit" class="btn btn-outline-primary ml-2 float-left" (click)="save()" [disabled]="!efinEditForm.valid">Save</button>
+  <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">Cancel</button>
+</div>
+
+
+<form [formGroup]="efinEditForm">
+  <div class="row mt-3">
+    <div class="col-24">
+      <div class="form-group row">
+        <label for="efin" class="col-sm-6 col-form-label">EFIN</label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="efin" formControlName="efin" mask="000000">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="efin" formControlName="efin" mask="000000" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+            container="body" tooltipClass="default default-400" placement="right">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="trackingNumber" class="col-sm-6 col-form-label">
+          Tracking Number
+          <span class="d-inline"><i class="fa fa-info-circle text-silver-light" placement="right" ngbTooltip="The tracking number contains 16-20 digits and can be found at the top of your Application Summary, above the Application Summary heading."
+              container="body" tooltipClass="info"></i></span>
+        </label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="trackingNumber" formControlName="trackingNumber">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="trackingNumber" formControlName="trackingNumber" [ngbTooltip]="unlockEFINMessage"
+            triggers="click:blur" container="body" tooltipClass="default default-400" placement="right">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+      </div>
+      <!-- <div class="form-group row">
+        <label for="efinActiveStatus" class="col-sm-6 col-form-label">EFIN Status</label>
+        <div class="col-sm-8">
+          <div class="mtpo-custom-checkbox d-inline mr-5">
+            <button class="mtpo-checkbox" id="efinActiveStatus" (click)="efinDetail.isActive = !efinDetail.isActive" [ngClass]="{'active': efinDetail.isActive === true}"></button>
+            <label class="d-inline" for="efinActiveStatus">Active</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="effectiveDate" class="col-sm-6 col-form-label">Effective Date</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="effectiveDate" formControlName="effectiveDate" mask="00/00/0000">
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24">
+      <h5 class="c-title font-weight-bold mb-4 mt-2 pb-3 border-bottom">Firm</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24">
+      <div class="form-group row">
+        <label for="firmName" class="col-sm-6 col-form-label">Name</label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="firmName" formControlName="firmName" pattern="(([A-Za-z0-9-\#\(\)]|&|') ?)*([A-Za-z0-9-\#\(\)]|&|')">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="firmName" formControlName="firmName" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+            container="body" tooltipClass="default default-400" placement="right" pattern="(([A-Za-z0-9-\#\(\)]|&|') ?)*([A-Za-z0-9-\#\(\)]|&|')">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+        <div class="col-sm-8 pl-4">
+          <div class="mtpo-custom-checkbox d-inline">
+            <button class="mtpo-checkbox" id="sameFirmName" (click)="efinDetail.isFirmNameSameAsFirm = !efinDetail.isFirmNameSameAsFirm;setFieldsBasedOnOwner()"
+              [ngClass]="{'active': efinDetail.isFirmNameSameAsFirm === true}"></button>
+            <label class="d-inline" for="sameFirmName">Same as Firm</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="efinEditForm.controls.firmName.errors && efinEditForm.controls.firmName.errors.pattern">
+        <label for="" class="col-sm-6 col-form-label"></label>
+        <label class="col-sm-8 text-danger"> Invalid character found. Legal Characters: A-Z, a-z, 0-9, #, hyphen, single
+          space.</label>
+      </div>
+
+      <!-- Street start -->
+      <div class="form-group row">
+        <label for="street" class="col-sm-6 col-form-label">Street</label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="street" formControlName="street" pattern="[A-Za-z0-9]( ?[A-Za-z0-9\-/])*">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="street" formControlName="street" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+            container="body" tooltipClass="default default-400" placement="right" pattern="[A-Za-z0-9]( ?[A-Za-z0-9\-/])*">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+        <div class="col-sm-8 pl-4">
+          <div class="mtpo-custom-checkbox d-inline">
+            <button class="mtpo-checkbox" id="sameFirmAddress" (click)="efinDetail.isAddressSameAsFirm = !efinDetail.isAddressSameAsFirm;setFieldsBasedOnOwner()"
+              [ngClass]="{'active': efinDetail.isAddressSameAsFirm === true}"></button>
+            <label class="d-inline" for="sameFirmAddress">Same as Firm</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="efinEditForm.controls.street.errors && efinEditForm.controls.street.errors.pattern">
+        <label for="" class="col-sm-6 col-form-label"></label>
+        <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space.</label>
+      </div>
+      <!-- Street ends -->
+
+      <div class="form-group row">
+        <label for="postalCode" class="col-sm-6 col-form-label">Zip Code</label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="postalCode" formControlName="postalCode" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+            container="body" tooltipClass="default default-400" placement="right">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- City starts -->
+      <div class="form-group row">
+        <label for="city" class="col-sm-6 col-form-label">City</label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="city" formControlName="city" pattern="([A-Za-z] ?)*[A-Za-z]">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="city" formControlName="city" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+            container="body" tooltipClass="default default-400" placement="right" pattern="([A-Za-z] ?)*[A-Za-z]">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="efinEditForm.controls.city.errors && efinEditForm.controls.city.errors.pattern">
+        <label for="" class="col-sm-6 col-form-label"></label>
+        <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, single space.</label>
+      </div>
+      <!-- City ends -->
+
+      <!-- State starts -->
+      <div class="form-group row">
+        <label for="state" class="col-sm-6 col-form-label">State</label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="state" formControlName="state" pattern="([A-Za-z] ?)*[A-Za-z]">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="state" formControlName="state" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+            container="body" tooltipClass="default default-400" placement="right" pattern="([A-Za-z] ?)*[A-Za-z]">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="efinEditForm.controls.state.errors && efinEditForm.controls.state.errors.pattern">
+        <label for="" class="col-sm-6 col-form-label"></label>
+        <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, single space.</label>
+      </div>
+      <!-- State ends -->
+
+      <!-- Country starts -->
+      <div class="form-group row">
+        <label for="country" class="col-sm-6 col-form-label">Country</label>
+        <div class="col-sm-8" *ngIf="efinDetail.efinStatus !== 2">
+          <input type="text" class="form-control" id="country" formControlName="country" pattern="([A-Za-z] ?)*[A-Za-z]">
+        </div>
+        <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+          <input type="text" class="form-control" id="country" formControlName="country" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+            container="body" tooltipClass="default default-400" placement="right" pattern="([A-Za-z] ?)*[A-Za-z]">
+          <span class="icon-span">
+            <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+              placement="right"></i>
+          </span>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="efinEditForm.controls.country.errors && efinEditForm.controls.country.errors.pattern">
+        <label for="" class="col-sm-6 col-form-label"></label>
+        <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, single space.</label>
+      </div>
+      <!-- Country ends -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24">
+      <h5 class="c-title font-weight-bold mb-4 mt-2 pb-3 border-bottom">Location Selection</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24">
+      <div class="form-group row">
+        <label for="office" class="col-sm-6 col-form-label">Choose Location(s)</label>
+        <div class="col-sm-16">
+          <div class="row">
+            <div class="col-sm-12 mb-2" *ngFor="let location of locationLookupData">
+              <div class="mtpo-custom-checkbox d-inline">
+                <button class="mtpo-checkbox" (click)="location.isSelected = !location.isSelected " [ngClass]="{'active': location.isSelected === true}"></button>
+                <label class="d-inline">{{location.locationName}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-24">
+      <h5 class="c-title font-weight-bold mb-4 mt-2 pb-3 border-bottom">ERO</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24">
+      <div class="form-group row">
+        <label for="ero" class="col-sm-6 col-form-label">Choose ERO</label>
+        <div class="col-sm-16">
+          <div class="row mb-2">
+            <div class="col-sm-12" *ngIf="efinDetail.efinStatus !== 2">
+              <select id="associatedUsers" class="form-control" formControlName="associatedERO">
+                <option *ngFor="let user of eroListLookup" [value]="user.key">{{user.firstName}} {{user.lastName}}</option>
+              </select>
+            </div>
+            <div class="col-sm-8 field-icon" *ngIf="efinDetail.efinStatus === 2">
+              <select id="associatedUsers" class="form-control" formControlName="associatedERO" [ngbTooltip]="unlockEFINMessage" triggers="click:blur"
+                container="body" tooltipClass="default default-400" placement="right" style="max-width: 100%;">
+                <option *ngFor="let user of eroListLookup" [value]="user.key">{{user.firstName}} {{user.lastName}}</option>
+              </select>
+              <span class="icon-span">
+                <i class="fas fa-lock" [ngbTooltip]="unlockEFINMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+                  placement="right"></i>
+              </span>
+            </div>
+            <div class="col-auto pl-4" *ngIf="efinDetail.id != 'newEFIN'">
+              <button type="button" class="btn btn-outline-primary" [disabled]="!efinEditForm.controls.associatedERO.value || loggedInUserDetail.emailHash !== efinEditForm.controls.associatedERO.value || !efinEditForm.valid"
+                (click)="verifyERO(efinEditForm.controls.associatedERO.value)">Verify</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+<div class="row mb-3">
+  <div class="col">
+    <div class="w-100 float-right border-top pt-3 mt-2">
+      <button type="button" class="btn btn-outline-primary ml-2 float-right" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-outline-primary  float-right" (click)="save()" [disabled]="!efinEditForm.valid">Save</button>
+    </div>
+  </div>
+</div>

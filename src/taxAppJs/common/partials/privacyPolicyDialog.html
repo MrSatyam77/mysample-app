@@ -1,0 +1,98 @@
+﻿<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span class="text-left">Privacy Policy</span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix"> <!-- Body Start From Here -->
+        <div class="state-list-dashboard-body-overflow">
+            <div ng-repeat="state in stateWisePackageList" class="col-lg-24 col-sm-24 col-md-24 col-xs-24 table-body-row-custom">
+                <div class="col-lg-5 col-sm-3 col-md-3 col-xs-5">{{state.stateName}}</div>
+                <div ng-repeat="package in state.packageList" class="col-lg-3 col-sm-3 col-md-3 col-xs-3 margin_top_5">
+                    <img ng-if="package.isState==true && package.eFileStatus.value=='approved'" data-ng-src="taxAppJs/return/workspace/images/approved.png">
+                    <i ng-if="package.isState==true && package.eFileStatus.value!='approved'" style="color:graytext;" class="fa" ng-class="{'fa-print':package.eFileStatus.value=='paperOnly','fa-exclamation-triangle':package.eFileStatus.value=='ats'}"></i>
+                    <span ng-if="package.isState==false" style="color:graytext;">N/A</span>
+                </div>
+            </div>
+            <div class="privacy-policy-wrapper col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 row">
+                    <div class="float-left">
+                        <p>
+                            Thanks  for  using  {{resellerConfig.appName}}<sup>TM</sup>
+                            ! This  privacy  policy  describes  how  we  collect,  use,  and  handle  your  information,  and  your  clients’
+                            information when you use our tax preparation software (“software”) and services (“Services”).
+                        </p>
+                    </div>
+                    <h3>
+                        We collect and use the following information to provide, improve and protect
+                        our services:
+                    </h3>
+                    <div class="privacy-policy-inner"><div class="font_bold margin_top_10 margin_bottom_10">Account. </div><span>We collect, and associate with your account, information like your name, email address, phone number, payment info, and physical address.</span></div>
+                    <div class="privacy-policy-inner">
+                        <div class="font_bold margin_top_10 margin_bottom_10">Services. </div><span>
+                            When you use our Services, we collect, process, store, and transmit information necessary for the completion of U.S. Federal
+                            and/or state tax returns, including sensitive personal identity and account information. Our software includes the ability to file a prepared
+                            return electronically (“e-file”) which requires the collection of taxpayer and preparer signature information in various forms.
+                        </span>
+                    </div>
+                    <div class="privacy-policy-inner">
+                        <div class="font_bold margin_top_10 margin_bottom_10">Usage. </div>
+                        <span>
+                            We collect information from and about the devices you use to access the Services. This includes things like IP addresses, the type
+                            of browser and device you use, the web page you visited before coming to our sites, and identifiers associated with your devices. Your de
+                            -
+                            vices (depending on their settings) may also transmit location information to the Services.
+                        </span>
+                    </div>
+                    <div class="privacy-policy-inner">
+                        <div class="font_bold margin_top_10 margin_bottom_10">Cookies and other technologies. </div>
+                        <span>
+                            We use technologies like cookies and analytic tools to provide, improve, protect and promote our
+                            Services. For example, cookies help us with things like remembering your username for your next visit, understanding how you are interact
+                            -
+                            ing with our Services, and improving them based on that information. You can set your browser to not accept cookies, but this may limit your
+                            ability to use our software.
+                        </span>
+                    </div>
+                    <h3>How we share information:</h3>
+                    <p>We may share information as discussed below, but we won’t sell it to advertisers or other third-parties.</p>
+
+                    <div class="privacy-policy-inner">
+                        <div class="font_bold margin_top_10 margin_bottom_10">Internal Revenue Service and State Revenue Departments (“government agencies”).  </div><span>
+                            Your clients’ information will
+                            only be shared with government agencies only after the software has been directed to e-file your clients’ return(s).
+                        </span>
+                    </div>
+                    <div class="privacy-policy-inner">
+                        <div class="font_bold margin_top_10 margin_bottom_10">Bank Product Providers.  </div><span>
+                            We integrate with various refund bank product providers (“banks”) for the purpose of offering refund related
+                            bank products (“bank products”). We will share account, and personal information with a bank, only when directed by you for the purpose
+                            of enrolling in their program. We will only share your clients’ personal information with a bank only when directed by you and after obtaining
+                            agreement from your client through the selection and completion of a bank product application within the software.
+                        </span>
+                    </div>
+
+                    <div class="privacy-policy-inner">
+                        <div class="font_bold margin_top_10 margin_bottom_10">Law & Order.   </div><span>
+                            We may disclose your information to third parties if we determine that such disclosure is reasonably necessary to (a)
+                            comply with the law as outlined in “Legal Compliance”; (b) prevent fraud or abuse of {{resellerConfig.appName}}<sup>TM</sup>
+                            or our users; or (c) protect property
+                            rights of {{resellerConfig.appName}}<sup>TM</sup>
+                        </span>
+                    </div>
+                    <div class="privacy-policy-inner">
+                        <div class="font_bold margin_top_10 margin_bottom_10">Legal Compliance.</div><span>
+                            At times government agencies make requests for information on our users and/or their clients. {{resellerConfig.appName}}<sup>TM</sup>
+                            will fight against any blanket request for such information. We will comply with valid legal requests limited to a single user, a preparer, or a
+                            taxpayer, and be accompanied by a signed subpoena.
+                        </span>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div> <!-- Body Ends From Here -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()">Close</button>
+    </div>
+</div>

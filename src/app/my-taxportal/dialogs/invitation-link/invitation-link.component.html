@@ -1,0 +1,28 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857146;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <span class="modal-title" style="font-size: 18px;">
+      Invitation Link
+    </span>
+    <i class="fa fa-times mt-2 cursor_pointer" (click)="close()" aria-hidden="true"></i>
+  </div>
+  <div class="modal-body static_form_wrap clearfix">
+    <div class="input-group-lg row_height_30">
+      <div class="col-lg-24 col-md-24 col-xs-24 padding_l_r_0 margin_bottom_10">
+        <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+          Please email the link below to the taxpayer if they did not receive the invitation email.
+        </div>
+        <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0 margin_top_5">
+          <a *ngIf="data.link && data.link.indexOf('mytaxportal.online') > -1" target="_blank"
+            [href]="data.link">{{data.link}}</a>
+          <span class="text-danger" *ngIf="!(data.link && data.link.indexOf('mytaxportal.online') > -1)">Unable to
+            generate
+            MyTAXPortal link</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="close()">OK</button>
+  </div>
+</div>

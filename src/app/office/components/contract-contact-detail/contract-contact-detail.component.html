@@ -1,0 +1,39 @@
+<div *ngIf="contractContacts.length <= 1 && contractContactDetail">
+  <address>
+    <div class="row mb-3" *ngIf="contractContactDetail.firstName || contractContactDetail.lastName">
+      <div class="col-auto text-center"><span><i class="fa fa-user text-primary"></i></span></div>
+      <div class="col"><span class="d-block">{{contractContactDetail.firstName}} {{contractContactDetail.lastName}}</span></div>
+    </div>
+    <div class="row mb-3" *ngIf="contractContactDetail.email">
+      <div class="col-auto text-center"><span><i class="fa fa-envelope text-primary"></i></span></div>
+      <div class="col">
+        <span class="d-block">
+          {{contractContactDetail.email}}
+          <span class="d-inline"  *ngIf="!contractContactDetail.isEmailVerified"><i class="fa fa-exclamation-circle text-danger"
+              placement="right" ngbTooltip="Email is not verified!" container="body" tooltipClass="error"></i></span>
+          <span class="d-inline" *ngIf="contractContactDetail.isEmailVerified === true"><i class="fa fa-check-circle text-success"
+              placement="right" ngbTooltip="Email verified." container="body" tooltipClass="success"></i></span>
+        </span>
+      </div>
+    </div>
+    <div class="row mb-3" *ngIf="contractContactDetail.phoneNo">
+      <div class="col-auto text-center"><span><i class="fa fa-phone-alt text-primary"></i></span></div>
+      <div class="col">
+        <span class="d-block">
+          {{contractContactDetail.phoneNo | mask: '(000) 000-0000'}}
+          <span class="d-inline" *ngIf="!contractContactDetail.isPhoneVerified"><i class="fa fa-exclamation-circle text-danger"
+              placement="right" ngbTooltip="Cell Phone not verified!" container="body" tooltipClass="error"></i></span>
+          <span class="d-inline" *ngIf="contractContactDetail.isPhoneVerified === true"><i class="fa fa-check-circle text-success"
+              placement="right" ngbTooltip="Cellphone Verified." container="body" tooltipClass="success"></i></span>
+        </span>
+      </div>
+    </div>
+  </address>
+</div>
+
+<div *ngIf="contractContacts.length > 1">
+  <div class="row mb-3" *ngFor="let contract of contractContacts" [hidden]="!contract.firstName && !contract.lastName">
+    <div class="col-2 text-center"><span><i class="fa fa-user text-primary"></i></span></div>
+    <div class="col-auto"><span class="d-block">{{contract.firstName}} {{contract.lastName}}</span></div>
+  </div>
+</div>

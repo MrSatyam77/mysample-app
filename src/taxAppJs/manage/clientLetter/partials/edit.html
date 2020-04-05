@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <style>
+        .ta-editor {
+            min-height: 300px;
+            height: auto;
+            overflow: auto;
+            font-family: inherit;
+            font-size: 100%;
+            border: 1px solid #dddedf !important;
+        }
+        
+        /*a:hover, a:focus{color:#555 !important;}*/
+        .textarea_big {
+            width: 96% !important;
+            max-width: auto;
+            min-width: auto;
+        }
+        .print-wrapper {
+    border: 1px solid #dddedf;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="inner_col_second clearfix"
+        data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="CLIENTLETTERADD_HEADER"
+                translate-default="Add Client Letter" data-ng-if="mode=='create'"></span>
+            <span class="page_title_lg ng-binding" translate="CLIENTLETTEREDIT_HEADER"
+                translate-default="Edit Client Letter" data-ng-if="mode=='edit'"></span>
+        </section>
+
+        <div class="width_full clearfix inner_padding_15 allowScrollSync" ng-style="{height:headerNav.screenHeight-106}"
+            style="overflow-y:auto;">
+            <form name="clientletterform">
+                <!--sidebar start-->
+                <div class="row row_height_30 col-lg-24 col-sm-24 col-md-24">
+                    <div class="text-danger"><label ng-show="clientLetter.isPredefined==true"
+                            translate="CLIENTLETTER_ERRPREDIFINEMSG_LBL"
+                            translate-default="This is predefined client letter, You can not edit or delete it."></label>
+                    </div>
+                </div>
+                <div class="row col-lg-24 col-sm-24 col-md-24">
+                    <!-- <div class="row clearfix col-lg-20 col-sm-16 col-md-16">
+                        <div class="row_height_30 row">
+                            <div class="float-left col-lg-3 col-sm-10">
+                                <label translate="CLIENTLETTER_NAME_LBL" translate-default="Name"></label>
+                            </div>
+                            <div class="col-lg-5 col-sm-14">
+                                <input type="text" data-ng-model="clientLetter.name" class="form-control float-left"
+                                    data-ng-required="!clientLetter.name" value="{{clientLetter.name}}" />
+                            </div>
+                        </div>
+
+                        <div class="row row_height_70 margin_top_10">
+                            <div class="float-left col-lg-3 col-sm-10">
+                                <label translate="CLIENTLETTER_DESCRIPTION_LBL" translate-default="Description"></label>
+                            </div>
+                            <div class="col-lg-18 col-sm-14 row_height_70">
+
+                                <textarea class="form-control textarea_big" data-ng-model="clientLetter.description"
+                                    value="{{clientLetter.description}}"></textarea>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row clearfix col-lg-20 col-sm-16 col-md-16">
+                        <div class="col-md-3 col-lg-3 col-xl-3 col-sm-3">
+                                <label translate="CLIENTLETTER_NAME_LBL" translate-default="Name"></label>
+                        </div>
+                        <div class="col-md-7 col-lg-7 col-xl-7 col-sm-7">
+                                <input type="text" data-ng-model="clientLetter.name" class="form-control float-left"
+                                data-ng-required="!clientLetter.name" value="{{clientLetter.name}}" />
+                        </div>  
+                    </div>
+                    <div class="row clearfix py-3 col-lg-20 col-sm-16 col-md-16">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-3">
+                                    <label translate="CLIENTLETTER_DESCRIPTION_LBL" translate-default="Description"></label>
+                            </div>
+                            <div class="col-md-20 col-lg-20 col-xl-20 col-sm-20">
+                                    <textarea class="form-control textarea_big" data-ng-model="clientLetter.description"
+                                    value="{{clientLetter.description}}"></textarea>
+                            </div>  
+                        </div>
+                        <div class="row clearfix col-lg-24 col-sm-24 col-md-24">
+                                <div class="col-lg-8 col-xl-8 col-sm-8 col-md-8">
+                                        <div id="editId" class=" print-wrapper padding_10 margin_top_10 my-accordion margin_top_10 margin_bottom_10">
+                                                <div class="card" data-ng-repeat="placeholder in getPlaceHolderList track by $index">
+                                                    <div class="card-header">
+                                                        <div class="collapsed card-link" data-toggle="collapse" data-target="#edit{{$index}}" tax-editor-placeholder isplaceholder="false">                                                         
+                                                                <div ng-click="placeholder.isOpen = !placeholder.isOpen">
+                                                                    <span style="word-wrap:break-word;">
+                                                                        {{placeholder.displayText}}
+                                                                        <span aria-hidden="true" ng-class="{'accordion-right-icon-wrap accordion-open': placeholder.isOpen, 'accordion-right-icon-wrap accordion-close': !placeholder.isOpen}"></span>
+                                                                    </span>                                       
+                                                                </div>
+                                                    </div>
+                                                    <div id="edit{{$index}}" class="collapse" data-parent="#editId">
+                                                        <div class="card-body">
+                                                            <div class="width_full" data-ng-repeat="item in placeholder.data">
+                                                            <span tax-editor-placeholder="{{item}}"
+                                                                isplaceholder="true"
+                                                                data-ng-class="{'no-clicking disabled':clientLetter.isPredefined==true}"
+                                                                class="clearfix" style="word-wrap:break-word;">{{item}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        <!--accordian end-->
+                                    </div>
+                                </div>
+                                <div class="col-lg-15 col-xl-15 col-sm-15 col-md-15">
+                                        <div id="editor" name="isExternalPlaceHolderClientLetter" text-angular
+                                        data-ng-model="clientLetter.letter" class="margin_top_10 margin_bottom_10"></div>
+                                </div>  
+                </div>
+               
+            </form>
+                
+            <div class="col-lg-24 col-sm-24 col-md-24">
+                <hr class="light_line">
+                <div class="float-right">
+                    <button class="btn btn-outline-primary" translate="CLIENTLETTER_SAVE_BTN" translate-default="Save"
+                        data-ng-click="create()"
+                        data-ng-disabled="clientLetter.isPredefined==true || clientletterform.$invalid || !userCan('CAN_SAVE_CLIENTLETTER')"></button>
+                    <button class="btn btn-outline-primary" translate="CLIENTLETTER_CANCEL_BTN"
+                        translate-default="Cancel" data-ng-click="cancel()"></button>
+                    <button class="btn btn-outline-primary" translate="CLIENTLETTER_del_BTN" translate-default="Delete"
+                        data-ng-click="del()"
+                        data-ng-disabled="clientLetter.isPredefined==true || mode=='create' || !userCan('CAN_REMOVE_CLIENTLETTER')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+
+</html>

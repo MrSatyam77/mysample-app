@@ -1,0 +1,15 @@
+.drop-fix{width: 500px !important;position: relative;top: 0;}
+.hide-widget p i,.selectcol-pattern p i,.widget-ratio p i {margin-right: 15px;}
+.hide-widget .custom-checkbox {margin-left: 30px;}
+.hide-widget,.selectcol-pattern {border-bottom: 1px solid #c1c1c1 !important;}
+.pt-15{padding-top: 15px;}
+.pb-15{padding-bottom: 15px;}
+.ml-30{margin-left: 30px;}
+.selectcol-pattern .col.text-center:first-child {padding-right: 4px !important;}
+.selectcol-pattern .col.text-center:last-child {padding-left: 4px !important;}
+.white-font .row.d-flex >div,.black-font .row.d-flex >div {width: 25px;height: 25px;}
+.widget-ratio .col .row.d-flex.justify-content-center > div {width: 13px;height: 13px;margin: 2px;}
+button.btn.dropdown-toggle::after {display: none;}
+.white-font .row.d-flex div.active,.white-font .row.d-flex div:hover,.white-font .row.d-flex div:focus {border: 1px solid #eaeaea;outline: #333 0.5px solid;}
+.black-font .row.d-flex div.active,.black-font .row.d-flex div:hover,.black-font .row.d-flex div:focus {border: 1px solid #eaeaea;outline: #333 0.5px solid;}
+.custom-control-input:focus ~ .custom-control-label::before{box-shadow: 0 0 0 0.0rem rgba(0, 123, 255, 0.25) !important;}

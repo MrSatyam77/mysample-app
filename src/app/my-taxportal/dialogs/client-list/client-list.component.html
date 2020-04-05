@@ -1,0 +1,44 @@
+<div class="clearfix">
+  <div class="modal-header">
+    <h5 class="modal-title">Select Clients for Invitation</h5>
+    <button type="button" class="close" (click)="close()">×</button>
+  </div>
+  <div class="modal-body clearfix p-0">
+    <div class="clearfix">
+      <div class="row p-3">
+        <div class="col pr-0">
+          <div class="input-group">
+            <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+              [(ngModel)]="filter.searchText" (ngModelChange)="quickSearch(filter.searchText)" />
+            <div class="input-group-append" *ngIf="filter.searchText && filter.searchText.length > 0">
+              <span class="input-group-text cursor_pointer"
+                (click)="filter.searchText = ''; quickSearch(filter.searchText);">
+                <i class="fa fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <select class="form-control cus-forminput" id="typeFilter" [(ngModel)]="filter.status"
+            (ngModelChange)="externalFilter()">
+            <option [value]="''">All Clients</option>
+            <option [value]="true">Invited Clients</option>
+            <option [value]="false">Not Invited Clients</option>
+          </select>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-primary float-right" [disabled]="!permission.canSaveClient"
+            (click)="editClient({})">Create
+            New Client</button>
+        </div>
+      </div>
+      <app-standard-ag-grid #myTaxportalClientList name="myTaxportalClientList" [gridOptions]="gridOptions"
+        [result]="rowData" [(filter)]="filter" (onStandardGridReady)="onGridReady($event)"
+        (action)="onActionClicked($event)" [rowSelection]="'multiple'">
+      </app-standard-ag-grid>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="selectedClients()">Select</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Close</button>
+  </div>
+</div>

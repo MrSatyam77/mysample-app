@@ -1,0 +1,104 @@
+<div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24">
+  <div class="clearfix" *ngIf="lookup.packages && lookup.packages.length > 0">
+    <form name="form.clientOrganizerTabForm" novalidate>
+      <div class="row">
+        <div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24">
+          <div class="row py-3 border-bottom">
+            <div class="col-lg-8 col-md-8 col-xl-8 col-sm-8 col-8 col-md-8 col-xl-8 col-sm-8 col-8">
+              <label class="font_bold ng-scope m-0">Settings</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-xl-4 col-sm-4 col-8" *ngIf="isAdmin">
+              <label class="font_bold ng-scope m-0">Applicable To</label>
+            </div>
+            <div class="clearfix" [ngClass]="{'col-lg-6 col-8 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}">
+              <label class="font_bold ng-scope m-0">Options
+                <i class="fa fa-exclamation-circle text-danger ml-2 cursor_pointer" placement="right" container="body"
+                  tooltipClass="error" [ngbPopover]="popContentPreferenceSettings" *ngIf="!isAdmin"></i>
+                <ng-template #popContentPreferenceSettings>
+                  <label *ngIf="!isAdmin && view.user">
+                    Please contact your Admin to modify this setting.
+                  </label>
+                  <label *ngIf="!isAdmin && (view.customer || view.office)">
+                    Settings that cannot be modified here can be modified by navigating to <a class="text-bold"
+                      [routerLink]="['/preferences/admin/client-organizer']"><b>Admin Settings</b></a> in the Menu on
+                    the left side of the screen.
+                  </label>
+                </ng-template>
+              </label>
+              <span class="cursor_pointer float-right" *ngIf="isAdmin"><i
+                  class="pl-2 fa fa-info-circle text-silver-light cursor_pointer" [title]="lineHelp.tooltip"
+                  (click)='informationLineHelp("clientOrganizer")'></i></span>
+            </div>
+            <div class="col clearfix" *ngIf="!isAdmin">
+              <label class="font_bold ng-scope m-0">To be set by</label>
+              <span class="cursor_pointer right-text"><i
+                  class="pl-2 float-right fa fa-info-circle text-silver-light cursor_pointer" [title]="lineHelp.tooltip"
+                  (click)='informationLineHelp("clientOrganizer")'></i></span>
+            </div>
+          </div>
+          <ng-template ngFor let-packageName [ngForOf]="lookup.packages" let-i=index>
+            <div class="row py-3 border-bottom" *ngIf="clientOrganizerPreferences[packageName.id]">
+              <div class="col-lg-8 col-md-8 col-xl-8 col-sm-8 col-8">
+                <label class="float-left font-weight-bold">{{packageName.title}}</label>
+              </div>
+              <div class="col-lg-4 col-md-8 col-xl-4 col-sm-8 col-8" *ngIf="isAdmin"
+                [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && clientOrganizerPreferences[packageName.id].rightModel === 2))">
+                <div class="row mb-2" *ngFor="let role of rolesModel">
+                  <div class="col-24 col-xl-24 col-sm-24 col-lg-24 col-md-24">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="role.id === clientOrganizerPreferences[packageName.id].rightModel"
+                      (click)="updatRole(role.id, packageName.id)"></button>
+                    <span class="float-left">{{role.name}}</span>
+                  </div>
+                </div>
+              </div>
+              <div [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+                *ngIf="(isAdmin && clientOrganizerPreferences[packageName.id].rightModel !== 2) || !isAdmin">
+                <div class="col clearfix"
+                  *ngIf="clientOrganizerPreferences[packageName.id].rightModel === 1 && officeList && officeList.length > 1">
+                  <button class="btn btn-outline-primary"
+                    (click)="openConfigurationDialog(packageName.id,'dropdown',lookup.clientOrganizerList[packageName.id])">Configure
+                    Office
+                  </button>
+                </div>
+                <div class="col clearfix"
+                  [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && clientOrganizerPreferences[packageName.id].rightModel === 2))"
+                  *ngIf="clientOrganizerPreferences[packageName.id].rightModel !== 1 || (officeList && officeList.length === 1)">
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                      {{clientOrganizerPreferences[packageName.id].value | displayText:lookup.clientOrganizerList[packageName.id]}}
+                    </button>
+                    <div class="dropdown-menu" style="cursor: pointer;"
+                      [hidden]="!(lookup.clientOrganizerList[packageName.id] && lookup.clientOrganizerList[packageName.id].length > 1)">
+                      <a class="dropdown-item" *ngFor="let client of lookup.clientOrganizerList[packageName.id]"
+                        tabindex="-1"
+                        (click)="clientOrganizerPreferences[packageName.id].value = client.id;">{{client.name}}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col" *ngIf="!isAdmin">
+                <span class="right-text">
+                  <div
+                    *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && clientOrganizerPreferences[packageName.id].rightModel === 2)) else isUsers">
+                    Administrator
+                  </div>
+                  <ng-template #isUsers>
+                    User
+                  </ng-template>
+                </span>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24 py-3 clearfix">
+          <div class="float-right">
+            <button class="btn btn btn-outline-primary mr-2" (click)="savePreferences(true)">Save</button>
+            <button class="btn btn-outline-primary" (click)="gotoHome()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="row margin_top_20" data-ng-show="sameStateErrMsg==true">
+	<span class="message alert alert-danger" translate="INTERVIEWMODE_STATEDUP_MSG" translate-default="You can not have different resident for same state or same resident for twice."></span>
+</div>
+<div class="row margin_top_10">
+	<div class="float-left col-lg-4 col-md-4 col-sm-4">
+		<label translate="RETURNWORKSPACELEFT_FYR" translate-default="Resident"></label>
+ 	</div>
+	<div class="float-left col-lg-20 col-md-20 col-sm-20">
+		<div class="float-left col-lg-4 col-md-6 col-sm-6">
+			<select class="form-control" data-ng-options="state as state.name for state in listOfState" data-ng-change="isStateSelected('fullYearResident','firstState')" data-ng-model="selectedState.fullYearResident.firstState">
+				<option value="" translate="INTERVIEW_SELECTSTATE" translate-default="Select State"></option>
+			</select>
+		</div>
+		<div class="float-left col-lg-4 col-md-6 col-sm-6">
+			<select class="form-control" data-ng-options="state as state.name for state in listOfState" data-ng-change="isStateSelected('fullYearResident','secondState')" data-ng-model="selectedState.fullYearResident.secondState">
+				<option value="" translate="INTERVIEW_SELECTSTATE" translate-default="Select State"></option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="row margin_top_10">
+	<div class="float-left col-lg-4 col-md-4 col-sm-4">
+		<label translate="RETURNWORKSPACELEFT_PYR" translate-default="Part Year Resident"></label>
+ 	</div>
+	<div class="float-left col-lg-20 col-md-20 col-sm-20">
+		<div class="float-left col-lg-4 col-md-6 col-sm-6">
+			<select class="form-control" data-ng-options="state as state.name for state in listOfState" data-ng-change="isStateSelected('partYearResident','firstState')" data-ng-model="selectedState.partYearResident.firstState">
+				<option value="" translate="INTERVIEW_SELECTSTATE" translate-default="Select State"></option>
+			</select>
+		</div>
+		<div class="float-left col-lg-4 col-md-6 col-sm-6">
+			<select class="form-control" data-ng-options="state as state.name for state in listOfState" data-ng-change="isStateSelected('partYearResident','secondState')" data-ng-model="selectedState.partYearResident.secondState">
+				<option value="" translate="INTERVIEW_SELECTSTATE" translate-default="Select State"></option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="row margin_top_10">
+	<div class="float-left col-lg-4 col-md-4 col-sm-4">
+		<label translate="RETURNWORKSPACELEFT_NYR" translate-default="Nonresident"></label>
+ 	</div>
+	<div class="float-left col-lg-20 col-md-20 col-sm-20">
+		<div class="float-left col-lg-4 col-md-6 col-sm-6">
+			<select class="form-control" data-ng-options="state as state.name for state in listOfState" data-ng-change="isStateSelected('nonResident','firstState')" data-ng-model="selectedState.nonResident.firstState">
+				<option value="" translate="INTERVIEW_SELECTSTATE" translate-default="Select State"></option>
+			</select>
+		</div>
+		<div class="float-left col-lg-4 col-md-6 col-sm-6">
+			<select class="form-control" data-ng-options="state as state.name for state in listOfState" data-ng-change="isStateSelected('nonResident','secondState')" data-ng-model="selectedState.nonResident.secondState">
+				<option value="" translate="INTERVIEW_SELECTSTATE" translate-default="Select State"></option>
+			</select>
+		</div>
+	</div>
+</div>
+
+
+

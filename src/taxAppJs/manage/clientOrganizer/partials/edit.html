@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">	
+<link href="taxAppJs/common/css/Styles.css" rel="stylesheet" />
+<link href="taxAppJs/manage/clientOrganizer/css/clientOrganizer.css" rel="stylesheet" />
+
+<body>
+
+	<!-- Header -->
+     
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="CLIENTORGANIZEREDITCONTROLLER_ADD_HEADER" translate-default="Add Client Organizer" ng-show="mode=='create'"></span>
+            <span class="page_title_lg ng-binding" translate="CLIENTORGANIZEREDITCONTROLLER_EDIT_HEADER" translate-default="Edit Client Organizer" ng-show="mode=='edit'"></span>
+        </section>
+
+        <div class="inner_padding_15 static_form_wrap clearfix allowScrollSync"    ng-style="{height:headerNav.screenHeight-106}"  style="overflow-y:auto;" >
+            <form name="clientOrganizerForm">
+                <div class="row row_height_30 col-lg-24 col-sm-24 col-md-24">
+                    <div class="text-danger"><label ng-show="clientOrganizer.isPredefined==true" translate="CLIENTORGANIZER_ERRPREDIFINEMSG_LBL" translate-default="This is predefined client organizer, You can not delete it."></label></div>
+                </div>
+                <div class="col-lg-20 col-md-24 col-sm-24">
+                    <!--header start-->
+                    <div class="row row_height_30">
+
+                        <span class="float-left col-lg-4 col-md-6 col-sm-6 col-xs-12 row">Name:</span>
+                        <span class="float-left col-lg-5 col-md-10 col-sm-10 col-xs-12 row">
+                            <input type="text" data-ng-model="clientOrganizer.name" ng-required="!clientOrganizer.name" data-ng-disabled="clientOrganizer.isPredefined==true" class="form-control" value="{{clientOrganizer.name}}">
+                        </span>
+
+                    </div>
+                    <div class="row row_height_30">
+
+                        <span class="float-left col-lg-4 col-md-6 col-sm-6 col-xs-12 row">Description:</span>
+                        <span class="float-left col-lg-5 col-md-10 col-sm-10 col-xs-12 row  row_height_70">
+                            <textarea class="form-control allowScrollSync" data-ng-model="clientOrganizer.description" data-ng-disabled="clientOrganizer.isPredefined==true" value="{{clientOrganizer.description}}"></textarea>
+                        </span>
+
+                    </div>
+                    <div class="row row_height_30">
+                        <div class="float-left col-lg-4 col-md-6 col-sm-6 col-xs-12 row">
+                            <label translate="SELECT_SOFTWARE_RETURNTYPE" translate-default="Return Type"></label>
+                        </div>
+                        <div class="float-left col-lg-5 col-md-10 col-sm-10 col-xs-12 row height_31">
+                            <select data-ng-model="clientOrganizer.returnType" data-ng-disabled="clientOrganizer.isPredefined==true" data-ng-init="clientOrganizer.returnType = returnTypes[0].id" data-ng-options="return.id as return.title for return in returnTypes" style="max-width:275px!important;height:26px !important;" ng-required="!clientOrganizer.returnType"></select>
+                        </div>
+                        </div>
+                        <!--header end-->
+                        <!--first part start-->
+                        <div class="clearfix margin_bottom_20">
+                            <div class="row row_height_30">
+                                <label class="font_bold font_size_18">
+                                    Letterhead
+                                </label>
+                            </div>
+                            <div class="row clearfix" ng-form='textAngularForm'>
+                                <textarea class="textarea_big text-right allowScrollSync" data-ng-model="clientOrganizer.letterHead" value="{{clientOrganizer.letterHead}}"></textarea>
+                            </div>
+                        </div>
+                        <!--first part end-->
+                        <!--second part start-->
+                        <div class="clearfix margin_bottom_20">
+                            <div class="row row_height_30">
+                                <label class="font_bold font_size_18">
+                                    Cover Letter
+                                </label>
+                            </div>
+                            <div class="row clearfix" ng-form='textAngularForm'>
+                                <textarea class="textarea_big allowScrollSync" data-ng-model="clientOrganizer.coverLetter" value="{{clientOrganizer.coverLetter}}"></textarea>
+                            </div>
+                        </div>
+                        <!--second part end-->
+                        <!--third part start-->
+                        <div class="clearfix margin_bottom_20">
+                            <div class="row row_height_30">
+                                <label class="font_bold font_size_18">
+                                    Tax News
+                                </label>
+                            </div>
+
+                            <div class="row clearfix" ng-form='textAngularForm'>
+                                <textarea class="textarea_big allowScrollSync" data-ng-model="clientOrganizer.taxNews" value="{{clientOrganizer.taxNews}}"></textarea>
+                            </div>
+                        </div>
+                        <!--third part end-->
+                        <!--fourth part start-->
+                        <div class="clearfix margin_bottom_20">
+                            <div class="row row_height_30">
+                                <label class="font_bold font_size_18">
+                                    Tax documents
+                                </label>
+                            </div>
+                            <div class="row row_height_30">
+                                <p>
+                                    Select which tax documents you want listed in the Documents List section. Change the order in which the documents appear by dragging them.
+                                </p>
+                            </div>
+                            <div class="row row_height_30 clearfix">
+                                <div class="sortable-container row" sv-root sv-part="clientOrganizer.taxDocuments">
+                                    <div ng-repeat="document in clientOrganizer.taxDocuments" sv-element="opts" class="col-lg-11 col-sm-11 col-md-11 col-xs-24 border_class drag_wrap">
+                                        <div class="drag_btn_wrap">
+                                            <span class="seprator" sv-handle>
+                                                <i class="fa fa-ellipsis-v margin_right_1"></i><i class="fa fa-ellipsis-v"></i>
+                                            </span>
+                                            <span class="cursor_pointer color_gray" data-ng-click="removeDocument(document)"><i class="fa fa-times  padding_top_7"></i></span>
+                                        </div>
+                                        <span>
+                                            <input type="text" class="form-control" data-ng-model="document.name" value="{{document.name}}" />
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--                             <ul id="sortDocuments"> -->
+                                <!--                                 <li class="col-lg-11 col-sm-11 col-md-11 col-xs-24 border_class drag_wrap" data-ng-repeat="document in clientOrganizer.taxDocuments"> -->
+                                <!--                                     <div class="drag_btn_wrap"> -->
+                                <!--                                         <span class="seprator"> -->
+                                <!--                                             <i class="fa fa-ellipsis-v margin_right_1"></i><i class="fa fa-ellipsis-v"></i> -->
+                                <!--                                         </span> -->
+                                <!--                                         <span class="cursor_pointer color_gray" data-ng-click="removeDocument(document)"><i class="fa fa-times  padding_top_7"></i></span> -->
+                                <!--                                     </div> -->
+                                <!--                                     <span class="width_full"> -->
+                                <!--                                         <input type="text" class="form-control" data-ng-model="document.name" /> -->
+                                <!--                                     </span> -->
+                                <!--                                 </li> -->
+                                <!--                             </ul> -->
+                            </div>
+
+                            <div class="row_height_30 row">
+                                <button data-ng-click="clientOrganizer.taxDocuments.push({});" type="button"><i class="fa fa-plus color_gray"></i></button>
+                            </div>
+                            <!--fourth part end-->
+                            <!--fifth part start-->
+                        </div>
+                        <div class="clearfix margin_bottom_20">
+                            <div class="row row_height_30">
+                                <label class="font_bold font_size_18">
+                                    Questionnaire
+                                </label>
+                            </div>
+                            <div class="row row_height_30">
+                                <p>
+                                    Change the order in which the questions appear by dragging them.
+                                </p>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">
+                                    <div class="row_height_30">
+                                        <div sv-root sv-on-sort="onSorted(clientOrganizer.questionnaire);" sv-part="clientOrganizer.questionnaire" sv-on-start="onStarted($part, $item, $index)" sv-on-stop="onStopped($part, $item, $index)">
+                                            <div ng-repeat="object in clientOrganizer.questionnaire" sv-element="opts" class="width_full border_class drag_wrap">
+                                                <div class="drag_btn_wrap">
+                                                    <span class="seprator" sv-handle>
+                                                        <i class="fa fa-ellipsis-v margin_right_1"></i><i class="fa fa-ellipsis-v"></i>
+                                                    </span>
+                                                    <span class="cursor_pointer color_gray" data-ng-click="removeQuestion(object)"><i class="fa fa-times  padding_top_7"></i></span>
+                                                </div>
+                                                <span class="width_full">
+                                                    <input type="text" class="form-control" data-ng-model="object.question" value="{{object.question}}" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!--                                     <ul id="sortQuestions"> -->
+                                        <!--                                         <li class="width_full border_class drag_wrap" data-ng-repeat="object in clientOrganizer.questionnaire"> -->
+                                        <!--                                             <div class="drag_btn_wrap"> -->
+                                        <!--                                                 <span class="seprator"> -->
+                                        <!--                                                     <i class="fa fa-ellipsis-v margin_right_1"></i><i class="fa fa-ellipsis-v"></i> -->
+                                        <!--                                                 </span> -->
+                                        <!--                                                 <span class="cursor_pointer color_gray" data-ng-click="removeQuestion(object)"><i class="fa fa-times  padding_top_7"></i></span> -->
+                                        <!--                                             </div> -->
+                                        <!--                                             <span class="width_full"> -->
+                                        <!--                                                 <input type="text" class="form-control" data-ng-model="object.question" /> -->
+                                        <!--                                             </span> -->
+                                        <!--                                         </li> -->
+                                        <!--                                     </ul> -->
+                                    </div>
+                                </div>
+
+                                <div class="row_height_30">
+                                    <button data-ng-click="clientOrganizer.questionnaire.push({});" type="button"><i class="fa fa-plus color_gray"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--fifth part end-->
+                        <!--footer start-->
+                        <div class="row row_height_30">
+                            <hr class="light_line">
+                            <div class="float-right ml-auto">
+                                <button class="btn btn-outline-primary" translate="CLIENTORGANIZEREDITCONTROLLER_SAVE_BTN" translate-default="Save" data-ng-click="save()" data-ng-disabled="clientOrganizer.isPredefined==true || clientOrganizerForm.$invalid || !userCan('CAN_SAVE_CLIENTORGANIZER') "></button>
+                                <button class="btn btn-outline-primary" translate="CLIENTORGANIZEREDITCONTROLLER_CANCEL_BTN" translate-default="Cancel" data-ng-click="cancel()"></button>
+                                <button class="btn btn-outline-primary" translate="CLIENTORGANIZEREDITCONTROLLER_DELETE_BTN" translate-default="Delete" data-ng-click="remove()" data-ng-disabled="mode=='create' || !userCan('CAN_REMOVE_CLIENTORGANIZER') || clientOrganizer.isPredefined==true"></button>
+                                <button class="btn btn-outline-primary" translate="CLIENTORGANIZER_PRINT_SAVE_BTN" translate-default="Print" data-ng-click="print()" data-ng-disabled="!userCan('CAN_SAVE_CLIENTORGANIZER')"></button>
+                            </div>
+                        </div>
+                        <!--footer end-->
+                    </div>
+            </form>
+        </div>
+        </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+</html>

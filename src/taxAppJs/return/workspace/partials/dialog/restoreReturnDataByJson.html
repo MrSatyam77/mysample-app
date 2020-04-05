@@ -1,0 +1,37 @@
+<style type="text/css">
+    .modal-lg {width: 70vw;max-width: 100% !important;}
+
+     .textarea_big{width:96% !important;max-width:auto;min-width:auto;min-height: 400px;}
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333; overflow:hidden;">
+    <form name="RestoreReturnDataForm">
+        <div class="modal-header dialog-header-confirm">
+            <b>
+                <h4 class="modal-title" translate="RETURNWORKSPACETOOL_SENDRETURNTOSUPPORT_LBL" translate-default="Restore Return Data By Json">
+                </h4>
+            </b>
+        </div>
+        <div class="modal-body clearfix">
+            <div class="wrapper_class">
+                <!-- <div class="col-lg-18 col-sm-18 col-md-18 col-xs-18 padding_l_r_0"> -->
+                <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15">
+                    <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 padding_l_0">
+                        <label translate="RESTOERJSONDATALABEL" translate-default="Enter Your Json Here"></label>
+                    </div>
+                </div>
+                <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24" style="max-height: 380px">
+                    <div class="col-lg-21 col-sm-24 col-md-17 col-xs-24 float-left padding_l_r_0">
+                        <textarea class="form-control textarea_big" data-ng-model="jsonData" value="{{jsonData}}"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-ng-click="close('save')" data-ng-disabled="jsonData == undefined"><span
+                        translate="DIALOG_SEND_BTN" translate-default="Save"></span></button>
+                <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="DIALOG_CLOSE_BTN"
+                        translate-default="Close"></span></button>
+            </div>
+    </form>
+</div>

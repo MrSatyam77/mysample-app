@@ -1,0 +1,75 @@
+<div class="inner_col_second clearfix">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding">Return List</span>
+      <div class="row float-right d-none d-md-block">
+        <button class="btn btn-outline-primary margin_left_5 pl-2" (click)="backToHomeScreen()">Back To
+          Dashboard</button>
+        <i class="m-2 fas refresh-loader fa-redo float-right color_gray font_size_14  cursor_pointer"
+          [ngClass]="{'rotate':refreshStart}" (click)="manuallyRefresh()"></i>
+      </div>
+    </section>
+  </div>
+  <div class="clearfix p-3" style="padding-bottom: 0.25rem !important;">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4" id="step2">
+        <!-- This will filter $data in ng-repeat instead of in Grid. -->
+        <div class="input-group">
+          <input type="text" class="form-control cus-forminput normal-height" placeholder="Filter by Any Value"
+            [(ngModel)]="filter.searchField" (ngModelChange)="quickSearch(filter.searchField)" />
+          <div class="input-group-append" *ngIf="filter.searchField && filter.searchField.length > 0">
+            <span class="input-group-text cursor_pointer"
+              (click)="filter.searchField = ''; quickSearch(filter.searchField);"> <i class="fa fa-times"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10" id="step1">
+        <div class="row">
+          <select class="form-control cus-forminput ml-2 normal-height" id="typeFilter" [(ngModel)]="filter.returnType"
+            (ngModelChange)="externalFilter()">
+            <option *ngFor="let returnType of returnTypes" [value]="returnType.id">{{returnType.title}}</option>
+          </select>
+          <button class="btn btn-outline-primary ml-2" (click)="createNewReturn()"
+            [disabled]="!userCan('CAN_CREATE_RETURN')">New Return</button>
+
+          <button class="btn btn-outline-primary ml-2" (click)="deleteReturns()"
+            [disabled]="!userCan('CAN_REMOVE_RETURN')">Delete</button>
+        </div>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="dropdown">
+          <button class="btn btn-outline-primary float-right" (click)="resetGridSettings()">Reset Grid
+            Setting</button>
+          <button class="btn btn-outline-primary mx-1 float-right" (click)="saveGridSettings()">Save Grid
+            Setting</button>
+          <button type="button" class="btn btn-outline-primary  float-right dropdown-toggle" id="typeFilter"
+            data-toggle="dropdown">
+            Export
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="exportList('csv')"> <i class="fas fa-file-excel mr-1"></i>CSV</a>
+            <a class="dropdown-item" (click)="exportList('pdf')"> <i class="fas fa-file-pdf mr-1"></i>PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 position-relative">
+      <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24">
+        <app-standard-ag-grid #returnListAgGridComponent name="returnList" [gridOptions]="gridOptions"
+          [rowSelection]="'multiple'" [result]="rowData" [(filter)]="filter" (action)="onActionClicked($event)"
+          (onStandardGridReady)="onGridReady($event)" [defaultFilter]="defaultFilter">
+        </app-standard-ag-grid>
+      </div>
+
+      <div class="col-24 h-75 text-center no-data d-table" *ngIf="isData === true &&  filter.filterDataLength <= 0">
+        <div class="d-table-cell text-center align-middle h-100 w-100">
+          <h5 class="mb-4"> Let's start preparing returns.</h5>
+          <button class="btn btn-outline-primary" (click)="addSampleReturns()">
+            <i class="fas fa-plus-circle mr-2"></i>
+            Add Sample Returns
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

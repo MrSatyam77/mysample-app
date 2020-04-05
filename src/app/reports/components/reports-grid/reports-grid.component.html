@@ -1,0 +1,3 @@
+<ag-grid-angular class="ag-theme-balham ag-reporting-grid-container-wrapper" #agGrid *ngIf="colDefinations" [columnDefs]="colDefinations"
+  [rowData]="rowData" (gridReady)="onGridReady($event)" (gridSizeChanged)="onGridSizeChanged($event)">
+</ag-grid-angular>

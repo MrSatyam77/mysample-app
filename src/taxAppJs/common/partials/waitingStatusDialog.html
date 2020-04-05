@@ -1,0 +1,127 @@
+<style>
+  .captchaContainer {
+	  padding: 7px 40px 20px 5px;
+	}
+	.captchaWrapper {
+	  line-height: 0;
+	}
+	.captchaWrapper, .captchaContainer {
+	  display: inline-block;
+	  float: left;
+	}
+	#hiddenCaptcha {
+	  display: none;
+	}
+	.captchaLabel:after {
+	  max-width: 25px;
+	  opacity: 1;
+	  overflow: inherit;
+	}
+	.captchaLabel {
+	  font-family: 'Trebuchet MS', sans-serif;
+	  font-weight: 700;
+	  color: #4a4a4a;
+	  position: relative;
+	  display: block;
+	  float: left;
+	  height:20px;
+	  width:22px;
+	}
+	.captchaLabel:after {
+	  position: absolute;
+	  content: '\2713';
+	  max-width: 0;
+	  font-size: 40px;
+	  top: 14px;
+	  left: 0px;
+	  color: #039F53;
+	  -webkit-transition: all 6s ease-in;
+	  -moz-transition: all 6s ease-in;
+	  -ms-transition: all 6s ease-in;
+	  transition: all 6s ease-in;
+	  border-color: transparent;
+	}
+	.captchaBox {
+	  width: 35px;
+	  height: 35px;
+	  padding: 0;
+	  outline: none;
+	  border: 2px solid #b9b9b9;
+	  border-radius: 2px;
+	}
+	.boxHover {
+	  background-color: #fff;
+	}
+	.boxHover:hover {
+	  cursor: pointer;
+	  border: 2px solid #1E88E5;
+	}
+	.scaleDown {
+	  -webkit-transition: all 0.5s ease;
+	  -moz-transition: all 0.5s ease;
+	  -ms-transition: all 0.5s ease;
+	  transition: all 0.5s ease;
+	  transform: scale(0.2,0.2);
+	}
+	.circle {
+	  border-top: 2px solid #1E88E5;
+	  border-right-color: transparent;
+	  border-bottom: 2px solid #1E88E5;
+	  border-left-color: transparent;
+	  border-radius: 35px;
+	  
+	}
+	.scaleUp {
+	  -webkit-transition: all 0.6s ease;
+	  -moz-transition: all 0.6s ease;
+	  -ms-transition: all 0.6s ease;
+	  transition: all .6s ease;
+	  transform: scale(1,1);
+	}
+	.captchaLabel {display:none;}
+	.fadeOut div.circle{display:none;}
+	.fadeOut div.captchaLabel{display:block}
+	@keyframes rotating {
+	  from {
+	    transform: rotate(0deg);
+	  }
+	  to {
+	    transform: rotate(360deg);
+	  }
+	}
+	.rotation {
+	  animation: 1s linear 0.25s normal none infinite running rotating;
+	}
+
+	.fadeOut {
+	  -webkit-transition: all 0.6s ease;
+	  -moz-transition: all 0.6s ease;
+	  -ms-transition: all 0.6s ease;
+	  transition: all .6s ease;
+	  border-color: transparent;
+	}
+	.captchaError {
+	  box-shadow: 0 0 1px 1px #E53935;
+	}
+
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 16px;line-height: 1.42857143;color: #333333;margin-bottom:-15px;">
+	<div class="modal-header dialog-header-confirm">
+		<h4 class="modal-title">
+			<i class="fas fa-clock"></i><span class="margin_left_5" translate="PLEASEWAIT_LBL" translate-default="Please Wait"></span>
+		</h4>
+	</div>
+	 <div class="modal-body clearfix">	 		            
+        <div class="form-group input-group-lg">
+        	<div class="captchaContainer">
+	            <div class="captchaWrapper"   ng-class="{'fadeOut':isDone == true}">
+	                <div class="captchaBox boxHover rotation circle"></div>
+	                <div class="captchaLabel float-left" data-ng-show="isDone == true"></div>
+	            </div>
+	            
+	         	<div class="font_size_16 margin_left_50 margin_top_1" ng-show="isDone == false || (isDone == true && doNotShowDone == true)"><span translate="WAITINGSTATUS_MSG" translate-default="We are processing your request"></span></div>
+	         	<div class="font_size_16 margin_left_50 margin_top_1" ng-show="isDone == true"><span translate="WAITINGSTATUS_DONE_MSG" translate-default="Request is processed successfully"></span></div>
+	        </div>    
+       </div>	
+	 </div>
+</div>

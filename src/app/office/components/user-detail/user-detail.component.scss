@@ -1,0 +1,27 @@
+.user-details{
+    .user-details-thumb{
+        .img-thumbnail{
+            width: 130px;
+            height: 130px;
+            
+        }
+        .user-edit{
+            top: 0;
+            right: 0;
+        }
+    }
+    .user-basic-info{
+        ul{
+            li{
+                margin-bottom: 0.5rem;
+
+                span:first-child{
+                    i{
+                        width: 25px;
+                        margin-right: 0.5rem !important;                        
+                    }
+                }
+            }
+        }
+    }
+}

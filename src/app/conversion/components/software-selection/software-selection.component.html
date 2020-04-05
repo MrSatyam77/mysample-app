@@ -1,0 +1,40 @@
+<!--<div class="row">
+  <div class="col-md-24">
+     <button class="btn btn-info" (click)="showSoftwareSelection()">Select Software</button> -->
+<!-- <button class="btn btn-info" (click)="goToList()">Back to List</button> 
+  </div>
+</div>-->
+<div class="row mt-3">
+  <div class="col">
+    <h5 class="mb-3 text-dark">Select Your Previous Software Provider</h5>
+  </div>
+</div>
+<div class="row">
+  <ul class="list-unstyled software-wraper d-inline w-100 mb-0">
+    <li class="col col-sm-8 col-md-8 col-lg-6" *ngFor="let software of softwareNames">        
+      <a (click)="softwareSelection(software)" [ngClass]="{'active':(software.name == slectedSoftware.name), 'software-soon': software.comingSoon === true}">
+        <div class="software-box" *ngIf="software.icon">
+          <div class="software-img">
+            <img class="d-inline" [src]="software.icon">
+          </div>
+          <span class="d-block software-name">{{software.text}}</span>
+        </div>
+
+        <div class="software-box software-noImg" *ngIf="!software.icon && software.text">
+          <span class="d-block software-name mb-0" style="top: 0;">{{software.text}}</span>
+        </div>
+
+        <div class="coming-soon" *ngIf="software.comingSoon === true">
+          <div class="coming-soon-text">Coming Soon</div>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <div class="col-md-24 text-center text-secondary font_size_13">
+    *All logos are trademarks or registered trademarks of their respective holders. Use of these marks does not imply
+    any affiliation with or endorsement by them.
+  </div>
+</div>
+<!-- <div class="card-footer">
+      <button class="btn btn-outline-primary" (click)="showSoftwareSelection()">Back</button>
+    </div> -->

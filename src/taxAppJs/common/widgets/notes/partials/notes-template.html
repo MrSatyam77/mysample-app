@@ -1,0 +1,89 @@
+﻿<link href="taxAppJs/common/widgets/notes/css/notes.css" rel="stylesheet" />  
+<tabset justified="true" class="tab-out-line">
+    <tab heading="Form ({{(formReturnNoteDataList|filter:{type:'form'}|filter:{returnId:returnId}|filter:{docName:docName}).length}})" active="activeTab.formTab">
+        <div class="tab_border">
+            <div class="notes_area">
+                <div class="notes_body" data-ng-style="{height:headerNav.screenHeight-470 +'px'}" style="overflow:auto;">
+                        
+                    <div ng-repeat="noteForm in formReturnNoteDataList|filter:{type:'form'}|filter:{returnId:returnId}|filter:{docName:docName}">
+                        <div class="notes_wrap">
+                            <span class="float-right" data-ng-class="{'no-clicking':!isOnline}">
+                                <div class="note_icon_menu dropdown float-right cursor_pointer" ng-if="userCan('CAN_REMOVE_CLIENTNOTE') && userCan('CAN_CREATE_CLIENTNOTE')">
+                                    <i class="fa fa-ellipsis-v  dropdown-toggle margin_top_3 padding_left_5" data-toggle="dropdown"> </i>
+                                    <div class="dropdown-menu float-right"> <span class="margin_left_15">Move To</span>
+                                        <a class="dropdown-item"  data-ng-click="moveNote(noteForm.key,noteForm.description,'return','return',noteForm.date)">Return</a>
+                                    
+                                        <a class="dropdown-item"  data-ng-click="moveNote(noteForm.key,noteForm.description,'return','preparer',noteForm.date)">Personal</a>
+                            
+                                    </div>
+                                </div>
+                                <a data-ng-click="removeNote(noteForm.key,'form')" data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_CLIENTNOTE')}"><i class="fas fa-times note_icon_right margin_top_3"></i></a>
+                            </span>
+                            <div class="clearfix width_full_94"><span class="notes_title">{{noteForm.title}}</span><span class="notes_date">{{noteForm.date| date:'MM/dd/yyyy h:mm a'}}</span></div>
+                            <div class="video_txt_info clearfix">{{noteForm.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+    <tab heading="Return ({{(formReturnNoteDataList|filter:{type:'return'}|filter:{returnId:returnId}).length}})" active="activeTab.returnTab">
+        <div class="tab_border">
+            <div class="notes_area">
+                <div class="notes_body" data-ng-style="{height:headerNav.screenHeight-470 +'px'}"  style="overflow:auto;">
+                        
+                    <div ng-repeat="noteReturn in formReturnNoteDataList|filter:{type:'return'}|filter:{returnId:returnId}">
+                        <div class="notes_wrap">
+                            <span class="float-right" data-ng-class="{'no-clicking':!isOnline}">
+                                <div class="note_icon_menu dropdown float-right cursor_pointer" ng-if="userCan('CAN_REMOVE_CLIENTNOTE') && userCan('CAN_CREATE_CLIENTNOTE')">
+                                    <i class="fa fa-ellipsis-v dropdown-toggle margin_top_3 padding_left_5" data-toggle="dropdown"> </i>
+                                    <div role="menu" class="dropdown-menu float-right"> <span class="margin_left_15">Move To</span>
+                                        <a class="dropdown-item"  data-ng-click="moveNote(noteReturn.key,noteReturn.description,'return','form',noteReturn.date)">Form</a>
+                                    
+                                        <a class="dropdown-item"  data-ng-click="moveNote(noteReturn.key,noteReturn.description,'return','preparer',noteReturn.date)">Personal</a>
+                                    
+                                    </div>
+                                </div>
+                                <a data-ng-click="removeNote(noteReturn.key,'return')" data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_CLIENTNOTE')}"><i class="fas fa-times note_icon_right margin_top_3"></i></a>
+                            </span>
+                            <div class="clearfix width_full_94"><span class="notes_title">{{noteReturn.title}}</span><span class="notes_date">{{noteReturn.date| date:'MM/dd/yyyy h:mm a'}}</span></div>
+                            <div class="video_txt_info clearfix">{{noteReturn.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+    <tab heading="Personal ({{preparerNoteDataList.length}})" active="activeTab.preparerTab">
+        <div class="tab_border">
+            <div class="notes_area">
+                <div class="notes_body" data-ng-style="{height:headerNav.screenHeight-470 +'px'}" style="overflow:auto;">
+                        
+                    <div ng-repeat="notePreparer in preparerNoteDataList">
+                        <div class="notes_wrap">
+                            <span class="float-right" data-ng-class="{'no-clicking':!isOnline}">
+                                    <div class="note_icon_menu dropdown float-right cursor_pointer"  ng-if="userCan('CAN_REMOVE_CLIENTNOTE') && userCan('CAN_CREATE_CLIENTNOTE')">
+                                    
+                                        <i class="fa fa-ellipsis-v  dropdown-toggle margin_top_3 padding_left_5" data-toggle="dropdown"> </i>
+                                        <div role="menu" class="dropdown-menu float-right"> <span class="margin_left_15">Move To</span>
+                                            <a class="dropdown-item"  data-ng-click="moveNote(notePreparer.key,notePreparer.description,'preparer','return',notePreparer.date)">Return</a>
+                                            
+                                            <a class="dropdown-item"  data-ng-click="moveNote(notePreparer.key,notePreparer.description,'preparer','form',notePreparer.date)">Form</a>
+                                            
+                                        </div>
+                                    </div>
+                                <a data-ng-click="removeNote(notePreparer.key,'preparer')" data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_CLIENTNOTE')}"><i class="fas fa-times note_icon_right margin_top_3"></i></a>
+                            </span>
+                            <div class="clearfix width_full_94"><span class="notes_title" translate="NOTESTEMPLATE_YOU_LBL" translate-default="You"></span><span class="notes_date">{{notePreparer.date| date:'MM/dd/yyyy h:mm a'}}</span></div>
+                            <div class="video_txt_info clearfix">{{notePreparer.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+</tabset>
+<div class="notes_wrap_footer margin_top_10 width_full" data-ng-class="{'offline_future_wrap':!isOnline}">
+    <span class="float-left width_full_70" data-ng-class="{'no-clicking':!isOnline}"> <textarea class="form-control" data-ng-model="notes.description" value="{{notes.description}}"></textarea></span>
+    <span class="float-right width_full_20 margin_top_15"><button class="btn btn-outline-primary" data-ng-disabled="!notes.description || !userCan('CAN_CREATE_CLIENTNOTE')" data-ng-click="saveNote();notes.description=''">Save</button></span>
+</div>

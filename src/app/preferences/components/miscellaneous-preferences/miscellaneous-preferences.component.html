@@ -1,0 +1,89 @@
+<div class="col-24">
+  <div class="clearfix">
+    <form name="form.returnWorkspaceTabForm" novalidate>
+      <div class="row">
+        <div class="col-24">
+          <div class="row py-3 border-bottom">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-8 col-xl-8">
+              <label class="font_bold ng-scope m-0">Settings</label>
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngIf="isAdmin">
+              <label class="font_bold ng-scope m-0">Applicable To</label>
+            </div>
+            <div class="clearfix" [ngClass]="{'col-lg-6 col-8 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}">
+              <label class="font_bold ng-scope m-0">Options
+                <i class="fa fa-exclamation-circle text-danger ml-2 cursor_pointer" placement="right" container="body"
+                  tooltipClass="error" [ngbPopover]="popContentPreferenceSettings" *ngIf="!isAdmin"></i>
+                <ng-template #popContentPreferenceSettings>
+                  <label *ngIf="!isAdmin && view.user">
+                    Please contact your Admin to modify this setting.
+                  </label>
+                  <label *ngIf="!isAdmin && (view.customer || view.office)">
+                    Settings that cannot be modified here can be modified by navigating to <a class="text-bold"
+                      [routerLink]="['/preferences/admin/dashboard']"><b>Admin Settings</b></a> in the Menu on
+                    the left side of the screen.
+                  </label>
+                </ng-template>
+              </label>
+            </div>
+            <div class="col-lg-10 col-md-10 col-10 col-xl-10 col-sm-10 clearfix" *ngIf="!isAdmin">
+              <label class="font_bold ng-scope m-0 right-text">To be set by</label>
+            </div>
+          </div>
+
+          <div class="row py-3 border-bottom">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-8 col-xl-8">
+              <label class="float-left font-weight-bold">Dashboard Settings</label>
+              <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp.tooltip" (click)='informationLineHelp("dashboard")'></i></span>
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngIf="isAdmin"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && miscPreferences.dashboardSettings.rightModel === 2))">
+              <div class="row mb-2" *ngFor="let role of miscellaneousRoleConfiguration.dashboardSettings">
+                <div class="col-lg-24 col-md-24 col-sm-24 col-xl-24 col-24">
+                  <button type="button" class="custom_input_dark float-left margin_right_5"
+                    [class.active]="role.id === miscPreferences.dashboardSettings.rightModel"
+                    (click)="updatRole(role.id, 'dashboardSettings')"></button>
+                  <span class="float-left">{{role.name}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix" [ngClass]="{'col-lg-6 col-8 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && miscPreferences.dashboardSettings.rightModel === 2))"
+              *ngIf="(isAdmin && miscPreferences.dashboardSettings.rightModel !== 2) || !isAdmin">
+              <button class="btn btn-outline-primary"
+                (click)="openConfigurationDialog('dashboardSettings', 'route', 'home/settings', 'Edit Settings')"
+                *ngIf="miscPreferences.dashboardSettings.rightModel === 1 && officeList && officeList.length > 1">Configure
+                Office
+              </button>
+              <div class="dropdown"
+                *ngIf="miscPreferences.dashboardSettings.rightModel !== 1 || (officeList && officeList.length === 1)">
+                <div>
+                  <button class="btn btn-outline-primary"
+                    (click)="goToSettings(miscPreferences.dashboardSettings.rightModel)">Edit Settings</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-10 col-10 col-xl-10 col-md-12 col-sm-12" *ngIf="!isAdmin">
+              <span class="right-text">
+                <div
+                  *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && miscPreferences.dashboardSettings.rightModel === 2)) else isUsers">
+                  Administrator
+                </div>
+                <ng-template #isUsers>
+                  User
+                </ng-template>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-24 py-3 padding_l_0 clearfix">
+        <div class="float-right">
+          <button class="btn btn btn-outline-primary mr-2" (click)="savePreferences(true)">Save</button>
+          <button class="btn btn btn-outline-primary" (click)="gotoHome()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

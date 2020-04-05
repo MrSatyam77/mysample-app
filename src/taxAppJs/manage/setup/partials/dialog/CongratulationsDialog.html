@@ -1,0 +1,37 @@
+<style>
+    .modal-lg { width: 950px; }
+    .verificationqanda .checkbox-container button { vertical-align: middle; }
+    .verificationqanda .que-area { font-weight: bold; color: #858585; }
+    @media(max-width:768px) {
+        .modal-lg { width: 90vw; }
+        .verificationqanda-container { min-height: auto; padding: 30px 0px; }
+    }
+</style>
+
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;"
+    class="verificationqanda">
+    <div class="modal-header dialog-header-confirm quicksetup-modal">
+        <div class="modal-title">
+            <label class="font_black">
+                <img src="taxAppJs/images/verified-grey-header.png" class="modal-header-icon">Verification Successful</label>
+        </div>
+    </div>
+    <div class="modal-body clearfix">
+    <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15 padding_l_r_0">
+            <div class="verificationqanda-container">
+                <div class="verificationqanda-inner">
+                    <div class="content-title">
+                            <i class="fa fa-smile-o" aria-hidden="true"></i> Congratulations!
+                    </div>
+                    <div class="text-center">
+                        <span class="font_gray margin_top_10">Your office identity is verified successfully.</span>
+                        <!-- <span class="font_black margin_top_5">Please enter office details and complete verification.</span> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <button type="button"  class="btn custom-btn" data-ng-click="close(true)"><span translate="DIALOG_CLOSE_BTN" translate-default="Close"></span></button>
+        </div>
+</div>

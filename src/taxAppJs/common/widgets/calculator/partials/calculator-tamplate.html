@@ -1,0 +1,82 @@
+<style type="text/css">
+    .calcBlankContent{
+        display: none !important;
+    }
+
+</style>
+<link rel="stylesheet" href="taxAppJs/common/widgets/calculator/css/calculator.css" />
+
+<div class="clearfix calcBlankContent ui-widget-content calc_dragView" id="calculator_tool" style="height: 489px;width: 396px;">
+    <label class="font_size_20 margin_left_10 margin_top_5">Calculator</label>
+        <button type="button" class="calc_close float-right margin_right_10 margin_top_5" data-ng-click="closeCalc()" style="float: right"><i class="fa fa-times" aria-hidden="true" data-ng-click="closeCalc()"></i></button>
+        <div class="calculator-wrapper">
+            <div class="background">
+                <!-- Main background -->
+                <div class="main-wrapper">
+                    <div class="input_relative_wrapper">
+                        <textarea type="text" class="result" style="overflow:auto;resize:none" id="resultForCalculator" placeholder="0" maxlength="100" autofocus="autofocus"></textarea>
+                        <div class="memory" ng-hide="memory==0">M</div>
+                    </div>
+                    <div id="main">
+                        <div class="first-rows cm-height">       
+                            <button value="MC" class="btn-style operator opera-bg fall-back del-bg dark-back-gray" ng-click="doAllOperation('memoryClear');" title="Clear Memory (Ctrl+L)" ng-class="{'oprHighlight': activeItem.is76Ctrl == true}">MC</button>
+                            <button value="MR" class="btn-style operator opera-bg fall-back del-bg dark-back-gray" ng-click="doAllOperation('memoryRecall');" title="Recall Memory (Ctrl+R)" ng-class="{'oprHighlight': activeItem.is82Ctrl == true}">MR</button>
+                            <button value="MS" class="btn-style operator opera-bg fall-back del-bg dark-back-gray" ng-click="doAllOperation('memorySave');" title="Store in Memory (Ctrl+M)" ng-class="{'oprHighlight': activeItem.is77Ctrl == true}">MS</button>
+                            <button value="M+" class="btn-style operator opera-bg fall-back del-bg dark-back-gray" ng-click="doAllOperation('memoryAdd');" title="Add to Memory(Ctrl+A) " ng-class="{'oprHighlight': activeItem.is65Ctrl == true}">M+</button>
+                            <button value="M-" class="btn-style operator opera-bg fall-back del-bg dark-back-gray" ng-click="doAllOperation('memorySubstract');" title="Substract from Memory (Ctrl+S)" ng-class="{'oprHighlight': activeItem.is83Ctrl == true}">M-</button>
+                        </div>
+
+                        <div class="rows cm-height">
+                            <button value="" class="btn-style num-bg num first-child dark-back-gray" ng-click="doAllOperation('backspace');" title="Backspace" ng-class="{'oprHighlight': activeItem.is8 == true}"><i class="glyphicon glyphicon-arrow-left"></i></button>
+                            <button value="" class="btn-style num-bg num dark-back-gray" ng-click="doAllOperation('clear');"  ng-class="{'oprHighlight': activeItem.is46 == true}" title="Clear Current Entry (Delete)">CE</button>
+                            <button value="" class="btn-style num-bg num dark-back-gray" ng-click="doAllOperation('clearAll');" title="Clear All(Ctrl+Delete)" ng-class="{'oprHighlight': activeItem.is46Ctrl == true}">C</button>
+                            <button value="" class="btn-style num-bg operator dark-back-gray" title="Capture Value From TaxField(F11)" ng-click="doAllOperation('copy');" ng-class="{'oprHighlight': activeItem.is122 == true,'no-clickingbtn':focusedFieldObject==undefined}"><i class="glyphicon glyphicon-camera"></i></button>
+                            <button value="" class="btn-style num-bg value align operator dark-back-gray" title="Insert Value Into TaxField(Insert)" ng-click="doAllOperation('paste');" id="paste" ng-class="{'oprHighlight': activeItem.is45 == true,'no-clickingbtn':focusedFieldObject==undefined}"><i class="glyphicon glyphicon-paste"></i></button>
+                        </div>
+                        <div class="rows cm-height">
+                            <button value="7" id="7" class="btn-style num-bg num first-child" ng-click="doAllOperation('add',7);" ng-class="{'numHighlight': ((activeItem.is103 == true) || (activeItem.is55 == true)) }"
+                            >7</button>
+                            <button value="8" class="btn-style num-bg num" ng-click="doAllOperation('add',8);" ng-class="{'numHighlight': activeItem.is104 == true || activeItem.is56 == true }">8</button>
+                            <button value="9" class="btn-style num-bg num" ng-click="doAllOperation('add',9);" ng-class="{'numHighlight': activeItem.is105 == true || activeItem.is57 == true }">9</button>
+                            <button value="/" class="btn-style num-bg operator" ng-click="doAllOperation('add','/');" ng-class="{'numHighlight': activeItem.is111 == true }">/</button>
+                            <button value="%" class="btn-style num-bg value align operator" ng-click="doAllOperation('add','%');" ng-class="{'numHighlight': activeItem.is53Shift == true }">%</button>
+                        </div>
+                        <div class="rows cm-height">
+                            <button value="4" class="btn-style num-bg num first-child" ng-click="doAllOperation('add',4);" ng-class="{'numHighlight': activeItem.is100 == true || activeItem.is52 == true }">4</button>
+                            <button value="5" class="btn-style num-bg num" ng-click="doAllOperation('add',5);" ng-class="{'numHighlight': activeItem.is101 == true || activeItem.is53 == true }">5</button>
+                            <button value="6" class="btn-style num-bg num" ng-click="doAllOperation('add',6);" ng-class="{'numHighlight': activeItem.is102 == true || activeItem.is54 == true }">6</button>
+                            <button value="*" class="btn-style num-bg operator" ng-click="doAllOperation('add','*');" ng-class="{'numHighlight': activeItem.is56Shift == true || activeItem.is106 == true }">*</button>
+                            <button class="btn-style num-bg value align operator" ng-click="doAllOperation('togglepsitiveNegative');">+/-</button>
+                        </div>
+
+                        <div class="rows cm-height">
+                            <button value="1" class="btn-style num-bg num first-child" ng-click="doAllOperation('add',1);" ng-class="{'numHighlight': activeItem.is97 == true || activeItem.is49 == true }">1</button>
+                            <button value="2" class="btn-style num-bg num" ng-click="doAllOperation('add',2);" ng-class="{'numHighlight': activeItem.is98 == true || activeItem.is50 == true }">2</button>
+                            <button value="3" class="btn-style num-bg num" ng-click="doAllOperation('add',3);"
+                            ng-class="{'numHighlight': activeItem.is99 == true || activeItem.is51 == true }">3</button>
+                            <button value="/" class="btn-style num-bg operator" ng-click="doAllOperation('add','-');" ng-class="{'numHighlight': activeItem.is189 == true || activeItem.is109 == true }">-</button>
+                            <button value="+" class="btn-style num-bg value align operator" ng-click="doAllOperation('add','+');" ng-class="{'numHighlight': activeItem.is187Shift == true || activeItem.is107 == true }">+</button>
+                        </div>
+
+                        <div class="rows cm-height">
+                            <button value="0" class="num-bg zero" id="delete" ng-click="doAllOperation('add',0);" ng-class="{'numHighlight': activeItem.is96 == true || activeItem.is48 == true }">0</button>
+                            <button value="." class="btn-style operator opera-bg fall-back del-bg" ng-click="doAllOperation('add','.');" ng-class="{'numHighlight': activeItem.is190 == true || activeItem.is110 == true }">.</button>       
+                            <button value="=" id="eqn-bg" class="eqn align" ng-click="doAllOperation('evaluate');" ng-class="{'numHighlight': activeItem.is13 == true || activeItem.is187 == true }">=</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="clearfix">
+                    <div class="pull-right dark-back-gray padding_5 text-center" style="width:100%;">History</div>
+                </div>
+                <div ng-repeat="value in history">
+                    <div class='clearfix margin_top_10'>
+                        <div class='text-right'>{{value.expression}}</div>
+                        <div class='text-right'>{{value.result}}</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

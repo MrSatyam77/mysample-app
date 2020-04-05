@@ -1,0 +1,122 @@
+@-moz-document url-prefix() {.custom_input.active:hover::after,.custom_input.active:focus::after {top:-19px !important; left:-1px !important;}}/*adding hack code for mozilla*/
+@-moz-document url-prefix() {.custom_input.active:after {top:-17px !important; left:1px !important;}}/*adding hack code for mozilla*/
+@-moz-document url-prefix()
+{
+#interview-mode input[type="text"]{padding-bottom: 3px}
+#interview-mode input[type="text"]:hover,#interview-mode input[type="text"]:focus{padding-bottom: 0px;}
+}
+
+@-moz-document url-prefix(){
+.fullWorkspace input[type="text"]{padding-bottom:2px!important}
+.fullWorkspace input[type="text"]:hover,.fullWorkspace input[type="text"]:focus {padding-bottom:0px!important}
+.fullWorkspace input[type="text"][required]{padding-bottom:2px !important;}
+.fullWorkspace input[type="text"][required]:hover,.fullWorkspace input[type="text"][required]:focus{padding-bottom:0px !important;}
+.fullWorkspace input[type="text"][readonly]{padding-bottom:2px !important;}
+.fullWorkspace input[type="text"][readonly]:hover,.fullWorkspace input[type="text"][readonly]:focus{padding-bottom:0px !important;}
+.fullWorkspace input[type="text"][overridden]{padding-bottom: 0px !important;}
+.fullWorkspace input[type="text"][overridden]:hover,.fullWorkspace input[type="text"][overridden]:focus{padding-bottom: 3px !important;}
+.fullWorkspace input[type="text"][disabled]{padding-bottom:0px!important;}
+.fullWorkspace input[type="text"][disabled]:hover,.fullWorkspace input[type="text"][disabled]:focus{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"]{padding-bottom:0px!important;}
+.fullWorkspace input[type="email"]:hover,.fullWorkspace input[type="email"]:focus {padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][required]{padding-bottom:0px!important;}
+.fullWorkspace input[type="email"][required]:hover,.fullWorkspace input[type="email"][required]:focus{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][readonly]{padding-bottom:0px!important;}
+.fullWorkspace input[type="email"][readonly]:hover,.fullWorkspace input[type="email"][readonly]:focus{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][overridden]{padding-bottom:0px!important;}
+.fullWorkspace input[type="email"][overridden]:hover,.fullWorkspace input[type="email"][overridden]:focus{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][disabled]{padding-bottom:0px!important;}
+.fullWorkspace input[type="email"][disabled]:hover,.fullWorkspace input[type="email"][disabled]:focus{padding-bottom:3px!important;}
+.fullWorkspace input[type="password"]{padding-bottom:0px!important}
+.fullWorkspace input[type="password"]:hover,.fullWorkspace input[type="password"]:focus {padding-bottom:3px!important}
+.fullWorkspace input[type="password"][required]{padding-bottom:0px!important;}
+.fullWorkspace input[type="password"][required]:hover,.fullWorkspace input[type="password"][required]:focus{padding-bottom:3px!important;}
+}
+
+
+ /*css for removing jumping in all the pages except return work space start*/ 
+@media all and  (-ms-high-contrast: active),(-ms-high-contrast: none) {
+input[type="text"]{padding-bottom:0px}
+input[type="text"][required]{padding-bottom:0px}
+input[type="text"][readonly]{padding-bottom:0px}
+input[type="text"][overridden]{padding-bottom: 0px}
+input[type="text"][disabled]{padding-bottom:0px}
+input[type="email"] {padding-bottom:0px}
+input[type="email"][required]{padding-bottom:0px}
+input[type="email"][readonly]{padding-bottom:0px}
+input[type="email"][overridden]{padding-bottom:0px}
+input[type="email"][disabled]{padding-bottom:0px}
+input[type="password"] {padding-bottom:0px}
+input[type="password"][required]{padding-bottom:0px}
+.fullWorkspace input[type="text"] {padding-bottom:3px!important}
+.fullWorkspace input[type="text"][required]{padding-bottom:3px !important;}
+.fullWorkspace input[type="text"][readonly]{padding-bottom:3px !important;}
+.fullWorkspace input[type="text"][overridden]{padding-bottom: 3px !important;}
+.fullWorkspace input[type="text"][disabled]{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"] {padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][required]{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][readonly]{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][overridden]{padding-bottom:3px!important;}
+.fullWorkspace input[type="email"][disabled]{padding-bottom:3px!important;}
+.fullWorkspace input[type="password"] {padding-bottom:3px!important}
+.fullWorkspace input[type="password"][required]{padding-bottom:3px!important;}
+/*css for removing return workspace jumping end*/
+/*css for removing return workspace checkbox jumping start*/
+.custom_input:hover,.custom_input:focus {padding:1px !important;}
+.custom_input_dark:hover,.custom_input_dark:focus {padding:1px !important; }
+.custom_input.active:after {content: "\2713"; position: absolute; left:-1px; top: -17px; font-size: 26px;color: #555555;}
+/*css for removing return workspace checkbox jumping start*/
+/*css for removing jumping in ie 11 end*/
+}
+
+/*.custom_input {vertical-align:-9px;}*/
+.custom_input.active[estimated] {border-width:3px;}
+
+/*@-moz-document url-prefix() {.custom_input.active[estimated]:hover::after,.custom_input.active[estimated]:focus::after {top:-19px !important; left:-1px !important;}}*//*adding hack code for mozilla*/
+/*@-moz-document url-prefix() {.custom_input.active[estimated]:after {top:-19px !important; left:-1px !important;}}*//*adding hack code for mozilla*/
+@media (min-width:300px) and (max-width:767px){.quickrefresh_home{margin-right:2%; margin-top:-33px;}}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+/*.custom_input {vertical-align:-80%;}*/
+.custom_input:hover,.custom_input:focus{top:-2px;}
+}
+/*Color Preferences theam input css start*/
+input[type="FormFields"]{border: none; border-bottom: 1px solid #000; padding: 6px 12px; height:30px;}
+#FormFields_input tr td input[type="FormFields"] {box-shadow: none !important;}
+#FormFields_input tr td input[type="FormFields"]:focus,
+#FormFields_input tr td input[type="FormFields"]:hover{border-bottom-width: 3px !important; box-shadow: none !important;}
+/*Color Preferences theam input css end*/
+
+
+
+
+/*textarea css start*/
+textarea.form-control{border:none;border-bottom:1px solid #000 !important;cursor:text;padding-bottom:1px;min-height:70px;}
+textarea.form-control:focus,textarea.form-control:hover{border:none;border-bottom:3px solid #000 !important;cursor:text;padding-bottom:0px;}
+
+
+textarea[required].form-control{border:none;border-bottom:1px solid #ff0000  !important;cursor:text;padding-bottom:1px;}
+textarea[required].form-control:focus,textarea[required].form-control:hover{border:none;border-bottom:3px solid #ff0000  !important;cursor:text;padding-bottom:0px !important;}
+
+
+textarea[readonly].form-control{border:none;border-bottom:1px solid #ffd800  !important;cursor:text;padding-bottom:1px;}
+textarea[readonly].form-control:focus,textarea[readonly].form-control:hover{border:none;border-bottom:3px solid #ffd800  !important;cursor:text;padding-bottom:0px !important;}
+
+
+textarea[disabled].form-control{border:none;border-bottom:1px solid #d9e5d9 !important;cursor:default;outline:none;padding-bottom:1px;}
+textarea[disabled].form-control:focus,textarea[disabled].form-control:hover{border:none;border-bottom:1px solid #d9e5d9 !important;cursor:default;outline:none;padding-bottom:1px !important;}
+
+textarea[overridden].form-control{border:none;border-bottom:1px solid #c0c0c0 !important;cursor:text;padding-bottom:1px;}
+textarea[overridden].form-control:focus,textarea[overridden].form-control:hover{border:none;border-bottom:3px solid #c0c0c0  !important;cursor:text;padding-bottom:0px !important;}
+
+textarea[estimated].form-control{border:none;border-bottom:1px solid #3c763d  !important;cursor:text;padding-bottom:1px;}
+textarea[estimated].form-control:focus,textarea[estimated].form-control:hover{border:none;border-bottom:3px solid #3c763d  !important;cursor:text;padding-bottom:0px !important;}
+
+
+textarea[overridden][estimated].form-control{border:none;border-bottom:1px solid #3c763d  !important;cursor:text;padding-bottom:1px;}
+textarea[overridden][estimated].form-control:focus,textarea[overridden][estimated].form-control:hover{border:none;border-bottom:3px solid #3c763d  !important;cursor:text;padding-bottom:0px !important;}
+
+
+textarea[estimated][overridden].form-control{border:none;border-bottom:1px solid #3c763d  !important;cursor:text;padding-bottom:1px;}
+textarea[estimated][overridden].form-control:focus,textarea[estimated][overridden].form-control:hover{border:none;border-bottom:3px solid #3c763d  !important;cursor:text;padding-bottom:0px !important;}
+/*textarea css end*/

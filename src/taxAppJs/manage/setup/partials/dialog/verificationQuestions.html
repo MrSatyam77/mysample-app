@@ -1,0 +1,101 @@
+<style>
+        .verificationqanda .checkbox-container button {
+            vertical-align: middle;
+        }
+        .verificationqanda .que-area {
+            font-weight: bold;
+            color: #858585;
+        }
+        .modal-lg {
+            width: 950px;
+        }
+        @media(max-width:768px)
+         {
+             .modal-lg { width: 90vw; }
+             .verificationqanda-container { min-height:auto; padding:30px 0px; }
+         }
+         .color-red { color: red !important}
+    </style>
+    
+    <div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;"
+        class="verificationqanda">
+        <div data-ng-if="isDataLoading">
+                <div class="loading_background"></div>
+                <div class="preloader">
+                    <div class="preloader-container">
+                        <span class="animated-preloader"></span>
+                    </div>
+                </div>
+            </div>
+        <form name="verificationQuestions">
+            <div class="modal-header dialog-header-confirm  quicksetup-modal verificationqanda-modal">
+                <div class="modal-title" ng-if="isQuestionAnswersVerified != true">
+                    <label class="font_black">Verification Questions & Answers</label>
+                </div>
+                <div class="modal-title" ng-if="isQuestionAnswersVerified == true">
+                    <label class="font_black"><img src="taxAppJs/images/verified-grey-header.png" class="modal-header-icon">Verification Successful</label>
+                </div>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="col-lg-24" ng-if="isQuestionAnswersVerified != true">
+                    <p ng-if="numberofAttept == 0" class="font-size-12 font_gray">In order to complete the verification of your identity, please answer the
+                        following security questions:</p>
+                        <p ng-if="numberofAttept == 1" class="color-red">We have few more questions for you as your answers were not considered correct.</p>
+                </div>
+                <div class="wrapper_class">
+                    <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15 padding_l_r_0 " ng-if="isQuestionAnswersVerified != true"
+                        ng-repeat="question in questionsAnswersList">
+                        <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 que-area">{{$index+1}}) {{question.text}}</div>
+                        <div class="answer-area col-lg-24 col-sm-24 col-md-24 col-xs-24 clearfix margin_top_5">
+                            <span class="col-lg-5 col-md-8 col-sm-12 col-xs-12 margin_top_10 padding_l_0" ng-repeat="answer in question.Answer">
+                                <div class="form-group checkbox-container old-checkbox padding_l_0">
+                                    <button class="custom_input_dark margin_right_5" data-ng-class="{'active':question.userAnswerID == answer.id}" 
+                                     data-ng-click="question.userAnswerID = answer.id; question.userAnswer = answer.$t; setCountOfAttendedQuestions(question.type);"></button>
+                                    <span class="checkbox-label">{{answer.$t}}</span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15 padding_l_r_0" ng-if="isQuestionAnswersVerified == true">
+                        <div class="verificationqanda-container">
+                            <div class="verificationqanda-inner">
+                                <div class="content-title">
+                                        <i class="fa fa-smile-o" aria-hidden="true"></i> Congratulations!
+                                </div>
+                                <div class="text-center">
+                                    <span class="font_gray margin_top_10">Your preparer identity was verified successfully.</span>
+                                    <!-- <span class="font_black margin_top_5">Please enter office details and complete verification.</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" ng-if="isQuestionAnswersVerified != true">
+                <button type="button" class="btn custom-btn" data-ng-click="verificationQuestionAnswers()" data-ng-disabled="AtteptAnswer.length < questionsAnswersList.length">
+                    <span translate="DIALOG_SEND_BTN" translate-default="Verify" ></span>
+                </button>
+                <button type="button"   class="btn custom-btn" data-ng-click="dismiss()"><span translate="DIALOG_CLOSE_BTN" translate-default="Cancel"></span></button> 
+            </div>
+            <div class="modal-footer" ng-if="isQuestionAnswersVerified === true">
+                <button type="button"  class="btn custom-btn" data-ng-click="close()"><span translate="DIALOG_CLOSE_BTN" translate-default="Close"></span></button>
+            </div>
+        </form>
+    </div>
+    
+    
+    
+    
+    <!-- <span class="form-group col-lg-5 col-md-8 col-sm-12 col-xs-12 checkbox-container margin_top_10" ng-repeat="answer in question.Answer">
+    <button
+        class="custom_input_dark margin_right_5" data-ng-class="{'active':question.userAnswerID == answer.id}"
+        data-ng-click="question.userAnswerID = answer.id; setCountOfAttendedQuestions(question.type);"></button>
+    {{answer.$t}}
+    </span> 
+    
+    
+    <button ng-if="isQuestionAnswersVerified != true" type="button" class="btn btn-outline-primary" data-ng-click="verificationQuestionAnswers()"
+                    data-ng-disabled="countOfAttentedQuestions.length !== questionsAnswersList.length-1">
+                    <span ng-if="isQuestionAnswersVerified != true" translate="DIALOG_SEND_BTN" translate-default="Verify"></span>
+                </button>
+            -->

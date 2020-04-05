@@ -1,0 +1,18 @@
+.estimator_block{border:1px solid #dddedf;margin-bottom:20px;}
+.estimator_block h3{margin-top:0px;background:#ddd;color:#000;padding:5px;font-size:20px;}
+#tax_estimator_tab { margin-bottom:20px; margin-top:5px;}
+#tax_estimator_tab .nav.nav-tabs li {padding:0px 0px;}
+#tax_estimator_tab .nav.nav-tabs li.active:before {background:#F0514A; border-radius:0px; content: ""; height: 8px;  margin-top: -2px; position: absolute; bottom:-20px; width:100%; z-index: -1; }
+#tax_estimator_tab .nav.nav-tabs li a { height:60px; width:60px; border-radius:50%; background:#fba8a2; font-size:26px; margin:0 auto; border:none; color:#333333;}    
+#tax_estimator_tab .nav.nav-tabs li.active a {background:#F0514A; color:#ffffff; border:none;}
+#tax_estimator_tab .tab-content {border-top:1px solid #F0514A; margin-top:0px; margin-top:20px;}
+h3.estimater_title { width: 100%; margin-top:10px;} 
+.md_width_control {width:120px !important; max-width:120px !important;padding-left:12px; }   
+
+@media (min-width:320px) and (max-width:767px) { 
+/*#tax_estimator_tab .nav.nav-tabs.nav-justified li {float:left !important; border:1px solid #1de033;}*/
+.nav-tabs.nav-justified > li,.nav-justified > li {cursor: pointer; float: left !important; width:60px; margin-bottom:20px; bottom:-15px;}
+#tax_estimator_tab .nav.nav-tabs li a {width:50px; height:50px; font-size:22px;}
+#tax_estimator_tab .nav.nav-tabs li.active:before {bottom:-15px;}
+
+}

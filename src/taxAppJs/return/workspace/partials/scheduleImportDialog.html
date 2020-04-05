@@ -1,0 +1,529 @@
+<style>
+    .min_width_98 {
+        min-width: 98.8%
+    }
+
+    .min_width_100 {
+        min-width: 100%
+    }
+
+    .arrangedataicon {
+        margin: 6px 10px 0px;
+        float: left;
+        color: #fcc120;
+    }
+
+    .modal-lg {
+        width: 70vw !important;max-width: 100% !important; 
+    }
+
+    .height_30 {
+        height: 30px;
+    }
+
+    .grid {
+        height: 500px;
+        max-width: 1310px;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    .gridstep3 {
+        height: 495px;
+        max-width: 1310px;
+        width: 100%;
+    }
+
+    .grid-canvas {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .header-wrapper {
+        position: absolute;
+        top: 0;
+        width: auto;
+        background: #eaeaea;
+        z-index: 2;
+        min-height: 40px;
+        height: auto;
+    }
+
+    .header {
+        width: 100%;
+    }
+
+    .row-wrapper {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: auto;
+        padding-top: 50px;
+
+    }
+
+    th {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        padding-right: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: normal;
+    }
+
+    th span {
+        width: 140px;
+        min-width: 140px;
+        max-width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: normal;
+    }
+
+    /*th{background: #e4e4e4}*/
+
+    td span {
+        width: 140px;
+        min-width: 140px;
+        max-width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: normal;
+    }
+
+    td {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        padding: 8px 10px 8px 0px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: normal;
+
+    }
+
+    th select {
+        min-height: 25px;
+        display: block
+    }
+
+    th:first-child,
+    td:first-child {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        padding-left: 15px !important;
+        margin-right: 0px !important;
+        overflow: hidden;
+        text-align: left;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: normal;
+    }
+
+    th:last-child {
+        padding-right: 20px;
+    }
+
+    .table thead {
+        display: none
+    }
+
+    .schedule_background {
+        background: #f5f5f5;
+        margin-top: 10px;
+        padding-bottom: 10px;
+    }
+</style>
+<script type="text/javascript">
+    $headerDiv = $('.header-wrapper');
+    $rowDiv = $('.row-wrapper');
+    $rowDiv.scroll(function (e) {
+        $headerDiv.css({
+            left: -$rowDiv[0].scrollLeft + 'px'
+        });
+    });
+</script>
+
+
+<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+        Schedule C/D Import
+    </h4>
+</div>
+<div class="modal-body clearfix">
+    <div class="col-lg-24 col-sm-24 col-md-24">
+        <ol class="breadcrumb">
+            <li data-ng-repeat="menu in headerMenu track by $index" data-ng-class="{'active':$index+1 == headerMenu.length}">
+                <a ng-show="$index+1 != headerMenu.length" class='cursor_pointer' data-ng-click="goToStep(menu.step)">{{menu.title}}</a>
+                <span ng-show="$index+1 == headerMenu.length">{{menu.title}}</span>
+            </li>
+        </ol>
+    </div>
+    <div data-ng-if="headerMenu.length == 1">
+        <div class="col-lg-24 col-sm-24 col-md-24 clearfix height_30">
+            <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4 ng-isolate-scope">
+                <label title="Import For" class="ng-binding padding_top_15">Import For</label>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 ng-isolate-scope">
+                <!-- <select class="custom_input_ddl"  ng-options="schedule.id as schedule.title for schedule in scheduleList" data-ng-model="importForSchedule.id" data-ng-change="resetAll()">	                
+	            </select> -->
+                <tax-form-lookup class="padding_right_5 width_115" field="importForSchedule.formDetail" fieldname="{{importForSchedule.formDetail.displayName}}"
+                    doc-list="dSchC,dSchD,dSchedule1041D,dSch1120SchD,dSch1120SSchD" for-depreciation="false"></tax-form-lookup>
+            </div>
+        </div>
+
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 clearfix clearfix" data-ng-if="importForSchedule.formDetail.docName == 'dSchC'">
+            <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4 ng-isolate-scope padding_top_15 clearfix"></div>
+            <div class="col-sm-20 col-md-20 col-lg-20">
+                <div class="schedule_background">
+                    <div class="clearfix">
+                        <div class="row"> 
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Income</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Advertising</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Contract labor</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Interest</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="clearfix">
+                            <div class="row"> 
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Home Interest</span>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Property taxes(rent or lease)</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Repair and maintenance</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Utilities</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="clearfix">
+                         <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Other expences</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 clearfix clearfix" data-ng-if="importForSchedule.formDetail.docName == 'dSchD' || importForSchedule.formDetail.docName == 'dSchedule1041D' || importForSchedule.formDetail.docName == 'dSch1120SchD' || importForSchedule.formDetail.docName == 'dSch1120SSchD'">
+            <div class="row"> 
+            <div class="col-sm-4 col-md-4 col-lg-4 ng-isolate-scope padding_top_15 clearfix"></div>
+            <div class="col-sm-20 col-md-20 col-lg-20">
+                <div class="schedule_background">
+                    <div class="clearfix">
+                        <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i> Description</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Date acquired</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Select Inherited or Various</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Date sold or disposed</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Proceeds</span>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Cost or other basis</span>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Code</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Adjustment</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Short term / Long term </span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>Received 1099B</span>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 padding_top_15 clearfix">
+                            <span>
+                                <i class="fa fa-circle margin_right_5 font_size_10 color_gray"></i>1099B with basis reported to the IRS</span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_15 clearfix">
+            <div class="col-lg-24 col-sm-24 col-md-24">
+                <div>
+                    <b>Select Your File</b>
+                </div>
+                <div> Select the Excel file you would like to import.</div>
+            </div>
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_15">
+            <div class="col-lg-24 col-sm-24 col-md-24">
+                <div class="text-danger ">
+                    <span translate="APPOINMENT_MAXIMUMSIZELIMITWARN" translate-default="Maximum file upload size is 15MB."></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_15">
+            <div class="col-lg-24 col-sm-24 col-md-24">
+                <div class="drop-box upload_main" ngf-drop ngf-drag-over-delay="100" ngf-drag-over-class="" ngf-drop-available="dropSupported=true"
+                    ngf-change="onFileSelect($files)" ng-show="dropSupported">
+                    <div class="clearfix">
+                        <span class="text-center font_size_24">Drag here</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+                            <div class="text-center margin_top_10">Or if you prefer</div>
+                            <div class="btn btn-outline-primary btn_conversion selectbutton margin_top_10  margin_bottom_10" data-ng-disabled="!importForSchedule.formDetail.docName">
+                                <i class="fa fa-folder-open margin_right_3"></i>
+                                Select file
+                                <input type="file" ngf-select="onFileSelect($files)" accept="{{acceptFile}}" data-max-size="100">
+                            </div>
+                        </div>
+                        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+                            <progressbar data-ng-show="uploadProgress" animate="true" class="progress-striped active" value="uploadProgress" type="success"
+                                style="height:15px;">
+                                <b>{{uploadProgress}}%</b>
+                            </progressbar>
+                        </div>
+                        <div class="row text-danger" data-ng-show="fileSizeMessage">
+                            <span>Your selected file is more than 15MB in size.</span>
+                        </div>
+                        <div class="row text-danger" data-ng-show="uploadErrMessage">
+                            <span>An error occurred while uploading your file. Please try again later.</span>
+                        </div>
+                        <div class="row text-danger padding_10" data-ng-show="invalidFileType">
+                            <span>You are trying to upload a</span>
+                            {{fileType}}
+                            <span>file. Please verify that the file you are uploading is an Excel or CSV by making sure the file’s
+                                extension is .XLS, .XLSX, or .ODS.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_15" data-ng-if="importForSchedule.docName != undefined && importForSchedule.docName != ''">
+            <div class="col-lg-24 col-sm-24 col-md-24">
+                <div>
+                    <b>Below is an example of data we will import. You can designate each column upon clicking Next.</b>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_15">
+            <div class="col-lg-24 col-sm-24 col-md-24" data-ng-if="importForSchedule.formDetail.docName == 'dSchD' || importForSchedule.formDetail.docName == 'dSchedule1041D' || importForSchedule.formDetail.docName == 'dSch1120SchD' || importForSchedule.formDetail.docName == 'dSch1120SSchD'">
+                <img class="img-fluid width_full margin_top_15"  src="taxAppJs/return/workspace/images/grid_image_d.png" />
+            </div>
+            <div class="col-lg-24 col-sm-24 col-md-24 margin_top_15" data-ng-if="importForSchedule.formDetail.docName == 'dSchC'">
+                <img class="img-fluid width_full margin_top_15"  src="taxAppJs/return/workspace/images/grid_image_c.png" />
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="headerMenu.length == 2">
+        <div class="col-lg-24 col-sm-24 col-md-24">
+            <div class="col-sm-20 col-md-20 col-lg-20 ">
+                Select the column header that matches your data. Check the Ignore box next to the rows you don’t want to import, when finished
+                click on the “Next” button to proceed.
+            </div>
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_10">
+            <div class="col-sm-4 col-md-4 col-lg-4 ">
+                <b># of Rows:</b>
+                <span class="margin_left_5">{{noOfActualData}}</span>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 ">
+            </div>
+        </div>
+
+        <div class="col-lg-24 col-sm-24 col-md-24 grid clearfix">
+            <div class="grid-canvas">
+                <div class="header-wrapper" id="headerStep2" data-ng-class="{'min_width_100': noOfColumns < 5,'min_width_98': noOfColumns > 5}">
+                    <table class="header">
+                        <tbody>
+                            <tr>
+                                <th class="padding_top_7">
+                                    <span>IGNORE</span>
+                                </th>
+                                <th data-ng-repeat="num in getNumber(noOfColumns) track by $index" class="padding_top_7">
+                                    <select data-ng-model="columnHeader[$index].newKey" tabindex="-1" data-ng-if="importForSchedule.formDetail.docName == 'dSchD' || importForSchedule.formDetail.docName == 'dSchedule1041D' || importForSchedule.formDetail.docName == 'dSch1120SchD' || importForSchedule.formDetail.docName == 'dSch1120SSchD'"
+                                        data-ng-options="head.id as head.value for head in colHeadingScheduleD" data-ng-change="addOldColumHeader($index)">
+                                        <option value=''>Select Heading</option>
+                                    </select>
+                                    <select data-ng-model="columnHeader[$index].newKey" tabindex="-1" data-ng-if="importForSchedule.formDetail.docName == 'dSchC'"
+                                        data-ng-options="head.id as head.value for head in colHeadingScheduleC" data-ng-change="addOldColumHeader($index)">
+                                        <option value=''>Select Heading</option>
+                                    </select>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row-wrapper" data-ng-init="initScroll()" id="rowStep2">
+                    <table class="rows table" ng-table="importScheduleTableGrid">
+                        <tbody>
+                            <tr data-ng-repeat="row in dataForImport">
+                                <td>
+                                    <input type='checkbox' data-ng-checked="row.isChecked" data-ng-click="ignoreRow(row)" class="float-left" />
+                                    <i class="fa fa-exclamation-triangle cursor_pointer arrangedataicon" data-ng-if="row.columnsWithInvalidData != undefined && row.columnsWithInvalidData.length != 0"
+                                        title="{{getToolTipMsg(row.columnsWithInvalidData)}}"></i>
+                                </td>
+                                <td data-ng-repeat="num in getNumber(noOfColumns) track by $index">
+                                    <span data-ng-if="row[$index] != undefined && row[$index] != ''">{{row[$index]}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div data-ng-if="headerMenu.length == 3">
+        <div class="col-lg-24 col-sm-24 col-md-24">
+            <div class="col-sm-20 col-md-20 col-lg-20 ">
+                Please review the data that will be imported, when you are done click on the “Import” button.
+            </div>
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_10">
+            <div class="col-sm-4 col-md-4 col-lg-4 ">
+                <b># of Rows:</b>
+                <span class="margin_left_5">{{noOfArrangeData}}</span>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 ">
+            </div>
+        </div>
+        <div class="col-lg-24 col-sm-24 col-md-24 margin_top_10 schedule_overflow">
+
+            <div class="gridstep3 clearfix">
+                <div class="grid-canvas">
+                    <div class="header-wrapper" id="headerStep3" data-ng-class="{'min_width_100': arrangedColumn.length < 5 ,'min_width_98': arrangedColumn.length > 5}">
+                        <table class="header">
+                            <tr>
+                                <th>
+                                    <div class="padding_top_10">IGNORE</div>
+                                </th>
+                                <th data-ng-repeat="header in arrangedColumn track by $index" class="padding_top_10">
+                                    <span data-ng-if="header !== undefined && header.newKey != 'doNotImport'" title="{{header.colLabel | uppercase}}">{{header.colLabel | uppercase}}</span>
+                                </th>
+
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="row-wrapper" data-ng-init="initScroll()" id="rowStep3">
+                        <table class="rows table" ng-table="arrangeDataGrid">
+                            <tr data-ng-repeat="row in arrangedData">
+                                <td>
+                                    <div>
+                                        <input type='checkbox' data-ng-checked="row.isChecked" data-ng-click="ignoreRow(row)" />
+                                        <div>
+                                </td>
+                                <td data-ng-repeat="header in arrangedColumn track by $index">
+                                    <span data-ng-if="header !== undefined && header.newKey != 'doNotImport' && header.newKey != 'received1099B' && header.newKey != '1099BwithBasisReportedToIRS'">{{row[header.newKey]}}</span>
+                                    <span data-ng-if="header.newKey == 'received1099B'">
+                                        <input type="checkbox" data-ng-checked="getChecked(row[header.newKey])" data-ng-click="setChecked(row,'received1099B')" />
+                                    </span>
+                                    <span data-ng-if="header.newKey == '1099BwithBasisReportedToIRS'">
+                                        <input type="checkbox" data-ng-checked="getChecked(row[header.newKey])" data-ng-click="setChecked(row,'1099BwithBasisReportedToIRS')"
+                                        />
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer margin_top_10">
+            <span class="float-left color_red" data-ng-if="reqColErrMsg" translate="RETURNDIALOGCONTROLLER_ONECOLUMNREQUIRED" translate-default="Please select at least one column"></span>
+            <span class="float-left color_red" data-ng-if="requiredColumnError">{{requiredColumnErrorMsg}}</span>
+            <span class="float-left color_red" data-ng-if="uniqHeaderReqErr" translate="RETURNDIALOGCONTROLLER_UNIQUEHEADERERRMSG" translate-default="Please select a different header for each column"></span>
+            <button type="button" class="btn btn-outline-primary" ng-click="close()">
+                <span translate="SCHEDULEIMPORTDIALOG_CANCEL_BUTTON" translate-default="Cancel"></span>
+            </button>
+            <button data-ng-if="headerMenu.length > 1" type="button" class="btn btn-outline-primary" ng-click="previous()">
+                <span translate="SCHEDULEIMPORTDIALOG_PREVIOUS_BUTTON" translate-default="Previous"></span>
+            </button>
+            <button data-ng-if="headerMenu.length < 3" data-ng-disabled="!isUploadedFile" type="button" class="btn btn-outline-primary" ng-click="next()">
+                <span translate="SCHEDULEIMPORTDIALOG_NEXT_BUTTON" translate-default="Next"></span>
+            </button>
+            <button data-ng-if="headerMenu.length == 3" type="button" class="btn btn-outline-primary" ng-click="importSchedule()">
+                <span translate="SCHEDULEIMPORTDIALOG_IMPORT_BUTTON" translate-default="Import"></span>
+            </button>
+        </div>

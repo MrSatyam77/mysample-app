@@ -1,0 +1,39 @@
+<div class="clearfix float-left page_title_wrapper_return">
+    <div class="page_title_lg float-left page_title_lg_padding">{{formScope.currentForm.extendedProperties.displayName}}</div>
+    <div data-ng-if="::taxYear!='2014'" class="float-left drafttext">({{formScope.currentForm.extendedProperties.status}})</div>
+    <div class="float-left pagetitleyear">({{::taxYear}})</div>
+    <div class="float-left padding_left_5 paddinh_top_7">
+        <button class="btn btn-outline-primary" data-ng-click="addFormByDocName(formScope.currentForm.docName,$event)" data-ng-hide="!isNewInstanceAllowed || (isCalcRunning && !isRecalculateReturn)" >
+            <i class="margin_right_3 fa fa-files-o"></i>
+            <span translate="RETURNWORKSPACETOOL_NEWINSTANCE_LBL" translate-default="Add New"></span>
+        </button>
+	</div>
+	<div class="float-left padding_left_5 paddinh_top_7" data-ng-if="formScope.currentForm.docName == 'dDeprwkt' && isConvertedReturn == true">
+		<button class="btn btn-outline-primary" data-ng-click="ChangeToVehicle(formScope.currentForm,$event)">
+			<i class="margin_right_3 fa fa-files-o"></i>
+			<span translate="RETURNWORKSPACETOOL_CHANGETOVEHICLE_LBL" translate-default="Change To Vehicle"></span>
+		</button>
+	</div>
+</div>
+<div class="float-right width_full_40 margin_top_7 text-right clearfix">
+	<!--  For More return type we need to write conditions here -->
+	<label data-ng-if="client.packageName == '1040'"> {{dMainInfo.tpfnmi.value}}&nbsp;{{dMainInfo.tplnm.value}}</label>
+	<label data-ng-if="client.packageName == '1065'">{{d1065CIS.PartnerName.value}} </label>
+	<label data-ng-if="client.packageName == '1120'">{{d1120CCIS.NameofCorporation.value}} </label>
+	<label data-ng-if="client.packageName == '1120s'">{{d1120SCIS.NameofSCorporation.value}} </label>
+	<label data-ng-if="client.packageName == '1041'">{{d1041CIS.Nameofestate.value}} </label>
+	<label data-ng-if="client.packageName == '990'">{{d990CIS.PartnerName.value}} </label>
+	<label data-ng-if="returnSubType ==='copy' || returnSubType ==='amended'" class="text-uppercase font-weight-bold">  {{returnSubType}}</label>
+	<label data-ng-if="returnSubType ==='original'" class="text-uppercase font-weight-bold">  Read Only File</label>
+</div>
+<div class="width_full float-left clearfix">
+	<div class="width_full_60 float-left">{{formScope.currentForm.extendedProperties.description}}</div>
+	<div class="float-right width_full_40 text-right">
+		<label data-ng-if="client.packageName == '1040'">{{dMainInfo.tpssn.value}}</label>
+		<label data-ng-if="client.packageName == '1065'">{{d1065CIS.EIN.value}} </label>
+		<label data-ng-if="client.packageName == '1120'">{{d1120CCIS.EIN.value}} </label>
+		<label data-ng-if="client.packageName == '1120s'">{{d1120SCIS.EIN.value}} </label>
+		<label data-ng-if="client.packageName == '1041'">{{d1041CIS.EIN.value}} </label>
+		<label data-ng-if="client.packageName == '990'">{{d990CIS.EIN.value}} </label>
+	</div>
+</div>

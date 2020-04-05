@@ -1,0 +1,46 @@
+<div class="p-sm-0 clr-body">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding title_height_40">
+        <span class="page_title_lg ng-binding ng-scope">Enable Service Bureau</span>
+        <div class="row float-right mt-2">
+          <button class="btn btn-outline-primary pl-2 mr-3" (click)="backToHomeScreen()">Back To Dashboard</button>
+        </div>
+      </span>
+    </section>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col">
+      <h3 class="main-title">Office Setup</h3>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <div class="card  ease-in-out">
+            <div class="card-body">
+              <div class="form-group row">
+                <div class="col-lg-7 col-form-label">Are you associated with a Service Bureau?</div>
+                <div class="col-lg-auto mt-sm-1  mt-lg-0">
+                  <div class="mtpo-custom-checkbox d-inline mr-5">
+                    <button class="mtpo-checkbox" id="ServiceBureauYes" (click)="officeAdvanceSettings.associatedWithServiceBureau = true;updateCustomerDetail('associatedWithServiceBureau')"
+                    [ngClass]="{'active': officeAdvanceSettings.associatedWithServiceBureau === true}" [disabled]="officeAdvanceSettings.associatedWithServiceBureau === true"></button>
+                    <label class="d-inline" for="ServiceBureauYes">Yes</label>
+                  </div>
+                  <div class="mtpo-custom-checkbox d-inline mr-5">
+                    <button class="mtpo-checkbox" id="ServiceBureauNo" (click)="officeAdvanceSettings.associatedWithServiceBureau = false;updateCustomerDetail('associatedWithServiceBureau')"
+                    [ngClass]="{'active': officeAdvanceSettings.associatedWithServiceBureau === false}" [disabled]="officeAdvanceSettings.associatedWithServiceBureau === false"></button>
+                    <label class="d-inline" for="ServiceBureauNo">No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

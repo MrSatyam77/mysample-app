@@ -1,0 +1,104 @@
+{
+	"jsSource":[
+		"src/taxAppJs/**/*.js",
+		"!src/taxAppJs/dist/**/*.js",
+        "!src/taxAppJs/dist/*.js",
+        "!src/taxAppJs/app.min.js",
+		"!src/taxAppJs/lib/*.js",
+		"!src/taxAppJs/lib/**/*.js",
+		"!src/taxAppJs/lib.js",
+        "!src/taxAppJs/offline/*.js",
+        "!src/taxAppJs/offline/**/*.js",
+		"!src/firebase-messaging-sw.js",
+        "!src/taxAppJs/return/workspace/calculation/*.js"
+	],
+	"index":"src/taxAppJs/index.html",
+	"indexTaxvision":"src/taxAppJs/index-taxvision.html",
+	"indexEmpireTax":"src/taxAppJs/index-empiretax.html",
+	"indexCo9":"src/taxAppJs/index-co9.html",
+	"indexUplus":"src/taxAppJs/index-uplus.html",
+	"indexTSG":"src/taxAppJs/index-tsg.html",
+	"indexTrooblr":"src/taxAppJs/index-trooblr.html",
+	"indexIncomeusa":"src/taxAppJs/index-incomeusa.html",
+	"indexSam":"src/taxAppJs/index-sam.html",
+	"indexIncomeTax":"src/taxAppJs/index-incometax.html",
+	"indexSiglo":"src/taxAppJs/index-siglo.html",
+	"indexNextWorld":"src/taxAppJs/index-nextworld.html",
+	"indexDev":"src/taxAppJs/index-dev.html",
+	"indexTaxvisionDev":"src/taxAppJs/index-taxvision-dev.html",
+	"indexEmpireTaxDev":"src/taxAppJs/index-empiretax-dev.html",
+	"indexCo9Dev":"src/taxAppJs/index-co9-dev.html",
+	"indexUplusDev":"src/taxAppJs/index-uplus-dev.html",
+	"indexTSGDev":"src/taxAppJs/index-tsg-dev.html",
+	"indexSigloDev":"src/taxAppJs/index-siglo-dev.html",
+	"indexTrooblrDev":"src/taxAppJs/index-trooblr-dev.html",
+	"indexSamDev":"src/taxAppJs/index-sam-dev.html",
+	"indexIncomeusaDev":"src/taxAppJs/index-incomeusa-dev.html",
+	"indexIncomeTaxDev":"src/taxAppJs/index-incometax-dev.html",
+	"indexNextWorldDev":"src/taxAppJs/index-nextworld-dev.html",
+	"deployInjectAppJS":["src/taxAppJs/dist/app.min.js"],
+	"offlineSourceImports":[
+		"!src/taxAppJs/offline/lib/**/*.js",
+		"!src/taxAppJs/offline/lib/*.js",
+		"src/taxAppJs/lib/lodash.js",
+		"src/taxAppJs/offline/**/*.js"
+	],
+	"offlineLibImports":[
+		"src/taxAppJs/offline/lib/**/*.js",
+		"src/taxAppJs/offline/lib/*.js"
+	],
+	"offlineSource":"src/serviceWorker-main.js",
+	"calcLibImports":[
+		"src/taxAppJs/lib/lodash.js",
+		"src/taxAppJs/lib/moment/moment.js"
+	],
+	"calcSourceImports":[
+		"src/taxAppJs/return/workspace/calculation/**/*.js",
+		"!src/taxAppJs/return/workspace/calculation/calc-worker.js"
+	],
+	"calcSource":"src/taxAppJs/return/workspace/calculation/calc-worker.js",
+	"singleFilesForDeploy":[
+		"src/taxAppJs/common/common-services.js",
+		"src/taxAppJs/tax-app.js"
+	],
+	"singleSWFilesForDeploy": [
+		"src/sw-mtpo.js",
+		"src/sw-empiretax.js",
+		"src/sw-co9.js",
+		"src/sw-uplus.js",
+		"src/sw-tsg.js",
+		"src/sw-siglo.js",
+		"src/sw-trooblr.js",
+		"src/sw-incomeusa.js",
+		"src/sw-incometax.js",
+		"src/sw-sam.js",
+		"src/sw-nextworld.js"
+	],
+	"sshConfig":{
+		"beta":{
+			"host": "192.168.51.167",
+			"username": "development1",
+			"password": "dev@ilink08"
+		},
+		"live103":{
+			"host": "192.168.200.103",
+			"username": "development1",
+			"password": "dev@ilink08"
+		},
+		"live105":{
+			"host": "192.168.200.105",
+			"username": "development1",
+			"password": "dev@ilink08"
+		},
+		"live93":{
+			"host": "192.168.200.93",
+			"username": "development1",
+			"password": "dev@ilink08"
+		},
+		"live94":{
+			"host": "192.168.200.94",
+			"username": "development1",
+			"password": "dev@ilink08"
+		}
+	}
+}

@@ -1,0 +1,1064 @@
+
+<div data-ng-if="taxYear=='2014'" class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding title_height_40">
+                <span class="page_title_lg ng-binding" translate="EPSBANK_ADD_HEADER" translate-default="EPS"></span>
+            </span>
+        </section>
+        <div class="clearfix static_form_wrap allowScrollSync"   ng-style="{height:headerNav.screenHeight-106}"  style="overflow-y:auto;overflow-x: hidden">
+        	<!-- This is temporary message to educate users that bank enrollment is not available -->
+        	<div class="col-24 pt-2">
+               <div data-ng-if="taxYear=='2014'" class="text-danger margin_bottom_20"><span>Bank enrollment for tax year 2014 is closed.</span></div>
+               <div data-ng-if="taxYear=='2015'" class="text-danger margin_bottom_20"><span>Bank enrollment for tax year 2015 will be available soon.</span></div>
+               <!-- <div data-ng-if="taxYear=='2015'" class="text-danger margin_bottom_20"><span>We carried forward your last year enrollment data. Please review it and press save on last tab to enroll for tax year {{taxYear}}.</span></div> -->
+           	</div>
+           	
+            <!--tax estimator tab start-->
+            <div class="clearfix" id="tax_estimator_tab">
+                <!-- <form name="epsBankMainForm" novalidate> -->
+                <tabset justified="true">
+                    <!--eps program start-->
+                    <tab heading="EPS Program" active="activeTab.epsProgramTab" data-ng-click="tabChangeView('epsProgramTab')">
+                        <div class="tab_border clearfix">
+                            <form name="form.epsprogramTabForm" novalidate>
+                                <div class="col-24">
+                                <div class="clearfix row">
+                                    <div class="col-lg-13 col-md-24 col-sm-24 clearfix">
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_EFIN_LBL" translate-default="EFIN" class="float-left"></label>
+                                            <input type="text" name="epsProgramFormEfin"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="epsProgram.efin"
+                                                   ng-required="!epsProgram.efin" tax-mask="999999" tax-mask-use-view-value="true" tax-mask-use-view-value="true" value="{{epsProgram.efin}}" />
+                                        </div>
+                                        <div class="row row_height_30 bank">
+                                            <label translate="EPSBANK_OFFICETYPE_LBL" translate-default="Office Type" class="float-left"></label>
+                                            <select name="epsProgramFormOfficeType"
+                                                    class="custom_input_ddl  float-right ml-auto"
+                                                    data-ng-model="epsProgram.officeType"
+                                                    ng-required="!epsProgram.officeType">
+                                                <option value="Corporation">Corporation</option>
+                                                <option value="Multi-Site">Multi-Site</option>
+                                                <option value="Stand Alone">Stand Alone</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_DOYOUWANTTOOFFERPROTECPLUS_LBL" translate-default="Do you want to offer protection plus?" class="float-left"></label>
+                                            <span class="float-right ml-auto">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':epsProgram.wantOfferProtectionPlus==true}" data-ng-model="epsProgram.wantOfferProtectionPlus" data-ng-click="epsProgram.wantOfferProtectionPlus=true" ng-required="epsProgram.wantOfferProtectionPlus==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':epsProgram.wantOfferProtectionPlus==false}" data-ng-model="epsProgram.wantOfferProtectionPlus" data-ng-click="epsProgram.wantOfferProtectionPlus=false" ng-required="epsProgram.wantOfferProtectionPlus==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                            </span>
+                                        </div>
+                                        <div class="row row_height_30" data-ng-show="epsProgram.wantOfferProtectionPlus == true">
+                                            <label translate="EPSBANK_YOURPROTECTIONADDONFEE_LBL" translate-default="Your Protection Plus Add-On Fee (Max $60)" class="float-left"></label>
+                                            <input type="number"
+                                                   name="epsProgramFormProtectionPlus"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="epsProgram.protectionPlusAddOnFee"
+                                                   ng-required="!epsProgram.protectionPlusAddOnFee && epsProgram.wantOfferProtectionPlus == true" value="{{epsProgram.protectionPlusAddOnFee}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_PROGRAMTYPE_LBL" translate-default="Program Type" class="float-left"></label>
+                                            <span class="float-right ml-auto">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':epsProgram.programType == 'Elite'}" data-ng-model="epsProgram.programType" data-ng-click="epsProgram.programType = 'Elite'" ng-required="epsProgram.programType==undefined"></button><span class="float-left" translate="EPSBANK_ELITE_LBL" translate-default="Elite"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':epsProgram.programType == 'Deluxe'}" data-ng-model="epsProgram.programType" data-ng-click="epsProgram.programType = 'Deluxe'" ng-required="epsProgram.programType==undefined"></button><span class="float-left  margin_right_5" translate="EPSBANK_DELUXE_LBL" translate-default="Deluxe"></span>
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':epsProgram.programType == 'Basic +'}" data-ng-model="epsProgram.programType" data-ng-click="epsProgram.programType = 'Basic +'" ng-required="epsProgram.programType==undefined"></button><span class="float-left" translate="EPSBANK_BASICPLUS_LBL" translate-default="Basic +"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':epsProgram.programType == 'Basic'}" data-ng-model="epsProgram.programType" data-ng-click="epsProgram.programType = 'Basic'" ng-required="epsProgram.programType==undefined"></button><span class="float-left" translate="EPSBANK_BASIC_LBL" translate-default="Basic"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!--eps program end-->
+                    <!-- Bank Product History - Start -->
+                    <tab heading="Bank Product History" active="activeTab.proHistoryTab" data-ng-click="tabChangeView('proHistoryTab')">
+                        <div class="tab_border clearfix">
+                            <form name="form.bankProductHistoryTabForm">
+                                <div class="clearfix">
+                                    <div class="col-lg-12 col-md-24 col-sm-24 clearfix">
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_YEARSEFILE_LBL"
+                                                   translate-default="Years doing E-File" class="float-left"></label>
+                                            <input type="number" name="epsBankProductHistoryYearsEFile"
+                                                   class="newusertextbox form-control yearsDoingEFile  float-right ml-auto"
+                                                   data-ng-model="bankProductHistory.yearsDoingEFile"
+                                                   ng-required="!bankProductHistory.yearsDoingEFile" value="{{bankProductHistory.yearsDoingEFile}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_YEARDOINGBANKPRODUCT_LBL"
+                                                   translate-default="Years doing Bank Products" class="float-left"></label>
+                                            <input type="number" name="epsBankProductHistoryYearsBankProd"
+                                                   class="newusertextbox form-control  float-right ml-auto"
+                                                   data-ng-model="bankProductHistory.yearsDoingBankProducts"
+                                                   ng-required="!bankProductHistory.yearsDoingBankProducts" value="{{bankProductHistory.yearsDoingBankProducts}}" />
+                                        </div>
+                                        <div class="row row_height_30 bank">
+                                            <label translate="EPSBANK_PREVIOUSBANK_LBL"
+                                                   translate-default="Previous Bank" class="float-left"></label>
+                                            <select name="epsBankProductHistoryPreviousBank"
+                                                    class="custom_input_ddl  float-right ml-auto"
+                                                    data-ng-model="bankProductHistory.previousBank"
+                                                    ng-required="!bankProductHistory.previousBank">
+                                                <option value="AdventFin">AdventFin</option>
+                                                <option value="EPS">EPS</option>
+                                                <option value="Non">Non</option>
+                                                <option value="Other">Other</option>
+                                                <option value="RefAdvan">RefAdvan</option>
+                                                <option value="Refundo">Refundo</option>
+                                                <option value="Republic">Republic</option>
+                                                <option value="RiverCity">RiverCity</option>
+                                                <option value="SBTGP">SBTGP</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30 bank">
+                                            <label translate="EPSBANK_TRANSMITUSEDLASTYEAR_LBL"
+                                                   translate-default="Transmitter Used Last year" class="float-left"></label>
+                                            <select name="epsBankProductHistoryTransmiUserLastYear"
+                                                    class="custom_input_ddl  float-right ml-auto"
+                                                    data-ng-model="bankProductHistory.transmitterUsedLastyear"
+                                                    ng-required="!bankProductHistory.transmitterUsedLastyear">
+                                                <option value="{{transmitterData.dispalyText}}" data-ng-repeat="transmitterData in transmitterUsedLastYear">{{transmitterData.dispalyText}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_BANKPRODUCTLASTYEAR_LBL"
+                                                   translate-default="Number of Bank Products Last Year" class="float-left"></label>
+                                            <input type="number"
+                                                   name="epsBankProductHistoryNumBankProdLastYear"
+                                                   class="newusertextbox form-control  float-right ml-auto"
+                                                   data-ng-model="bankProductHistory.numOfBankProductsLastYear"
+                                                   ng-required="!bankProductHistory.numOfBankProductsLastYear" value="{{bankProductHistory.numOfBankProductsLastYear}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_FUNDINGRATION_LBL"
+                                                   translate-default="Funding Ratio (%)" class="float-left"></label>
+                                            <input type="number" min="0" max="100" name="epsBankProductHistoryFundingRation"
+                                                   class="newusertextbox form-control  float-right ml-auto"
+                                                   data-ng-model="bankProductHistory.fundingRatio" value="{{bankProductHistory.fundingRatio}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_ACTUALNUMBERTAXRETURNYEAR_LBL"
+                                                   translate-default="Actual number of Tax Returns Last Year" class="float-left"></label>
+                                            <input type="number" name="epsBankProductHistoryActuNumTaxRetLastYear"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="bankProductHistory.numOfTaxReturnsLastYear"
+                                                   ng-required="!bankProductHistory.numOfTaxReturnsLastYear" value="{{bankProductHistory.numOfTaxReturnsLastYear}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_PROJECTNUMBERBANKPRODUCTSTHISYEAR_LBL"
+                                                   translate-default="Projected Number of Bank Products this year" class="float-left"></label>
+                                            <input type="number" name="epsBankProductHistoryProjNumBankProdThisYear"
+                                                   class="newusertextbox form-control  float-right ml-auto"
+                                                   data-ng-model="bankProductHistory.projectedNumofBankProducts"
+                                                   ng-required="!bankProductHistory.projectedNumofBankProducts" value="{{bankProductHistory.projectedNumofBankProducts}}" />
+                                        </div>
+                                    </div>
+                                       <div class=" row_height_30 col-lg-24 col-md-24 col-sm-24 clearfix">
+                                        <label translate="EPSBANK_BANKPRODUCTREFUCED_LBL" translate-default="Has any bank refused to renew your contract to offer any tax related bank products in the past 5 years?"></label>
+                                        <div class="clearfix">
+                                            <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':bankProductHistory.isBankProductRefuced==true}" data-ng-model="bankProductHistory.isBankProductRefuced" data-ng-click="bankProductHistory.isBankProductRefuced=true" ng-required="bankProductHistory.isBankProductRefuced==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                            <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':bankProductHistory.isBankProductRefuced==false}" data-ng-model="bankProductHistory.isBankProductRefuced" data-ng-click="bankProductHistory.isBankProductRefuced=false" ng-required="bankProductHistory.isBankProductRefuced==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!-- Bank Product History - End -->
+                    <!-- Office Tab - Start -->
+                    <tab heading="Office" active="activeTab.officeTab" data-ng-click="tabChangeView('officeTab')">
+                        <div class="tab_border clearfix">
+                            <form name="form.officeTabForm">
+                                <div class="col-24">
+                                <div class="clearfix row">
+                                    <div class="col-lg-11 col-md-24 col-sm-24 clearfix">
+                                        <div class="row row_height_30 bank">
+                                            <label translate="EPSBANK_SALUTATION_LBL" translate-default="Salutation" class="float-left"></label>
+                                            <select data-ng-model="office.salutation" class="custom_input_ddl float-right ml-auto">
+                                                <option value="Mr">Mr.</option>
+                                                <option value="Ms">Ms.</option>
+                                                <option value="Mrs">Mrs.</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_FULLNAME_LBL" translate-default="Full Name" class="float-left"></label>
+                                            <input type="text" name="epsBankOfficeFullName"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.fullName"
+                                                   ng-required="!office.fullName" value="{{office.fullName}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_JOBTITLE_LBL" translate-default="Job Title" class="float-left"></label>
+                                            <input type="text" name="epsBankOfficeJobTitle"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.jobTitle" data-ng-focus="isJobTitleError=false;" data-ng-blur='isJobTitleError=true;'
+                                                   ng-required="!office.jobTitle" taxpattern="[\/]" data-ng-class="{'patternerror':form.officeTabForm.epsBankOfficeJobTitle.$error.taxpattern}" value="{{office.jobTitle}}" />
+                                        </div>                                                                                
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_PTIN_LBL" translate-default="PTIN" class="float-left"></label>
+                                            <input type="text" name="epsBankOfficePTIN"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.ptin" ng-required="!office.ptin" tax-mask="P99999999" tax-mask-use-view-value="true" value="{{office.ptin}}" />
+                                        </div>
+                                        <div class="row row_height_30 bank">
+                                            <label translate="EPSBANK_PREFERREDLANG_LBL" translate-default="Preferred Language" class="float-left"></label>
+                                            <select class="custom_input_ddl float-right ml-auto" name="epsBankOfficePrefeLang"
+                                                    data-ng-model="office.preferredLanguage"
+                                                    ng-required="!office.preferredLanguage">
+                                                <option value="English">English</option>
+                                                <option value="Spanish">Spanish</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30 bank">
+                                            <label translate="BANK_ORGANIZATIONTYPE_LBL" translate-default="Organization Type" class="float-left"></label>
+                                            <select class="custom_input_ddl float-right ml-auto"
+                                                    name="epsBankOfficeOrganizationType"
+                                                    data-ng-model="office.organizationType"
+                                                    ng-required="!office.organizationType">
+                                                <option value="Corporation">Corporation</option>
+                                                <option value="LLC">LLC</option>
+                                                <option value="Partnership">Partnership</option>
+                                                <option value="SoleProprietor">Sole Proprietor</option>
+                                                <option value="TaxExempt">Tax Exempt</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30 bank">
+                                            <label translate="EPSBANK_TAXIDTYPE_LBL" translate-default="Tax ID Type" class="float-left"></label>
+                                            <select class="custom_input_ddl float-right ml-auto" name="epsBankOfficeTaxIdType"
+                                                    data-ng-model="office.taxIdType"
+                                                    ng-required="!office.taxIdType"
+                                                    ng-change="setTaskMask()">
+                                                <option value="EIN">EIN</option>
+                                                <option value="SSN">SSN</option>
+                                            </select>
+                                        </div>
+                                        
+										<!-- eps don't use value with masking so no need to use masked value here. -->
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_TAXID_LBL" translate-default="Tax ID #" class="float-left"></label>
+                                            <input type="text" name="epsBankOfficeTaxId"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.taxId"
+                                                   ng-required="!office.taxId" tax-mask="{{taxIdTypeMask}}" value="{{office.taxId}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_ADDONFREE_LBL" translate-default="Add-on Fee(Max $39)" class="float-left"></label>
+                                            <input type="text" name="epsBankOfficeAddOnFee"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.addOnFee" data-ng-focus="isAddonFeeError=false;" data-ng-blur='isAddonFeeError=true;'
+                                                   data-ng-class="{'patternerror':form.officeTabForm.epsBankOfficeAddOnFee.$error.taxpattern}"
+                                                   tax-mask="99" tax-mask-use-view-value="true"
+                                                   taxpattern="[4-9][0-9]" value="{{office.addOnFee}}" />
+                                                 
+                                        </div>
+                                       <!--  <div class="row row_height_30">
+                                            <label translate="EPSBANK_FRANCHISENETWORK_LBL" translate-default="Franchise/Network Fee" class="float-left"></label>
+                                            <input type="text" name="epsBankOfficeFranchiNetworkFee"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.franchiseFee"
+                                                   ng-required="!office.franchiseFee" />
+                                        </div> -->
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_NUMBERPRINCIPALS_LBL" translate-default="Number of Principals" class="float-left"></label>
+                                            <input type="number" name="epsBankOfficeYearBisiness"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.numberOfPrincipals"
+                                                   ng-required="!office.numberOfPrincipals" value="{{office.numberOfPrincipals}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_PERSONNELINOFFICE_LBL" translate-default="Number of Personnel in Office" class="float-left"></label>
+                                            <input type="number" name="epsBankOfficeNumberPersonalOffice"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.numberOfPersonnelInOffice"
+                                                   ng-required="!office.numberOfPersonnelInOffice" value="{{office.numberOfPersonnelInOffice}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_YEARSINBUSINESS_LBL" translate-default="Years in Business" class="float-left"></label>
+
+                                            <input type="number" name="epsBankOfficeYearBisiness"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.yearsInBusiness"
+                                                   ng-required="!office.yearsInBusiness" value="{{office.yearsInBusiness}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_YEARSATCURRENTADDRESS_LBL" translate-default="Years at Current Address" class="float-left"></label>
+                                            <input type="number" name="epsBankOfficeYearCurrAddress"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="office.yearsAtCurrentAddress"
+                                                   ng-required="!office.yearsAtCurrentAddress" value="{{office.yearsAtCurrentAddress}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_DOESMORETHANONELOCATIONSHARE_LBL" translate-default="Does more than one physical location share this EFIN" class="float-left"></label>
+                                            <span class="float-right ml-auto">
+                                                <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':office.isLocationShared==true}" data-ng-model="office.isLocationShared" data-ng-click="office.isLocationShared=true" ng-required="office.isLocationShared==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':office.isLocationShared==false}" data-ng-model="office.isLocationShared" data-ng-click="office.isLocationShared=false" ng-required="office.isLocationShared==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                            </span>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                    
+                                    <div class="col-lg-1"></div>
+                                        <!--second block start-->
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                         <!--popover start-->
+	                                        <div class="clearfix">
+	                                            <div name="addonFeePopover" data-ng-show="isJobTitleError && form.officeTabForm.epsBankOfficeJobTitle.$error.taxpattern">	                                            
+	                                                <div class="popover popover_block epsoficejobtitle_left" data-ng-class="{'bottom': headerNav.screenWidth > 300 && headerNav.screenWidth <= 767, 'left':(headerNav.screenWidth > 767 && headerNav.screenWidth < 801) || (headerNav.screenWidth >= 979 && headerNav.screenWidth <= 1279) ,'right':(headerNav.screenWidth >= 801 && headerNav.screenWidth < 979) || headerNav.screenWidth >= 1280 }">
+	                                                    <div class="arrow"></div>
+	                                                    <div class="popover-inner">
+	                                                        <div class="popover-content text-danger">
+	                                                           <label translate="EPSBANK_INVALIDCHAR_LBL" translate-default="Invalid Character."></label>
+	                                                        </div>
+	                                                    </div>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                        <!--popover end-->
+                                        <!--popover end-->
+                                                                           
+	                                            <!--popover start-->
+	                                        <div class="clearfix">
+	                                            <div name="addonFeePopover" data-ng-show="isAddonFeeError && form.officeTabForm.epsBankOfficeAddOnFee.$error.taxpattern">	                                            
+	                                                <div class="popover popover_block epsoficeaddonfee_left" data-ng-class="{'bottom': headerNav.screenWidth > 300 && headerNav.screenWidth <= 767, 'left':(headerNav.screenWidth > 767 && headerNav.screenWidth < 801) || (headerNav.screenWidth >= 979 && headerNav.screenWidth <= 1279) ,'right':(headerNav.screenWidth >= 801 && headerNav.screenWidth < 979) || headerNav.screenWidth >= 1280 }">
+	                                                    <div class="arrow"></div>
+	                                                    <div class="popover-inner">
+	                                                        <div class="popover-content text-danger">
+	                                                            <label translate="EPSBANK_ADDONFEEERROR_LBL" translate-default="Add on fee cannot be greater than $39."></label>
+	                                                        </div>
+	                                                    </div>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                        <!--popover end-->
+                                            <div class="row">
+                                                <label translate="BANK_OFFICENAME_LBL"
+                                                       translate-default="Office Name" class="float-left"></label>
+                                                <input type="text" name="epsBankOfficeOfficeName"
+                                                       class="newusertextbox form-control float-right ml-auto"
+                                                       data-ng-model="office.officeName"
+                                                       ng-required="!office.officeName" value="{{office.officeName}}" />
+                                            </div>
+                                            <div class="row">
+                                                <label translate="EPSBANK_ADDRESS_LBL" translate-default="Address" class="float-left width_full ng-scope">Address</label>
+                                                <div style="height: 33px; margin-bottom: 15px;" class="width_full">
+                                                    <input type="text" name="officeAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                           data-ng-class="{'patternerror':form.officeTabForm.officeAddress.$error.taxpattern}" data-ng-focus="isOfficeAddress=false;" data-ng-blur='isOfficeAddress=true;'
+                                                           data-ng-required="!office.address.address" data-ng-model="office.address.address" taxpattern="(?:Post (?:Office )?|P[. ]?O\.? )?Box" value="{{office.address.address}}">                                                     
+                                                </div>
+                                                   <!--popover start-->
+			                                        <div class="clearfix">
+			                                            <div name="officeAddress" data-ng-show="isOfficeAddress && form.officeTabForm.officeAddress.$error.taxpattern">
+			                                                <div class="popover popover_block epsoficeaddress"
+			                                                 data-ng-class="{'bottom': (headerNav.screenWidth > 300 && headerNav.screenWidth < 801) || (headerNav.screenWidth >= 979 && headerNav.screenWidth <= 1279), 'left': (headerNav.screenWidth >=  801 && headerNav.screenWidth < 979) || headerNav.screenWidth >= 1280 }">
+			                                                    <div class="arrow"></div>
+			                                                    <div class="popover-inner">
+			                                                        <div class="popover-content text-danger">
+			                                                            <label translate="EPSBANK_ADDRESSPOBOXERROR_LBL" translate-default="Address cannot be a PO Box."></label>
+			                                                        </div>
+			                                                    </div>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                        <!--popover end-->
+                                            </div>                                            
+                                            <div class="row popover_wrap address_wrap">
+                                                <div class="col-24 p-0">
+                                                    <div class="row">
+                                                        <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                        <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                        <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control" data-ng-model="office.address.zip" ng-required="!office.address.zip" tax-mask="99999"
+                                                                tax-mask-use-view-value="true" cmn-zip-lookup cmn-zip-lookup-city="'office.address.city'" cmn-zip-lookup-state="'office.address.state'" value="{{office.address.zip}}" />
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="text" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control" data-ng-model="office.address.city" ng-required="!office.address.city" value="{{office.address.city}}" />
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="text" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 ng-pristine ng-untouched ng-invalid ng-invalid-required form-control" data-ng-model="office.address.state" ng-required="!office.address.state" value="{{office.address.state}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                            <div class="row">
+                                                <label translate="EPSBANK_OFFICEEMAIL_LBL"
+                                                       translate-default="Office Email" class="float-left"></label>
+                                                <input type="email" name="epsBankOfficeOfficeEmail"
+                                                       class="newusertextbox form-control float-right ml-auto"
+                                                       data-ng-model="office.officeEmail"
+                                                       ng-required="!office.officeEmail" value="{{office.officeEmail}}" />
+
+                                            </div>
+                                            
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row">
+                                                <label translate="BANK_OFFICEPHONE_LBL"
+                                                       translate-default="Office Phone" class="float-left"></label>
+                                                <input type="text" name="epsBankOfficeOfficePhone"
+                                                       class="newusertextbox form-control float-right ml-auto"
+                                                       data-ng-model="office.officePhone"
+                                                       ng-required="!office.officePhone" tax-mask="(999)999-9999" value="{{office.officePhone}}" />
+                                            </div>
+                                            
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row">
+                                                <label translate="BANK_ALTERNATEPHONE_LBL"
+                                                       translate-default="Alternate Phone" class="float-left"></label>
+                                                <input type="text" name="epsBankOfficeOfficeAlternatePhone"
+                                                       class="newusertextbox form-control float-right ml-auto"
+                                                       data-ng-model="office.alternatePhone" tax-mask="(999)999-9999" value="{{office.alternatePhone}}" />
+                                            </div>
+                                            
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row">
+                                                <label translate="EPSBANK_OFFICEFAX_LBL"
+                                                       translate-default="Fax" class="float-left"></label>
+                                                <input type="text" name="epsBankOfficeFax"
+                                                       class="newusertextbox form-control float-right ml-auto"
+                                                       data-ng-model="office.fax" tax-mask="(999)999-9999" value="{{office.fax}}" />
+
+                                            </div>
+                                            <div class="row">
+                                                <label translate="EPSBANK_OFFICEWEBSITE_LBL"
+                                                       translate-default="Web Site" class="float-left"></label>
+                                                <input type="text" name="epsBankOfficeWebSite"
+                                                       class="newusertextbox form-control float-right ml-auto"
+                                                       data-ng-model="office.webSite" value="{{office.webSite}}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!-- Office Tab - End -->
+                    <!-- Owner - Start -->
+                    <tab heading="Owner" active="activeTab.ownerTab" data-ng-click="tabChangeView('ownerTab')">
+                        <div class="tab_border clearfix">
+                            <form name="form.ownerTabForm">
+                                <div class="col-24">
+                                <div class="clearfix row">
+                                    <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                        <div class="row row_height_30 bank">
+                                            <label translate="EPSBANK_SALUTATION_LBL"
+                                                   translate-default="Salutation" class="float-left"></label>
+                                            <select name="epsBankOwnerSalutation" class="custom_input_ddl float-right ml-auto"
+                                                    data-ng-model="owner.salutation">
+                                                <option value="Mr">Mr.</option>
+                                                <option value="Ms">Ms.</option>
+                                                <option value="Mrs">Mrs.</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_FIRSTNAME_LBL"
+                                                   translate-default="First Name" class="float-left"></label>
+                                            <input type="text" name="epsBankOwnerFirsName"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.firstName"
+                                                   ng-required="!owner.firstName" value="{{owner.firstName}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_MI_LBL"
+                                                   translate-default="MI" class="float-left"></label>
+                                            <input type="text" name="epsBankOwnerMiName"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.mi" value="{{owner.mi}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_LASTNAME_LBL"
+                                                   translate-default="Last Name" class="float-left"></label>
+                                            <input type="text" name="epsBankOwnerLastName"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.lastName"
+                                                   ng-required="!owner.lastName" value="{{owner.lastName}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="EPSBANK_ADDRESS_LBL" translate-default="Address" class="float-left width_full ng-scope"></label>
+                                        </div>
+                                        <div class="row">
+                                            <input type="text" name="epsBankOwnerAddress"
+                                                   class="form-control"
+                                                   data-ng-model="owner.address.address" data-ng-required="!owner.address.address"
+                                                   ng-class="{'patternerror':form.ownerTabForm.epsBankOwnerAddress.$error.taxpattern}" data-ng-focus="isOwnerAddress=false;" data-ng-blur='isOwnerAddress=true;'
+                                                   taxpattern="(?:Post (?:Office )?|P[. ]?O\.? )?Box" value="{{owner.address.address}}">
+												  
+												 
+                                        </div>
+                                        		
+                                        <div class="row popover_wrap address_wrap">
+                                            <div class="col-24 p-0">
+                                                <div class="row">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class=" row">
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerZip"
+                                                            class="newusertextbox col-lg-13 col-sm-13 col-md-13 form-control"
+                                                            data-ng-model="owner.address.zip" ng-required="!owner.address.zip" tax-mask="99999"
+                                                            tax-mask-use-view-value="true" cmn-zip-lookup cmn-zip-lookup-city="'owner.address.city'" cmn-zip-lookup-state="'owner.address.state'" value="{{owner.address.zip}}" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerCity"
+                                                            class="newusertextbox form-control"
+                                                            data-ng-model="owner.address.city"
+                                                            ng-required="!owner.address.city" value="{{owner.address.city}}" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerState"
+                                                            class="newusertextbox col-lg-16 col-sm-16 col-md-16 float-right ml-auto form-control"
+                                                            data-ng-model="owner.address.state"
+                                                            ng-required="!owner.address.state" value="{{owner.address.state}}" />
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                        
+                                        <!-- eps don't use value with masking so no need to use masked value here. -->
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_PHONE_LBL"
+                                                   translate-default="Phone" class="float-left"></label>
+                                            <input type="text" name="epsBankOwnerPhone"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.phone"
+                                                   ng-required="!owner.phone" tax-mask="(999)999-9999" value="{{owner.phone}}" />
+                                        </div>
+                                        
+                                        <!-- eps don't use value with masking so no need to use masked value here. -->
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_CALLPHONE_LBL"
+                                                   translate-default="Cell Phone" class="float-left"></label>
+                                            <input type="text" name="epsBankOwnerCallPhone"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.cellPhone" tax-mask="(999)999-9999" value="{{owner.cellPhone}}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 col-sm-0 col-md-1"></div>
+                                    <!--second block start-->
+                                    <div class="col-lg-10 col-md-24 col-sm-24 clearfix">                                    										  
+										<!--popover start-->
+                                        <div class="clearfix">
+                                            <div name="officeAddress" data-ng-show="isOwnerAddress && form.ownerTabForm.epsBankOwnerAddress.$error.taxpattern">
+                                                <div class="popover popover_block epsowneroffice" data-ng-class="{'bottom': (headerNav.screenWidth > 300  && headerNav.screenWidth < 801) || (headerNav.screenWidth >= 979 && headerNav.screenWidth <= 1279) ,'right': (headerNav.screenWidth >= 801 && headerNav.screenWidth < 979) || headerNav.screenWidth > 1279}">
+                                                    <div class="arrow"></div>
+                                                    <div class="popover-inner">
+                                                        <div class="popover-content text-danger">
+                                                            <label translate="EPSBANK_ADDRESSPOBOXERROR_LBL" translate-default="Address cannot be a PO Box."></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--popover end-->
+                                        
+                                        <!-- eps don't use value with masking so no need to use masked value here. -->
+                                        <div class="row">
+                                            <label translate="EPSBANK_SSN_LBL"
+                                                   translate-default="SSN" class="float-left"></label>
+
+                                            <input type="text" name="epsBankOwnerSSN"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.ssn" ng-required="!owner.ssn" tax-mask="999-99-9999" value="{{owner.ssn}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="EPSBANK_PTIN_LBL"
+                                                   translate-default="PTIN" class="float-left"></label>
+
+                                            <input type="text" name="epsBankOwnerPTIN"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.ptin" tax-mask="P99999999" tax-mask-use-view-value="true" value="{{owner.ptin}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="BANK_DOB_LBL"
+                                                   translate-default="Date of Birth" class="float-left"></label>
+
+                                            <input type="text" name="epsBankOwnerDOB"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.dateOfBirth"
+                                                   ng-required="!owner.dateOfBirth" tax-mask="99/99/9999" tax-mask-use-view-value="true" value="{{owner.dateOfBirth}}" />
+                                        </div>
+                                        <div class="row bank">
+                                            <label translate="BANK_IDTYPE_LBL"
+                                                   translate-default="ID Type" class="float-left"></label>
+                                            <select name="epsBankOwnerIdType" class="custom_input_ddl float-right ml-auto"  data-ng-model="owner.idType" ng-required="!owner.idType">
+                                                <option value="Chile Cedual ID Card">Chile Cedual ID Card</option>
+                                                <option value="Columbian Cedula ID Card">Columbian Cedula ID Card</option>
+                                                <option value="Columbian Consular Card">Columbian Consular Card</option>
+                                                <option value="DMV/DVM State ID">DMV/DVM State ID</option>
+                                                <option value="Driver's License Number">Driver's License Number</option>
+                                                <option value="EI Salvador UID Card">EI Salvador DUI Card</option>
+                                                <option value="Foreign Passport">Foreign Passport</option>
+                                                <option value="Guatemala Consular ID Card">Guatemala Consular ID Card</option>
+                                                <option value="Korean Consular Card">Korean Consular Card</option>
+                                                <option value="Matricula Consular">Matricula Consular</option>
+                                                <option value="Military ID">Military ID</option>
+                                                <option value="Resident Alien ID">Resident Alien ID</option>
+                                                <option value="US Passport">US Passport</option>
+                                            </select>
+                                        </div>
+                                        <div class="row">
+                                            <label translate="BANK_IDNUMBER_LBL"
+                                                   translate-default="ID Number" class="float-left"></label>
+
+                                            <input type="text" name="epsBankOwnerIdNumber"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.idNumber"
+                                                   ng-required="!owner.idNumber" value="{{owner.idNumber}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="BANK_IDISSUELOCATION_LBL"
+                                                   translate-default="ID Issue Location(state)" class="float-left"></label>
+
+                                            <input type="text" name="epsBankOwnerIdIssueLocation"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-required="!owner.idIssueLocation"
+                                                   data-ng-model="owner.idIssueLocation" value="{{owner.idIssueLocation}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="EPSBANK_ISSUEFDATE_LBL"
+                                                   translate-default="Issue Date" class="float-left"></label>
+
+                                            <input type="text" name="epsBankOwnerIssueData"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.issueDate" tax-mask="99/99/9999" tax-mask-use-view-value="true" value="{{owner.issueDate}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="EPSBANK_EXPIRATIONDATE_LBL"
+                                                   translate-default="Expiration Date" class="float-left"></label>
+
+                                            <input type="text" name="epsBankOwnerExpirationData"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="owner.expirationDate"
+                                                   ng-required="!owner.expirationDate" tax-mask="99/99/9999" tax-mask-use-view-value="true" value="{{owner.expirationDate}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!-- Owner - End -->
+                    <!-- Bank - Start -->
+                    <tab heading="Bank" active="activeTab.bankTab" data-ng-click="tabChangeView('bankTab')">
+                        <div class="tab_border clearfix">
+                            <form name="form.bankTabForm">
+                                <div class="col-24">
+                                <div class="clearfix row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_ROUTINGNUMBER_LBL"
+                                                   translate-default="Routing Number"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_CONFIROUTINGNUMBER_LBL"
+                                                   translate-default="Confirm Routing Number"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_ACCOUNTNUMBER_LBL"
+                                                   translate-default="Account Number"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_CONFIACCOUNTNUMBER_LBL"
+                                                   translate-default="Confirm Account"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_CHECKINGSAVINGACCOUNT_LBL"
+                                                   translate-default="Checking or Savings Account?"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_PERSONALBUSINESSACCOUNT_LBL"
+                                                   translate-default="Personal or Business Account?"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_NAMEONACCOUNT_LBL"
+                                                   translate-default="Name on account"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-18 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                        <div class="row row_height_30">
+                                            <input type="text" name="epsBankRoutingNumber" class="newusertextbox form-control"
+                                                   data-ng-model="bank.routingNumber" ng-required="!bank.routingNumber" tax-mask="999999999" tax-mask-use-view-value="true" value="{{bank.routingNumber}}" />
+                                        </div>
+                                   
+                                        <div class="row row_height_30">
+                                            <input type="text" name="epsBankConfiRoutingNumber" class="newusertextbox form-control"
+                                                   ng-focus="matchRoutingNumber(form.bankTabForm.epsBankConfiRoutingNumber,true)"
+                                                   ng-blur="matchRoutingNumber(form.bankTabForm.epsBankConfiRoutingNumber)"
+                                                   data-ng-model="epsForm.confiRoutingNumber" i-match="bank.routingNumber"
+                                                   ng-required="form.bankTabForm.epsBankConfiRoutingNumber.$error.iMatch || !epsForm.confiRoutingNumber"
+                                                   tax-mask="999999999" tax-mask-use-view-value="true" value="{{epsForm.confiRoutingNumber}}" />
+                                        </div>
+                                        <!--popover Start-->
+
+                                        <div class="clearfix">
+                                            <div name="passworedPopover"
+                                                 data-ng-show="confirmRoutingNumberError">
+                                                <div class="popover popover_block bank_routing_no_left" data-ng-class="{ 'left': headerNav.screenWidth < 801 ,'right':headerNav.screenWidth >= 801 }">
+                                                    <div class="arrow"></div>
+                                                    <div class="popover-inner">
+                                                        <div class="popover-content text-danger">
+                                                            <label translate="BANK_ROUTINGACCOUNTNOTMATCH_LBL"
+                                                                   translate-default="Routing Number does not match."></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--popover End-->
+                                        <div class="row row_height_30">
+                                            <input type="text" name="epsBankAccountNumber"
+                                                   class="newusertextbox form-control"
+                                                   data-ng-model="bank.accountNumber"
+                                                   ng-required="!bank.accountNumber" value="{{bank.accountNumber}}" />
+                                        </div>
+                                        <!--popover Start-->
+                                        <div class="clearfix">
+                                            <div name="passworedPopover"
+                                                 data-ng-show="confirmAccountNumberError">
+                                                <div class="popover popover_block bank_ac_no_left" data-ng-class="{ 'left': headerNav.screenWidth < 801 ,'right':headerNav.screenWidth >= 801 }">
+                                                    <div class="arrow"></div>
+                                                    <div class="popover-inner">
+                                                        <div class="popover-content text-danger">
+                                                            <label translate="BANK_ACCOUNTNUMBERNOTMATCH_LBL"
+                                                                   translate-default="Account Number does not match."></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--popover End-->
+                                        <div class="row row_height_30">
+                                            <input type="text" name="epsBankConfiAccountNum"
+                                                   class="newusertextbox form-control"
+                                                   ng-focus="matchAccountNumber(form.bankTabForm.epsBankConfiAccountNum,true)"
+                                                   ng-blur="matchAccountNumber(form.bankTabForm.epsBankConfiAccountNum)"
+                                                   data-ng-model="epsForm.confiAccouuntNumber" i-match="bank.accountNumber"
+                                                   ng-required="form.bankTabForm.epsBankConfiAccountNum.$error.iMatch || !epsForm.confiAccouuntNumber" value="{{epsForm.confiAccouuntNumber}}" />
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <div class="clearfix">
+                                                <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':epsForm.csAccountType==true}" data-ng-model="epsForm.csAccountType" data-ng-click="epsForm.csAccountType=true" ng-required="epsForm.csAccountType==undefined"></button><span class="float-left" translate="BANK_CHEKING_LBL" translate-default="Checking"></span>
+                                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':epsForm.csAccountType==false}" data-ng-model="epsForm.csAccountType" data-ng-click="epsForm.csAccountType=false" ng-required="epsForm.csAccountType==undefined"></button><span class="float-left" translate="BANK_SAVING_LBL" translate-default="Savings"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <div class="clearfix">
+                                                <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':epsForm.pbAccountType==true}" data-ng-model="epsForm.pbAccountType" data-ng-click="epsForm.pbAccountType=true" ng-required="epsForm.pbAccountType==undefined"></button><span class="float-left" translate="BANK_PERSONAL_LBL" translate-default="Personal"></span>
+                                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':epsForm.pbAccountType==false}" data-ng-model="epsForm.pbAccountType" data-ng-click="epsForm.pbAccountType=false" ng-required="epsForm.pbAccountType==undefined"></button><span class="float-left" translate="BANK_BUSINESS_LBL" translate-default="Business"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <input type="text" name="epsBankNameAccount"
+                                                   class="newusertextbox form-control"
+                                                   data-ng-model="bank.nameOnAccount"
+                                                   ng-required="!bank.nameOnAccount" value="{{bank.nameOnAccount}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!-- Bank Tab- End -->
+                    <!-- Shipping and Mailing Tab - Start -->
+                    <tab heading="Shipping And Mailing" active="activeTab.shipMailTab" data-ng-click="tabChangeView('shipMailTab')">
+                        <div class="tab_border clearfix">
+                            <form name="form.shippingMailingTabForm">
+                                <div class="col-24">
+                                <div class="clearfix row">
+                                    <div class="col-lg-9 col-md-20 col-sm-20 clearfix">
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_SUPPLYSHIPLOCATION_LBL"
+                                                   translate-default="Supply Shipment Location" class="font_bold"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_ADDRESS_LBL"
+                                                   translate-default="Address"></label>
+                                            <input type="text" class="form-control"
+                                                   name="epsBankShipMailAddressOne"
+                                                   data-ng-model="shippingAndMailing.supplyAddress.address" data-ng-required="!shippingAndMailing.supplyAddress.address"
+                                                   ng-class="{'patternerror':form.shippingMailingTabForm.epsBankShipMailAddressOne.$error.taxpattern}" data-ng-focus="isShipAddress1=false;" data-ng-blur='isShipAddress1=true;'
+                                                   taxpattern="(?:Post (?:Office )?|P[. ]?O\.? )?Box" value="{{shippingAndMailing.supplyAddress.address}}">
+												 
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_ADDRESSLINE2_LBL"
+                                                   translate-default="Address line2"></label>
+                                            <input type="text" class="form-control"
+                                                   name="epsBankShipMailSupplyLocationAddressTwo"
+                                                   data-ng-model="shippingAndMailing.supplyAddress.address2" value="{{shippingAndMailing.supplyAddress.address2}}" />
+                                        </div>
+                                        <div class="row popover_wrap address_wrap">
+                                            <div class="col-24 p-0">
+                                                <div class="row">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerZip"
+                                                            class="newusertextbox col-lg-13 col-sm-13 col-md-13 form-control "
+                                                            data-ng-model="shippingAndMailing.supplyAddress.zip" ng-required="!shippingAndMailing.supplyAddress.zip" tax-mask="99999"
+                                                            tax-mask-use-view-value="true" cmn-zip-lookup cmn-zip-lookup-city="'shippingAndMailing.supplyAddress.city'" cmn-zip-lookup-state="'shippingAndMailing.supplyAddress.state'" value="{{shippingAndMailing.supplyAddress.zip}}" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerCity"
+                                                            class="newusertextbox form-control"
+                                                            data-ng-model="shippingAndMailing.supplyAddress.city"
+                                                            ng-required="!shippingAndMailing.supplyAddress.city" value="{{shippingAndMailing.supplyAddress.city}}" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerState"
+                                                            class="newusertextbox col-lg-16 col-sm-16 col-md-16 float-right ml-auto form-control"
+                                                            data-ng-model="shippingAndMailing.supplyAddress.state"
+                                                            ng-required="!shippingAndMailing.supplyAddress.state" value="{{shippingAndMailing.supplyAddress.state}}" />
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 col-sm-1 mcol-md-1"></div>
+                                    <div class="col-lg-9 col-md-20 col-sm-20 clearfix">                                    												  
+										<!--popover start-->
+                                        <div class="clearfix">
+                                            <div name="epsBankShipMailSupplyLocationAddressOne" data-ng-show="isShipAddress1 && form.shippingMailingTabForm.epsBankShipMailAddressOne.$error.taxpattern">
+                                                <div class="popover popover_block epsshipingaddress1" data-ng-class="{'bottom': (headerNav.screenWidth > 300  && headerNav.screenWidth < 801) || (headerNav.screenWidth >= 979 && headerNav.screenWidth <= 1279) ,'right': (headerNav.screenWidth >= 801 && headerNav.screenWidth < 979) || headerNav.screenWidth > 1279 }">
+                                                    <div class="arrow"></div>
+                                                    <div class="popover-inner">
+                                                        <div class="popover-content text-danger">
+                                                            <label translate="EPSBANK_ADDRESSPOBOXERROR_LBL" translate-default="Address cannot be a PO Box."></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--popover end-->
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_LETTERMAILINGLOCATION_LBL"
+                                                   translate-default="Letter Mailing Location" class="font_bold"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_ADDRESS_LBL"
+                                                   translate-default="Address"></label>
+                                            <input type="text" class="form-control"
+                                                   name="epsBankShipMailAddress5"
+                                                   data-ng-model="shippingAndMailing.mailingAddress.address" data-ng-required="!shippingAndMailing.mailingAddress.address"
+                                                   ng-class="{'patternerror':form.shippingMailingTabForm.epsBankShipMailAddress5.$error.taxpattern}" data-ng-focus="isShipAddress5=false;" data-ng-blur='isShipAddress5=true;'
+                                                   taxpattern="(?:Post (?:Office )?|P[. ]?O\.? )?Box" value="{{shippingAndMailing.mailingAddress.address}}" />
+                                        </div>
+                                     	<!--popover start changes-->
+                                        <div class="clearfix">
+                                            <div name="epsBankShipMailSupplyLocationAddressOne" data-ng-show="isShipAddress5 && form.shippingMailingTabForm.epsBankShipMailAddress5.$error.taxpattern">
+                                                <div class="popover popover_block epsshipingaddress2" data-ng-class="{'bottom': (headerNav.screenWidth > 300  && headerNav.screenWidth < 801) || (headerNav.screenWidth >= 979 && headerNav.screenWidth <= 1279) ,'right':(headerNav.screenWidth >= 801 && headerNav.screenWidth < 979) || headerNav.screenWidth > 1279}">
+                                                    <div class="arrow"></div>
+                                                    <div class="popover-inner">
+                                                        <div class="popover-content text-danger">
+                                                            <label translate="EPSBANK_ADDRESSPOBOXERROR_LBL" translate-default="Address cannot be a PO Box."></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--popover end-->
+                                        <div class="row row_height_30">
+                                            <label translate="BANK_ADDRESSLINE2_LBL"
+                                                   translate-default="Address line2"></label>
+                                            <input type="text" class="form-control"
+                                                   name="epsBankShipMailSupplyLocationAddressOne"
+                                                   data-ng-model="shippingAndMailing.mailingAddress.address2" value="{{shippingAndMailing.mailingAddress.address2}}" />
+                                        </div>
+                                        <div class="row popover_wrap address_wrap">
+                                            <div class="col-24 p-0">
+                                                <div class="row">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerZip"
+                                                            class="newusertextbox col-lg-13 col-sm-13 col-md-13 form-control "
+                                                            data-ng-model="shippingAndMailing.mailingAddress.zip" ng-required="!shippingAndMailing.mailingAddress.zip" tax-mask="99999"
+                                                            cmn-zip-lookup cmn-zip-lookup-city="'shippingAndMailing.mailingAddress.city'" cmn-zip-lookup-state="'shippingAndMailing.mailingAddress.state'" value="{{shippingAndMailing.mailingAddress.zip}}" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerCity"
+                                                            class="newusertextbox form-control"
+                                                            data-ng-model="shippingAndMailing.mailingAddress.city"
+                                                            ng-required="!shippingAndMailing.mailingAddress.city" value="{{shippingAndMailing.mailingAddress.city}}" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" name="epsBankOwnerState"
+                                                            class="newusertextbox col-lg-16 col-sm-16 col-md-16 float-right ml-auto form-control"
+                                                            data-ng-model="shippingAndMailing.mailingAddress.state"
+                                                            ng-required="!shippingAndMailing.mailingAddress.state" value="{{shippingAndMailing.mailingAddress.state}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-24">
+                                        <div class="row">
+                                <div class="col-lg-6 col-md-12 col-sm-12 clearfix">
+                                    <div class="row">
+                                        <label translate="EPSBANK_EXCEPTIONCHECKMAIL_LBL"
+                                               translate-default="Exception Check Mailing" class="font_bold"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label translate="EPSBANK_LOCATION_LBL"
+                                               translate-default="Location"></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 clearfix">
+                                    <div class="row row_height_30"></div>
+                                    <div class="row row_height_31 bank">
+                                        <select data-ng-model="shippingAndMailing.location"
+                                                name="epsBankShipMailExcepMailLocation" class="custom_input_ddl"
+                                                ng-required="!shippingAndMailing.location">
+                                            <option value="Office Address">Office Address</option>
+                                            <option value="Taxpayer">Taxpayer</option>
+                                        </select>
+                                        <span translate="EPSBANK_EXCEPTIONCHECKEPSPRINTMAIL_SPAN"
+                                              translate-default="*Exception check is any check EPS may have to print and mail."></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!-- Shipping and Mailing Tab - End -->
+                    <!-- User Setup Tab - Start -->
+                    <tab heading="User Setup" active="activeTab.userSetupTab" data-ng-click="tabChangeView('userSetupTab')">
+                        <div class="tab_border clearfix">
+                            <form name="form.userSetupTabForm">
+                                    <div class="col-24">
+                                <div class="clearfix row">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_USENAME_LBL"
+                                                   translate-default="User Name"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_NEWPASSWORED_LBL"
+                                                   translate-default="New Password"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_CONFIRMPASSWORD_LBL"
+                                                   translate-default="Confirm Password"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_SELECTQUESTION_LBL"
+                                                   translate-default="Security Question"></label>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <label translate="EPSBANK_ANSWER_LBL" nextandprevviewmap
+                                                   translate-default="Answer"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-20 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                        <div class="row row_height_30">
+                                            <input type="text" class="newusertextbox form-control"
+                                                   name="epsBankUserSetupUserName"
+                                                   data-ng-model="userSetUp.userName"
+                                                   ng-required="!userSetUp.userName"
+                                                   maxlength="20" value="{{userSetUp.userName}}" />
+                                        </div>                                        
+                                         <!--popover start-->
+                                        <div class="clearfix">
+                                            <div name="passworedPopover" data-ng-show="isPasswordError && form.userSetupTabForm.epsBankUserSetupPass.$error.pattern">                                            
+                                                <div class="popover popover_block usersetupnewpass_left" data-ng-class="{ 'left': (headerNav.screenWidth < 801 || (headerNav.screenWidth >= 980 && headerNav.screenWidth <= 1279)) ,'right':((headerNav.screenWidth >= 801 && headerNav.screenWidth < 980) || headerNav.screenWidth >= 1280) }">
+                                                    <div class="arrow"></div>
+                                                    <div class="popover-inner">
+                                                        <div class="popover-content text-danger">
+                                                            <label translate="EPSBANK_INVALIDPASSWORD_LBL" class="line_height_20" translate-default="Password must contain at least one lowercase letter,one uppercase,and one digit. And must be a minimum length of 8."></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--popover end-->
+                                        
+                                        <div class="row row_height_30">
+                                            <input type="password" class="newusertextbox form-control"
+                                                   name="epsBankUserSetupPass"
+                                                   data-ng-model="userSetUp.password" data-ng-focus="isPasswordError=false;" data-ng-blur='isPasswordError=true;'
+                                                   ng-required="!userSetUp.password" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+.{7,30}$/" maxlength="30" value="{{userSetUp.password}}" />
+                                            <div class="progress" style="width:170px;">
+                                                <div class="progress-bar" data-ng-class="{'progress-bar-success':passwordStrength.type === 'strong', 'progress-bar-warning': passwordStrength.type === 'ok', 'progress-bar-danger': passwordStrength.type === 'weak'}" aria-valuenow="{{ passwordStrength.score }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ passwordStrength.score }}%"></div>
+                                            </div>
+                                        </div>
+                                        <!--popover start-->
+                                        <div class="clearfix">
+                                            <div name="passworedPopover" data-ng-show="confirmPassError && !(isPasswordError && form.userSetupTabForm.epsBankUserSetupPass.$error.pattern)">
+                                                <div class="popover popover_block usersetuppass_left" data-ng-class="{ 'left': headerNav.screenWidth < 801 ,'right':headerNav.screenWidth >= 801 }">
+                                                    <div class="arrow"></div>
+                                                    <div class="popover-inner">
+                                                        <div class="popover-content text-danger">
+                                                            <label translate="EPSBANK_PASSWORDNOTMATCH_LBL" translate-default="Password does not match."></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--popover end-->
+                                        <div class="row row_height_30">
+                                            <input type="password" class="newusertextbox form-control"
+                                                   name="epsBankUserSetupConfirmPass"
+                                                   data-ng-focus="matchPasswored(form.userSetupTabForm.epsBankUserSetupConfirmPass,true)"
+                                                   data-ng-blur="matchPasswored(form.userSetupTabForm.epsBankUserSetupConfirmPass)"
+                                                   data-ng-model="epsForm.confirmPass"
+                                                   i-match="userSetUp.password"
+                                                   ng-required="form.userSetupTabForm.epsBankUserSetupConfirmPass.$error.iMatch ||  !epsForm.confirmPass" value="{{epsForm.confirmPass}}" />
+                                        </div>
+                                        <div class="row row_height_32 bank">
+                                            <select data-ng-model="userSetUp.securityQuestion"
+                                                    class="custom_input_ddl" name="epsBankUserSetupSecurityQue"
+                                                    ng-required="!userSetUp.securityQuestion">
+                                                <option value="What is your mothers maiden name ?">What is your mothers maiden name ?</option>
+                                                <option value="What was the name of your first pet ?">What was the name of your first pet ?</option>
+                                                <option value="What high school did you attend ?">What high school did you attend ?</option>
+                                                <option value="What is the name of your first child ?">What is the name of your first child ?</option>
+                                                <option value="What is your fathers middle name ?">What is your fathers middle name ?</option>
+                                            </select>
+                                        </div>
+                                        <div class="row row_height_30">
+                                            <input type="text" class="newusertextbox form-control"
+                                                   name="epsBankUserSetupSecurityAns"
+                                                   data-ng-model="userSetUp.securityAnswer"
+                                                   ng-required="!userSetUp.securityAnswer" value="{{userSetUp.securityAnswer}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!-- User Setup Tab - End -->
+                </tabset>
+                <div class="row">
+                <div class=" col-lg-24 col-md-24 col-sm-24">
+                    <form name="form.commonAction">
+                        <hr class="light_line">
+                        <div class="float-right ml-auto pr-2">
+                            <button class="btn btn-outline-primary ng-scope" data-ng-disabled="activeTab.epsProgramTab==true" data-ng-click="changeView('previuos')"><span translate="BANK_PREVIUOS_SPAN"translate-default="Previous"></span></button>
+                            <button class="btn btn-outline-primary ng-scope" data-ng-disabled="form[formName].$invalid" data-ng-hide="activeTab.userSetupTab==true" data-ng-click="changeView('next')"><span translate="BANK_NEXT_SPAN"translate-default="Next"></span></button>
+                            <!-- Temporary this button is readonly (no-clicking) class is applied -->
+                            <button class="btn btn-outline-primary ng-scope" data-ng-disabled="form.epsprogramTabForm.$invalid || form.bankProductHistoryTabForm.$invalid || form.officeTabForm.$invalid || form.ownerTabForm.$invalid || form.bankTabForm.$invalid || form.shippingMailingTabForm.$invalid || form.userSetupTabForm.$invalid" data-ng-show="activeTab.userSetupTab==true" data-ng-click="saveBankEPS()" data-ng-class="{'no-clicking':!userCan('CAN_SAVE_BANK'),'no-clicking':true}"><span translate="BANK_SAVE_SPAN"translate-default="Save"></span></button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>

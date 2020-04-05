@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+    <style>
+        .loading_background {
+            background: #fff;
+            opacity: 0.3;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 5
+        }
+
+        .loading_text {
+            position: absolute;
+            z-index: 7;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: #555555;
+            font-size: 24px;
+            height: 100px;
+            width: 150px;
+            margin: auto;
+            font-weight: bolder;
+        }
+
+        /* loading text End */
+
+        @media (min-width: 320px) and (max-width: 767px) {
+            .row_height_30 {
+                min-height: 0px !important;
+            }
+        }
+
+        @-webkit-keyframes preloader-inside-white {
+            0% {
+                -webkit-transform: scale(0, 0);
+                -moz-transform: scale(0, 0);
+                -ms-transform: scale(0, 0);
+                -o-transform: scale(0, 0);
+                transform: scale(0, 0);
+            }
+            100% {
+                -webkit-transform: scale(1, 1);
+                -moz-transform: scale(1, 1);
+                -ms-transform: scale(1, 1);
+                -o-transform: scale(1, 1);
+                transform: scale(1, 1);
+            }
+        }
+
+        @keyframes preloader-inside-white {
+            0% {
+                -webkit-transform: scale(0, 0);
+                -moz-transform: scale(0, 0);
+                -ms-transform: scale(0, 0);
+                -o-transform: scale(0, 0);
+                transform: scale(0, 0);
+            }
+            100% {
+                -webkit-transform: scale(1, 1);
+                -moz-transform: scale(1, 1);
+                -ms-transform: scale(1, 1);
+                -o-transform: scale(1, 1);
+                transform: scale(1, 1);
+            }
+        }
+
+        @-webkit-keyframes preloader-inside-red {
+            0% {
+                -webkit-transform: scale(0, 0);
+                -moz-transform: scale(0, 0);
+                -ms-transform: scale(0, 0);
+                -o-transform: scale(0, 0);
+                transform: scale(0, 0);
+            }
+            30% {
+                -webkit-transform: scale(0, 0);
+                -moz-transform: scale(0, 0);
+                -ms-transform: scale(0, 0);
+                -o-transform: scale(0, 0);
+                transform: scale(0, 0);
+            }
+            100% {
+                -webkit-transform: scale(1, 1);
+                -moz-transform: scale(1, 1);
+                -ms-transform: scale(1, 1);
+                -o-transform: scale(1, 1);
+                transform: scale(1, 1);
+            }
+        }
+
+        @keyframes preloader-inside-red {
+            0% {
+                -webkit-transform: scale(0, 0);
+                -moz-transform: scale(0, 0);
+                -ms-transform: scale(0, 0);
+                -o-transform: scale(0, 0);
+                transform: scale(0, 0);
+            }
+            30% {
+                -webkit-transform: scale(0, 0);
+                -moz-transform: scale(0, 0);
+                -ms-transform: scale(0, 0);
+                -o-transform: scale(0, 0);
+                transform: scale(0, 0);
+            }
+            100% {
+                -webkit-transform: scale(1, 1);
+                -moz-transform: scale(1, 1);
+                -ms-transform: scale(1, 1);
+                -o-transform: scale(1, 1);
+                transform: scale(1, 1);
+            }
+        }
+
+        /* Styles */
+
+        .preloader {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            text-align: center;
+        }
+
+        .preloader .preloader-container {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin: auto;
+            position: absolute;
+            top: 44%;
+            left: 0;
+            position: relative;
+        }
+
+        .preloader .preloader-container .animated-preloader {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+            border-radius: 50em;
+        }
+
+        .preloader .preloader-container .animated-preloader:after {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50em;
+            background: #808080;
+            -webkit-animation: preloader-inside-white 1s ease-in-out infinite;
+            -ms-animation: preloader-inside-white 1s ease-in-out infinite;
+            animation: preloader-inside-white 1s ease-in-out infinite;
+        }
+
+        .preloader .preloader-container .animated-preloader:before {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            border-radius: 50em;
+            background: #ffffff;
+            -webkit-animation: preloader-inside-red 1s ease-in-out infinite;
+            -ms-animation: preloader-inside-red 1s ease-in-out infinite;
+            animation: preloader-inside-red 1s ease-in-out infinite;
+        }
+
+        .verify_icon_green {
+            font-size: 25px;
+            margin-top: 3px;
+            color: #42b542;
+            cursor: pointer;
+        }
+
+        .verify_icon_red {
+            font-size: 25px;
+            margin-top: 3px;
+            color: #f0514a;
+            cursor: pointer;
+        }
+
+        .verify_icon_anchor_text {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #005074;
+        }
+
+        .active_verify_anchor {
+            color: #75b62e;
+            position: absolute;
+            right: 10px;
+            top: 2px;
+            font-size: 19px;
+        }
+
+        .float_right {
+            float: right;
+        }
+        .inner_col_second{
+            height: 100% !important;
+        }
+    </style>
+    <!--  loading text start -->
+    <div data-ng-if="isDataLoading">
+        <div class="loading_background"></div>
+        <div class="preloader">
+            <div class="preloader-container">
+                <span class="animated-preloader"></span>
+            </div>
+        </div>
+    </div>
+    <!--   loading text End -->
+    <!-- Header -->
+     
+    <div class="inner_col_second quicksetup-container" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <ng-form name="officeSetupForm" role="form">
+            <section class="page_title_wrap title_height_40 clearfix">
+                <div class="col-lg-19 col-sm-16 col-xs-24">
+                    <span class="page_title_lg ng-binding" translate="QUICKSETUP_ADD_HEADER" translate-default="Quick Office Setup"></span>
+                    <span data-ng-if="office.isPredefined == true">
+                        <button type="button" class="btn custom-btn small-btn margin_left_15 margin_bottom_5" data-ng-click="skip()">Do
+                            it later</button>
+                    </span>
+                </div>
+                <div data-ng-if="office.isPredefined == true" class="float-right quicksetup-header-area col-lg-5 col-sm-8 col-xs-24">
+                    <div data-ng-if="userMainInfo.EfinEfilingStatus != 1 && userMainInfo.EfinEfilingStatus == 2">
+                        <div class="float-left" data-ng-if="preparer.preparerVerified != true">
+                            <img src="taxAppJs/images/error-icon-red.png" class="margin_right_5">
+                            <span>Identity Verification Pending</span>
+                        </div>
+                        <div class="float-left" data-ng-if="preparer.preparerVerified == true">
+                            <img src="taxAppJs/images/checked-icon.png" class="margin_right_5">
+                            <span>Ready for Paper Filing</span>
+                        </div>
+                    </div>
+                    <div data-ng-if="userMainInfo.EfinEfilingStatus != 1 && userMainInfo.EfinEfilingStatus != 2">
+                        <div class="float-left" data-ng-if="office.efinStatus != 2 && preparer.preparerVerified != true">
+                            <img src="taxAppJs/images/error-icon-red.png" class="margin_right_5">
+                            <span>Not Ready for E-filing</span>
+                        </div>
+                        <div class="float-left" data-ng-if="office.efinStatus == 2 || preparer.preparerVerified == true">
+                            <img src="taxAppJs/images/checked-icon.png" class="margin_right_5">
+                            <span>Ready for E-filing</span>
+                        </div>
+                    </div>
+                    <div data-ng-if="userMainInfo.EfinEfilingStatus == 1">
+                        <div class="float-left">
+                            <img src="taxAppJs/images/error-icon-red.png" class="margin_right_5">
+                            <span>Waiting for EFIN</span>
+                        </div>
+                    </div>
+                    <div class="float-right margin_left_15" data-ng-if="showSetup == true">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true" ng-mouseover="manageTooltip.completeInfo=true" ng-mouseleave="manageTooltip.completeInfo=false">
+                                <img src="taxAppJs/images/info-icon-black.png">
+                            </button>
+                            <ul class="dropdown-menu" style="display: block;" data-ng-if="manageTooltip.completeInfo == true">
+                                <li class="dropdown-item">
+                                    <span>Information complete
+                                        <div class="float_right" data-ng-if="officeSetupForm.preparerForm.$valid"><img src="taxAppJs/images/checked-icon.png"
+                                                class="dropdown-icon"></div>
+                                        <div class="float_right" data-ng-if="!officeSetupForm.preparerForm.$valid"><img src="taxAppJs/images/error-icon.png"
+                                                class="dropdown-icon"></div>
+                                    </span>
+                                </li>
+                                <li class="dropdown-item">
+                                    <span>Identity Verified
+                                        <div class="float_right" data-ng-if="office.efinStatus == 2 || preparer.preparerVerified == true"><img
+                                                src="taxAppJs/images/checked-icon.png" class="dropdown-icon"></div>
+                                        <div class="float_right" data-ng-if="office.efinStatus != 2 && preparer.preparerVerified != true"><img
+                                                src="taxAppJs/images/error-icon.png" class="dropdown-icon"></div>
+                                    </span>
+                                </li>
+                                <li style="font-weight: bold" class="dropdown-item"> <span>Preparer</span>
+                                </li>
+                                <li class="dropdown-item">
+                                    <span>Email Verified
+                                        <div class="float_right" data-ng-if="preparer.isEmailVerified"><img src="taxAppJs/images/checked-icon.png"
+                                                class="dropdown-icon"></div>
+                                        <div class="float_right" data-ng-if="!preparer.isEmailVerified"><img src="taxAppJs/images/error-icon.png"
+                                                class="dropdown-icon"></div>
+                                    </span>
+                                </li>
+                                <li class="dropdown-item">
+                                    <span>Cell Phone Verified
+                                        <div class="float_right" data-ng-if="preparer.isTelephoneVerified"><img src="taxAppJs/images/checked-icon.png"
+                                                class="dropdown-icon"></div>
+                                        <div class="float_right" data-ng-if="!preparer.isTelephoneVerified"><img src="taxAppJs/images/error-icon.png"
+                                                class="dropdown-icon"></div>
+                                    </span>
+                                </li>
+                                <li style="font-weight: bold" data-ng-if="office.emailDiffFromPreparer == true || office.phoneDiffFromPreparer == true" class="dropdown-item">
+                                    <span>Office</span>
+                                </li>
+                                <li data-ng-if="office.emailDiffFromPreparer == true" class="dropdown-item">
+                                    <span>Email Verified
+                                        <div class="float_right" data-ng-if="office.isBusinessMailVerified"><img src="taxAppJs/images/checked-icon.png"
+                                                class="dropdown-icon"></div>
+                                        <div class="float_right" data-ng-if="!office.isBusinessMailVerified"><img src="taxAppJs/images/error-icon.png"
+                                                class="dropdown-icon"></div>
+                                    </span>
+                                </li>
+                                <li data-ng-if="office.phoneDiffFromPreparer == true" class="dropdown-item"> 
+                                    <span>Cell Phone Verified
+                                        <div class="float_right" data-ng-if="office.isBusinessPhoneVerified"><img src="taxAppJs/images/checked-icon.png"
+                                                class="dropdown-icon"></div>
+                                        <div class="float_right" data-ng-if="!office.isBusinessPhoneVerified"><img src="taxAppJs/images/error-icon.png"
+                                                class="dropdown-icon"></div>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div data-ng-if="office.isPredefined == true">
+                <div class="quicksetuptext_notice col-lg-24 margin_top_10">
+                    <div class="col-lg-24">
+                        <p>At MyTAXPrepOffice, we take data security and fraud prevention seriously. The information and
+                            simple verification processes below will take just a few minutes of your time and allow us to
+                            protect both you and your clients while meeting the fraud prevention requirements from the IRS
+                            and our banking partners.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                    <div class="col-md-24">
+                        <hr class="dark_line">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="col-lg-24 padding_l_r_0 static_form_wrap clearfix allowScrollSync margin_bottom_20">
+                        <div class="verified-overlay">
+                            <ng-form name="preparerForm" role="form">
+                                <div ng-cloak class="clearfix">
+                                    <div class="verified-overlay">
+                                        <ng-form name="mainInfoForm" role="form">
+                                            <div class="col-lg-24 static_form_wrap single-user-confirm clearfix allowScrollSync">
+                                                <div class="row">
+                                                    <div class="clearfix col-lg-24">
+                                                        <div class="clearfix col-lg-24">
+                                                            <span>In our software we have two options for verification, Quick
+                                                                Office section and Advanced Office configuration. Quick Office
+                                                                Setup is for single office and single preparer.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="margin_top_20">
+                                                    <div class="row clearfix col-lg-24">
+                                                        <span class="float-left col-lg-10 col-md-4 col-sm-24 col-xs-24  que-text">Do
+                                                            you have only one office with a single tax preparer and you are
+                                                            residing in US territory?</span>
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.singleOfficePreparer" data-ng-class="{'active':mainInfo.singleOfficePreparer == 0}"
+                                                                    data-ng-click="mainInfo.singleOfficePreparer = 0;screenHandler.isContinueBtnDisabled=false"
+                                                                    data-ng-required="mainInfo.singleOfficePreparer == undefined"></button>
+                                                                <span class="checkbox-label">Yes</span>
+                                                            </div>
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.singleOfficePreparer" data-ng-class="{'active':mainInfo.singleOfficePreparer == 1}"
+                                                                    data-ng-click="changeSingleTaxPreparer()" data-ng-required="mainInfo.singleOfficePreparer == undefined"></button>
+                                                                <span class="checkbox-label">No</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div data-ng-if="mainInfo.singleOfficePreparer == 0">
+                                                    <div class="margin_top_20">
+                                                        <div class="row clearfix col-lg-24">
+                                                            <span class="float-left col-lg-10 col-md-4 col-sm-24 col-xs-24  que-text">
+                                                                What is your EFIN and E-filing Status?</span>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                    <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.EfinEfilingStatus" data-ng-class="{'active':mainInfo.EfinEfilingStatus == 0}"
+                                                                        data-ng-click="mainInfo.EfinEfilingStatus = 0;screenHandler.isContinueBtnDisabled=false"
+                                                                        data-ng-disabled="mainInfo.singleOfficePreparer == 1 || mainInfo.singleOfficePreparer == undefined"
+                                                                        data-ng-required="mainInfo.EfinEfilingStatus == undefined && mainInfo.singleOfficePreparer == 0"></button>
+                                                                    <span class="checkbox-label">I have EFIN and planning
+                                                                        to e-file this season</span>
+                                                                </div>
+                                                                <div class="form-group checkbox-container old-checkbox float-left ans-btns padding_top_10">
+                                                                    <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.EfinEfilingStatus" data-ng-class="{'active':mainInfo.EfinEfilingStatus == 1}"
+                                                                        data-ng-click="mainInfo.EfinEfilingStatus = 1;screenHandler.isContinueBtnDisabled=false"
+                                                                        data-ng-disabled="mainInfo.singleOfficePreparer == 1 || mainInfo.singleOfficePreparer == undefined"
+                                                                        data-ng-required="mainInfo.EfinEfilingStatus == undefined && mainInfo.singleOfficePreparer == 0"></button>
+                                                                    <span class="checkbox-label">I am waiting for EFIN and
+                                                                        planning to e-file this season</span>
+                                                                </div>
+                                                                <div class="form-group checkbox-container old-checkbox float-left ans-btns padding_top_10">
+                                                                    <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.EfinEfilingStatus" data-ng-class="{'active':mainInfo.EfinEfilingStatus == 2}"
+                                                                        data-ng-click="mainInfo.EfinEfilingStatus = 2;screenHandler.isContinueBtnDisabled=false"
+                                                                        data-ng-disabled="mainInfo.singleOfficePreparer == 1 || mainInfo.singleOfficePreparer == undefined"
+                                                                        data-ng-required="mainInfo.EfinEfilingStatus == undefined && mainInfo.singleOfficePreparer == 0"></button>
+                                                                    <span class="checkbox-label">I am not planning for e-filing
+                                                                        this season</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="clearfix col-lg-24">
+                                                        <span class="float-left col-lg-8 col-md-4 col-sm-24 col-xs-24  que-text">Do
+                                                            you have an EFIN?</span>
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.haveEfin" data-ng-class="{'active':mainInfo.haveEfin == 0}"
+                                                                    data-ng-click="ChangeHaveEfin()" data-ng-required="mainInfo.haveEfin == undefined"></button>
+                                                                <span class="checkbox-label">Yes</span>
+                                                            </div>
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.haveEfin" data-ng-class="{'active':mainInfo.haveEfin == 1}"
+                                                                    data-ng-click="mainInfo.haveEfin = 1;" data-ng-required="mainInfo.haveEfin == undefined"></button>
+                                                                <span class="checkbox-label">No</span>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    </div>
+
+                                                    <!-- <div class="row margin_top_20" data-ng-if="mainInfo.haveEfin == 1">
+                                                    <div class="clearfix col-lg-24">
+                                                        <span class="float-left col-lg-8 col-md-4 col-sm-24 col-xs-24  que-text">Are
+                                                            you waiting for EFIN?</span>
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.waitingForEfin" data-ng-class="{'active':mainInfo.waitingForEfin == 0}"
+                                                                    data-ng-click="waitingForEfin()" data-ng-required="mainInfo.waitingForEfin == undefined"></button>
+                                                                <span class="checkbox-label">Yes</span>
+                                                            </div>
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.waitingForEfin" data-ng-class="{'active':mainInfo.waitingForEfin == 1}"
+                                                                    data-ng-click="mainInfo.waitingForEfin = 1;" data-ng-required="mainInfo.waitingForEfin == undefined"></button>
+                                                                <span class="checkbox-label">No</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+
+                                                    <!-- <div class="row margin_top_20" data-ng-if="mainInfo.haveEfin == 1 && mainInfo.waitingForEfin == 1">
+                                                    <div class="clearfix col-lg-24">
+                                                        <span class="float-left col-lg-8 col-md-4 col-sm-24 col-xs-24  que-text">Are
+                                                            you planning to e-file this season?</span>
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.efileThisSeason" data-ng-class="{'active':mainInfo.efileThisSeason == 0}"
+                                                                    data-ng-click="changeEfileThisSeason(0)" data-ng-required="mainInfo.efileThisSeason == undefined"></button>
+                                                                <span class="checkbox-label">Yes</span>
+                                                            </div>
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="mainInfo.efileThisSeason" data-ng-class="{'active':mainInfo.efileThisSeason == 1}"
+                                                                    data-ng-click="changeEfileThisSeason(1)" data-ng-required="mainInfo.efileThisSeason == undefined"></button>
+                                                                <span class="checkbox-label">No</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                </div>
+                                                <div class="row col-lg-19 padding_l_r_0 margin_top_20">
+                                                    <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24" data-ng-if="mainInfo.singleOfficePreparer == 1">
+                                                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                                            <div>The Quick Office Setup screen is for single tax preparation
+                                                                offices with a single tax preparer.</br> Please return to
+                                                                the <a class="blue_link cursor_pointer" data-ng-click="gotoHome(true)">Dashboard</a>
+                                                                and complete the steps to set up each Office and each Preparer in the Your Firm widget.</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24" data-ng-if="doChange == true && mainInfo.singleOfficePreparer != 1 && (userMainInfo.EfinEfilingStatus == 0 || userMainInfo.EfinEfilingStatus == 2)">
+                                                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                                            <div>Please complete Quick Office Setup.</div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24" data-ng-if="userMainInfo.haveEfin == 1 && userMainInfo.waitingForEfin == 1 && userMainInfo.efileThisSeason == 0">
+                                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                                        <div>To e-file you must have an EFIN. If you have an EFIN, select "Yes" or "No, I am not planning to e-file this season".</div>
+                                                    </div>
+                                                </div> -->
+                                                    <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24" data-ng-if="userMainInfo.EfinEfilingStatus == 1 && mainInfo.singleOfficePreparer != 1">
+                                                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                                            <div>You can complete Quick Office Setup and verification of
+                                                                your phone, e-mail and identity.</div>
+                                                            <div style="color: red">Note: Once you get your EFIN, you need
+                                                                to undergo identity verification process to be ready for
+                                                                e-filing.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24" data-ng-if="showCompleteInfo == true">
+                                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                                        Please complete the Quick Office Setup.
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24" data-ng-if="showSetup == false">
+                                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                                        Please complete the Quick Office Setup for your main office and primary preparer. Additional preparers' information will
+                                                        need to be added and verified after your Quick Office Setup has been
+                                                        completed.
+                                                    </div>
+                                                </div> -->
+                                                    <div class="col-lg-3 col-md-3 col-sm-24 col-xs-24 float-right padding_l_r_0">
+                                                        <button type="button" class="btn quicksetup-btn float-right" data-ng-click="AddSingleOfficeUser()" data-ng-disabled="mainInfoForm.$invalid || screenHandler.isContinueBtnDisabled">Continue</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-form>
+                                        <div class="row" data-ng-if="showSetup == true">
+                                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-24 margin_top_10">
+                                                <div class="row">
+                                                    <div class="col-lg-24">
+                                                        <div class="section-title">
+                                                            <div class="col-lg-24">
+                                                                <span>Preparer Information</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-lg-24">
+                                                    <div class="section-notice">
+                                                        <p>Information below MUST match the information on your IRS EFIN
+                                                            application.
+                                                            <br> Click
+                                                            <a href="https://static.mytaxprepoffice.com/2016/download/Application_Summary_IRS.pdf" id="applicationSummary" target="applicationSummary"
+                                                                class="blue_link">here</a>
+                                                            for instructions to access and print the Application Summary on the IRS e-Services site.</p>
+                                                    </div>
+                                                </div>
+                                                <!-- office info start  -->
+                                                <div class="quicksetup-form clearfix">
+                                                    <div class="clearfix margin_top_15 margin_bottom_10">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_FIRMNAME_LBL" translate-default="Firm Name"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="location_firmName" data-ng-model="office.name" data-ng-required="!office.name"
+                                                                    ng-pattern="/^(([A-Za-z0-9#\-\(\)]|&|') ?)*([A-Za-z0-9#\-\(\)]|&|')$/"
+                                                                />
+                                                                <span class="error-msg" ng-show="preparerForm.location_firmName.$error.pattern">Invalid
+                                                                    character found. Legal Characters: A-Z, a-z, 0-9, #,
+                                                                    hyphen, single space</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_FN_LBL" translate-default="First Name"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="preparer_preparerFname" data-ng-model="preparer.preparerFname" ng-pattern="/^([A-Za-z\-] ?)*[A-Za-z\-]$/"
+                                                                    data-ng-required="!preparer.preparerFname" />
+                                                                <span class="error-msg" ng-show="preparerForm.preparer_preparerFname.$error.pattern">Invalid
+                                                                    character found. Legal Characters: A-Z, a-z, hyphen,
+                                                                    single space</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_LN_LBL" translate-default="Last Name"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="preparer_preparerLname" data-ng-model="preparer.preparerLname" ng-pattern="/^([A-Za-z\-] ?)*[A-Za-z\-]$/"
+                                                                    data-ng-required="!preparer.preparerLname" />
+                                                                <span class="error-msg" ng-show="preparerForm.preparer_preparerLname.$error.pattern">Invalid
+                                                                    character found. Legal Characters: A-Z, a-z, hyphen,
+                                                                    single space</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_OWNERPHONE_LBL" translate-default="Cell Phone"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group validation-container">
+                                                                <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="(999)999-9999"
+                                                                    data-ng-model="preparer.telephone" data-ng-required="!preparer.telephone"
+                                                                    data-ng-change="preparer.isTelephoneVerified = false" />
+                                                                <span data-ng-if="preparer.isTelephoneVerified == true" class="validation-icon">
+                                                                    <img src="taxAppJs/images/checked-icon.png">
+                                                                </span>
+                                                                <span data-ng-if="preparer.isTelephoneVerified != true" class="validation-icon" data-placement="right" ng-mouseover="manageTooltip.phonePreparer=true"
+                                                                    ng-mouseleave="manageTooltip.phonePreparer=false">
+                                                                    <img src="taxAppJs/images/error-icon.png">
+                                                                </span>
+                                                                <span data-ng-if="preparer.isTelephoneVerified != true" class="validation-icon hide">
+                                                                    <img src="taxAppJs/images/checked-icon.png">
+                                                                </span>
+                                                                <div class="tooltip right" data-ng-if="manageTooltip.phonePreparer == true">
+                                                                    <div class="tooltip-arrow"></div>
+                                                                    <div class="tooltip-inner">
+                                                                        <span>Verification Required</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div data-ng-if="preparer.isTelephoneVerified != true" class="col-lg-10 col-md-10 col-sm-24 col-xs-24">
+                                                            <button type="button" class="btn quicksetup-btn" data-ng-disabled="!preparer.telephone" data-ng-click="telephoneVerification(preparer.telephone, 'preparer')">Send
+                                                                verification code</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_OFFICEPHONE_LBL" translate-default="Office Phone"></label>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.phoneDiffFromPreparer" data-ng-class="{'active':office.phoneDiffFromPreparer == true}"
+                                                                    data-ng-click="office.phoneDiffFromPreparer = !office.phoneDiffFromPreparer; EnableOfficeVerify()"></button>
+                                                                <span class="checkbox-label">Different from Preparer</span>
+                                                            </div>
+                                                            <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0 margin_top_15" data-ng-if="office.phoneDiffFromPreparer == true">
+                                                                <div class="form-group validation-container">
+                                                                    <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="(999)999-9999"
+                                                                        data-ng-model="office.businessPhone" data-ng-required="!office.businessPhone"
+                                                                        data-ng-change="office.isBusinessPhoneVerified = false"
+                                                                    />
+                                                                    <span data-ng-if="office.isBusinessPhoneVerified == true" class="validation-icon"><img
+                                                                            src="images/checked-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessPhoneVerified != true" class="validation-icon" ng-mouseover="manageTooltip.phoneOffice=true"
+                                                                        ng-mouseleave="manageTooltip.phoneOffice=false"><img
+                                                                            src="images/error-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessPhoneVerified != true" class="validation-icon hide"><img
+                                                                            src="images/checked-icon.png"></span>
+                                                                    <div class="tooltip right" data-ng-if="manageTooltip.phoneOffice == true">
+                                                                        <div class="tooltip-arrow"></div>
+                                                                        <div class="tooltip-inner">
+                                                                            <span>Verification Required</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10 col-md-10 col-sm-24 col-xs-24">
+                                                            <div data-ng-if="office.isBusinessPhoneVerified != true && office.phoneDiffFromPreparer == true" class="col-lg-24 col-md-24 col-sm-24 col-xs-24  padding_l_r_0 margin_top_5">
+                                                                <button type="button" class="btn quicksetup-btn margin_top_30" data-ng-disabled="!office.businessPhone" data-ng-click="telephoneVerification(office.businessPhone, 'office')">Send
+                                                                    verification code</button>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_OWNEREMAIL_LBL" translate-default="Email"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group validation-container">
+                                                                <input type="text" class="form-control" data-ng-model="preparer.email" data-ng-required="!preparer.email" data-ng-change="ChangePrepareEmail()"
+                                                                />
+                                                                <span data-ng-if="preparer.isEmailVerified == true" class="validation-icon">
+                                                                    <img src="taxAppJs/images/checked-icon.png">
+                                                                </span>
+                                                                <span data-ng-if="preparer.isEmailVerified != true" class="validation-icon" data-placement="right" ng-mouseover="manageTooltip.emailPreparer=true"
+                                                                    ng-mouseleave="manageTooltip.emailPreparer=false">
+                                                                    <img src="taxAppJs/images/error-icon.png">
+                                                                </span>
+                                                                <div class="tooltip right" data-ng-if="manageTooltip.emailPreparer == true">
+                                                                    <div class="tooltip-arrow"></div>
+                                                                    <div class="tooltip-inner">
+                                                                        <span>Verification Required</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div data-ng-if="preparer.isEmailVerified != true" class="col-lg-10 col-md-10 col-sm-24 col-xs-24">
+                                                            <button type="button" class="btn quicksetup-btn" data-ng-disabled="!preparer.email" data-ng-click="emailVerification(preparer.email, 'preparer')">Send
+                                                                verification code</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <label translate="QUICKSETUP_OFFICEEMAIL_LBL" translate-default="Office Email"></label>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.emailDiffFromPreparer" data-ng-class="{'active':office.emailDiffFromPreparer == true}"
+                                                                    data-ng-click="office.emailDiffFromPreparer = !office.emailDiffFromPreparer; EnableOfficeVerify()"></button>
+                                                                <span class="checkbox-label">Different from Preparer</span>
+                                                            </div>
+                                                            <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0 margin_top_15" data-ng-if="office.emailDiffFromPreparer == true">
+                                                                <div class="form-group validation-container">
+                                                                    <input type="text" class="form-control" data-ng-model="office.businessMail" data-ng-required="!office.businessMail" data-ng-change="office.isBusinessMailVerified = false"
+                                                                    />
+                                                                    <span data-ng-if="office.isBusinessMailVerified == true" class="validation-icon"><img
+                                                                            src="images/checked-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessMailVerified != true" class="validation-icon" ng-mouseover="manageTooltip.emailOffice=true"
+                                                                        ng-mouseleave="manageTooltip.emailOffice=false"><img
+                                                                            src="images/error-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessMailVerified != true" class="validation-icon hide"><img
+                                                                            src="images/checked-icon.png"></span>
+                                                                    <div class="tooltip right" data-ng-if="manageTooltip.emailOffice == true">
+                                                                        <div class="tooltip-arrow"></div>
+                                                                        <div class="tooltip-inner">
+                                                                            <span>Verification Required</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10 col-md-10 col-sm-24 col-xs-24">
+                                                            <div data-ng-if="office.emailDiffFromPreparer == true && office.isBusinessMailVerified != true" class="col-lg-24 col-md-24 col-sm-24 col-xs-24  padding_l_r_0 margin_top_5">
+                                                                <button type="button" class="btn quicksetup-btn margin_top_30" data-ng-disabled="!office.businessMail" data-ng-click="emailVerification(office.businessMail, 'office')">Send
+                                                                    verification code</button>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_OWNERRECOVERYEMAIL_LBL" translate-default="Recovery Email"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group validation-container" data-ng-if="preparer.haveSecondaryEmail != true">
+                                                                <input type="text" class="form-control" data-ng-blur="hideLineHelp('recoveryEmail')" ng-focus="showLineHelp('recoveryEmail')"
+                                                                    data-ng-click="showLineHelp('recoveryEmail')" data-ng-disabled="preparer.haveSecondaryEmail == true"
+                                                                    data-ng-model="preparer.recoveryEmail" data-ng-required="!preparer.recoveryEmail && preparer.haveSecondaryEmail != true"
+                                                                    data-ng-change="preparer.secondaryEmailVerified = false"
+                                                                />
+                                                                <div>
+                                                                    <span data-ng-if="preparer.secondaryEmailVerified == true" class="validation-icon">
+                                                                        <img src="taxAppJs/images/checked-icon.png">
+                                                                    </span>
+                                                                    <span data-ng-if="preparer.secondaryEmailVerified != true" class="validation-icon" data-placement="right" ng-mouseover="manageTooltip.recoveryEmail=true"
+                                                                        ng-mouseleave="manageTooltip.recoveryEmail=false">
+                                                                        <img src="taxAppJs/images/error-icon.png">
+                                                                    </span>
+                                                                </div>
+                                                                <div class="tooltip right" data-ng-if="manageTooltip.recoveryEmail == true">
+                                                                    <div class="tooltip-arrow"></div>
+                                                                    <div class="tooltip-inner">
+                                                                        <span>Verification Required</span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="error-msg" data-ng-if="preparer.recoveryEmail == preparer.email">Recovery
+                                                                    Email must be different from Email</span>
+                                                            </div>
+                                                            <div class="form-group checkbox-container old-checkbox margin_top_10">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="preparer.haveSecondaryEmail" data-ng-class="{'active':preparer.haveSecondaryEmail == true}"
+                                                                    data-ng-click="preparer.haveSecondaryEmail = !preparer.haveSecondaryEmail;preparer.recoveryEmail = undefined;preparer.secondaryEmailVerified = false; screenHandler.isVeriyBtnDisabled = true"></button>
+                                                                <span class="checkbox-label">I don't have a secondary email</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10 col-md-10 col-sm-24 col-xs-24" data-ng-if="preparer.secondaryEmailVerified != true && preparer.haveSecondaryEmail != true">
+                                                            <button type="button" data-ng-disabled="!preparer.recoveryEmail || preparer.recoveryEmail == preparer.email" class="btn quicksetup-btn"
+                                                                data-ng-click="emailVerification(preparer.recoveryEmail, 'recoveryEmail')">Send
+                                                                verification code</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="MANAGEPREAPAREREDIT_PREAPARERSSN_LBL" translate-default="SSN"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" data-ng-model="preparer.preparerSsn" data-ng-required="!preparer.preparerSsn" tax-mask-use-view-value="true"
+                                                                    tax-mask-placeholder-on-focus="true" tax-mask="999-99-9999"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_EIN_LBL" translate-default="EIN"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="99-9999999"
+                                                                    data-ng-model="office.ein" value="{{office.ein}}" data-ng-disabled="office.isSelfEmployed == true"
+                                                                    data-ng-required="!office.ein && office.isSelfEmployed != true"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10 col-md-10 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.isSelfEmployed" data-ng-class="{'active':office.isSelfEmployed == true}"
+                                                                    data-ng-click="office.isSelfEmployed = !office.isSelfEmployed;office.ein = undefined;screenHandler.isVeriyBtnDisabled = true"></button>
+                                                                <span class="checkbox-label">Click this box if you are self-employed</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="MANAGEPREAPAREREDIT_PREAPARERTIN_LBL" translate-default="PTIN"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" data-ng-model="preparer.preparerTin" data-ng-required="!preparer.preparerSsn && !preparer.preparerTin"
+                                                                    tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                                                                    tax-mask="P99999999" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_EFIN_LBL" translate-default="EFIN"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" data-ng-model="office.efin" data-ng-required="!office.efin && userMainInfo.EfinEfilingStatus != 1 && userMainInfo.EfinEfilingStatus != 2"
+                                                                    data-ng-disabled="userMainInfo.EfinEfilingStatus == 1 || userMainInfo.EfinEfilingStatus == 2"
+                                                                    tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                                                                    tax-mask="999999" ng-blur="isEfinChange();" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="quicksetup-form clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_OFFICEPHONE_LBL" translate-default="Office Cell Phone"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.phoneDiffFromPreparer" data-ng-class="{'active':office.phoneDiffFromPreparer == true}"
+                                                                    data-ng-click="office.phoneDiffFromPreparer = !office.phoneDiffFromPreparer; screenHandler.isVeriyBtnDisabled=true;EnableOfficeVerify()"></button>
+                                                                <span class="checkbox-label">Different from Preparer</span>
+                                                            </div>
+                                                            <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0 margin_top_10" data-ng-if="office.phoneDiffFromPreparer == true">
+                                                                <div class="form-group validation-container">
+                                                                    <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="(999)999-9999"
+                                                                        data-ng-model="office.usAddress.telephone" data-ng-required="!office.usAddress.telephone"
+                                                                        data-ng-change="office.isBusinessPhoneVerified = false"
+                                                                    />
+                                                                    <span data-ng-if="office.isBusinessPhoneVerified == true" class="validation-icon"><img
+                                                                            src="taxAppJs/images/checked-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessPhoneVerified != true" class="validation-icon" ng-mouseover="manageTooltip.phoneOffice=true"
+                                                                        ng-mouseleave="manageTooltip.phoneOffice=false"><img
+                                                                            src="taxAppJs/images/error-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessPhoneVerified != true" class="validation-icon hide"><img
+                                                                            src="taxAppJs/images/checked-icon.png"></span>
+                                                                    <div class="tooltip right" data-ng-if="manageTooltip.phoneOffice == true">
+                                                                        <div class="tooltip-arrow"></div>
+                                                                        <div class="tooltip-inner">
+                                                                            <span>Verification Required</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10 col-md-10 col-sm-24 col-xs-24">
+                                                            <div data-ng-if="office.isBusinessPhoneVerified != true && office.phoneDiffFromPreparer == true" class="col-lg-24 col-md-24 col-sm-24 col-xs-24  padding_l_r_0">
+                                                                <button type="button" class="btn quicksetup-btn margin_top_30" data-ng-disabled="!office.usAddress.telephone" data-ng-click="telephoneVerification(office.usAddress.telephone, 'office')">Send
+                                                                    verification code</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="quicksetup-form clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <label translate="QUICKSETUP_OFFICEEMAIL_LBL" translate-default="Office Email"></label>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.emailDiffFromPreparer" data-ng-class="{'active':office.emailDiffFromPreparer == true}"
+                                                                    data-ng-click="office.emailDiffFromPreparer = !office.emailDiffFromPreparer;screenHandler.isVeriyBtnDisabled=true;EnableOfficeVerify()"></button>
+                                                                <span class="checkbox-label">Different from Preparer</span>
+                                                            </div>
+                                                            <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0 margin_top_10" data-ng-if="office.emailDiffFromPreparer == true">
+                                                                <div class="form-group validation-container">
+                                                                    <input type="text" class="form-control" data-ng-model="office.businessMail" data-ng-required="!office.businessMail" data-ng-change="office.isBusinessMailVerified = false"
+                                                                    />
+                                                                    <span data-ng-if="office.isBusinessMailVerified == true" class="validation-icon"><img
+                                                                            src="taxAppJs/images/checked-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessMailVerified != true" class="validation-icon" ng-mouseover="manageTooltip.emailOffice=true"
+                                                                        ng-mouseleave="manageTooltip.emailOffice=false"><img
+                                                                            src="taxAppJs/images/error-icon.png"></span>
+                                                                    <span data-ng-if="office.isBusinessMailVerified != true" class="validation-icon hide"><img
+                                                                            src="taxAppJs/images/checked-icon.png"></span>
+                                                                    <div class="tooltip right" data-ng-if="manageTooltip.emailOffice == true">
+                                                                        <div class="tooltip-arrow"></div>
+                                                                        <div class="tooltip-inner">
+                                                                            <span>Verification Required</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-10 col-md-10 col-sm-24 col-xs-24">
+                                                            <div data-ng-if="office.emailDiffFromPreparer == true && office.isBusinessMailVerified != true" class="col-lg-24 col-md-24 col-sm-24 col-xs-24  padding_l_r_0">
+                                                                <button type="button" class="btn quicksetup-btn margin_top_30" data-ng-disabled="!office.businessMail" data-ng-click="emailVerification(office.businessMail, 'office')">Send
+                                                                    verification code</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-24 margin_top_10">
+                                                <div class="row">
+                                                    <div class="col-lg-24">
+                                                        <div class="section-title">
+                                                            <div class="col-lg-24">
+                                                                <span>Address</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- office info start  -->
+                                                <div class="quicksetup-form clearfix">
+                                                    <div class="clearfix margin_bottom_10 row">
+
+                                                        <!-- <div class="form-group margin_top_5 checkbox-container old-checkbox">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.addressDiffFromPreparer" data-ng-class="{'active':office.addressDiffFromPreparer == true}"
+                                                                    data-ng-click="office.addressDiffFromPreparer = !office.addressDiffFromPreparer;setOfficeAddressFromCRM()"></button>
+                                                                <span class="checkbox-label">Different from Preparer</span>
+                                                            </div> -->
+                                                        <span class="col-lg-12 col-md-12 col-sm-24 col-xs-24 que-text">
+                                                            Is your office and preparer address different?</span>
+                                                        <div class="col-lg-12 col-md-12 col-sm-24 col-xs-24">
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.addressDiffFromPreparer" data-ng-class="{'active':office.addressDiffFromPreparer}"
+                                                                    data-ng-click="office.addressDiffFromPreparer = true;screenHandler.isVeriyBtnDisabled = true;"></button>
+                                                                <span class="checkbox-label">Yes</span>
+                                                            </div>
+                                                            <div class="form-group checkbox-container old-checkbox float-left ans-btns" style="margin-left: 20px;">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.addressDiffFromPreparer" data-ng-class="{'active':!office.addressDiffFromPreparer}"
+                                                                    data-ng-click="office.addressDiffFromPreparer = false;screenHandler.isVeriyBtnDisabled = true;"></button>
+                                                                <span class="checkbox-label">No</span>
+                                                            </div>
+                                                            <!-- <div class="form-group checkbox-container old-checkbox float-left ans-btns">
+                                                                <button type="button" class="custom_input_dark vertical_align_middle" data-ng-model="office.addressDiffFromPreparer" data-ng-class="{'active':office.addressDiffFromPreparer == undefined}"
+                                                                    data-ng-click="office.addressDiffFromPreparer = undefined;"></button>
+                                                                <span class="checkbox-label">No Address</span>
+                                                            </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-24 col-xs-24">
+                                                            <!-- <div class="" data-ng-show="office.addressDiffFromPreparer == false">
+                                                                <span><b>Office / Preparer Address:</b></span>
+                                                            </div> -->
+                                                            <div class="" data-ng-show="office.addressDiffFromPreparer == true">
+                                                                <span><b>Office Address:</b></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="QUICKSETUP_STREET_LBL" translate-default="Address Type"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="dropdown" dropdown is-open="addressTypeToggle.isOpen">
+                                                                <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle type="button" id="typeFilter" data-toggle="dropdown">
+                                                                    {{addressType.title}}
+                                                                    <span class="caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter" style="cursor: pointer;">
+                                                                    <li role="presentation" ng-repeat="addtype in addressTypeList">
+                                                                        <a role="menuitem" tabindex="-1"  data-ng-click="addressType.title = ''+addtype.title; addressType.id = ''+addtype.id; addressTypeToggle.isOpen=false;resetOfficeAddress()">{{addtype.title}}</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <div data-ng-if="addressType.id == 'usAddress'">
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_STREET_LBL" translate-default="Street Address"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.usAddress.street" data-ng-required="!office.usAddress.street"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_ZIPCODE_LBL" translate-default="Zip Code"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.usAddress.zipCode" data-ng-required="!office.usAddress.zipCode"
+                                                                        tax-mask="99999" cmn-zip-lookup cmn-zip-lookup-city="'office.usAddress.city'"
+                                                                        cmn-zip-lookup-state="'office.usAddress.state'" data-ng-change="screenHandler.isVeriyBtnDisabled = true;"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_CITY_LBL" translate-default="City"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.usAddress.city" data-ng-required="!office.usAddress.city" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_STATE_LBL" translate-default="State"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.usAddress.state" data-ng-required="!office.usAddress.state"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div data-ng-if="addressType.id == 'foreignAddress' && (office.addressDiffFromPreparer == true || office.addressDiffFromPreparer == false)">
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_STREET_LBL" translate-default="Street Address"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.foreignAddress.street" data-ng-required="!office.foreignAddress.street"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_ZIPCODE_LBL" translate-default="Zip Code"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.foreignAddress.postalCode" data-ng-required="!office.foreignAddress.postalCode"
+                                                                     />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_CITY_LBL" translate-default="City"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.foreignAddress.city" data-ng-required="!office.foreignAddress.city"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_STATE_LBL" translate-default="State"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.foreignAddress.state" data-ng-required="!office.foreignAddress.state"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_COUNTRY_LBL" translate-default="Country"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="office.foreignAddress.country" data-ng-required="!office.foreignAddress.country"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-18" data-ng-if="office.addressDiffFromPreparer == true">
+                                                        <hr class="dotted_line">
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-24 col-xs-24" data-ng-if="office.addressDiffFromPreparer == true">
+                                                        <div class="">
+                                                            <span><b>Preparer Address:</b></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+
+                                                    </div>
+                                                    <div class="quicksetup-form col-lg-24 padding_l_r_0 clearfix margin_top_5" data-ng-if="office.addressDiffFromPreparer == true">
+                                                        <!-- <div class="clearfix margin_bottom_10 row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="QUICKSETUP_FIRSTNAME_LBL" translate-default="Address Type"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="dropdown" dropdown is-open="addressTypeToggleowner.isOpen">
+                                                                    <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle type="button" id="typeFilter" data-toggle="dropdown">
+                                                                        {{addressTypeOwner.title}}
+                                                                        <span class="caret"></span>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter" style="cursor: pointer;">
+                                                                        <li role="presentation" ng-repeat="addtype in addressTypeList">
+                                                                            <a role="menuitem" tabindex="-1"  data-ng-click="addressTypeOwner.title = ''+addtype.title; addressTypeOwner.id = ''+addtype.id; addressTypeOwnerToggleowner.isOpen=false;resetPreparerAddress()">{{addtype.title}}</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                        <div data-ng-if="office.addressDiffFromPreparer == true">
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_STREET_LBL" translate-default="Street Address"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.usAddress.street" data-ng-required="!preparer.usAddress.street"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_ZIPCODE_LBL" translate-default="Zip Code"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.usAddress.zipCode" data-ng-required="!preparer.usAddress.zipCode"
+                                                                            tax-mask="99999" cmn-zip-lookup cmn-zip-lookup-city="'preparer.usAddress.city'"
+                                                                            cmn-zip-lookup-state="'preparer.usAddress.state'"
+                                                                            data-ng-change="screenHandler.isVeriyBtnDisabled = true;"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_CITY_LBL" translate-default="City"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.usAddress.city" data-ng-required="!preparer.usAddress.city"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_STATE_LBL" translate-default="State"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.usAddress.state" data-ng-required="!preparer.usAddress.state"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div data-ng-if="addressTypeOwner.id == 'foreignAddress'">
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_STREET_LBL" translate-default="Street Address"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.street" data-ng-required="!preparer.foreignAddress.street"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_ZIPCODE_LBL" translate-default="Zip Code"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.postalCode" data-ng-required="!preparer.foreignAddress.postalCode"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_CITY_LBL" translate-default="City"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.city" data-ng-required="!preparer.foreignAddress.city"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_STATE_LBL" translate-default="State"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.state" data-ng-required="!preparer.foreignAddress.state"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix margin_bottom_10 row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <label translate="QUICKSETUP_COUNTRY_LBL" translate-default="Country"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.country" data-ng-required="!preparer.foreignAddress.country"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <!-- <div class="col-md-18">
+                                                        <hr class="dotted_line">
+                                                    </div> -->
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--- verification overlay starts -->
+                                        <div class="verified-overlay-container" data-ng-if="office.singleOfficePreparer == 0 && office.efinStatus == 1 && preparer.preparerVerified != true">
+                                            <div class="verified-overlay-inner">
+                                                <div class="verified-overlay-content">
+                                                    <span class="font_big">Verification in process.</span>
+                                                    <span class="font_medium">You can edit your preparer information once
+                                                        your verification status is clear.</span>
+                                                    <span>
+                                                        <button class="btn white-btn margin_top_20" data-ng-click="gotoHome()">Go
+                                                            To DashBoard</button>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="verified-overlay-container" data-ng-if="office.singleOfficePreparer == 0 && (office.efinStatus == 2 || preparer.preparerVerified == true)">
+                                            <div class="verified-overlay-inner">
+                                                <div class="verified-overlay-content">
+                                                    <span class="font_big">You are verified.</span>
+                                                    <span class="font_medium">Click unlock to change your preparer information.</span>
+                                                    <span class="font_medium" data-ng-if="userMainInfo.EfinEfilingStatus == 1">When
+                                                        you get your EFIN, click unlock, enter the received EFIN and complete
+                                                        the verification again!</span>
+                                                    <button class="btn white-btn margin_top_20" data-ng-click="unlockPrepare()">Unlock</button>
+                                                    <span>
+                                                        <button class="btn white-btn margin_top_20" data-ng-click="gotoHome()">Go
+                                                            To DashBoard</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--- verification overlay Ends-->
+                                    </div>
+                                    <div data-ng-if="showSetup == true" class="clearfix margin_bottom_10 row">
+                                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-24 margin_top_20">
+                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                <div class="form-group">
+                                                    <label translate="MANAGEPREAPAREREDIT_PREAPARERID_LBL" translate-default="Preparer ID"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" data-ng-model="preparer.preparerId" data-ng-click="showLineHelp('preparerId')" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-24 margin_top_20">
+                                            <div class="col-lg-14 col-md-12 col-sm-24 col-xs-24">
+                                                <div class="tooltip-block" data-ng-if="(office.efinStatus == 0 || userMainInfo.EfinEfilingStatus == 2) && preparer.preparerVerified != true">
+                                                    <span class="info-icon float-right" ng-mouseover="manageTooltip.evsPreparer=true" ng-mouseleave="manageTooltip.evsPreparer=false"><img
+                                                            src="taxAppJs/images/info-icon.png" title="In order to complete the verification of your indentity, please click verify button."></span>
+                                                    <div class="tooltip right" data-ng-if="manageTooltip.evsPreparer == true">
+                                                        <div class="tooltip-arrow"></div>
+                                                        <div class="tooltip-inner">
+                                                            <span>In order to complete the verification of your indentity,
+                                                                please click verify button.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div data-ng-if="(office.efinStatus == 0 || userMainInfo.EfinEfilingStatus == 2) && preparer.preparerVerified != true">
+                                                    <button type="button" class="btn btn-information float-right margin_left_15" translate-default="Verify" data-ng-click="verify()"
+                                                        data-ng-disabled="!userCan('CAN_SAVE_LOCATION') || !userCan('CAN_SAVE_PREPARER') || preparerForm.$invalid || screenHandler.isVeriyBtnDisabled == true || screenHandler.EfinWaitbtn == true || preparerForm.$dirty == true">Verify</button>
+                                                </div>
+                                                <div data-ng-if="office.efinStatus == 1 && preparer.preparerVerified != true">
+                                                    <button type="button" class="btn btn-information float-right margin_left_15" data-ng-disabled="true">Verification
+                                                        in process <img src="taxAppJs/images/sand-clockgolden.png" class="btn-icon"></button>
+                                                </div>
+                                                <div data-ng-if="office.efinStatus == 2 || preparer.preparerVerified == true">
+                                                    <button type="button" class="btn btn-information float-right margin_left_15" data-ng-disabled="true">Verified
+                                                        <img src="taxAppJs/images/checked-icon.png" class="btn-icon"></button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn float-right custom-btn" translate-default="Save" data-ng-disabled="!userCan('CAN_SAVE_LOCATION') || !userCan('CAN_SAVE_PREPARER') || preparerForm.$invalid"
+                                                        data-ng-click="preparerForm.$dirty = false; save()">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-form>
+
+                            <div data-ng-if="showSetup == true && ((office.addressDiffFromPreparer == true && 
+                            (preparer.usAddress.state == 'NY' || preparer.usAddress.state == 'OR' || preparer.usAddress.state == 'NM')) || (office.addressDiffFromPreparer == false 
+                            && ( office.usAddress.state == 'NY' || office.usAddress.state == 'OR' || office.usAddress.state == 'NM')))">
+                                <div class="row clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_30 padding_r_0">
+                                    <div class="col-lg-24 padding_r_0">
+                                        <div class="section-title">
+                                            <span class="col-md-24">Additional Information</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-form name="otherInfoForm" role="form">
+                                    <div ng-cloak class="clearfix margin_bottom_30" id="quicksetup_office_form">
+                                        <!-- <div class="col-lg-12 col-sm-12 col-md-12 col-xs-24 margin_top_10">
+                                       
+                                            <div class="clearfix"></div>
+                                            <div class="col-lg-24">
+                                                <div class="row">
+                                                    <div class="col-lg-24">
+                                                        <div class="section-title border-none">
+                                                            <span>Signatures</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="quicksetup-form clearfix">
+                                                <div class="clearfix margin_bottom_10 row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                        <label translate="QUICKSETUP_ERO_OFFICE" translate-default="ERO"></label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                        <div class="signature_img_ui">
+                                                            <img data-ng-if="EROSignatureData" ng-src="taxAppJs/{{EROSignatureData}}" />
+                                                            <span class="delete_sign_img" data-ng-if="EROSignatureData" data-ng-class="{'no-clicking':(!userCan('CAN_REMOVE_SIGNATURE'))}"
+                                                                data-ng-click="removeSignature(1)">
+                                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix margin_top_20 margin_bottom_10">
+                                                    <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                        <label translate="QUICKSETUP_PREPARER" translate-default="Preparer"></label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                        <div class="clearfix">
+                                                            <div class="signature_img_ui">
+                                                                <img data-ng-if="preparerSignatureData" ng-src="taxAppJs/{{preparerSignatureData}}" />
+                                                                <span class="delete_sign_img" data-ng-if="preparerSignatureData" data-ng-class="{'no-clicking':(!userCan('CAN_REMOVE_SIGNATURE'))}"
+                                                                    data-ng-click="removeSignature(2)">
+                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix margin_top_10">
+                                                            <a ng-click="captureSignature();" data-ng-class="{'no-clicking':!userCan('CAN_SAVE_SIGNATURE') || !isSetupCompleted}" class="cursor_pointer capture_move_top">
+                                                                <span translate="QUICKSETUP_CAPTURE_SIGNATURE" translate-default="Capture"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_10">
+                                            <div class="clearfix"></div>
+                                            <div class="col-lg-24" data-ng-if="(office.addressDiffFromPreparer == true && preparer.usAddress.state == 'NY') || (office.addressDiffFromPreparer == false && office.usAddress.state == 'NY')">
+                                                <div class="row">
+                                                    <div class="col-lg-24">
+                                                        <div class="section-title border-none">
+                                                            <span translate="FORNYSTATE_LBL" translate-default="For NY State"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="quicksetup-form clearfix" data-ng-if="(office.addressDiffFromPreparer == true && preparer.usAddress.state == 'NY') || (office.addressDiffFromPreparer == false && office.usAddress.state == 'NY')">
+                                                <div class="col-lg-12 padding_l_r_0">
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="MANAGE_NYTPRIN_LBL" translate-default="Tax Preparer Registration Identification Number (NYTPRIN)"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" data-ng-model="preparer.nytprin" value="{{preparer.nytprin}}" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-lg-24">
+                                                        <span class="font_black" translate="MANAGE_OR_LBL" translate-default="Or"></span>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="clearfix margin_bottom_10 row margin_top_10">
+                                                        <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                            <div class="form-group">
+                                                                <label translate="MANAGE_NYTPRIN_LBL" translate-default="Select exempt code"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                            <div class="dropdown" dropdown is-open="addressTypeToggle.isOpen">
+                                                                <select style="max-width: 100%;" class="quicksetuptextbox form-control" data-ng-model="preparer.nyExemptCode" data-ng-options="code.value as code.text for code in exemptCodeList"></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24 margin_top_30 margin_bottom_30">
+                                                    <div>
+                                                        <button class="btn float-right custom-btn" translate-default="Save" data-ng-disabled="!officeSetupForm.preparerForm.$valid"
+                                                            data-ng-click="save()">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-ng-if="(office.addressDiffFromPreparer == true && preparer.usAddress.state == 'OR') || (office.addressDiffFromPreparer == false && office.usAddress.state == 'OR')">
+                                                <div class="col-lg-24">
+                                                    <div class="row">
+                                                        <div class="col-lg-24 margin_top_10">
+                                                            <div class="section-title border-none">
+                                                                <span translate="FORNYSTATE_LBL" translate-default="For OR State"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="quicksetup-form clearfix">
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-12 padding_l_r_0">
+                                                            <div class="col-lg-6 col-md-6 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="MANAGE_LICENCENUMBER_LBL" translate-default="Preparer licence number"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="preparer.orLicenceNumber" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24 margin_top_30 margin_bottom_30">
+                                                            <div>
+                                                                <button class="btn float-right custom-btn" translate-default="Save" data-ng-disabled="!officeSetupForm.preparerForm.$valid"
+                                                                    data-ng-click="save()">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-ng-if="(office.addressDiffFromPreparer == true && preparer.usAddress.state == 'NM') || (office.addressDiffFromPreparer == false && office.usAddress.state == 'NM')">
+                                                <div class="col-lg-24">
+                                                    <div class="row">
+                                                        <div class="col-lg-24 margin_top_10">
+                                                            <div class="section-title border-none">
+                                                                <span translate="FORNMSTATE_LBL" translate-default="For NM State"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="quicksetup-form clearfix">
+                                                    <div class="clearfix margin_bottom_10 row">
+                                                        <div class="col-lg-12 padding_l_r_0">
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <label translate="MANAG_CRSIDNUMBER_LBL" translate-default="CRS Identification Number"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-24 col-xs-24">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" data-ng-model="preparer.nmCRSidentificationNumber" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24 margin_top_30 margin_bottom_30">
+                                                            <div>
+                                                                <button class="btn float-right custom-btn" translate-default="Save" data-ng-disabled="!officeSetupForm.preparerForm.$valid"
+                                                                    data-ng-click="save()">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-form>
+                            </div>
+                            <style>
+                                /* loading text start */
+                                .verificationqanda.modal-lg {
+                                    width: 950px;
+                                    display: inline-block;
+                                }
+
+                                @media(max-width:768px) {
+                                    .verificationqanda.modal-lg {
+                                        width: 90vw;
+                                    }
+                                    .verificationqanda-container {
+                                        min-height: auto;
+                                        padding: 30px 0px;
+                                    }
+                                }
+                            </style>
+                            <!--- verification overlay starts -->
+                            <div class="verified-overlay-container" data-ng-if="office.efinStatus == 4 || (userMainInfo.EfinEfilingStatus == 2 && preparer.preparerVerified == false) || ( screenHandler.isLockEfinWait == true && userMainInfo.EfinEfilingStatus == 1 && preparer.preparerVerified == false)">
+                                <div class="verified-overlay-inner">
+                                    <div class="verified-overlay-content text-center">
+                                        <div class="verificationqanda modal-lg" style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+                                            <form name="verificationQuestions">
+                                                <div class="modal-header text-left dialog-header-confirm  quicksetup-modal verificationqanda-modal">
+                                                    <div class="modal-title">
+                                                        <label class="font_black"><img src="taxAppJs/images/danger.png" align="middle"
+                                                                class="modal-header-icon">Verification Failed</label>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body clearfix">
+                                                    <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15 padding_l_r_0">
+                                                        <div class="verificationqanda-container">
+                                                            <div class="verificationqanda-inner">
+                                                                <div class="content-title">
+                                                                    <img src="taxAppJs/images/frown-face.png" class="modal-image">                                                                    Sorry!
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <span class="font_black margin_top_10 font-size-28">We
+                                                                        could not verify your identity.</span>
+                                                                    <span data-ng-if="office.efinStatus == 4 || (userMainInfo.EfinEfilingStatus == 2 && preparer.preparerVerified == false)"
+                                                                        class="font_black margin_top_5 font-size-28">We
+                                                                        will get back to you as soon as possible for further
+                                                                        assistance.
+                                                                    </span>
+
+                                                                    <div data-ng-if="screenHandler.isLockEfinWait == true && userMainInfo.EfinEfilingStatus == 1 && preparer.preparerVerified == false">
+                                                                        <span class="font_black margin_top_5 font-size-28">When
+                                                                            you get your EFIN, click unlock, enter the received
+                                                                            EFIN and complete the verification again!</span>
+                                                                        <button class="btn white-btn margin_top_20" data-ng-click="screenHandler.isLockEfinWait = false; screenHandler.EfinWaitbtn = true">Unlock</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="text-center">
+                                                        <span class="font_black font-size-18 margin_top_10 col-lg-24 col-sm-24 col-xs-24 font_bold">Write
+                                                            to us:</span>
+                                                        <span class="font_gray margin_top_10">Write to us and our experts
+                                                            will reply you right away. You can also schedule a time for us
+                                                            to call you when you're ready.</span>
+                                                        <span class="font_gray margin_top_5">Answer a few Questions and we'll
+                                                            give you the best solutions.</span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-ng-if="office.isPredefined != true">
+                <div class="quicksetuptext_notice col-lg-24 margin_top_10">
+                    <div class="col-lg-24">
+                        <p>At MyTAXPrepOffice, we take data security and fraud prevention seriously. The information and
+                            simple verification processes below will take just a few minutes of your time and allow us to
+                            protect both you and your clients while meeting the fraud prevention requirements from the IRS
+                            and our banking partners.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                    <div class="col-md-24">
+                        <hr class="dark_line">
+                    </div>
+                </div>
+                <div class="row col-lg-19 padding_l_r_0 margin_bottom_20">
+                    <div class="col-lg-19 col-md-19 col-sm-24 col-xs-24">
+                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                            <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">The Quick Office Setup screen is for single
+                                tax preparation offices with a single tax preparer.</br> Please return to the <a class="blue_link cursor_pointer"
+                                    data-ng-click="gotoHome(false)">Dashboard</a>
+                                and complete the steps to set up each Office and each Preparer in the Your Firm widget.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+
+</html>

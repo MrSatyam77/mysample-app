@@ -1,0 +1,101 @@
+<div class="bg-white border">
+  <section class="page_title_wrap px-2 py-2 clearfix">
+    <div class="float-left">
+      <h5 class="m-0 mt-2"> Manage Invited Clients</h5>
+    </div>
+    <div class="float-right d-none d-md-block" *ngIf="showManageClientScreenBasedOnTaxYear">
+      <button class="btn btn-outline-primary" (click)="gotoRoute(['home'])">Back
+        To Dashboard</button>
+      <div class="float-right cursor_pointer m-2 ml-2">
+        <i class="fas fa-redo color_gray font_size_14" [class.rotate]="refreshStart"
+          (click)="refreshStart=true; getList()"></i>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="row mt-5" *ngIf="isApiCalled === true;">
+    <div class="col-24 text-center mt-5">
+      <div id="squaresWaveG">
+        <div id="squaresWaveG_1" class="squaresWaveG"></div>
+        <div id="squaresWaveG_2" class="squaresWaveG"></div>
+        <div id="squaresWaveG_3" class="squaresWaveG"></div>
+        <div id="squaresWaveG_4" class="squaresWaveG"></div>
+        <div id="squaresWaveG_5" class="squaresWaveG"></div>
+        <div id="squaresWaveG_6" class="squaresWaveG"></div>
+        <div id="squaresWaveG_7" class="squaresWaveG"></div>
+        <div id="squaresWaveG_8" class="squaresWaveG"></div>
+      </div>
+    </div>
+  </div>
+  <ng-template [ngIf]="isApiCalled === false && showManageClientScreenBasedOnTaxYear === true">
+    <ng-template [ngIf]="settings && settings.companyName">
+      <div class="row p-2">
+        <div class="col pr-0">
+          <div class="input-group">
+            <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+              [(ngModel)]="filter.searchText" (ngModelChange)="quickSearch(filter.searchText)" />
+            <div class="input-group-append" *ngIf="filter.searchText && filter.searchText.length > 0">
+              <span class="input-group-text cursor_pointer"
+                (click)="filter.searchText = ''; quickSearch(filter.searchText);">
+                <i class="fa fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <select class="form-control cus-forminput mr-2 d-inline-block" id="typeFilter" [(ngModel)]="filter.userType"
+            (ngModelChange)="externalFilter()">
+            <option [value]="''">All Clients</option>
+            <option [value]="true">Active Clients</option>
+            <option [value]="false">Inactive Clients</option>
+          </select>
+          <select class="form-control cus-forminput d-inline-block" id="typeFilter" [(ngModel)]="filter.readType"
+            (ngModelChange)="externalFilter()">
+            <option [value]="''">All</option>
+            <option [value]="true">Read</option>
+            <option [value]="false">Unread</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-outline-primary float-right" (click)="resetGridSettings()">Reset Grid Setting</button>
+          <button class="btn btn-outline-primary mx-2 float-right" (click)="saveGridSettings()">Save Grid
+            Setting</button>
+          <button class="btn btn-outline-primary float-right"
+            (click)="gotoRoute(['mytaxportal','settings'])">Settings</button>
+          <button class="btn btn-outline-primary mx-2 float-right"
+            (click)="gotoRoute(['mytaxportal','invite-clients'])">New
+            Request</button>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24">
+          <app-standard-ag-grid #myTaxportalManageInvitedClient name="manageInvitedClient" [gridOptions]="gridOptions"
+            [result]="rowData" [(filter)]="filter" (onStandardGridReady)="onGridReady($event)"
+            (action)="onActionClicked($event)" [defaultFilter]="defaultFilter">
+          </app-standard-ag-grid>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="!settings || !settings.companyName">
+      <div class="row">
+        <div class="col-24">
+          <h3>Click <span class="font-weight-bold">"Settings"</span> on the MyTAXPortal widget to complete
+            your MyTAXPortal setup.</h3>
+        </div>
+        <div class="col-24 mt-3">
+          <a class="btn btn-outline-primary mr-3" href="/home">Go to Dashboard</a>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+  <ng-template [ngIf]="isApiCalled === false && showManageClientScreenBasedOnTaxYear === false">
+    <div class="row">
+      <div class="col-24">
+        <h3>MyTAXPortal is not available for year {{taxYear}}. Please select year 2018 to get the access.</h3>
+      </div>
+      <div class="col-24 mt-3">
+        <a class="btn btn-outline-primary mr-3" href="/home">Go to Dashboard</a>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,191 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+      <h4 class="modal-title">Keyboard Shortcuts
+      </h4>
+  </div>
+  <div class="modal-body clearfix" style="max-height:70vh;overflow:auto" *ngIf="location=='home'">
+      <div class=" col-lg-24 clearfix">
+          <table class="table table-striped clearfix">    
+              <thead>
+                  <tr>  <th colspan="2">Recent Returns</th></tr>
+              </thead>
+              <tbody>
+                  <tr class="width_full_49 float-left display_table">
+                      <td class="width_full_80">New Return</td> 
+                      <th scope="row" class="width_full_20">{{ os=="mac"? '&#8984;':'Ctrl'}}+R</th> 
+                  </tr>
+                  <tr class="width_full_49 float-right display_table"> 
+                      <td class="width_full_80">Return List</td> 
+                      <th scope="row" class="width_full_20">{{ os=="mac"? '&#8984;':'Ctrl'}}+L</th>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div> 
+   <div class="modal-body clearfix" style="max-height:70vh;overflow:auto" *ngIf="location=='interview'">
+      <div class="col-lg-12 clearfix">
+          <table class="table table-striped clearfix">                            
+              <thead> 
+                  <tr>  <th colspan="2">Fields</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td class="width_full_80">Override</td> <th scope="row">F8</th> </tr>
+                  <tr> <td class="width_full_80">Remove Override</td> <th scope="row">Shift+F8</th></tr>
+                  <tr><td class="width_full_80">Estimated</td><th scope="row">F3</th></tr>
+                  <tr><td class="width_full_80">Remove Estimated</td><th scope="row">Shift+F3</th></tr>
+                  <tr><td class="width_full_80">Calculator</td><th scope="row">F4</th></tr>
+              </tbody>
+          </table>
+          <table class="table table-striped clearfix margin_top_30">
+              <thead>
+                  <tr>  <th colspan="2">Forms</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td class="width_full_80">Previous Form</td> <th scope="row">Alt+Page Up </th> </tr>
+                  <tr><td class="width_full_80">Next Form</td> <th scope="row">Alt+Page Down</th> </tr>
+              </tbody>
+          </table>
+           <table class="table table-striped clearfix margin_top_30">
+                  <thead>
+                      <tr>  <th colspan="2">Calculator<span class="float-right margin_right_58">F4</span></th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td class="width_full_80">Capture Value From TaxField</td> <th scope="row">F11</th> </tr>
+                      <tr> <td class="width_full_80">Insert Value Into TaxField</td> <th scope="row">Insert</th></tr>
+                      <tr> <td class="width_full_80">Clear Current Entry</td> <th scope="row">Delete</th></tr>
+                      <tr> <td class="width_full_80">Clear All</td> <th scope="row">{{os=="mac"?'&#8984;':"Ctrl"}}+Delete</th></tr>
+                      <tr> <td class="width_full_80">Clear Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+L</th></tr>
+                      <tr> <td class="width_full_80">Recall Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+R</th></tr>
+                      <tr> <td class="width_full_80">Store in Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+M</th></tr>
+                      <tr> <td class="width_full_80">Add to Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+A</th></tr>
+                      <tr> <td class="width_full_80">Substract from Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+S</th></tr>
+                      <tr> <td class="width_full_80">Remove Single Value</td> <th scope="row">Backspace</th></tr>
+                  </tbody>
+              </table>  
+      </div>
+          <div class="col-lg-12 clearfix">
+              <table class="table table-striped clearfix ">
+                  <thead>
+                      <tr>  <th colspan="2">Return</th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td class="width_full_80">Save</td> <th scope="row">F2</th> </tr>
+                      <tr> <td class="width_full_80">Close</td> <th scope="row">F10</th></tr>
+                      <tr><td class="width_full_80">Print Return</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+P</th> </tr>
+                      <tr><td class="width_full_80">Transmit Return</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+E</th> </tr>
+                      <tr><td class="width_full_80">Switch To Form Mode</td> <th scope="row">Alt+F</th> </tr>
+                      <tr><td class="width_full_80">Perform Review</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+D</th> </tr>
+                      <tr><td class="width_full_80">Print Preview</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+F2</th> </tr>
+                  </tbody>
+              </table>
+              <table class="table table-striped clearfix margin_top_30">
+                  <thead>
+                      <tr>  <th colspan="2">State</th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td class="width_full_80">Add State</td> <th scope="row">Alt+S</th> </tr>
+
+                  </tbody>
+               </table>
+               <table class="table table-striped clearfix margin_top_30">
+                  <thead>
+                      <tr>  <th colspan="2">Others</th></tr>
+                  </thead>
+                  <tbody>
+                      <tr> <td class="width_full_80">Toggle Right Panel</td> <th scope="row">Alt+R</th></tr>
+                  </tbody>
+              </table>
+         </div>
+  </div>       
+  <div class="modal-body clearfix" style="max-height:70vh;overflow:auto" *ngIf="location=='return'">
+      <div class="col-lg-12 clearfix">
+          <table class="table table-striped clearfix">
+              <thead>
+                  <tr>  <th colspan="2">Fields</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td class="width_full_80">Override</td> <th scope="row">F8</th> </tr>
+                  <tr> <td class="width_full_80">Remove Override</td> <th scope="row">Shift+F8</th></tr>
+                  <tr><td class="width_full_80">Estimated</td><th scope="row">F3</th></tr>
+                  <tr><td class="width_full_80">Remove Estimated</td><th scope="row">Shift+F3</th></tr>
+                  <tr><td class="width_full_80">Calculator</td><th scope="row">F4</th></tr>
+              </tbody>
+          </table>
+
+          <table class="table table-striped clearfix margin_top_30">
+              <thead>
+                  <tr>  <th colspan="2">Forms</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td class="width_full_80">Open Add Form Menu</td> <th scope="row">{{os
+                  =="mac"?"&#8984;":"Ctrl"}}+F10</th> </tr>
+                  <tr> <td class="width_full_80">Open Quick Forms List</td> <th scope="row">Alt+Q</th></tr>
+                  <tr><td class="width_full_80">Add New Instance Of Current Form (Ex: W2)</td><th scope="row">Shift+F10</th></tr>
+                  <tr><td class="width_full_80">Remove/Delete Current Form</td> <th scope="row">Shift+F9</th> </tr>
+                  <tr><td class="width_full_80">Go To Previous Form (Stack Navigation)</td> <th scope="row">Alt+Page Up </th> </tr>
+                  <tr><td class="width_full_80">Go To Next Form (Stack Navigation)</td> <th scope="row">Alt+Page Down</th> </tr>
+              </tbody>
+          </table>
+           <table class="table table-striped clearfix margin_top_30">
+                  <thead>
+                      <tr>  <th colspan="2">Calculator<span class="float-right margin_right_58">F4</span></th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td class="width_full_80">Capture Value From TaxField</td> <th scope="row">F11</th> </tr>
+                      <tr> <td class="width_full_80">Insert Value Into TaxField</td> <th scope="row">Insert</th></tr>
+                      <tr> <td class="width_full_80">Clear Current Entry</td> <th scope="row">Delete</th></tr>
+                      <tr> <td class="width_full_80">Clear All</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+Delete</th></tr>
+                      <tr> <td class="width_full_80">Clear Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+L</th></tr>
+                      <tr> <td class="width_full_80">Recall Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+R</th></tr>
+                      <tr> <td class="width_full_80">Store in Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+M</th></tr>
+                      <tr> <td class="width_full_80">Add to Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+A</th></tr>
+                      <tr> <td class="width_full_80">Substract from Memory</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+S</th></tr>
+                      <tr> <td class="width_full_80">Remove Single Value</td> <th scope="row">Backspace</th></tr>
+                  </tbody>
+              </table>  
+      </div>
+          <div class="col-lg-12 clearfix">
+              <table class="table table-striped clearfix ">
+                  <thead>
+                      <tr>  <th colspan="2">Return</th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td class="width_full_80">Save</td> <th scope="row">F2</th> </tr>
+                      <tr> <td class="width_full_80">Close</td> <th scope="row">F10</th></tr>
+                      <tr><td class="width_full_80">Open Return Status List</td><th scope="row">F7</th></tr>
+                      <tr><td class="width_full_80">Open Print Menu</td> <th scope="row">Alt+P</th> </tr>
+                      <tr><td class="width_full_80">Print Return</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+P</th> </tr>
+                      <tr><td class="width_full_80">Open E-File Menu</td> <th scope="row">Alt+E</th> </tr>
+                      <tr><td class="width_full_80">Transmit Return</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+E</th> </tr>
+                      <tr><td class="width_full_80">Open Rejection</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+R</th> </tr>
+                      <tr><td class="width_full_80">Open Tools Menu</td> <th scope="row">Alt+T</th> </tr>
+                      <tr><td class="width_full_80">Switch To Interview Mode</td> <th scope="row">Alt+I</th> </tr>
+                      <tr><td class="width_full_80">Perform Review</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+D</th> </tr>
+                      <tr><td class="width_full_80">Print Preview</td> <th scope="row">{{os=="mac"?"&#8984;":"Ctrl"}}+F2</th> </tr>
+                  </tbody>
+              </table>
+              <table class="table table-striped clearfix margin_top_30">
+                  <thead>
+                      <tr>  <th colspan="2">State</th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td class="width_full_80">Open Add State Menu</td> <th scope="row">Alt+S</th> </tr>
+
+                  </tbody>
+               </table>
+               <table class="table table-striped clearfix margin_top_30">
+                  <thead>
+                      <tr>  <th colspan="2">Others</th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td class="width_full_80">Toggle Left Panel</td> <th scope="row">Alt+L</th> </tr>
+                      <tr> <td class="width_full_80">Toggle Right Panel</td> <th scope="row">Alt+R</th></tr>
+                  </tbody>
+              </table>
+         </div>
+     </div>    
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="printPdf()"><span>Print</span></button>
+      <button type="button" class="btn btn-outline-primary" (click)="close()"><span >Close</span></button>
+  </div>
+</div>

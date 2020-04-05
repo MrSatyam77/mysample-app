@@ -1,0 +1,36 @@
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		 Add forms
+	</h4>
+</div>
+<div class="modal-body clearfix">
+	<ng-form name="nameDialog" role="form">
+	<div class="form-group input-group-lg">
+		<div ng-repeat="form in formsToAdd">
+		<div class="col-lg-24 col-sm-24 col-md-24 row margin_bottom_3">
+			<div class="col-lg-8 col-sm-8 col-md-8">{{form.child.displayName}}</div>
+			 
+			<div class="col-lg-16 col-sm-16 col-md-16">
+				<select data-ng-model="form.selectedParent" data-ng-change="getParentForms(form.selectedParent,form.child);"
+				  	 data-ng-options="id.prefixTitle group by id.objType for id in form.parents" class="form-control">
+				 </select>
+			</div>
+			</div>
+		</div>
+		<div ng-repeat="form in selectedForm">
+		<div class="col-lg-24 col-sm-24 col-md-24 row margin_bottom_3">
+			<div class="col-lg-8 col-sm-8 col-md-8">{{form.form.displayName}}</div>
+			 
+			<div class="col-lg-16 col-sm-16 col-md-16">
+				<select data-ng-model="form.selectedParent" data-ng-options="id.prefixTitle group by id.objType for id in form.parents" class="form-control">
+				 </select>
+			</div>
+		</div>
+		</div>
+	</div>
+	</ng-form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-primary" ng-click="close()"><span translate="MULTIPARENTSELECTIONDIALOG_CANCEL_BUTTON" translate-default="Cancel"></span></button>
+	<button type="button" class="btn btn-outline-primary" ng-click="save()"><span translate="MULTIPARENTSELECTIONDIALOG_ADD_BUTTON" translate-default="Add"></span></button>
+</div>

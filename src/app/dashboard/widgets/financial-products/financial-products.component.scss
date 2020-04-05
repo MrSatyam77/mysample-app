@@ -1,0 +1,7 @@
+.text-wrap-elippses {
+    overflow: hidden;
+    // text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: break-word;
+    padding: 1px;
+}

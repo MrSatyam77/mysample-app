@@ -1,0 +1,18 @@
+<div class="time-out-warning-dialog-main">
+  <div class="modal-header">
+      <h4 class="modal-title">
+          <span>Warning</span>
+      </h4>
+  </div>
+  <div class="modal-body clearfix">
+  <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+       <div class="row">
+          <span>You will be automatically logged out in 2 minutes due to inactivity.</span>
+      </div>
+  </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="close('continue')">Continue</button>
+    <button type="button" class="btn btn-outline-primary"(click)="close('signout')">Log Out</button>
+  </div>
+</div>

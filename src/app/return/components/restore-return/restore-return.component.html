@@ -1,0 +1,83 @@
+<div class="inner_col_second">
+  <!--File upload page div-->
+  <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 pt-3" *ngIf="!(returnList && returnList.length > 0)">
+    <p class="align-center floating">If you have a digital copy on your computer you can upload it</p>
+    <div class="file-upload-box">
+      <div class="upload-ui">
+        <div ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+          class="cursor_pointer">
+          <label class="upload-pdf-icon">
+            <input #uploader name="uploadDocument" type="file" ngFileSelect [options]="options"
+              (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [disabled]="disabledUpload"
+              [accept]="acceptedFileType" style="display: none">
+            <span class="upload-pdf-txt" style="font-weight:normal;">
+              <h3>Drag here</h3>
+              <h6>Or if your prefer</h6>
+              <h6> {{uploadProgressDetail.name}}</h6>
+              <br>
+              <span class="btn btn-outline-primary cursor_pointer mt-2">
+                <i class="fas fa-folder-open pl-1"></i> Select File
+              </span>
+            </span>
+          </label>
+          <div class="justify-content-center col-lg-24 col-md-24 col-sm-24 col-xs-24 ">
+            <span *ngIf="errorType === 'fileType'" class="text-danger justify-content-center font-weight-bold">
+              <span>Your browser is trying to upload a file of type </span> {{uploadProgressDetail.type}}
+              <span> Please make sure your browser is uploading a zip file by verifying the extension is .zip.</span>
+            </span>
+            <span *ngIf="errorType === 'invalid'" class="text-danger font-weight-bold">An error occurred during file
+              upload.
+              Please try again later. If you need assistance or have questions, please contact our Customer Support Team
+              via
+              Live Chat.</span>
+            <span *ngIf="errorType === 'size'" class="text-danger font-weight-bold">Your selected file is more than 50MB
+              in
+              size.</span>
+          </div>
+          <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0"
+            *ngIf="uploadProgressDetail.progress && uploadProgressDetail.progress.data && uploadProgressDetail.progress.data.percentage > 0 && uploadProgressDetail.progress.data.percentage < 100">
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100"
+                [style.width]="uploadProgressDetail.progress.data.percentage + '%'">
+                {{uploadProgressDetail.progress.data.percentage + '%'}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--File upload page div end-->
+  <!--Restore return page div start-->
+  <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24" *ngIf="returnList && returnList.length > 0">
+    <div class="row inner_padding_15">
+      <div class="col-lg-4 col-md-4 col-xl-4 col-sm-4 padding_l_0">
+        <div class="input-group">
+          <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+            [(ngModel)]="filter.searchText" (ngModelChange)="quickSearch(filter.searchText)" />
+          <div class="input-group-append" *ngIf="filter.searchText && filter.searchText.length > 0">
+            <span class="input-group-text cursor_pointer"
+              (click)="filter.searchText = ''; quickSearch(filter.searchText);">
+              <i class="fa fa-times"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-xl-6 col-sm-6 padding_l_0">
+        <select class="form-control cus-forminput" id="typeFilter" [(ngModel)]="filter.status"
+          (ngModelChange)="externalFilter()">
+          <option *ngFor="let type of returnTypes" [value]="type.id">{{type.title}}</option>
+        </select>
+      </div>
+      <div class="col-lg-14 col-md-14 col-xl-14 col-sm-14 pr-1">
+        <button class="btn btn-outline-primary float-right" (click)="returnRestore()"> Restore</button>
+      </div>
+    </div>
+    <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24 pl-1 pr-2">
+      <app-standard-ag-grid #restoreReturnList name="restoreReturnList" [gridOptions]="gridOptions" [result]="rowData"
+        (onStandardGridReady)="onGridReady($event)" [rowSelection]="'multiple'">
+      </app-standard-ag-grid>
+    </div>
+  </div>
+  <!--Restore return page div end-->
+</div>

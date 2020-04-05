@@ -1,0 +1,28 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		Subscription
+	</h4>
+</div>
+<div class="modal-body clearfix">
+	<ng-form name="nameDialog" role="form">
+	<div class="form-group input-group-lg row_height_30">
+		<div> 
+				<span translate="COMMONSUBSCRIPTION_FIRSTLINEMESSAGE_SPAN" translate-default="We are working through the final details with our payment processor and you will be able to purchase one of our subscription packages in the next couple of days.
+				When you registered, you created a free subscription with all its benefits. If you have multiple offices, you can create the offices now, and add users later."></span>
+				<br/><br/><span translate="COMMONSUBSCRIPTION_SECONDLINEMESSAGE_SPAN" translate-default="If you would like, we can notify you when the issue has been resolved. Please select one of the options below. They will take you to our Write To Us page where you can fill in any additional information, and submit your request to be notified."></span>
+				<br/><br/>
+				<ul>
+				<li data-ng-click='close();'><a href='/manage/support/email/Subscription/Please%20notify%20me%20when%20I%20can%20complete%20my%20monthly%20subscription'><span translate="COMMONSUBSCRIPTION_FIRSTLINK_SPAN" translate-default="Notify me when monthly subscriptions can be processed."></span></a></li>
+				<li data-ng-click='close();'><a href='/manage/support/email/Subscription/Please notify me when I can complete my annual subscription'><span translate="COMMONSUBSCRIPTION_SECONDLINK_SPAN" translate-default="Notify me when annual subscriptions can be processed."></span></a></li>
+				<li data-ng-click='close();'><a href='/manage/support/email'><span translate="COMMONSUBSCRIPTION_THEARDLINK_SPAN" translate-default="I’d just like to leave a message."></span></a></li>
+				</ul>
+            <span translate="COMMONSUBSCRIPTION_THEARDLINEMESSAGE_SPAN" translate-default="We apologize for the inconvenience and thank you for subscribing to {{appName}}."></span>
+		 </div>		
+	</div>
+	</ng-form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="COMMONSUBSCRIPTION_OK_BUTTON" translate-default="OK"></span></button>		
+</div>
+</div>

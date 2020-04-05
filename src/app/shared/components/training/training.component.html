@@ -1,0 +1,22 @@
+<div *ngIf="trainingDataList && trainingDataList.length > 0">
+  <div class="sidebar-box m-0">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText">
+      <div class="input-group-append" *ngIf="searchText && searchText.length">
+        <span class="input-group-text cursor_pointer" (click)="clearSearch()"> <i class="fa fa-times"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="training-link" *ngFor="let training of trainingDataList | titleFilter : searchText : 'parent'">
+    <a [href]="training.link" target="_blank" class="d-flex align-items-center clearfix border-bottom">
+      <div class="width_full_30 float-left padding_5" *ngIf="training.video || training.image">
+        <img [src]="training.image" *ngIf="training.image" height="65" class="back_video" />
+        <img [src]="training.video" *ngIf="training.video" height="65" class="back_video" />
+      </div>
+      <div class="float-left"
+        [ngClass]="{'width_full_65':training.video||training.image,'width_full':!training.video && !training.image}">
+        <span>{{training.title}}</span>
+      </div>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+﻿
+	<div class="col-24 p-2">
+		<div class="row">
+			<div class="float-left mr-2">
+					<select class="cus-forminput form-control float-left quick_search m-0" data-ng-change="changeValue()"
+					data-ng-model="maskType">
+					<option>SSN</option>
+					<option>EIN</option>
+					<option>Name</option>
+					<option>Phone</option>
+					<option>Email</option>
+				</select>
+			</div>
+			<div class="float-left mr-2">
+				<input type="text" class="cus-forminput quick_search float-left m-0" data-ng-model="ssnorein" tax-mask="{{mask}}"
+					data-ng-blur="getReturnStummary()" tax-mask-use-view-value="true" value="{{ssnorein}}" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="float-left pt-3">
+				<button class="btn btn-outline-primary" translate="QUICKRETURNSUMMARY_OPENRETURN_BTN"
+					translate-default="Open Return" data-ng-show="message == ''" data-ng-click="openReturn()"
+					data-ng-disabled="!userCan('CAN_OPEN_RETURN')"></button>
+				<button class="btn btn-outline-primary" translate="QUICKRETURNSUMMARY_OPENRETURN_BTN"
+					data-ng-show="message != ''" translate-default="Search" data-ng-click="openReturn()"
+					data-ng-disabled="!userCan('CAN_OPEN_RETURN')"></button>
+			</div>
+	
+		</div>
+		<div class="row">
+			<div class="pt-1"  data-ng-show="message !== ''">
+				<span>{{message}}</span>
+			</div>
+		</div>
+		<!-- data-ng-keypress="keyPress($event)"  -->
+	</div>
+	
+
+	<!--tax estimator tab start-->
+
+<div class="row" id="tax_estimator_tab" data-ng-show="message == ''">
+	<div class="col-24 p-0" data-ng-if="maskType == 'SSN' || maskTypeDisplayValue == 'SSN'">
+		<data-ng-include src="'taxAppJs/return/summary/partials/returnWithSSN.html'"></data-ng-include>
+	</div>
+	<div class="col-24 p-0" data-ng-if="maskType == 'EIN' || maskTypeDisplayValue == 'EIN'">
+		<data-ng-include src="'taxAppJs/return/summary/partials/returnWithEIN.html'"></data-ng-include>
+	</div>
+</div>
+
+	<!--tax estimator tab end-->

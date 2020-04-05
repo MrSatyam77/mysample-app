@@ -1,0 +1,9 @@
+﻿.border_class{border:1px solid #dddedf;padding:5px;margin-bottom:10px;margin-right: 15px;cursor:move;width:100%;word-wrap:break-word;}
+.textarea_big{width:100%;border:1px solid #dddedf;min-height:150px;padding:6px 12px; resize: none;}
+.textarea_big:focus,.textarea_big:hover{border-bottom:1px solid #dddedf !important;outline:none;}
+.seprator{  border-right: 1px solid #ccc;float: left;height: 30px;margin: 0 5px 0 0;padding-right: 5px;padding-top: 5px;color:#555;}
+.custom_input.active:after {content: "\2713"; position: absolute !important; left: 1px; top: -16px !important; font-size: 26px;color: #555555;}
+.custom_input.active:hover:after {content: "\2713" !important; position: absolute !important; left: 0px; top: -17px !important; font-size: 26px;color: #555555;}
+.custom_input.active:focus:after {content: "\2713" !important; position: absolute !important; left: 0px; top: -17px !important; font-size: 26px;color: #555555;}
+.drag_wrap {position:relative; padding-left:45px !important;}
+.drag_btn_wrap {position:absolute; left:0px; top:7px; left:6px;}

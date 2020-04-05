@@ -1,0 +1,31 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title" >Upgrade your License</h4>
+    </div>
+    <div class="modal-body clearfix">
+        <form name="nameDialog" role="form">
+            <div class="form-group input-group-lg row_height_30">
+                <div *ngIf="!bankProducts">
+                    <div> <span>The E-File feature is not available with the</span>
+                    <span>{{licenseName}}</span>
+                    <span >license.</span>
+                    </div>
+                    <div> <span >Please upgrade to use the E-File feature.</span></div>
+                </div>
+                <div *ngIf="bankProducts">
+                    <div> <span >The financial product enrollment feature is not available with</span>
+                    <span>{{licenseName}}</span>
+                    <span>license.</span>
+                    </div>
+                    <div> <span >To complete the enrollment process please upgrade your license by clicking on the Upgrade button below.</span></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="close()"><span>Cancel</span></button>
+        <button type="button" class="btn btn-outline-primary" (click)="subscribe()" *ngIf="hasCustomerId && hasFeature"><span>Upgrade</span></button>
+        <button type="button" class="btn btn-outline-primary" (click)="close()" *ngIf="!hasCustomerId"><span >Ok</span></button>
+    </div>
+
+  </div>

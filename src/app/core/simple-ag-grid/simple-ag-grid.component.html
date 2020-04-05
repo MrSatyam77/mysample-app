@@ -1,0 +1,5 @@
+<ag-grid-angular #agGrid style="width: 100%; height: 100%;" id="myGrid" class="ag-theme-balham"
+  [columnDefs]="columnDefination" [defaultColDef]="defaultColDef" [rowSelection]="configuration.selection.mode"
+  [rowData]="result" (gridReady)="onGridReady($event)" [pagination]="true" [suppressContextMenu]="true"
+  (selectionChanged)="onSelectionChanged($event)" (rowClicked)="onRowClicked($event)" (cellFocused)="onCellFocused($event)">
+</ag-grid-angular>

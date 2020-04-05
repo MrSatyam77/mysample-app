@@ -1,0 +1,53 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            State Return
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <ng-form name="autoAddStateReturn" role="form">
+            <div class="input-group-lg row_height_30">
+                <div class="height_20">
+                    <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                        <div class="clearfix">
+                            <!-- 
+                            <div class="float-left">
+                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5" data-ng-class="{'active': autoAddStatePreference == true}" data-ng-model="autoAddStatePreference" data-ng-click="autoAddStatePreference = !autoAddStatePreference"></button>
+                            </div>
+                            <div class="float-left width_full_80" translate="AUTOADDSTATE_DIALOG_MSG_LBL_1" translate-default="Do you want auto add state return based on address filled on Client Information Sheet and state selected on Form W2 line 15?"></div> 
+                            -->
+                            <div class="float-left margin_bottom_5">
+                                <div class="float-left">
+                                    <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active': autoAddStatePreference == 1}" data-ng-model="autoAddStatePreference" data-ng-click="autoAddStatePreference=1"></button>
+                                </div>
+                                <div class="float-left width_full_100" translate="AUTOADDSTATE_DIALOG_MSG_LBL_1" translate-default="Auto-add state return based on the Client Information Sheet"></div> 
+                            </div>
+                            <div class="float-left margin_bottom_5">
+                                <div class="float-left">
+                                    <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active': autoAddStatePreference == 2}" data-ng-model="autoAddStatePreference" data-ng-click="autoAddStatePreference=2"></button>
+                                </div>
+                                <div class="float-left width_full_100" translate="AUTOADDSTATE_DIALOG_MSG_LBL_2" translate-default="Auto-add state return based on the W2"></div> 
+                            </div>
+                            <div class="float-left margin_bottom_5">
+                                <div class="float-left">
+                                    <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active': autoAddStatePreference == 3}" data-ng-model="autoAddStatePreference" data-ng-click="autoAddStatePreference=3"></button>
+                                </div>
+                                <div class="float-left width_full_100" translate="AUTOADDSTATE_DIALOG_MSG_LBL_3" translate-default="Auto-add state return based on the Client Information Sheet and the W2"></div> 
+                            </div>
+                            <div class="float-left margin_bottom_5 width_full">
+                                <div class="float-left">
+                                    <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active': autoAddStatePreference == 4}" data-ng-model="autoAddStatePreference" data-ng-click="autoAddStatePreference=4"></button>
+                                </div>
+                                <div class="float-left width_full_100" translate="AUTOADDSTATE_DIALOG_MSG_LBL_4" translate-default="Do not auto-add state return"></div> 
+                            </div>
+                            <div class="float-left margin_top_10" translate="AUTOADDSTATE_DIALOG_MSG_LBL_5" translate-default="You can also change these settings under Preferences in the Toolbox located in the Menu on the left side of the screen."></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-ng-class="{'no-clicking': autoAddStatePreference==undefined}" class="btn btn-outline-primary" data-ng-click="close()"><span translate="NON_CACHED_STATE_DIALOG_LATER_SPAN" translate-default="Ok"></span></button>
+    </div>
+</div>

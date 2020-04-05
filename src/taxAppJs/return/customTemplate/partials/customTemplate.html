@@ -1,0 +1,125 @@
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <!-- Header -->
+     
+
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <!-- <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="TEMPLATELIST_HEADER" translate-default="Custom Return Template List"></span>
+            <i class="fas fa-redo float-right color_gray font_size_20  margin_top_12 cursor_pointer" data-ng-class="{'rotate':refreshStart}" data-ng-click="manuallyRefresh();refreshStart=true;"></i>
+        </section> -->
+
+        <div class="inner_padding_15 allowScrollSync" ng-style="{height:headerNav.screenHeight-106}"   style="overflow-y:auto;">
+            <div ng-cloak>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4" id="step2">
+                        <!-- This will filter $data in ng-repeat instead of in Grid. -->
+                        <div class="input-group">  
+                        <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value" ng-model="searchField" value="{{searchField}}" />
+                        <div class="input-group-append" data-ng-if="searchField.length">
+                            <span class="input-group-text cursor_pointer" data-ng-click="clearSearch()"> <i
+                                    class="fa fa-times"></i></span>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-sm-20" id="step1">
+                        <!-- <div class="dropdown  col-xs-margin_top_10" dropdown="" is-open="returnTypeToggle.isOpen">
+                            <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="typeFilter" data-toggle="dropdown"
+                                data-ng-init="initFilterConfig()">{{filterDisplay.type}} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter" style="cursor: pointer;">
+                                <li role="presentation" data-ng-repeat="returnType in returnTypes" class="dropdown-item"><a role="menuitem" tabindex="-1"
+                                         ng-click="filterConfig.type=''+returnType.id;filterDisplay.type=''+returnType.title;returnTypeToggle.isOpen=false">{{returnType.title}}</a>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <div class="row">
+                            <div class="dropdown" is-open="returnTypeToggle.isOpen">
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle" id="typeFilter" data-ng-init="initFilterConfig()" data-toggle="dropdown">
+                                    {{filterDisplay.type}}
+                                </button>
+                                <div class="dropdown-menu" style="cursor: pointer;">
+                                  <a class="dropdown-item"  data-ng-repeat="returnType in returnTypes" tabindex="-1" ng-click="filterConfig.type=''+returnType.id;filterDisplay.type=''+returnType.title;returnTypeToggle.isOpen=false">{{returnType.title}}</a>                   
+                                </div>
+                              </div>
+                              <div class="pl-1">
+                                <button class="btn btn-outline-primary" input type="button" data-ng-class="{'no-clicking ':!userCan('CAN_CREATE_TEMPLATE')}" ng-click="newReturnTemplate()">
+                                    <span class="padding_right_3">New</span>
+                                </button>
+                            </div>
+                        </div>
+                       
+                    </div>
+                   
+                </div>
+                <div class="clearfix custom-table margin_top_15">
+                    <table ng-table="customReturnTemplateListGrid" class="table">
+                        <thead>
+                            <tr class="row">
+                                <th class="sortable cursor_pointer col-lg-5 col-md-5 col-sm-5" ng-class="{'sort-asc': customReturnTemplateListGrid.isSortBy('taxPayerName', 'asc'),'sort-desc': customReturnTemplateListGrid.isSortBy('taxPayerName', 'desc')}"
+                                                ng-click="customReturnTemplateListGrid.sorting({'taxPayerName' : customReturnTemplateListGrid.isSortBy('taxPayerName', 'asc') ? 'desc' : 'asc'})">
+                                    <div class="sort-indicator" translate="TEMPLATE_NAME_CAPS_LBL" translate-default="TEMPLATE NAME"></div>
+                                </th>
+                                <th class="sortable cursor_pointer col-lg-4 col-md-4 col-sm-4" ng-class="{'sort-asc': customReturnTemplateListGrid.isSortBy('homeTelephone', 'asc'),'sort-desc': customReturnTemplateListGrid.isSortBy('homeTelephone', 'desc')}"
+                                                ng-click="customReturnTemplateListGrid.sorting({'homeTelephone' : customReturnTemplateListGrid.isSortBy('homeTelephone', 'asc') ? 'desc' : 'asc'})">
+                                    <div class="sort-indicator" translate="PHONE_NUMBER_CAPS_LBL" translate-default="PHONE NUMBER"></div>
+                                </th>
+                                <th class="sortable cursor_pointer  col-md-3 col-sm-3 col-lg-3" ng-class="{'sort-asc': customReturnTemplateListGrid.isSortBy('type', 'asc'),'sort-desc': customReturnTemplateListGrid.isSortBy('type', 'desc')}"
+                                                ng-click="customReturnTemplateListGrid.sorting({'type' : customReturnTemplateListGrid.isSortBy('type', 'asc') ? 'desc' : 'asc'})">
+                                    <div class="sort-indicator" translate="TYPE_CAPS_LBL" translate-default="TYPE"></div>
+                                </th>
+                                <th class="sortable cursor_pointer col-md-3 col-sm-3 col-lg-3" ng-class="{'sort-asc': customReturnTemplateListGrid.isSortBy('year', 'asc'),'sort-desc': customReturnTemplateListGrid.isSortBy('year', 'desc')}"
+                                                ng-click="customReturnTemplateListGrid.sorting({'year' : customReturnTemplateListGrid.isSortBy('year', 'asc') ? 'desc' : 'asc'})">
+                                    <div class="sort-indicator" translate="YEAR_CAPS_LBL" translate-default="YEAR"></div>
+                                </th>
+                                <th class="sortable cursor_pointer col-md-5 col-sm-5 col-lg-5" ng-class="{'sort-asc': customReturnTemplateListGrid.isSortBy('states', 'asc'),'sort-desc': customReturnTemplateListGrid.isSortBy('states', 'desc')}"
+                                                ng-click="customReturnTemplateListGrid.sorting({'states' : customReturnTemplateListGrid.isSortBy('states', 'asc') ? 'desc' : 'asc'})">
+                                    <div class="sort-indicator" translate="STATES_CAPS_LBL" translate-default="STATES"></div>
+                                </th>
+                                <th class="sortable cursor_pointer col-lg-4 col-md-4 col-sm-4" ng-class="{'sort-asc': customReturnTemplateListGrid.isSortBy('action', 'asc'),'sort-desc': customReturnTemplateListGrid.isSortBy('action', 'desc')}"
+                                                ng-click="customReturnTemplateListGrid.sorting({'action' : customReturnTemplateListGrid.isSortBy('action', 'asc') ? 'desc' : 'asc'})">
+                                    <div class="sort-indicator" translate="ACTIONS_CAPS_LBL" translate-default="ACTIONS"></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row" data-ng-repeat="return in $data track by return.id">   
+                                <td data-title="'TEMPLATE NAME'" sortable="'taxPayerName'" class="'custom-header col-lg-5 col-md-5 col-sm-5'">
+                                    <i class="fa margin_right_5 font_size_14" data-ng-class="setReturnClass(return)"></i>
+                                    <a  data-ng-class="{'no-clicking ':!userCan('CAN_OPEN_TEMPLATE')}" data-ng-click="openReturn(return)" style="color:#00628e;">
+                                        {{return.taxPayerName}}
+                                    </a>
+                                </td>
+                                <td data-title="'PHONE NUMBER'" sortable="'homeTelephone'" class="'custom-header col-lg-4 col-md-4 col-sm-4'">{{return.homeTelephone}}</td>
+                                <td data-title="'TYPE'" sortable="'type'" class="'custom-header col-md-3 col-sm-3 col-lg-3'">{{return.type  | uppercase}} </td>
+                                <td data-title="'YEAR'" sortable="'year'" class="'custom-header col-md-3 col-sm-3 col-lg-3'">{{return.year}}</td>
+                                <td data-title="'STATES'" sortable="'states'" class="'custom-header  col-md-5 col-sm-5 col-lg-5'">{{return.states | uppercase}}</td>
+                                <td data-title="'ACTIONS'" sortable="''" class="'custom-header col-lg-4 col-md-4 col-sm-4'">
+                                    <!-- <div class="dropdown" dropdown="" is-open="returnActionToggle.isOpen" data-ng-class="{'no-clicking':!isOnline}">
+                                        <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="typeFilter" data-toggle="dropdown">
+                                        <i class="fas fa-cog padding_right_5"></i> <span class="caret font_size_12"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter">
+                                            <li role="presentation" data-ng-repeat="action in returnActions" ng-class="{'no-clicking disabled':isActionDisabled(action,return)}"
+                                                class="dropdown-item"> <a role="menuitem" tabindex="-1"  ng-click="returnActionToggle.isOpen=false;returnAction(action,return);">{{action}}</a>
+                                            </li>
+                                        </ul>
+                                    </div> -->
+                                    <div class="dropdown" is-open="returnActionToggle.isOpen" data-ng-class="{'no-clicking':!isOnline}">
+                                        <button type="button" class="btn btn-outline-primary dropdown-toggle"  id="typeFilter"  data-toggle="dropdown">
+                                            <i class="fas fa-cog"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                          <a class="dropdown-item"  data-ng-repeat="action in returnActions" tabindex="-1" ng-class="{'no-clicking disabled':isActionDisabled(action,return)}" ng-click="returnActionToggle.isOpen=false;returnAction(action,return);">{{action}}</a>
+                                        </div>
+                                      </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+

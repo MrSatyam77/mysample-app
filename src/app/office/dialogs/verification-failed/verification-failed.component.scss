@@ -1,0 +1,10 @@
+.color_red {color: red}
+.efin_letter {color: #736c6c;text-decoration: underline;cursor: pointer;}
+.modal-md {
+    width: 950px;
+}
+@media(max-width:768px)
+ {
+     .modal-md { width: 90vw; }
+     .verificationqanda-container { min-height:auto; padding:30px 0px; }
+ }

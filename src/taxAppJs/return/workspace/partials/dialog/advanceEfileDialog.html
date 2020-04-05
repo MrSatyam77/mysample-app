@@ -1,0 +1,227 @@
+<style>
+    .accordian_row {
+        border-bottom: 1px solid #dddedf;
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    .modal-lg {
+        width: 70vw;
+        max-width: 100% !important;
+    }
+
+    .custom_accordian_popup .panel-group {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .custom_accordian_popup .panel-body {
+        padding: 0 !important;
+    }
+
+    .e_file_popup .custom_accordian_popup .panel-group {
+        max-height: 100% !important;
+    }
+
+    .e_file_popup .custom_accordian_popup .panel.panel-default .panel-collapse.in {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    /* .collapse.show{
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+    
+    .custom_input_dark.active:after {
+        content: "\2713";
+        position: absolute;
+        left: 1px;
+        top: -7px !important;
+        font-size: 26px;
+        color: #555555;
+    } */
+
+    @media (max-width: 1200px) {
+        .e_file_popup .custom_accordian_popup .panel-group {
+            max-height: 600px !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            width: 700px;
+            margin: 30px auto;
+        }
+    }
+
+    .modal-lg {
+        width: 65vw;
+        height: 500px;
+    }
+
+    .custom-efile-tab {
+        border: 1px solid #dee2e6;
+        background-color: #ffff;
+    }
+
+    .custom-line-tab li.active {
+        background-color: #e9f4f9;
+    }
+
+    .custom-line-tab li.active a {
+        font-weight: 600;
+        color: #005074;
+    }
+
+    .custom-line-tab li {
+        position: relative;
+        z-index: 1;
+        float: left;
+        margin: 0;
+        text-align: center;
+        min-width: 10%;
+        transition: all 0.3s ease-in-out;
+        border-right: 1px solid #dee2e6 !important;
+    }
+
+    .custom-line-tab li a {
+        padding: 1rem !important;
+        color: inherit;
+        position: relative;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-bottom: -2px;
+        color: #005074;
+        font-weight: 600;
+    }
+</style>
+<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title" translate="SELECTEFILEFORTRANSMISSIONDIALOG_HEADER" translate-default="Create E-File For Transmission"></h4>
+</div>
+<div class="modal-body clearfix e_file_popup">
+    <div style="border: 1px solid #dddedf;padding: 5px; float: left; width: 100%;">
+        <ng-form name="nameDialog" role="form">
+            <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+                <div class="row">
+                    <label class="col-lg-6 col-sm-6 font_bold col-md-6 col-xs-6">Federal/States</label>
+                    <label class="col-lg-10 col-sm-10 font_bold col-md-10 col-xs-10">Return Type</label>
+                    <label class="col-lg-7 col-sm-6 font_bold col-md-6 col-xs-6">E-File Status</label>
+                    <label class="col-lg-1 col-sm-2 font_bold col-md-2 col-xs-2"></label>
+                </div>
+            </div>
+            <div class="margin_top_10 custom_accordian_popup col-lg-24 col-sm-24 col-md-24 col-xs-24" style="padding: 0;">
+                <!-- <accordion close-others="true">
+                    <accordion-group ng-repeat="state in states" is-open="state.isOpen">
+                        <accordion-heading>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ng-click="$event.stopPropagation();">
+                                    <button type="button" class="custom_input_dark custom_checkbox_new float-left margin_right_5 margin_top_5" data-ng-model="state.isSelected"
+                                        data-ng-class="{'active':state.isSelected==true,'no-clicking disabled':state.isDisabled}"
+                                        data-ng-click="state.isSelected =! state.isSelected;selectBank(state);selectState(state);"></button>
+                                    <span class="margin_left_5 " style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">{{state.name| uppercase}} </span>
+
+                                </div>
+                                <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 " ng-click="$event.stopPropagation();">
+                                    <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">{{state.ReturnTypeCode}}&nbsp;[{{state.ReturnTypeDisplayText}}]</span>
+                                </div>
+                                <div class="col-lg-7 col-sm-6 col-md-6 col-xs-6" ng-click="$event.stopPropagation();">
+                                    <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">{{ state.status}}</span>
+                                </div>
+                                <div class="col-lg-1 col-sm-2 col-md-2 col-xs-2">
+                                    <i class="fa fa-plus margin_top_8 color_gray float-right" aria-hidden="true" ng-class="{'fa fa-minus': state.isOpen, 'fa fa-plus': !state.isOpen}"></i>
+                                </div>
+                            </div>
+                        </accordion-heading>
+                        <div class="clearfix allowScrollSync">
+                            <div class="row">
+                                <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 accordian_row" ng-repeat="displayName in state.activeForms">
+                                    <div class="float-left">
+                                        <label class="padding_top_5">{{displayName}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                </accordion>    -->
+
+                <div id="advanceEfileDialogId" class="my-accordion">
+                    <div class="card" ng-repeat="state in states track by $index">
+                        <div class="card-header" data-ng-click="setOpenedAcordion($index)">
+                            <a class="collapsed card-link" data-toggle="collapse" data-target="#advanceEfileDialog{{$index}}">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                                        <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-model="state.isSelected" data-ng-class="{'active':state.isSelected==true,'no-clicking disabled':state.isDisabled}"
+                                            data-ng-click="$event.stopPropagation();state.isSelected = !state.isSelected;selectBank(state);selectState(state);"></button>
+                                        <span>{{state.name| uppercase}}
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+                                        <span>{{state.ReturnTypeCode}}&nbsp;[{{state.ReturnTypeDisplayText}}]</span>
+                                    </div>
+                                    <div class="col-lg-7 col-sm-6 col-md-6 col-xs-6">
+                                        <span>{{ state.status}}</span>
+                                    </div>
+                                    <div>
+                                        <span aria-hidden="true" ng-if="openedAccordion !== $index" class="accordion-right-icon-wrap accordion-close"></span>
+                                        <span aria-hidden="true" ng-if="openedAccordion === $index" class="accordion-right-icon-wrap accordion-open"></span>
+                                        <!-- <span aria-hidden="true" ng-class="{'accordion-right-icon-wrap accordion-close': openedAccordion !== state.State, 'accordion-right-icon-wrap accordion-open': openedAccordion === state.State}"></span> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="advanceEfileDialog{{$index}}" ng-class="{'collapse show': openedAccordion === $index, 'collapse': openedAccordion !== $index}"
+                            data-parent="#advanceEfileDialogId">
+                            <div class="card-body p-2" data-ng-if="betaOnly() === true">
+                                <div class="clearfix allowScrollSync">
+                                    <tabset justified="true" class="custom-line-tab custom-efile-tab" style="border-bottom:0;">
+                                        <tab heading="Forms" active="true">
+                                            <div class="col-24 p-2 border-bottom" ng-repeat="displayName in state.activeForms">
+                                                <label class="m-0">{{displayName}}</label>
+                                            </div>
+                                        </tab>
+                                        <tab heading="K1's" active="false" data-ng-if="state.listOfActiveK1s && state.listOfActiveK1s.length > 0">
+                                            <div class="col-24 p-2 border-bottom" ng-repeat="k1 in state.listOfActiveK1s">
+                                                <label class="m-0">{{k1.displayName}}</label>
+                                            </div>
+                                        </tab>
+                                        <tab heading="PDF Attachments" active="false" data-ng-if="state.attachmentList && state.attachmentList.length>0">
+                                            <div class="col-24" ng-repeat="attachment in state.attachmentList">
+                                                <div class="border-bottom py-2"><label class="m-0 font-weight-bold">{{attachment.displayName}}</label></div>
+                                                <div class="col-24 p-2 pl-2 border-bottom" ng-repeat="document in attachment.filteredFormDocList">{{document.fileName}}</div>
+                                            </div>
+                                        </tab>
+                                    </tabset>
+                                </div>
+                            </div>
+                            <div class="card-body" data-ng-if="betaOnly() === false">
+                                <div class="clearfix allowScrollSync">
+                                    <div class="row">
+                                        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 accordian_row" ng-repeat="displayName in state.activeForms">
+                                            <div class="float-left">
+                                                <label class="padding_top_5">{{displayName}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </ng-form>
+
+
+        </div>
+    </div>
+    <div class="modal-footer pr-0">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="send()">
+            <span translate="SELECTEFILEFORTRANSMISSIONDIALOG_SEND_BUTTON" translate-default="Send"></span>
+        </button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()">
+            <span translate="SELECTEFILEFORTRANSMISSIONDIALOG_CANCEL_BUTTON" translate-default="Cancel"></span>
+        </button>
+
+    </div>

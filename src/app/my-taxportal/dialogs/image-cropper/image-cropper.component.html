@@ -1,0 +1,22 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        Crop Image
+      </h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+    <div class="modal-body profile-pic-body">
+      <image-cropper [imageChangedEvent]="data.file" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" format="png"
+        (imageCropped)="imageCropped($event)" [imageQuality]="50"></image-cropper>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="cropImage()">
+        Crop Logo
+      </button>
+      <button type="button" class="btn btn-outline-primary" (click)="cancel()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link rel="icon" type="images/png" href="images/favicon_icon_mtpo.png?v=2" />
+	<title>MyTAXPrepOffice – Tax Software for your Tax Office</title>
+
+<!-- css for loading splash screen. Need to be load quick and first that's why written here -->
+<style type="text/css">
+/* .loading_mytextprep_text span{} */
+.splash {
+    display: none;
+}
+
+[ng-cloak].splash {
+    display: block !important;
+}
+
+/*To show loading bar on other pages*/
+.loadingStart{
+	display: block !important;
+}
+
+/*To hide loading bar on other pages*/
+.loadingStop{
+	display: none;
+	overflow: true;
+}
+
+.splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    filter: alpha(opacity = 60);
+    opacity: 1;
+    background: #005074;
+}
+
+.splash h2 {
+    text-align: center;
+    font-size: 4em;
+    color: white;
+}
+
+#squaresWaveG {
+    position: relative;
+    width: 240px;
+    height: 29px;
+    margin: 0 auto;
+    top: 50%;
+    z-index: 9999;
+}
+
+.squaresWaveG {
+    position: absolute;
+    top: 0;
+            /*background-color: #116F8C;*/
+    width: 29px;
+    height: 29px;
+     -webkit-animation-play-state: play;
+      animation-play-state: play;
+     -moz-animation-play-state: play;
+    -moz-animation-name: bounce_squaresWaveG;
+    -moz-animation-duration: 2.8s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: linear;
+    -webkit-animation-name: bounce_squaresWaveG;
+    -webkit-animation-duration: 2.8s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: linear;
+    -ms-animation-name: bounce_squaresWaveG;
+    -ms-animation-duration: 2.8s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-direction: linear;
+    -o-animation-name: bounce_squaresWaveG;
+    -o-animation-duration: 2.8s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-direction: linear;
+    animation-name: bounce_squaresWaveG;
+    animation-duration: 2.8s;
+    animation-iteration-count: infinite;
+    animation-direction: linear;
+}
+
+#squaresWaveG_1 {
+    left: 0;
+    -moz-animation-delay: 0s;
+    -webkit-animation-delay: 0s;
+    -ms-animation-delay: 0s;
+    -o-animation-delay: 0s;
+    animation-delay: 0s;
+    background: #f0514a;
+}
+
+#squaresWaveG_2 {
+    left: 30px;
+    -moz-animation-delay: 0.4s;
+    -webkit-animation-delay: 0.4s;
+    -ms-animation-delay: 0.4s;
+    -o-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+    background: #0fa593;
+}
+
+#squaresWaveG_3 {
+    left: 60px;
+    -moz-animation-delay: 0.68s;
+    -webkit-animation-delay: 0.68s;
+    -ms-animation-delay: 0.68s;
+    -o-animation-delay: 0.68s;
+    animation-delay: 0.68s;
+    background: #fcc120;
+}
+
+#squaresWaveG_4 {
+    left: 90px;
+    -moz-animation-delay: 0.96s;
+    -webkit-animation-delay: 0.96s;
+    -ms-animation-delay: 0.96s;
+    -o-animation-delay: 0.96s;
+    animation-delay: 0.96s;
+    background: #3ec7f3;
+}
+
+#squaresWaveG_5 {
+    left: 120px;
+    -moz-animation-delay: 1.24s;
+    -webkit-animation-delay: 1.24s;
+    -ms-animation-delay: 1.24s;
+    -o-animation-delay: 1.24s;
+    animation-delay: 1.24s;
+    background: #0fa593;
+}
+
+#squaresWaveG_6 {
+    left: 150px;
+    -moz-animation-delay: 1.52s;
+    -webkit-animation-delay: 1.52s;
+    -ms-animation-delay: 1.52s;
+    -o-animation-delay: 1.52s;
+    animation-delay: 1.52s;
+    background: #f0514a;
+}
+
+#squaresWaveG_7 {
+    left: 180px;
+    -moz-animation-delay: 1.8s;
+    -webkit-animation-delay: 1.8s;
+    -ms-animation-delay: 1.8s;
+    -o-animation-delay: 1.8s;
+    animation-delay: 1.8s;
+    background: #0fa593;
+}
+
+#squaresWaveG_8 {
+    left: 210px;
+    -moz-animation-delay: 2.08s;
+    -webkit-animation-delay: 2.08s;
+    -ms-animation-delay: 2.08s;
+    -o-animation-delay: 2.08s;
+    animation-delay: 2.08s;
+    background: #fcc120;
+}
+
+@-moz-keyframes bounce_squaresWaveG {
+    0% {
+                /*background-color: #f0514a;*/;
+    }
+
+    100% {
+        background-color: #FFFFFF;
+    }
+}
+
+@-webkit-keyframes bounce_squaresWaveG {
+    0% {
+                /*background-color: #0fa593;*/;
+    }
+
+    100% {
+        background-color: #FFFFFF;
+    }
+}
+
+@-ms-keyframes bounce_squaresWaveG {
+    0% {
+                /*background-color: #fcc120;*/;
+    }
+
+    100% {
+        background-color: #FFFFFF;
+    }
+}
+
+@-o-keyframes bounce_squaresWaveG {
+    0% {
+                /*background-color: #3ec7f3;*/;
+    }
+
+    100% {
+        background-color: #FFFFFF;
+    }
+}
+
+@keyframes bounce_squaresWaveG {
+    0% {
+                /*background-color: #0fa593;*/;
+    }
+
+    100% {
+        background-color: #FFFFFF;
+    }
+}
+
+
+</style>
+	<!-- css for loading splash screen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0" />
+    <!-- <script src="http://localhost:3000/offline/lib/pouchDB/pouchdb.min.js"></script> -->    
+</head>
+<body>
+<div class="full">
+	<!-- This div is used as splash screen -->
+	<div class="splash" ng-cloak="" ng-class="{'loadingStart': appLoadingBar}">
+		<span class="clearfix">
+			<span style="color: white; position: absolute; font-size: 18px; text-align: left; font-weight:bolder; top:0; bottom:0; left:0; right:0; height:70px; width:240px; margin:auto; font-family:Helvetica,Arial,sans-serif;">Loading MyTAXPrepOffice</span>
+		</span>
+		<div id="squaresWaveG">
+			<div id="squaresWaveG_1" class="squaresWaveG"></div>
+			<div id="squaresWaveG_2" class="squaresWaveG"></div>
+			<div id="squaresWaveG_3" class="squaresWaveG"></div>
+			<div id="squaresWaveG_4" class="squaresWaveG"></div>
+			<div id="squaresWaveG_5" class="squaresWaveG"></div>
+			<div id="squaresWaveG_6" class="squaresWaveG"></div>
+			<div id="squaresWaveG_7" class="squaresWaveG"></div>
+			<div id="squaresWaveG_8" class="squaresWaveG"></div>
+		</div>
+	</div>
+
+	<!-- All Content or loading of file should be in this div. To show splash screen while this div getting ready -->		
+	<div ng-cloak><!-- class - full , This will enable full width for ng-view (For example - To get full background in login page) -->
+		<toaster-container toaster-options="{'time-out': 3000,'close-button':true}"></toaster-container>		
+		<div ng-view class="full view-frame" ng-class="{'loadingStop':appLoadingBar}"></div><!-- class - full , This will enable full width for ng-view (For example - To get full background in login page) -->
+        
+        <!-- Styles.css and all other third party css (merged) -->
+		<link rel="stylesheet" href="common/css/all.css"/>
+		
+		<!-- Login/Registration and Theme CSS -->		
+		<link href="/auth/login/css/login.css" rel="stylesheet" />
+        <link href="/auth/registration/css/registration.css" rel="stylesheet" />
+        <link ng-href="common/css/themes/{{selectedTheme}}.css" rel="stylesheet" />
+        <link ng-href="common/css/img-crop.css" rel="stylesheet" />
+                
+		
+        <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+		<!-- lib and framework JS -->	
+        <script src="lib/jquery-2.1.1.min.js"></script>
+        <script src="lib/lodash.js"></script>
+        <script src="lib/angular/angular.min.js"></script>
+        <script src="lib/angular/angular-route.min.js"></script>
+        <script src="lib/angular/angular-animate.min.js"></script>
+        <script src="lib/angular/angular-sanitize.min.js"></script>
+        <script src="lib/angular/angular-touch.min.js"></script>
+        <script src="lib/angular/angular-cookies.min.js"></script>
+        <script src="lib/angular-lodash.js"></script>
+        <script src="lib/angular-translate/angular-translate.min.js"></script>
+        <script src="lib/ui-bootstrap-tpls.js"></script>
+        <script src="lib/ui-bootstrap-custom-tpls-0.13.4.js"></script>
+        <script src="lib/ng-table.min.js"></script>
+        <script src="lib/toaster.js"></script>
+        <script src="lib/ui-layout.js"></script>
+        <script src="lib/loading-bar.js"></script>
+        <script src="lib/select.min.js"></script>
+        <script src="lib/dialogs.min.js"></script>
+        <script src="lib/dialogs-default-translations.min.js"></script>
+        <script src="lib/text-angular/rangy-core.js"></script>
+        <script src="lib/text-angular/rangy-selectionsaverestore.js"></script>
+        <script src="lib/text-angular/textAngularSetup.js"></script>
+        <script src="lib/text-angular/textAngular.js"></script>
+        <script src="lib/text-angular/textAngular-sanitize.js"></script>
+        <script src="lib/moment/moment.js"></script>
+        <script src="lib/moment/moment-timezone.js"></script>
+        <script src="lib/moment/moment-timezone-with-data-2010-2020.js"></script>
+        <script src="lib/ui-calendar/fullcalendar.js"></script>
+        <script src="lib/ui-calendar/calendar.js"></script>
+        <script src="lib/angular-multi-select.js"></script>
+        <script src="lib/file-upload/ng-file-upload-shim.min.js"></script>
+        <script src="lib/file-upload/ng-file-upload.min.js"></script>
+        <script src="lib/file-upload/ng-img-crop.js"></script>
+        <script src="lib/angular-sortable-view.js"></script>
+        <script src="lib/export/ng-csv.min.js"></script>
+        <script src="lib/pdfMaker/pdfmake.min.js"></script>
+        <script src="lib/pdfMaker/vfs_fonts.js"></script>
+        <script src="lib/kendo-ui/kendo.custom.min.js"></script>
+        <script src="lib/kendo-ui/jszip.min.js"></script>
+        <script src="lib/kendo-ui/pako_deflate.min.js"></script>
+        <script src="lib/intro.min.js"></script>
+        <script src="lib/angular-intro.min.js"></script>
+        <script src="lib/irs/fingerprint.js"></script>
+        <script src="lib/irs/sha1.js"></script>
+        <script src="lib/postal.min.js"></script>
+        <script src="lib/bootstrap-colorpicker-module.js"></script>
+        <script src="lib/hotkeys.js"></script>  
+        <script src="lib/cropper/cropper.js"></script>              
+       <script type="text/javascript" src="lib/angular-recaptcha.js"></script>
+       <script type="text/javascript" src="lib/angular-qrcode.js"></script>
+       <script type="text/javascript" src="lib/qrcode.js"></script>
+      <script type="text/javascript" src="lib/socket.io.js"></script>
+      <script type="text/javascript" src="lib/angular-pretty-xml"></script>
+      <script type="text/javascript" src="lib/ng-clipboard.min.js"></script>
+      <script type="text/javascript" src="lib/ua-parser.min.js"></script>
+      <script type="text/javascript" src="lib/ngclipboard.min.js"></script>
+
+		<!--Main Application-->
+		<!-- inject:js -->
+		<script src="common/widgets/lineHelp/lineHelp-app.js"></script>
+        <script src="common/widgets/calculator/calculator-app.js"></script>
+        <script src="common/widgets/printPacketsConfiguration/printPacketsConfiguration-app.js"></script>
+        <script src="common/widgets/training/training-app.js"></script>
+		<script src="common/widgets/toolBox/toolBox-app.js"></script>
+		<script src="common/widgets/toDosInfo/toDosInfo-app.js"></script>
+		<script src="common/widgets/rejectedReturns/rejectedReturns-app.js"></script>
+		<script src="common/widgets/recentReturns/recentReturns-app.js"></script>
+		<script src="common/widgets/quickReturnSummary/quickReturnSummary-app.js"></script>
+		<script src="common/widgets/news/news-app.js"></script>
+		<script src="common/widgets/notes/notes-app.js"></script>
+		<script src="common/widgets/firmInformation/firmInformation-app.js"></script>
+		<script src="common/widgets/bankProducts/bankProducts-app.js"></script>
+		<script src="common/widgets/documents/documents-app.js"></script>
+		<script src="common/widgets/eFileSummary/eFileSummary-app.js"></script>
+		<script src="common/widgets/bankSummary/bankSummary-app.js"></script>
+		<script src="common/widgets/appointmentList/appointmentList-app.js"></script>
+		<script src="return/workspace/return-app.js"></script>
+		<script src="return/workspace/taxline-directives.js"></script>
+		<script src="tax-app.js"></script>
+		<script src="return/workspace/tax-filters.js"></script>
+		<script src="return/workspace/tax-directives.js"></script>
+		<script src="return/workspace/return-service.js"></script>
+		<script src="return/workspace/return-dialogController.js"></script>
+		<script src="return/workspace/return-controller.js"></script>
+		<script src="return/workspace/content-service.js"></script>
+		<script src="return/summary/summary-directive.js"></script>
+		<script src="return/summary/summary-app.js"></script>
+		<script src="return/restore/restore-app.js"></script>
+		<script src="return/new/newReturn-app.js"></script>
+		<script src="return/list/returnList-app.js"></script>
+		<script src="return/backup/backup-app.js"></script>
+		<script src="return/interview/interview-app.js"></script>
+        <script src="return/customTemplate/customTemplate-app.js"></script>
+		<script src="manage/user/manageUser-app.js"></script>
+		<script src="manage/role/role-app.js"></script>
+		<script src="manage/setup/setup-app.js"></script>
+		<script src="manage/setup/preferences-app.js"></script>
+        <script src="manage/priceList/priceList-app.js"></script>
+        <script src="manage/templates/templates-app.js"></script>
+		<script src="manage/preparer/preparer-app.js"></script>
+		<script src="manage/location/location-app.js"></script>
+		<script src="manage/EIN/EIN-app.js"></script>
+		<script src="manage/clientOrganizer/clientOrganizer-app.js"></script>
+		<script src="manage/clientLetter/clientLetter-app.js"></script>
+        <script src="manage/printPacketsConfiguration/printPacketsConfiguration-app.js"></script>
+        <script src="manage/signature/devices-app.js"></script>
+		<script src="common/redirect/redirect-app.js"></script>
+		<script src="common/headerNav/headerNav-app.js"></script>
+		<script src="bank/tpg/tpg-app.js"></script>
+		<script src="bank/refundAdvantage/refundAdvantage-app.js"></script>
+		<script src="bank/redBird/redBird-app.js"></script>
+		<script src="bank/auditAllies/auditAllies-app.js"></script>
+        <script src="bank/eps/eps-app.js"></script>
+        <script src="bank/epsepay/epsepay-app.js"></script>
+		<script src="bank/atlas/atlas-app.js"></script>
+		<script src="bank/protectionPlus/protectionPlus-app.js"></script>
+		<script src="auth/tryItNow/tryItNow-app.js"></script>
+		<script src="auth/registration/registration-app.js"></script>
+		<script src="auth/logout/logout-app.js"></script>
+        <script src="auth/login/login-app.js"></script>
+		<script src="report/report-app.js"></script>
+		<script src="proforma/proforma-app.js"></script>
+		<script src="preloadCheck/preloadCheck-app.js"></script>
+		<script src="estimator/estimator-app.js"></script>
+		<script src="home/home-app.js"></script>
+		<script src="conversion/conversion-app.js"></script>
+		<script src="common/media-service.js"></script>
+		<script src="common/common-services.js"></script>
+		<script src="common/common-directive.js"></script>
+		<script src="common/common-controller.js"></script>
+        <script src="common/common-filters.js"></script>
+		<script src="common/authentication-service.js"></script>
+		<script src="calendar/calendar-app.js"></script>
+		<script src="tax-routes.js"></script>
+		<!-- endinject -->
+        <script type="text/javascript">
+	        //Variables for chat & tracking configuration
+			//Note: These are global JS variables not angular and these are required to be global other wise configuration will not work
+			var LHCChatOptions = {};
+			var dynamic_tm_data = {};
+			var reseller_config_global = {appId:'RE-4dc601df-dc0e-4a7a-857d-9493ba33a223',shortCode:'mtpo'};			
+        </script>
+	</div>
+	</div>
+</body>
+</html>

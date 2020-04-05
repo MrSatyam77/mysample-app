@@ -1,0 +1,161 @@
+.textarea_chat {
+  border-radius: 3px;
+  border: 1px solid #000;
+  padding: 5px;
+  font-weight: normal;
+  resize: none;
+}
+
+.action_icons a i {
+  cursor: pointer;
+  color: #000;
+  font-size: 20px;
+}
+
+.file_uploaded_box {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin-right: 5px;
+  display: inline-block;
+  color: #005074;
+  font-size: 13px;
+  float: left;
+  border-radius: 18px;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.file_uploaded_box i {
+  color: #005074;
+  margin-right: 5px;
+}
+
+.modal-lg {
+  width: 85vw;
+  max-width: 100% !important;
+}
+
+.modal.fade .modal-dialog {
+  -webkit-transform: none !important;
+  transform: none !important;
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+
+.static_form_wrap .modal-body .que_main_repeat:last-child .devider_bar_line {
+  display: none;
+}
+
+.devider_bar_line .dark_line {
+  margin-top: 10px;
+}
+
+.que_ans_main_wrapper {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.que_line_bar {
+  padding-bottom: 5px;
+  padding-left: 20px !important;
+  padding-right: 28px !important;
+}
+
+.que_line_bar:before {
+  content: "Q :";
+  position: absolute;
+  margin-left: -20px;
+  font-weight: bold;
+  color: #000;
+}
+
+/* @media (min-width: 768px) {
+    .modal-lg {
+        width: 90%;
+        max-width: 1200px;
+    }
+} */
+
+.file_uploaded_box {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin-right: 5px;
+  display: inline-block;
+  color: #005074;
+  font-size: 13px;
+  float: left;
+  border-radius: 18px;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.file_uploaded_box i {
+  color: #005074;
+  margin-right: 5px;
+}
+
+.answer_line_bar {
+  min-height: 20px !important;
+}
+
+.answer_line_bar b {
+  margin-bottom: 10px;
+  padding-left: 20px !important;
+}
+
+.answer_line_bar:before {
+  content: "A :";
+  margin-left: 0px;
+  color: #000;
+  font-weight: bold;
+  position: absolute;
+}
+
+.signature_box {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin-right: 5px;
+  display: inline-block;
+  color: #005074;
+  font-size: 13px;
+  float: left;
+  border-radius: 18px;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.signature_box i {
+  color: #005074;
+  margin-right: 5px;
+}
+
+.validation-container.orange-tooltip > .tooltip .tooltip-arrow {
+  border-right-color: #ff9600 !important;
+}
+
+.validation-container.orange-tooltip > .tooltip .tooltip-inner {
+  background-color: #ff9600 !important;
+  padding: 2px 12px;
+}
+
+.validation-container.orange-tooltip > .tooltip {
+  min-width: 160px;
+}
+
+.validation-container.orange-tooltip button.btn-outline-primary {
+  border-color: #ff9600 !important;
+}
+
+.signature-image {
+  width: 150px;
+  height: auto;
+  /* border: 1px solid #ececec; */
+}
+
+.question-wrap{
+  &:last-child{
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+}

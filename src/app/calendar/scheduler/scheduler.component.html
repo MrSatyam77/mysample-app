@@ -1,0 +1,33 @@
+<div class="inner_col_second clearfix">
+  <div class="bg-white clearfix">
+    <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+      <section class="page_title_wrap title_height_40 clearfix">
+        <span class="page_title_lg ng-binding title_height_40">
+          <span class="page_title_lg ng-binding ng-scope">Appointment Scheduler</span>
+          <!-- <div class="row float-right d-none d-md-block">
+            <button class="btn btn-outline-primary pl-2" (click)="backToHomeScreen()">Back
+              To Dashboard</button>
+            <i class="m-2 refresh-loader fas fa-redo float-right color_gray font_size_14 cursor_pointer"
+              [ngClass]="{'rotate':firstRefreshStart}" (click)="manuallyRefreshTraining();"></i>
+          </div> -->
+        </span>
+      </section>
+    </div>
+    <div class="clearfix pl-3 pr-3">
+      <div class="col-lg-24 mt-4">
+        <button class="btn btn-outline-primary" (click)="newAppointment()" [disabled]="!privileges.CAN_CREATE_CALENDAR">
+          New Appointment
+        </button>
+      </div>
+      <div class="col-md-24 mt-3 mb-2">
+        <full-calendar [themeSystem]="'bootstrap'" [plugins]="calendarPlugins" [editable]="true" [events]="events"
+          [eventLimit]="true" [schedulerLicenseKey]="'GPL-My-Project-Is-Open-Source'" [header]="CalenderHeader"
+          [buttonText]="CalenderHeaderButtonText" (eventClick)="handelEventClick($event)"
+          (dateClick)="handelDateClick($event)" (eventDrop)="handelDropEvent($event)"
+          (eventResize)="handelResizeEvent($event)" [height]="600" [defaultDate]="defaultDate"
+          [defaultView]="defaultView">
+        </full-calendar>
+      </div>
+    </div>
+  </div>
+</div>

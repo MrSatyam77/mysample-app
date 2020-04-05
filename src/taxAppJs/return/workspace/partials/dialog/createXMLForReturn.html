@@ -1,0 +1,157 @@
+<style>
+    .accordian_row {
+        border-bottom: 1px solid #dddedf;
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+    .modal-lg {
+        width: 70vw;
+        max-width: 100% !important;
+    }    
+
+    .custom_accordian_popup .panel-group {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .custom_accordian_popup .panel-body {
+        padding: 0 !important;
+    }
+
+    .e_file_popup .custom_accordian_popup .panel-group {
+        max-height: 100% !important;
+    }
+
+    .e_file_popup .custom_accordian_popup .panel.panel-default .panel-collapse.in {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+
+    @media (max-width: 1200px) {
+        .e_file_popup .custom_accordian_popup .panel-group {
+            max-height: 600px !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            width: 700px;
+            margin: 30px auto;
+        }
+    }
+
+    .modal-lg {
+        width: 65vw;
+    }
+</style>
+<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title" translate="GENERATEXMLDIALOG_HEADER" translate-default="Generate XML"></h4>
+</div>
+<div class="modal-body clearfix e_file_popup">
+    <div style="border: 1px solid #dddedf;padding: 5px; float: left; width: 100%;">
+        <ng-form name="nameDialog" role="form">
+            <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+                <div class="row">
+                    <label class="col-lg-6 col-sm-6 font_bold col-md-6 col-xs-6 pl-1">Federal/States</label>
+                    <label class="col-lg-10 col-sm-10 font_bold col-md-10 col-xs-10">Return Type</label>
+                    <label class="col-lg-7 col-sm-6 font_bold col-md-6 col-xs-6">E-File Status</label>
+                    <label class="col-lg-1 col-sm-2 font_bold col-md-2 col-xs-2"></label>
+                </div>
+            </div>
+            <div class="margin_top_10 custom_accordian_popup col-lg-24 col-sm-24 col-md-24 col-xs-24"
+                style="padding: 0;">
+                <!-- <accordion close-others="true">
+                    <accordion-group ng-repeat="state in states" is-open="state.isOpen">
+                        <accordion-heading>
+                            <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ng-click="$event.stopPropagation();">
+                                <button type="button" class="custom_input_dark custom_checkbox_new float-left margin_right_5 margin_top_5" data-ng-model="state.isSelected" data-ng-class="{'active':state.isSelected==true}"
+                                    data-ng-click="state.isSelected =! state.isSelected;deSelectAll(state.ReturnTypeCode)"></button>
+                                <span class="margin_left_5 " style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">{{state.name| uppercase}} </span>
+
+                            </div>
+                            <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 " ng-click="$event.stopPropagation();">
+                                <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">{{state.ReturnTypeCode}}&nbsp;[{{state.ReturnTypeDisplayText}}]</span>
+                            </div>
+                            <div class="col-lg-7 col-sm-6 col-md-6 col-xs-6" ng-click="$event.stopPropagation();">
+                                <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">{{ state.status}}</span>
+                            </div>
+                            <div class="col-lg-1 col-sm-2 col-md-2 col-xs-2">
+                                <i class="fa fa-plus margin_top_8 color_gray float-right" aria-hidden="true" ng-class="{'fa fa-minus': state.isOpen, 'fa fa-plus': !state.isOpen}"></i>
+                            </div>
+                        </div>
+                        </accordion-heading>
+                        <div class="clearfix allowScrollSync">
+                            <div class="row">
+                            <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 accordian_row" ng-repeat="displayName in state.activeForms">
+                                <div class="float-left">
+                                    <label class="padding_top_5">{{displayName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </accordion-group>
+                </accordion> -->
+
+                 <div id="createXMLForReturnId" class="my-accordion">
+                    <div class="card" ng-repeat="state in states track by $index">
+                        <div class="card-header" data-ng-click="setOpenedAcordion($index)" data-toggle="collapse" data-target="#createXMLForReturn{{$index}}">
+                            <a class="collapsed card-link">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                                        <button type="button"
+                                            class="custom_input_dark float-left margin_right_5"
+                                            data-ng-model="state.isSelected"
+                                            data-ng-class="{'active':state.isSelected==true}"   
+                                            data-ng-click="$event.stopPropagation();state.isSelected =! state.isSelected;deSelectAll(state.ReturnTypeCode)"></button>
+                                        <span >{{state.name| uppercase}}
+                                        </span>
+
+                                    </div>
+                                    <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+                                        <span>{{state.ReturnTypeCode}}&nbsp;[{{state.ReturnTypeDisplayText}}]</span>
+                                    </div>
+                                    <div class="col-lg-7 col-sm-6 col-md-6 col-xs-6">
+                                        <span>{{ state.status}}</span>
+                                    </div>
+                                    <div>
+                                        <span aria-hidden="true" ng-if="openedAccordion !== $index" class="accordion-right-icon-wrap accordion-close"></span>
+                                        <span aria-hidden="true" ng-if="openedAccordion === $index" class="accordion-right-icon-wrap accordion-open"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="createXMLForReturn{{$index}}" ng-class="{'collapse show': openedAccordion === $index, 'collapse': openedAccordion !== $index}"
+                            data-parent="#createXMLForReturnId">
+                            <div class="card-body p-3">
+                                <div class="clearfix allowScrollSync">
+                                    <div class="row">
+                                        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 accordian_row"
+                                            ng-repeat="displayName in state.activeForms">
+                                            <div class="float-left">
+                                                <label class="padding_top_5">{{displayName}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </ng-form>
+
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" data-ng-click="createXML();">
+        <span translate="GENERATEXMLDIALOG_GENERATEXML_BUTTON" translate-default="Generate XML"></span>
+    </button>
+    <button type="button" class="btn btn-outline-primary" data-ng-click="close()">
+        <span translate="GENERATEXMLDIALOG_CANCEL_BUTTON" translate-default="Cancel"></span>
+    </button>
+
+</div>

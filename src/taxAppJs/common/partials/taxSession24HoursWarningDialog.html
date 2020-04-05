@@ -1,0 +1,30 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span translate="WARNING_TITAL" translate-default="Warning"></span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+             <div class="row font_size_24 font_bold color_gray margin_bottom_15">
+                <span translate="AUTOLOGOUT_WARNING_MSG1" translate-default="Auto Logout in "></span>
+                <span>{{remainingTime}}</span>
+                <span translate="AUTOLOGOUT_WARNING_MSG2" translate-default="Minutes."></span>
+            </div>
+            <div class="row margin_bottom_15 font_size_16">
+                <span translate="AUTOLOGOUT_WARNING_MSG3" translate-default="You are logged in on this device since 23 hours and "></span>
+                <span>{{ 30 + 30 - remainingTime}}</span>
+                <span translate="AUTOLOGOUT_WARNING_MSG4" translate-default="minutes. As per security guideline from the IRS, users must log out from tax software after 24 hours of continuing session."></span>
+            </div>
+            <div class="row margin_bottom_15 font_size_16">
+                <span translate="AUTOLOGOUT_WARNING_MSG5" translate-default="You have "></span>
+                <span>{{remainingTime}}</span>
+                <span translate="AUTOLOGOUT_WARNING_MSG6" translate-default="minutes more to complete your work before application log you out. You will have a timer in the header bar to keep you remind about the same."></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">	
+    	<button type="button" class="btn btn-outline-primary" data-ng-click="close('close')"><span translate="CLOSE_DLG_BTN" translate-default="Close"></span></button>        
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close('logout')"><span translate="LOGOUTNOW_DLG_BTN" translate-default="Logout Now"><span></button>        
+    </div>
+</div>

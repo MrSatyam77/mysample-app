@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="modal-title">{{data?.oldFiles.length}} Files Conflicts</h5>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="modal-middle-content-scroll">
+  <div class="row">
+    <div class="col">
+      <div class="col-24 bg-primary-light p-3 rounded">
+        <input class="mr-2" type="checkbox" name="chknewfile" (change)="checkAll($event,'new')" [(ngModel)]="isNewFile">
+        <label class="label" for="chknewfile">New Files</label>
+      </div>
+      <ul class="list-unstyled p-3 ">
+        <li *ngFor="let file of data.newFiles;let i = index;" class="w-100 d-inline-block">
+          <div class="float-left mr-2">
+            <input type="checkbox" name="chknewfile{{i}}" [(ngModel)]="file.isSelected"
+              (change)="filecheckCheckBox(file,'new')">
+          </div>
+          <div class="float-left">
+            <p class="mb-1"> {{file.fileName}}</p>
+            <p class="mb-1"> {{file.createdDate |  date :'medium'}}</p>
+            <p class="mb-1"> {{file.size |  formatBytes:2}}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="col-24 bg-primary-light p-3 rounded">
+        <input class="mr-2" type="checkbox" name="chkOverritefile" (change)="checkAll($event,'old')"
+          [(ngModel)]="isOverWrite">
+        <label class="label" for="chkOverritefile">Overwrite Files</label>
+      </div>
+
+      <ul class="list-unstyled p-3 ">
+        <li *ngFor="let file of data.oldFiles;let i = index;" class="w-100 d-inline-block">
+          <div class="float-left mr-2">
+            <input type="checkbox" name="oldFile{{i}}" [(ngModel)]="file.isSelected"
+              (change)="filecheckCheckBox(file,'old')">
+          </div>
+          <div class="float-left">
+            <p class="mb-1"> {{file.fileName}}</p>
+            <p class="mb-1"> {{file.createdDate |  date :'medium'}}</p>
+            <p class="mb-1"> {{file.size | formatBytes:2}}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div> 
+</div> 
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-primary" (click)="Cancel()">Cancel</button>
+  <button type="button" class="btn btn-outline-primary" (click)="Continue()">Continue</button>
+</div>

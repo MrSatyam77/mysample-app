@@ -1,0 +1,7 @@
+<ag-grid-angular [class]="'ag-theme-balham  ' + className" *ngIf="gridName && gridOptions" #agGrid
+  class="ag-theme-balham" [gridOptions]="gridOptions" [rowData]="result" (gridReady)="onGridReady($event)"
+  (selectionChanged)="onSelectionChanged($event)" (rowClicked)="onRowClicked($event)" [rowSelection]="rowSelection"
+  (cellFocused)="onCellFocused($event)" (gridSizeChanged)="onGridSizeChanged($event)">
+</ag-grid-angular>
+<h1 class="d-inline-block justify-content-center w-100" *ngIf="!gridName">404 : <b>"name"</b> attribute not found in
+  your component. Please give the unique Name base on component</h1>

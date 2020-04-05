@@ -1,0 +1,28 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		<span translate="RENEWALNOTIFICATION_DLG_TEXT0" translate-default="Payment Notification"></span>
+	</h4>
+</div>
+<div class="modal-body clearfix">	
+	<div class="form-group input-group-lg row_height_30">
+		<div class="margin_bottom_10">
+			<span translate="RENEWALNOTIFICATION_DLG_TEXT0" translate-default="The payment for your monthly subscription is overdue."></span>
+		</div>
+		<div>				
+			<span translate="RENEWALNOTIFICATION_DLG_TEXT1" translate-default="Please also note that the price of our current upgrade opportunity for the MyTAXPrepOffice annual licence increases after {{expirationDate}}. Act now by clicking " translate-value-expirationDate="{{expirationDate}}"></span>
+			<span class="font_bold" translate="RENEWALNOTIFICATION_DLG_TEXT2" translate-default="Pay Now "></span>
+			<span translate="RENEWALNOTIFICATION_DLG_TEXT3" translate-default="below to take advantage of this remarkable opportunity. This price may not be offered again! Act now."></span>
+		 </div>
+		 <div class="margin_top_10">
+		 	<span translate="RENEWALNOTIFICATION_DLG_TEXTEND" translate-default="- The MyTAXPrepOffice Team"></span>
+		 </div>		 		
+	</div>	
+</div>
+<div class="modal-footer">
+	<button ng-show="isProcessing==false" type="button" class="btn btn-outline-primary" data-ng-click="renewNow()" data-ng-if="hasFeature('SUBSCRIPTION')"><span translate="RENEWALNOTIFICATION_DLG_BTN_NOW" translate-default="Pay Now"></span></button>
+	<button ng-show="isProcessing==true" type="button" class="btn btn-outline-primary no-clicking"><span translate="DIALOG_SAVING" translate-default="Redirecting..."></span></button>
+	<button data-ng-if="paymentStatus == 'LOCK'" type="button" class="btn btn-outline-primary" data-ng-click="logout()"><span translate="HEADERNAV_SIGNOUT_LBL" translate-default="Sign Out"></span></button>
+	<button data-ng-if="paymentStatus != 'LOCK'" type="button" class="btn btn-outline-primary" ng-class="{'no-clicking':isProcessing==true}" data-ng-click="close()"><span translate="RENEWALNOTIFICATION_DLG_BTN_LATER" translate-default="Pay Later"></span></button>	
+</div>
+</div>

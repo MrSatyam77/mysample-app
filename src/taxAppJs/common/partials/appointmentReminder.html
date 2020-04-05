@@ -1,0 +1,56 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+<style>
+.selected {
+ background-color:#f5f5f5;
+ padding:10px;
+}
+.not-selected {
+ padding:10px;
+}
+.modal-title i{position:absolute;top:18px;left:20px;}
+.snooze_wrapper{border:1px solid #dddedf;width:100%;padding:10px;height:auto}       
+</style>
+<div class="modal-header dialog-header-confirm ">
+
+	<h5 class="modal-title clearfix">
+			<i class="far fa-bell ml-2"></i>
+		<div class="text-center ml-5">{{appointmentDetail.appointments.length}} <span translate="APPOINTMENT_REMINDER_LBL" translate-default="Reminder(s)"></span></div>
+	</h5>
+</div>
+<div class="modal-body clearfix">
+	<div class="input-group-lg row_height_30">
+		<div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">			
+           <span><i class="fas fa-calendar-alt color_gray font_size_20"></i></span><span class="font_size_20"> {{appointment.title}}</span>
+		</div>
+		<div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_15">			
+          <span class="margin_left_30 "> {{appointment.start | date:'shortTime'}}</span>
+		</div>
+		<div class="snooze_wrapper col-sm-24 col-md-24 col-xs-24" >
+	        <div class="clearfix" data-ng-repeat="appointmentObj in appointmentDetail.appointments" data-ng-class="{'selected':appointment.id == appointmentObj.id,'not-selected':appointment.id != appointmentObj.id}" data-ng-click="selectAppointment(appointmentObj)" >
+	            <div class="float-left">
+	                <span><i class="fas fa-calendar-alt color_gray"></i></span>
+	                <span>{{appointmentObj.title}}</span>
+	            </div>
+	            <div class="float-right">
+	                
+	                <span>{{appointmentObj.start | date:'shortTime'}} </span>
+	            </div>
+	        </div>
+       </div>
+     <div class="clearfix">
+            <button class="margin_top_10 btn btn-outline-primary float-right" data-ng-click="dismissAppointment()">Dismiss</button>
+        </div>
+	</div>
+</div>
+<div class="modal-footer" style="display: block;">
+	<div class="row">
+			<div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 clearfix text-left" translate="APPOINTMENT_REMINDER_SNOOZELBL" translate-default="Snooze For"></div>
+			<div class="float-left col-lg-12">
+				<select class="form-control float-left" data-ng-options="time.value as time.displayText for time in appointmentDetail.snoozeTimeList" data-ng-init="selectedSnoozeTime = appointmentDetail.snoozeTimeList[0].value" data-ng-model="selectedSnoozeTime" >
+				</select>
+				<button type="button" class="btn btn-outline-primary float-left margin_left_10" data-ng-click="snoozeAppointment()"><span translate="APPOINTMENT_REMINDER_SNOOZE" translate-default="Snooze"></span></button>
+			</div>
+			<button type="button" class="btn btn-outline-primary float-right margin_right_10 ml-auto" data-ng-click="dismissAll()"><span translate="APPOINTMENT_REMINDER_DISMISSALL" translate-default="Dismiss All"></span></button>
+	</div>		
+</div>
+</div>

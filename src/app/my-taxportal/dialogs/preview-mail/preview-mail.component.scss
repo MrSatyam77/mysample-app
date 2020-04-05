@@ -1,0 +1,79 @@
+
+    .white_bg {
+        background-color: #fff;
+    }
+
+    .blue_bg {
+        background-color: #005074;
+    }
+
+    .floating {
+        float: left;
+        width: 100%;
+    }
+
+    .white_font {
+        color: #fff;
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .align-center {
+        text-align: center;
+    }
+
+    .logo_image {
+        max-width: 105px;
+    }
+
+    .blue_font {
+        font-size: 20px;
+        line-height: 22px;
+        color: #0f76a5;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .small_text_email {
+        font-size: 12px;
+        line-height: 15px;
+        color: #858585;
+        text-transform: none;
+        font-weight: normal;
+    }
+
+    .blue_big_btn {
+        background-color: #0f76a5;
+        color: #fff;
+        padding: 15px;
+        font-size: 17px;
+        border-radius: 5px;
+        box-shadow: 0px 3px 0px #015073;
+        border: 1px solid #0f76a5;
+    }
+
+    .gray_font {
+        font-size: 14px;
+        line-height: 18px;
+        color: #858585;
+    }
+
+    .link_font a {
+        font-size: 14px;
+        line-height: 18px;
+        color: #0b5272;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .link_anchor {
+        font-size: 14px;
+        line-height: 18px;
+        color: #3ba3d2;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .link_anchor:hover {
+        color: #fff;
+    }

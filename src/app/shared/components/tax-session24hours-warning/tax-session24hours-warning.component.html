@@ -1,0 +1,24 @@
+<div class="tax-session-warning-dialog-main">
+  <div class="modal-header">
+      <h4 class="modal-title">
+          <span>Warning</span>
+      </h4>
+  </div>
+  <div class="modal-body clearfix">
+      <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+           <div class="row font_size_24 font_bold color_gray margin_bottom_15">
+              <span>Auto Logout in {{ remainingTime }} Minutes.</span>
+          </div>
+          <div class="row margin_bottom_15 font_size_16">
+              <span>You are logged in on this device since 23 hours and {{ 30 + 30 - remainingTime}} minutes. As per security guideline from the IRS, users must log out from tax software after 24 hours of continuing session.</span>
+          </div>
+          <div class="row margin_bottom_15 font_size_16">
+              <span>You have {{remainingTime}} minutes more to complete your work before application log you out. You will have a timer in the header bar to keep you remind about the same.</span>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="close('close')">Close</button>
+    <button type="button" class="btn btn-outline-primary"(click)="close('logout')">Logout Now</button>
+  </div>
+</div>

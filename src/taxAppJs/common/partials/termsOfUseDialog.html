@@ -1,0 +1,138 @@
+﻿<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span class="text-left">Terms Of Use</span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix"> <!-- Body Start From Here -->
+        <div class="state-list-dashboard-body-overflow">
+            <div ng-repeat="state in stateWisePackageList" class="col-lg-24 col-sm-24 col-md-24 col-xs-24 table-body-row-custom">
+                <div class="col-lg-5 col-sm-3 col-md-3 col-xs-5">{{state.stateName}}</div>
+                <div ng-repeat="package in state.packageList" class="col-lg-3 col-sm-3 col-md-3 col-xs-3 margin_top_5">
+                    <img ng-if="package.isState==true && package.eFileStatus.value=='approved'" data-ng-src="taxAppJs/return/workspace/images/approved.png">
+                    <i ng-if="package.isState==true && package.eFileStatus.value!='approved'" style="color:graytext;" class="fa" ng-class="{'fa-print':package.eFileStatus.value=='paperOnly','fa-exclamation-triangle':package.eFileStatus.value=='ats'}"></i>
+                    <span ng-if="package.isState==false" style="color:graytext;">N/A</span>
+                </div>
+            </div>
+            <div class="terms-of-use-wrapper col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 row">
+                    <div class="font_size_24 margin_bottom_5">Summary</div>
+                    <p>
+                        This summary is an abbreviated version of the “Full Terms of Use”. Your acceptance and continued use of {{resellerConfig.appName}}<sup>TM</sup>
+                        shall constitute
+                        acceptance of the “Full Terms of Use” provided in this document.
+                    </p>
+                    <p>
+                        You agree to use our site for the sole purpose intended; the preparation and filing of U.S. individual and business tax returns.
+                        You agree you will not use {{resellerConfig.appName}}<sup>TM</sup>
+                        tax preparation software to prepare fraudulent tax returns.
+                        You agree to have to pay your monthly or annually subscription via PayPal®. We agree that should charges fail, we will give you 7 days to resolve the problem before closing your account.
+                    </p>
+                    <p>
+                        You agree to only use bank product providers affiliated with {{resellerConfig.appName}}<sup>TM</sup>
+                        .
+                    </p>
+                    <p>You agree that you will not decompile, or reuse our software without prior written consent from us.</p>
+                    <p>
+                        You agree that we can update the terms of use at any time and we agree that we will notify you anytime the terms of use change, and you
+                        agree that continued use of {{resellerConfig.appName}}<sup>TM</sup>
+                        will constitute acceptance of the updated terms of use.
+                    </p>
+                    <p>We can cancel your account should you or anyone associated with you be found in violation of these terms.</p>
+                    <h3>Full Terms of Use Introduction</h3>
+                    <p>
+                        This website is operated by {{resellerConfig.appName}}<sup>TM</sup>. Throughout the site, the terms “we”, “us” and “our” refer to {{resellerConfig.appName}}<sup>TM</sup>
+                        . {{resellerConfig.appName}}<sup>TM</sup>
+
+                        offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.
+                    </p>
+                    <p>
+                        By registering and/or purchasing a subscription from us, you engage in our “Service” and agree to be bound by the following terms and con
+                        -
+                        ditions (“Terms of Service”, “Terms”), including those additional terms and conditions and policies referenced herein and/or available by hy
+                        -
+                        perlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, registered users, and/or
+                        a subscribing customer.
+                    </p>
+                    <h3>Protected Intellectual Property</h3>
+                    <p>
+                        Portions of {{resellerConfig.appName}}<sup>TM</sup>
+
+                        include the download of protected intellectual property. When you register or subscribe to a paying account,
+                        you agree not to duplicate or reuse any code associated with {{resellerConfig.appName}}<sup>TM</sup>
+                        without our prior written consent
+                    </p>
+                    <h3>New Features and Continued Use</h3>
+                    <p>
+                        Any new features or tools which are added to the site shall also be subject to the Terms of Service. You can review the most current version
+                        of the Terms of Service at any time on this page. We reserve the right to update, change or replace any part of these Terms of Service by
+                        posting updates and/or changes to our website. It is your responsibility to check this page periodically for changes. Your continued use of
+                        or access to the website following the posting of any changes constitutes acceptance of those changes.
+                    </p>
+                    <h3>Sites Services</h3>
+                    <p>
+                        This site is designed for the purpose of preparing United States federal and state, individual and entity tax returns and the operation of a tax
+                        preparation and / or bookkeeping office. By using this site, you agree that your use will be limited to the preparation of tax returns for your
+                        own clientele. Using this site to knowingly prepare fraudulent tax returns will be considered a violation of these terms.
+                    </p>
+                    <h3>Free Accounts</h3>
+                    <p>
+                        Registering with our site automatically subscribes you to a free account. Free accounts do not have access to all services provided by us
+                        and by registering for a free account, you acknowledge acceptance of limited use.
+                    </p>
+                    <h3>Monthly and Annual Subscriptions</h3>
+                    <p>
+                        When subscribing to monthly or annual subscriptions, you lock yourself into a subscription price and a set of features as long as your sub
+                        -
+                        scription is maintained in good standing.
+                    </p>
+                    <h3>New Features and Package Definitions</h3>
+                    <p>
+                        From time to time, we will add new features and functionality to our website. We reserve the right to add new features to existing monthly
+                        and annual subscriptions, and/or create new subscription packages with different configurations per our own discretion.
+                    </p>
+                    <h3>Agreement to use PayPal®</h3>
+                    <p>
+                        {{resellerConfig.appName}}<sup>TM</sup>
+                        uses PayPal as our payment service provider. When you register for a monthly and annual subscription, you agree that
+                        you will comply with PayPal’s requirements for subscription billing.
+                    </p>
+                    <h3>Additional Terms</h3>
+                    <p>When accepting these terms of use, you also accept our privacy policy as outlined in our privacy policy here.</p>
+                    <h3>Restricted Access</h3>
+                    <p>
+                        Access to certain areas of this website is restricted. We reserve the right to restrict access to other areas of this website, or indeed this
+                        entire website, at our discretion. If we provide you with a user ID and password to enable you to access restricted areas of this website, you
+                        must ensure that the user ID and password are kept confidential.
+                    </p>
+                    <h3>No warranties</h3>
+                    <p>
+                        This website is provided “as is” without any representations or warranties, express or implied. We make no representations or warranties in
+                        relation to this website or the information and materials provided on this website.
+                    </p>
+                    <h3>Limitations of liability</h3>
+                    <p>
+                        We will not be liable to you (whether under the law of contact, the law or torts or otherwise) in relation to the contents of, or use of, or other
+                        -
+                        wise in connection with, this website:
+                    </p>
+                    <p>For any indirect, special or consequential loss; or</p>
+                    <p>
+                        For any business losses, loss or revenue, income, profits or anticipated savings, loss of contracts or business relationships, loss of reputation
+                        or goodwill, or loss or corruption of information or data.
+                    </p>
+                    <p>These limitations of liability apply even if we have been expressly advised of the potential loss.</p>
+                    <h3>Exceptions</h3>
+                    <p>
+                        Nothing in this website disclaimer will exclude or limit any warranty implied by law that it would be unlawful to exclude or limit; and nothing
+                        in this website disclaimer will exclude or limit our liability in respect of any.
+                    </p>
+                   
+                </div>
+            </div>
+        </div>
+    </div> <!-- Body Ends From Here -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()">Close</button>
+    </div>
+</div>

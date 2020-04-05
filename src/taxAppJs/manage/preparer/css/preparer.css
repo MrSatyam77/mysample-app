@@ -1,0 +1,14 @@
+﻿#preparer .newusertextbox {max-width: 170px;}
+.first_block{height:auto;}
+.second_block{height:auto;}
+.height_37{min-height:37px;height:auto;margin-left:-10px;}
+.checkbox-inline{display: inline-block;
+padding-left: 0px !important;
+}
+.height_31{min-height:31px;}
+@media (min-width : 320px) and (max-width : 767px)
+{
+.second_block{float:left;width:100%;}
+#preparer .newusertextbox{float:left;}
+.checkbox-xs{float:right}
+}        

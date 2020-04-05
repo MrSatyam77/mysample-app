@@ -1,0 +1,136 @@
+<div class="bg-white border">
+  <!-- Header Start -->
+  <section class="page_title_wrap title_height_40 clearfix">
+    <span class="page_title_lg">Client Question Form</span>
+  </section>
+  <!-- Header End -->
+
+  <!-- Form Start -->
+
+  <div class="clearfix p-3 static_form_wrap quicksetup-container clearfix allowScrollSync">
+    <form #clientQuestionForm="ngForm" (ngSubmit)="save()">
+      <div class="form-group row">
+        <!-- Question Title Start -->
+        <div class="col col-sm-4">
+          <label>Question Title: </label>
+        </div>
+        <div class="col col-12">
+          <input type="text" class="form-control" [(ngModel)]="questionsData.title" name="title"
+            placeholder="Question Title" style="font-weight: lighter;" [required]="!questionsData.title" autofocus />
+        </div>
+        <!-- Question Title End -->
+      </div>
+
+      <div class="row">
+        <div class="col" [sortablejs]="questionsData?.questions" [sortablejsOptions]="{ handle: '.handle' }">
+          <div *ngFor="let question of questionsData?.questions;index as i" class="clearfix">
+
+            <div class="form-group row">
+              <!-- Question start -->
+              <div class="col col-sm-4">
+                <label>Question </label>
+              </div>
+              <div class="col col-12">
+                <textarea maxlength="300" name="questionText{{i}}" class="textarea_chat form-control"
+                  [(ngModel)]="question.questionText" [required]="!question.questionText"></textarea>
+              </div>
+              <div class="col">
+                <button class="btn btn-outline-primary mr-2" type="button" (click)="addQuestion()"
+                  *ngIf="i == questionsData?.questions?.length - 1" title="Add Question">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                <button (click)="removeQuestion(i)" *ngIf="questionsData?.questions?.length > 1"
+                  class="btn btn-outline-primary mr-2" type="button" title="Remove Question">
+                  <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-outline-primary mr-2 handle" type="button" [disabled]="!permission.canSaveClient"
+                  *ngIf="questionsData?.questions?.length > 1" title="Move Question's Sequence">
+                  <i class="fas fa-bars" aria-hidden="true" style="cursor:move"></i>
+                </button>
+              </div>
+            </div>
+            <!-- Question end -->
+            <div class="form-group row">
+              <!-- Answer Start -->
+              <div class="col col-sm-4">
+                <label>Answer</label>
+              </div>
+              <div class="col col-12">
+                <div class="row">
+                  <div class="col-lg-8 col-md-8 col-sm-8">
+                    <label class="m-0">Answer</label>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-8" *ngIf="question?.showIsRequired">
+                    <label class="m-0">Mandatory to Answer?</label>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-8" *ngIf="question?.showFreeText || question?.showDocument">
+                    <label class="" class="m-0">Mandatory When</label>
+                  </div>
+                </div>
+
+                <div class="row" *ngFor="let answerType of question.answerType;index as ansTypeIndex">
+                  <!-- ANSWER SECTION START -->
+                  <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div class="checkbox-xs mt-2 mr-2 float-left">
+                      <button type="button" class="custom_input_dark float-left "
+                        [ngClass]="{'active': answerType.isSelected == true}"
+                        (click)="answerType.isSelected = !answerType.isSelected;showIsRequired(question.answerType,i)"></button>
+                    </div>
+                    <label class="margin_left_15" class="float-left m-0">{{answerType.displayText}}</label>
+                  </div>
+                  <!-- ANSWER SECTION END -->
+
+                  <!-- Mandatory to Answer SECTION START -->
+                  <div class="col-lg-8 col-md-8 col-sm-8" *ngIf="question?.showIsRequired">
+                    <div *ngIf="answerType.showIsRequired" class=" checkbox-xs mt-2 mr-2 float-left">
+                      <button type="button" class="custom_input_dark float-left "
+                        [ngClass]="{'active':answerType.isRequired== true}"
+                        (click)="mandatorySectionHandle(answerType, question, i)"></button>
+                    </div>
+                  </div>
+                  <!-- Mandatory to Answer SECTION End -->
+
+                  <!-- Mandatory When START -->
+                  <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div
+                      *ngIf="answerType.id !== 'Yes/No' && answerType.id !== 'Document' && answerType?.showFreeText == true">
+                      <select name="ddlMandatory1{{i}}" class="form-control custom_input_ddl margin_right_10 float-left"
+                        style="max-width: 150px;" [(ngModel)]="answerType.requiredWhen">
+                        <option *ngFor="let yesNoAns of showAnswerYesOrNo" [value]="yesNoAns.id">
+                          {{yesNoAns.displayText}}</option>
+                      </select>
+                    </div>
+
+                    <div
+                      *ngIf="answerType.id !== 'Yes/No' && answerType.id !== 'Free Text' &&  answerType?.showDocument == true">
+                      <select class="form-control custom_input_ddl margin_right_10 float-left" name="ddlMandatory2{{i}}"
+                        style="max-width: 150px;" [(ngModel)]="answerType.requiredWhen">
+                        <option *ngFor="let yesNoAns of showAnswerYesOrNo" [value]="yesNoAns.id">
+                          {{yesNoAns.displayText}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Mandatory When END -->
+                </div>
+              </div>
+              <!-- Answer end -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+
+      </div>
+      <div class="form-group clearfix">
+        <div class=" float-right">
+          <button type="submit" class="btn btn-outline-primary"
+            [disabled]="!clientQuestionForm.form.valid || isSaveDisabled || !isFormValid">Save</button>
+          <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Form End -->
+</div>

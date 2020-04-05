@@ -1,0 +1,31 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857146;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <span class="modal-title" style="font-size: 18px;">
+      Change SSN
+    </span>
+    <i class="fa fa-times mt-2 cursor_pointer" (click)="close()" aria-hidden="true"></i>
+  </div>
+  <div class="modal-body static_form_wrap clearfix">
+    <form [formGroup]="changeSSNForm">
+      <div class="input-group-lg row_height_30">
+        <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0 margin_bottom_10">
+          The Client and Invited List will be updated with the New SSN.
+        </div>
+        <div class="col-lg-24 col-md-24 col-xs-24 padding_l_r_0 margin_bottom_10">
+          <div class="col-lg-4 col-md-4 col-sm-5 padding_l_r_0">
+            <label>SSN/ITIN</label>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <input type="text" name="txtSSN" class="form-control" formControlName="newSSN"  mask="000-00-0000" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="changeSSN()"
+      [disabled]="changeSSNForm.invalid">Change SSN</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Cancel</button>
+  </div>
+</div>

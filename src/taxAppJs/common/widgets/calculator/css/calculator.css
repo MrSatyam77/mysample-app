@@ -1,0 +1,329 @@
+.modal-dialog{width: 400px;}
+.modal-content{border-radius: 0px !important; box-shadow:0px 0px 8px 1px rgba(0, 0, 0, 0.2) !important; border:1px solid #cccccc !important;}
+.calc_close{padding: 2px;background-color: #dddedf;border-radius:50%;height: 24px;width: 24px;margin-top: 7px}
+#calculator_tool {width: 400px;}
+.calculator-wrapper{width: 100%;margin: 0 auto;padding: 5px 0px 0px 0px;clear: both;height: calc(100% - 40px);}
+.main-wrapper{clear: both;float: left;width: 100%;height: 100%;}
+.pull-left{float:left}
+.input_relative_wrapper{position:relative}
+.memory{position:absolute;top:5px;left:5px;}
+.dark-back-gray{background:#dddedf !important;}
+#main {height: calc(100% - 80px);}
+.sidebar-wrapper{float:left;width: 31%;height:100%;overflow: auto;border-color: #dddddd; border-style: solid; border-width: 1px 0px 0px 1px;padding: 5px 8px 5px 7px;word-break: break-all; font-size: 16px;}
+    .background {
+        width:69%;
+        height:100%;
+        background:#ffffff;
+        float: left;
+        /*border: 1px solid #999;*/
+    }
+    .cm-height {
+        height: calc(100% / 6);
+    }
+    .cm-height button{
+     height: 100% !important;
+     
+    }
+    .margin_top_10{margin-top:10px;}
+    button {
+        border:0;
+        /*color:#fff;*/
+    }
+    .pull-right{float:right}
+
+    .result {
+        display:block;
+        font-family: sans-serif;
+        width:100%;
+        height:80px;
+        text-align: right;
+        border:0;
+        background:none !important;
+        border:0px solid #dddddd !important;
+        border-top:1px solid #dddddd !important;
+        border-bottom:1px solid #dddddd !important;
+        box-shadow:none !important;
+        color:#666;
+        padding-top:20px;
+        padding: 6px 12px;
+        font-size:22px;
+        outline: none;
+        overflow: hidden;
+        letter-spacing: 2px;
+        position: relative;
+
+    }
+    input[type="text"].result:hover{
+        background:none !important;
+        box-shadow:none !important;
+        border-top:1px solid #dddddd !important;
+        border-bottom:1px solid #dddddd !important;}
+    input[type="text"].result:focus{
+        background:none !important;
+        box-shadow:none !important;
+        border-top:1px solid #dddddd !important;
+        border-bottom:1px solid #dddddd !important;}
+    .result:focus{
+        background:none !important;
+        box-shadow:none !important;
+        border-top:1px solid #dddddd !important;
+        border-bottom:1px solid #dddddd !important;
+                  }
+
+    .result:hover {
+        background:none !important;
+        border-top:1px solid #dddddd !important;
+        border-bottom:1px solid #dddddd !important;
+        box-shadow:none !important;
+        cursor: text;
+        }
+
+    .first-rows {
+        position: relative;
+        float:left;
+        clear:both;
+        width: 100%;
+    }
+
+    .first-rows .del-bg:last-of-type{border-right:0px solid #dddedf !important; float: right;}
+    .rows .num-bg:last-of-type{border-right:0px solid #dddedf !important; float: right;}
+    .rows {
+        width:100%;
+        float:left;
+    }
+
+    #delete {
+        width:40%;
+        height:62px;
+        /*margin-left:25px;*/
+        float:left;
+    }
+
+    /* Button styling */
+    .btn-style {
+        width:20%;
+        height:60px;
+        /*margin-left:5px;*/
+        border-radius:0px;
+        float:left;
+    }
+
+    .eqn {
+        width:40%;
+        height:62px;
+        /*margin-left:5px;*/
+        border-radius:0px;
+    }
+
+    /* Adding background color to the number values */
+     .num-bg {
+        background:#f5f5f5;
+        color:#666;
+        font-size:20px;
+        cursor:pointer;
+        outline:none;
+        border-bottom: 1px solid #efefef;
+        border-right: 1px solid #efefef;
+    }
+
+    .num-bg:active {
+        background:#f5f5f5;
+        color:#666;
+        font-size:26px;
+        cursor:pointer;
+        outline:none;
+    }
+
+    .numHighlight {
+        background:#f5f5f5 !important;
+        color:#666 !important;
+        font-size:26px !important;
+        cursor:pointer !important;
+        outline:none !important;
+    }
+
+    .oprHighlight {
+        background:#dddedf !important;
+        color:#666 !important;
+        font-size:26px !important;
+        cursor:pointer !important;
+        outline:none !important;
+    }
+
+    /*Adding background color to the operator values */ 
+    .opera-bg {
+        background:#f5f5f5;
+        color:#666;
+        font-size:20px;
+        cursor: pointer;
+        outline:none;
+        border-bottom: 1px solid #efefef;
+        /*border-left: 1px solid #efefef;*/
+    }
+
+    .opera-bg:active {
+        background:#f5f5f5;
+        color:#666;
+        font-size:26px;
+        cursor: pointer;
+        outline:none;
+    }
+    
+    /*Adding a background color to the delete button */
+    .del-bg {
+        background:#f5f5f5;
+        color:#666;
+        font-size:20px;
+        cursor: pointer;
+        outline:none;
+        float:left;
+        height: 62px;
+        border-bottom: 1px solid #efefef;
+        border-right: 1px solid #efefef;
+    }
+
+    .del-bg:active {
+        background:#f5f5f5;
+        color:#666;
+        font-size:26px;
+        cursor: pointer;
+        outline:none;
+    }
+   
+
+    /*Adding a background color to the equals to button */
+    #eqn-bg {
+        background:#f5f5f5;
+        color:#666;
+        font-size:20px;
+        cursor: pointer;
+        outline:none;
+        display: inherit;
+    }
+
+    #eqn-bg:active {
+        background:#f5f5f5;
+        color:#666;
+        font-size:26px;
+        cursor: pointer;
+        outline:none;
+    }
+
+    .modal-footer{width: 100%}
+    @media(max-width:767px){
+        .background{width:100%;}
+        .main-wrapper{width:70%}
+        .result{width:100%}
+        .btn-style{width:20%}
+        .first-rows{width:100%}
+        .rows{width:100%}
+        #delete{width:40%}
+        .eqn{width:40%}
+        .sidebar-wrapper{width:30%}
+    }
+    .no-clickingbtn{pointer-events:none;opacity:0.7;}
+    input::-webkit-input-placeholder {
+    color: #666 !important;
+    }
+     
+    input:-moz-placeholder { /* Firefox 18- */
+    color: #666 !important;  
+    }
+     
+    input::-moz-placeholder {  /* Firefox 19+ */
+    color: #666 !important;  
+    }
+     
+    input:-ms-input-placeholder {  
+    color: #666 !important;  
+    }
+
+    /* Temporary patch to avoid FOUC, Please implement loading bar as best solution */
+    .calcBlankContent{
+        display: block !important;
+    }
+    .calc_dragView {
+        position: absolute !important;
+        top: 65px;
+        left: 40%;
+        z-index: 2573;
+        background: white;border-radius: 0px !important;
+        box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.2) !important;
+        border: 1px solid #cccccc !important;
+        min-width: 495;
+        min-height: 484
+    }
+
+.ui-resizable {
+	position: relative;
+}
+.ui-resizable-handle {
+	position: absolute;
+	font-size: 0.1px;
+	display: block;
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+	display: none;
+}
+.ui-resizable-n {
+	cursor: n-resize;
+	height: 7px;
+	width: 100%;
+	top: -5px;
+	left: 0;
+}
+.ui-resizable-s {
+	cursor: s-resize;
+	height: 7px;
+	width: 100%;
+	bottom: -5px;
+	left: 0;
+}
+.ui-resizable-e {
+	cursor: e-resize;
+	width: 7px;
+	right: -5px;
+	top: 0;
+	height: 100%;
+}
+.ui-resizable-w {
+	cursor: w-resize;
+	width: 7px;
+	left: -5px;
+	top: 0;
+	height: 100%;
+}
+.ui-resizable-se {
+	cursor: se-resize;
+	width: 12px;
+	height: 12px;
+	right: 1px;
+	bottom: 1px;
+}
+.ui-resizable-sw {
+	cursor: sw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	bottom: -5px;
+}
+.ui-resizable-nw {
+	cursor: nw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	top: -5px;
+}
+.ui-resizable-ne {
+	cursor: ne-resize;
+	width: 9px;
+	height: 9px;
+	right: -5px;
+	top: -5px;
+}
+.ui-icon, .ui-widget-content .ui-icon {
+        background-image: url(images/ui-icons_444444_256x240.png);
+}

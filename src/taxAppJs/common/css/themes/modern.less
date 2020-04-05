@@ -1,0 +1,1362 @@
+@formFields-normal: #000;
+@formFields-required: #ff0000;
+@formFields-estimated: #3c763d;
+@formFields-calculated: #ffd800;
+@formFields-overriden: #c0c0c0;
+@formFields-disabled: #d9e5d9;
+@formFields-disabled-dark: #999;
+
+@formFields-normal-background:#fff;
+@formFields-required-background: #fff;
+@formFields-estimated-background: #fff;
+@formFields-overriden-background: #fff;
+@formFields-calculated-background: #fff;
+@formFields-disabled-background: #fff;
+
+@color3: #555555;
+@color6: #ffffff;
+@width0: 130px;
+@width5: 18px;
+@width6: 100%;
+@height0: 26px;
+@height1: 18px;
+.form-control {
+    -webkit-box-shadow: none;
+    background-color: rgba(0,0,0,0);
+    background-image: none;
+    border-color: -moz-use-text-color -moz-use-text-color @formFields-normal;
+    border-radius: 0 !important;
+    border-style: none none solid;
+    border-width: 0 0 1px;
+    box-shadow: none;
+    color: @color3;
+    display: block;
+    font-size: 14px;
+    height: 30px;
+    padding: 6px 12px;
+    width: @width6;
+    &:focus {
+        border-color: @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        outline: 0 none !important;
+    }
+}
+input[type=\"email\"].emailinput-validator {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"email\"].emailinput-validator {
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"text\"] {
+    border: none;
+    border-bottom: 1px solid @formFields-normal;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    outline: none;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"text\"][required] {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"text\"][readonly] {
+    border: none;
+    border-bottom: 1px solid @formFields-calculated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"text\"][overridden] {
+    border: none;
+    border-bottom: 1px solid @formFields-overriden !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"text\"][disabled] {
+    border: none;
+    border-bottom: 1px solid @formFields-disabled !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+    cursor: default;
+    outline: none;
+    padding-bottom: 1px;
+}
+input[type=\"text\"][taxpattern].patternerror {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    outline: none;
+    padding-bottom: 1px;
+}
+input[type=\"password\"][taxpattern].patternerror {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    outline: none;
+    padding-bottom: 1px;
+}
+input[type=\"text\"][taxpattern].patternerror:focus, input[type=\"text\"][taxpattern].patternerror:hover, input[type=\"password\"][taxpattern].patternerror:focus, input[type=\"password\"][taxpattern].patternerror:hover {
+    border: none;
+    border-bottom: 3px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    padding-bottom: 0px;
+}
+tax-lookup-level1>div[required]>button, tax-lookup-level1>div[required]>input, tax-lookup-level2>div[required]>button, tax-lookup-level2>div[required]>input {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+}
+tax-lookup-level1>div[required]>button:focus, tax-lookup-level1>div[required]>input:focus, tax-lookup-level1>div[required]>button:hover, tax-lookup-level1>div[required]>input:hover, tax-lookup-level2>div[required]>button:focus, tax-lookup-level2>div[required]>input:focus, tax-lookup-level2>div[required]>button:hover, tax-lookup-level2>div[required]>input:hover {
+    border: none;
+    border-bottom: 3px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    cursor: text;
+    padding-bottom: 0px;
+}
+input[type=\"number\"] {
+    border: none;
+    border-bottom: 1px solid @formFields-normal;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    outline: none;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"number\"][required] {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+textarea.form-control {
+    border: none;
+    border-bottom: 1px solid @formFields-normal;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    padding-bottom: 2px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"email\"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid @formFields-normal !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    outline: none;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px !important;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px !important;
+    }
+}
+input[type=\"email\"][required] {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"email\"][readonly] {
+    border: none;
+    border-bottom: 1px solid @formFields-calculated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"email\"][overridden] {
+    border: none;
+    border-bottom: 1px solid @formFields-overriden !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"email\"][disabled] {
+    border: none;
+    border-bottom: 1px solid @formFields-disabled !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+    cursor: default;
+    outline: none;
+    padding-bottom: 1px;
+}
+input[type=\"password\"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid @formFields-normal !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px !important;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        padding-bottom: 0px !important;
+    }
+}
+input[type=\"password\"][required] {
+    border: none;
+    border-bottom: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+.custom_input {
+    background: none !important;
+    border: 1px solid @formFields-normal !important;
+    height: @height1 !important;
+    position: relative !important;
+    width: @width5 !important;
+    &:hover {
+        border: 3px solid @formFields-normal !important;
+        height: @height1 !important;
+        outline: none !important;
+        width: @width5 !important;
+    }
+    &:focus {
+        border: 3px solid @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        height: @height1 !important;
+        outline: none !important;
+        width: @width5 !important;
+    }
+}
+.custom_input.active {
+    &:after {
+        color: @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        content: \"\\2713\" !important;
+        font-size: 26px !important;
+        left: 0px !important;
+        position: absolute !important;
+        top: -15px !important;
+    }
+    &:hover {
+        &:after {
+            content: \"\\2713\" !important;
+            font-size: 26px !important;
+            left: -2px !important;
+            position: absolute !important;
+            top: -17px !important;
+        }
+    }
+    &:focus {
+        &:after {
+            content: \"\\2713\" !important;
+            font-size: 26px !important;
+            left: -2px !important;
+            position: absolute !important;
+            top: -17px !important;
+        }
+    }
+}
+.custom_input[required] {
+    border: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    &:hover {
+        border: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        outline: none;
+    }
+}
+.custom_input[readonly] {
+    border: 1px solid @formFields-calculated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+    &:hover {
+        border: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        outline: none;
+    }
+}
+.custom_input[overridden] {
+    border: 1px solid @formFields-overriden !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    &:hover {
+        border: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        outline: none;
+    }
+}
+.custom_input[disabled] {
+    border: 1px solid @formFields-disabled !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+    border: none;
+    cursor: default;
+    outline: none;
+    &:hover {
+        border: 1px solid @formFields-disabled !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        border: none;
+        cursor: default;
+        outline: none;
+        top: 0px !important;
+    }
+    &:focus {
+        border: 1px solid @formFields-disabled !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        border: none;
+        cursor: default;
+        outline: none;
+        top: 0px !important;
+    }
+}
+.custom_input[disabled].active {
+    &:after {
+        color: @color3;
+        content: \"\\2713\";
+        font-size: 26px;
+        left: 0px !important;
+        position: absolute;
+        top: -15px !important;
+    }
+    &:hover {
+        &:after {
+            color: @color3;
+            content: \"\\2713\";
+            font-size: 26px;
+            left: 0px !important;
+            position: absolute;
+            top: -15px !important;
+        }
+    }
+    &:focus {
+        &:after {
+            color: @color3;
+            content: \"\\2713\";
+            font-size: 26px;
+            left: 0px !important;
+            position: absolute;
+            top: -15px !important;
+        }
+    }
+}
+.custom_input[estimated] {
+    border: 1px solid @formFields-estimated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    &:hover {
+        border: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+}
+.custom_input[estimated][overridden] {
+    border: 1px solid @formFields-estimated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    &:hover {
+        border: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+}
+.custom_input_dark {
+    background: none !important;
+    border: 1px solid @formFields-normal !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    height: @height1 !important;
+    position: relative !important;
+    width: @width5 !important;
+    &:hover {
+        border: 3px solid @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        height: @height1 !important;
+        outline: none !important;
+        width: @width5 !important;
+    }
+    &:focus {
+        border: 3px solid @formFields-normal !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        height: @height1 !important;
+        outline: none !important;
+        width: @width5 !important;
+    }
+}
+.custom_input_dark.active {
+    &:after {
+        color: @color3 !important;
+        content: \"\\2713\" !important;
+        font-size: 26px !important;
+        left: 0px !important;
+        position: absolute !important;
+        top: -15px !important;
+    }
+    &:hover {
+        &:after {
+            content: \"\\2713\" !important;
+            font-size: 26px !important;
+            left: -2px !important;
+            position: absolute !important;
+            top: -17px !important;
+        }
+    }
+    &:focus {
+        &:after {
+            content: \"\\2713\" !important;
+            font-size: 26px !important;
+            left: -2px !important;
+            position: absolute !important;
+            top: -17px !important;
+        }
+    }
+}
+.custom_input_dark[required] {
+    border: 1px solid @formFields-required !important;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    &:hover {
+        border: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-required !important;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        outline: none;
+    }
+}
+.custom_input_dark[readonly] {
+    border: 1px solid @formFields-calculated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+    &:hover {
+        border: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-calculated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        outline: none;
+    }
+}
+.custom_input_dark[overridden] {
+    border: 1px solid @formFields-overriden !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    &:hover {
+        border: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-overriden !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        outline: none;
+    }
+}
+.custom_input_dark[disabled] {
+    border: 1px solid @formFields-disabled-dark !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+    border: none;
+    cursor: default;
+    outline: none;
+    &:hover {
+        border: 1px solid @formFields-disabled-dark !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        border: none;
+        cursor: default;
+        outline: none;
+        top: 0px !important;
+    }
+    &:focus {
+        border: 1px solid @formFields-disabled-dark !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        border: none;
+        cursor: default;
+        outline: none;
+        top: 0px !important;
+    }
+}
+.custom_input_dark[disabled].active {
+    &:after {
+        color: @color3;
+        content: \"\\2713\";
+        font-size: 26px;
+        left: 0px !important;
+        position: absolute;
+        top: -15px !important;
+    }
+    &:hover {
+        &:after {
+            color: @color3;
+            content: \"\\2713\";
+            font-size: 26px;
+            left: 0px !important;
+            position: absolute;
+            top: -15px !important;
+        }
+    }
+    &:focus {
+        &:after {
+            color: @color3;
+            content: \"\\2713\";
+            font-size: 26px;
+            left: 0px !important;
+            position: absolute;
+            top: -15px !important;
+        }
+    }
+}
+.custom_input_dark[estimated] {
+    border: 1px solid @formFields-estimated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    &:hover {
+        border: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+}
+.custom_input_dark[estimated][overridden] {
+    border: 1px solid @formFields-estimated !important;
+    &:hover {
+        border: 3px solid @formFields-estimated !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-estimated !important;
+        outline: none;
+    }
+}
+select {
+    border: none;
+    border-bottom: 1px solid @formFields-normal;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    max-width: @width0;
+    outline: none;
+    overflow: auto;
+    text-transform: none;
+    vertical-align: middle;
+    width: @width6;
+    &:hover {
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        outline: none;
+    }
+    &:focus {
+        border-bottom: 3px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        outline: none;
+    }
+}
+select.custom_input_ddl[required] {
+    border: none;
+    border-bottom: 1px solid @formFields-required;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+    max-width: @width0;
+    outline-width: 0px;
+    outline: none;
+    overflow: auto;
+    padding-bottom: 1px;
+    text-transform: none;
+    vertical-align: middle;
+    width: @width6 !important;
+    &:hover {
+        -webkit-padding-bottom: 2px;
+        border-bottom: 3px solid @formFields-required;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+    &:focus {
+        -webkit-padding-bottom: 2px;
+        border-bottom: 3px solid @formFields-required;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-required-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+}
+select.custom_input_ddl[readonly] {
+    border: none;
+    border-bottom: 1px solid @formFields-calculated;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+    max-width: @width0;
+    outline-width: 0px;
+    outline: none;
+    overflow: auto;
+    padding-bottom: 1px;
+    text-transform: none;
+    vertical-align: middle;
+    width: auto !important;
+    &:hover {
+        border-bottom: 3px solid @formFields-calculated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+    &:focus {
+        border-bottom: 3px solid @formFields-calculated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-calculated-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+}
+select.custom_input_ddl[overridden] {
+    border: none;
+    border-bottom: 1px solid @formFields-overriden;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    max-width: @width0;
+    outline-width: 0px;
+    outline: none;
+    overflow: auto;
+    padding-bottom: 1px;
+    text-transform: none;
+    vertical-align: middle;
+    width: auto !important;
+    &:hover {
+        border-bottom: 3px solid @formFields-overriden;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+    &:focus {
+        border-bottom: 3px solid @formFields-overriden;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-overriden-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+}
+select.custom_input_ddl[disabled] {
+    border-bottom: 1px solid @formFields-disabled !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+        box-shadow: inset 0px -1px 70px -21px @formFields-disabled-background !important;
+    cursor: default;
+    outline: none;
+    &:hover {
+        border: none;
+        cursor: default;
+        padding-bottom: 0px;
+    }
+    &:focus {
+        border: none;
+        cursor: default;
+        padding-bottom: 0px;
+    }
+}
+.fullWorkspace {
+    height: auto;
+    label {
+        display: inline-block;
+        font-weight: normal;
+        max-width: @width6;
+        word-wrap: break-word;
+        vertical-align: middle;
+    }
+    select {
+        border: none;
+        border-bottom: 1px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        max-width: @width0;
+        outline: none;
+        overflow: auto;
+        padding-bottom: 1px;
+        text-transform: none;
+        width: @width6;
+        &:hover {
+            border-bottom: 3px solid @formFields-normal;
+            -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+            outline: none;
+            padding-bottom: 0px;
+        }
+        &:focus {
+            border-bottom: 3px solid @formFields-normal;
+            -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+            outline: none;
+            padding-bottom: 0px;
+        }
+    }
+}
+label {
+    font-weight: normal;
+}
+.form_title {
+    background: #f5f5f5;
+    border-bottom: 1px solid #dee6f1;
+    color: @formFields-normal;
+    float: left;
+    font-size: 16px;
+    font-weight: bolder;
+    height: auto;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    min-height: @height0;
+    padding-top: 3px;
+    width: @width6;
+}
+.form_title1 {
+    border: 1px solid @formFields-normal;
+    -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+    color: @formFields-normal;
+    font-size: 20px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    padding: 5px;
+}
+.ssninput {
+    background: none !important;
+    border-bottom: 1px solid @color6 !important;
+    color: white !important;
+    font-size: 16px !important;
+    height: @height0;
+    margin-left: 10px;
+    padding-bottom: 2px !important;
+    width: @width6 !important;
+    &:hover {
+        border-bottom: 3px solid @color6 !important;
+        color: white !important;
+        font-size: 16px !important;
+        height: @height0;
+        margin-left: 10px;
+        padding-bottom: 0px !important;
+        width: @width6 !important;
+    }
+    &:focus {
+        border-bottom: 3px solid @color6 !important;
+        color: white !important;
+        font-size: 16px !important;
+        height: @height0;
+        margin-left: 10px;
+        padding-bottom: 0px !important;
+        width: @width6 !important;
+    }
+}
+.quickreturnssnblock {
+    color: white;
+    float: left;
+    font-size: 16px;
+    height: @height0;
+    margin-right: 6px;
+    margin-top: 7px;
+}
+.deshbord_ddl {
+    background: none;
+    border-bottom: 1px solid @color6;
+    font-size: 14px;
+    height: @height0;
+    padding-bottom: 2px !important;
+    vertical-align: middle;
+    width: 66px;
+    &:hover {
+        border-bottom: 3px solid @color6;
+        padding-bottom: 0px !important;
+    }
+    &:focus {
+        border-bottom: 3px solid @color6;
+        padding-bottom: 0px !important;
+    }
+    option {
+        background: @color6;
+        color: #333333;
+    }
+}
+.quickrefresh_home {
+    font-size: 14px;
+    margin-right: 4.5%;
+}
+.bank {
+    select {
+        border: none;
+        border-bottom: 1px solid @formFields-normal;
+        -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        max-width: 170px !important;
+        outline: none;
+        overflow: auto;
+        padding-bottom: 1px;
+        text-transform: none;
+        vertical-align: middle;
+        width: @width6;
+        &:hover {
+            border-bottom: 2px solid @formFields-normal;
+            -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+            outline: none;
+            padding-bottom: 0px;
+        }
+        &:focus {
+            border-bottom: 2px solid @formFields-normal;
+            -moz-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        -webkit-box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+        box-shadow: inset 0px -1px 70px -31px @formFields-normal-background !important;
+            outline: none;
+            padding-bottom: 0px;
+        }
+    }
+}
+.w2 {
+    input[type=\"text\"] {
+        border-radius: 0px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+}
+input[type=\"text\"][estimated][overridden] {
+    border: none;
+    border-bottom: 1px solid @formFields-estimated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+input[type=\"text\"][estimated] {
+    border: none;
+    border-bottom: 1px solid @formFields-estimated !important;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    cursor: text;
+    padding-bottom: 1px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+    &:hover {
+        border: none;
+        border-bottom: 3px solid @formFields-estimated !important;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        cursor: text;
+        padding-bottom: 0px;
+    }
+}
+.custom_input[estimated][overridden] {
+    border: 1px solid @formFields-estimated;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    &:hover {
+        border: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+}
+.custom_input[estimated] {
+    border: 1px solid @formFields-estimated;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    &:hover {
+        border: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+    &:focus {
+        border: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+    }
+}
+select.custom_input_ddl[estimated][overridden] {
+    border: none;
+    border-bottom: 1px solid @formFields-estimated;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    max-width: @width0;
+    outline-width: 0px;
+    outline: none;
+    overflow: auto;
+    padding-bottom: 1px;
+    text-transform: none;
+    vertical-align: middle;
+    width: auto !important;
+    &:hover {
+        border-bottom: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+    &:focus {
+        border-bottom: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+}
+select.custom_input_ddl[estimated] {
+    border: none;
+    border-bottom: 1px solid @formFields-estimated;
+    -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    max-width: @width0;
+    outline-width: 0px;
+    outline: none;
+    overflow: auto;
+    padding-bottom: 1px;
+    text-transform: none;
+    vertical-align: middle;
+    width: auto !important;
+    &:hover {
+        border-bottom: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+    &:focus {
+        border-bottom: 3px solid @formFields-estimated;
+        -moz-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    -webkit-box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+    box-shadow: inset 0px -1px 70px -21px @formFields-estimated-background !important;
+        outline: none;
+        padding-bottom: 0px;
+    }
+}

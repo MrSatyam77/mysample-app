@@ -1,0 +1,291 @@
+<div class="mtpo-main-wrap" style.backgroundImage="url({{imagePath}})">
+  <div class="login-box-wraper">
+    <nav class="navbar navbar-expand-lg navbar-light py-3 pr-5">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <img class="navbar-brand" *ngIf="resellerConfig.shortCode === 'mtpo'" src="assets/images/logo-orange-white.png" alt="logo">
+        <img class="navbar-brand reseller-logos" *ngIf="resellerConfig.shortCode !== 'mtpo'" src="assets/images/reseller-logos/logo_login_{{resellerConfig.shortCode}}.png"
+          alt="logo">
+        <div class="navbar-nav ml-auto pt-2" *ngIf="resellerConfig.shortCode === 'mtpo'">
+          <a class="nav-item link-hover nav-link text-white active" href="https://mytaxprepoffice.com/support/contact-support" target="_blank">Support
+            <span class="sr-only">(current)</span></a>
+          <a class="nav-item link-hover nav-link text-white" href="https://mytaxprepoffice.com/training" target="_blank"> Training</a>
+          <a class="nav-item link-hover nav-link text-white" [href]="static_url + '/2018/download/External_FAQ_Logging_In.pdf'" target="_blank">
+            FAQs</a>
+          <a class="nav-item link-hover nav-link text-white" href="https://mytaxprepoffice.com" target="_blank">
+            MyTAXPrepOffice Homepage</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="mtpo-wrap">
+        <div class="flex-wrap">
+          <div class="login-box-wrapper">
+            <div class="row mb-4">
+              <div class="col text-center">
+                <h3 class="text-uppercase text-primary font-weight-bold" *ngIf="currentView === 'login' || currentView === 'twoFactorAuthentication' || currentView === 'overwriteSession'">
+                  Please Log in</h3>
+                <h3 class="text-uppercase text-primary font-weight-bold" *ngIf="(currentView === 'forgotPassword' || currentView === 'mailSentConfirmation' || currentView === 'invalidForgetEmail') && hasFeature('FORGOTPASSWORD')">
+                  Forgot Password</h3>
+                <h3 class="text-uppercase text-primary font-weight-bold" *ngIf="(currentView === 'resendConfirmation' || currentView === 'resendConfirmationSent' || currentView === 'alreadyConfirmUser' || currentView === 'invalidEmail' || currentView === 'notConfirmedUser') && hasFeature('RESENDCONFIRMATIONEMAIL')">
+                  Resend Confirmation</h3>
+                <h3 class="text-uppercase text-primary font-weight-bold" *ngIf="currentView === 'deactiveUser'">Inactive
+                  Account
+                </h3>
+                <h3 class="text-uppercase text-primary font-weight-bold" *ngIf="currentView === 'generalMessage'" [innerHTML]="generalMessage.title"></h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <form [formGroup]="loginControlForm" autocomplete="on" (ngSubmit)="recaptchaValidate()">
+                  <!-- box title portion ends -->
+                  <div class="clearfix">
+                    <div class="col-xs-24 col-sm-24 col-md-24" style="visibility: hidden;">
+                      <div id="recaptcha"></div>
+                    </div>
+                  </div>
+
+                  <!-- Login box start -->
+                  <div id="with_capcha_wrap" class="clearfix login-control-area" *ngIf="currentView === 'login'">
+                    <div class="form-group mb-3">
+                      <label class="text-primary">Email Address:</label>
+                      <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email Address" formControlName="emailId">
+                    </div>
+
+                    <div class="form-group mb-3">
+                      <label class="text-primary">Password:</label>
+                      <div class="position-relative">
+                        <input [type]="loginObj.passwordType" name="password" id="password" class="form-control form-control-lg pr-5" placeholder="Password"
+                          formControlName="password" autocomplete="off">
+                        <span class="show-password">
+                          <i class="fas fa-eye" style="cursor: pointer" *ngIf="loginObj.passwordType === 'password'" (click)="loginObj.passwordType='text'"></i>
+                          <i class="fas fa-eye-slash" style="cursor: pointer" *ngIf="loginObj.passwordType === 'text'" (click)="loginObj.passwordType = 'password'"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="row mb-4">
+                      <div class="col  mt-2">
+                        <div class="mtpo-custom-checkbox d-inline">
+                          <button type="button" class="mtpo-checkbox" [ngClass]="{'active':loginObj.isRememberMe===true}" (click)="loginObj.isRememberMe = !loginObj.isRememberMe"></button>
+                          <label class="d-inline text-primary" for="ServiceBureauYes">Remember Me</label>
+                        </div>
+                      </div>
+
+                      <div class="col  mt-3">
+                        <div class="float-right">
+                          <a *ngIf="hasFeature('FORGOTPASSWORD')" [ngClass]="{'anchor-style': loginObj.isCredentialWrong==true}" class="btn-link text-primary"
+                            (click)="forgetPasswordLink()">Forgot Password?</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col" [ngClass]="{'float-right':hasFeature('REGISTRATION')==false}">
+                        <button type="submit" class="btn btn-lg btn-primary w-100" [disabled]="!loginControlForm.valid || isActiveApiCall === true">Login
+                        </button>
+                      </div>
+                      <div class="col" *ngIf="hasFeature('REGISTRATION')">
+                        <button type="button" (click)="registraion()" class="btn btn-lg btn-orange text-white w-100">Register
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Login box ends -->
+
+                  <!-- Forgot Password Block start-->
+                  <div class="clearfix" *ngIf="currentView === 'forgotPassword' && hasFeature('FORGOTPASSWORD')">
+                    <div class="row">
+                      <div class="col-xs-24 col-sm-24 col-md-24">
+                        <div class="form-group">
+                          <label class="text-primary">Email Address:</label>
+                          <input type="email" name="fpEmail" id="fpEmail" class="form-control-lg form-control login_email" placeholder="Email Address"
+                            formControlName="forgotPasswordEmail">
+                          <span class="d-block mt-2">Press send to get a link to reset your password.</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-5">
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-primary w-100" [disabled]="!loginControlForm.controls.forgotPasswordEmail.value"
+                          (click)="forgotPassword()">Submit</button>
+                      </div>
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-orange w-100" (click)="currentView = 'login'">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Forgot Password Block start end-->
+
+                  <!-- Resend Confirmation Block start -->
+                  <div class="clearfix" *ngIf="currentView === 'resendConfirmation' && hasFeature('RESENDCONFIRMATIONEMAIL')">
+                    <div class="row">
+                      <div class="col-xs-24 col-sm-24 col-md-24">
+                        <input type="email" name="rcEmail" id="rcEmail" class="form-control-lg form-control" placeholder="Email Address" formControlName="resendConfirmationEmail">
+                      </div>
+                    </div>
+                    <div class="row margin_top_10">
+                      <div class="col-xs-24 col-sm-24 col-md-24" style="min-height:105px !important;">
+                        <span class="confirmation_msg">Press send to get a link to confirm your request.</span>
+                      </div>
+                    </div>
+
+                    <div class="row margin_top_10">
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-primary w-100" [disabled]='!loginControlForm.controls.resendConfirmationEmail.value'
+                          (click)="resendConfirmation()">Send</button>
+                      </div>
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-primary w-100 btn-orange text-white" (click)="currentView = 'login'">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Forgot Password Block start end-->
+
+                  <!-- TwoFactorAuthentication div start -->
+                  <div class="clearfix" *ngIf="currentView === 'twoFactorAuthentication'">
+                    <div class="row margin_top_10">
+                      <div class="col-xs-24 col-sm-24 col-md-24">
+                        <span *ngIf="loginResponse.twoFactorAuthentication.isEmailEnabled == true" class="confirmation_msg" style="margin-bottom: 0px;">Please
+                          enter verification code sent to your Email</span>
+                        <span *ngIf="loginResponse.twoFactorAuthentication.isFidoKeyEnabled == true" class="confirmation_msg">Please
+                          enter verification code from your Google Titan key</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-24 col-sm-24 col-md-24 margin_top_10" style="min-height:105px !important;">
+                        <input type="text" name="code" id="code" class="form-control-lg form-control ng-dirty ng-valid-mask ng-valid ng-valid-parse ng-valid-required ng-touched"
+                          placeholder="Enter Code" formControlName="verificationCode" [required]="!loginControlForm.controls.verificationCode.value">
+                      </div>
+                    </div>
+                    <div class="row margin_top_10">
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-primary w-100" (click)="verifyTwoFactorAuthentication()" [disabled]="!loginControlForm.controls.verificationCode.value">Verify
+                          Code
+                        </button>
+                      </div>
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-orange text-white w-100" (click)="resendTwoFactorAuthenticationCode()">Resend
+                          Code
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- TwoFactorAuthentication div end -->
+
+                  <!-- for message conformation block start-->
+                  <div class="clearfix" *ngIf="currentView === 'overwriteSession' || currentView === 'mailSentConfirmation'
+                       || currentView === 'deactiveUser' || currentView === 'invalidForgetEmail' || currentView === 'generalMessage'">
+                    <div class="row confirmation_msg">
+                      <div class="col-xs-24 col-sm-24 col-md-24 ">
+                        <!-- General MEssage Text -->
+                        <span id="generalMessageId" *ngIf="currentView === 'generalMessage' && generalMessage.title === 'Account Locked'">
+                          <span>Your account was locked, due to multiple logins, with invalid login credentials. You will
+                            receive an email with a link to unlock your account.</span>
+
+                          <div class='margin_top_10'><span>If you did not receive the email please click </span><a class='cursor_pointer'
+                              style='text-decoration:underline' href='' (click)='resendUnlockAccountEmail()'>here</a>.</div>
+                        </span>
+                        <span id="generalMessageId" *ngIf="currentView === 'generalMessage' && generalMessage.title !== 'Account Locked'" [innerHTML]="generalMessage.text"></span>
+                        <span class="confirmation_msg" *ngIf="confirmationMessage" [innerHTML]="confirmationMessage"></span>
+                        <div class='text-danger' *ngIf="currentView === 'deactiveUser'"><span>Please contact the administrative
+                            account holder of your office. Or </span> <a (click)="currentView = 'login'" class="cursor_pointer text-primary pr-1">
+                            <u>Log In</u> </a> <span> with another user</span></div>
+                        <div *ngIf="currentView === 'invalidForgetEmail'">
+                          <span class='text-danger_normal'>We were unable to verify your email address. Please verify the
+                            spelling. If the spelling is correct, you may have registered under a different email. You may
+                            retry with a different email address, or you may start a new</span>
+                          <a class="cursor_pointer red_link" (click)="registraion()"><span>registration</span></a>
+                        </div>
+                      </div>
+                    </div>
+                    <!--<hr class="colorgraph">-->
+                    <div class="row margin_top_50" *ngIf="currentView === 'overwriteSession'">
+
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-primary w-100" (click)="overwriteSession(true)">Yes</button>
+                      </div>
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-orange text-white w-100" (click)="overwriteSession(false)">No</button>
+                      </div>
+                    </div>
+                    <div class="row margin_top_50" *ngIf="currentView === 'mailSentConfirmation' || currentView === 'generalMessage'">
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-primary w-100" (click)="currentView = 'login'; gotoLogin()">OK</button>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="clearfix" *ngIf="currentView === 'alreadyConfirmUser' || currentView === 'resendConfirmationSent'
+                       || currentView === 'invalidEmail' || currentView === 'notConfirmedUser'">
+                    <div class="row confirmation_msg">
+                      <div class="col-xs-24 col-sm-24 col-md-24 ">
+                        <div *ngIf="currentView === 'alreadyConfirmUser'">
+                          <span>You have already confirmed your registration. Would you like to</span>
+                          <a class="cursor_pointer" (click)="forgetPasswordLink()"><span>Reset</span></a>
+                          <span>your password</span>
+                        </div>
+                        <div *ngIf="currentView === 'resendConfirmationSent'">
+                          <span>We have sent you a new confirmation email so you may finish registering.. Please complete
+                            your registration using the link provided. If you do not receive a confirmation email, please
+                            check your spam folder.</span>
+                        </div>
+                        <div *ngIf="currentView === 'invalidEmail'">
+                          <span class='text-danger_normal'>We were unable to verify your email address. Please verify the
+                            spelling. If the spelling is correct, you may have registered under a different email. You may
+                            retry with a different email address, or you may start a new</span>
+                          <a class="cursor_pointer red_link" (click)="registraion()"><span>registration</span></a>
+
+                        </div>
+                        <div *ngIf="currentView === 'notConfirmedUser'">
+                          <span>You have not confirmed your registration. We have sent you a new confirmation email so you
+                            may finish registering. Please complete your registration using the link provided. If you do
+                            not receive a confirmation email, please check your spam folder.</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row margin_top_10">
+                      <div class="col">
+                        <button type="button" class="btn btn-lg btn-primary w-100" (click)="currentView = 'login'; gotoLogin()">OK</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- for message conformation block end-->
+                </form>
+
+                <div class="text-center mt-5">
+                  <small class="d-block small-text mb-2" *ngIf="resellerConfig.shortCode === 'mtpo'">
+                    MyTAXPrepOffice
+                    <a href="https://mytaxprepoffice.com/privacy-policy" target="_blank">Privacy Policy</a>
+                    <span>&nbsp;and&nbsp;</span>
+                    <a href="https://mytaxprepoffice.com/terms-and-conditions-of-use" target="_blank">Terms of Use.</a>
+                  </small>
+                  <small id="ius-captcha-terms-of-use-text" class="d-block small-text">
+                    Invisible reCAPTCHA by Google
+                    <a href="https://www.google.com/intl/en/policies/privacy/" target="_blank">Privacy Policy</a>
+                    <span>&nbsp;and&nbsp;</span>
+                    <a href="https://www.google.com/intl/en/policies/terms/" target="_blank">Terms of Use.</a>
+                  </small>
+                  <small class="d-block small-text mt-2" *ngIf="resellerConfig.shortCode !== 'mtpo' && !resellerConfig.hidePolicy">
+                    <a href="https://mytaxprepoffice.com/privacy-policy" target="_blank">Privacy Policy</a>
+                    <span>&nbsp;and&nbsp;</span>
+                    <a href="https://mytaxprepoffice.com/terms-and-conditions-of-use" target="_blank">Terms of Use.</a>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="info-wrap">
+            <div class="shadow-sm info-box-wrap box-news" *ngIf="hasFeature('TIPS')">
+              <app-quicktips></app-quicktips>
+            </div>
+            <div class="shadow-sm info-box-wrap box-tips" *ngIf="hasFeature('NEWS')">
+              <app-news></app-news>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

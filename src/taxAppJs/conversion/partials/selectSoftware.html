@@ -1,0 +1,58 @@
+﻿  <meta name="viewport" content="initial-scale=1, maximum-scale=1">	   
+        <div class="row col-lg-12 col-sm-24 col-md-24 col-xs-24 padding_10">
+            <form name="selectSoftware">
+                
+                <div class="row">
+                    <div class="col-lg-10 col-sm-12 col-md-12 col-xs-12">
+                        <label translate="CHANGEPASSWORD_OLDPASS_LBL" translate-default="Select software to convert from"></label>
+                    </div>
+                      
+                    <div class="col-lg-7 col-sm-12 col-md-12 col-xs-12" style="height:27px;">
+                    	<!-- first Line for Beta and Second Line for Live -->
+                        <select class="form-control margin_right_10 float-left" data-ng-model="uploadedSoftDetail.selSoftware" data-ng-change="changeSoftware()" data-ng-options="software.text for software in softwareName" style="max-width:275px!important;height:30px !important;" ng-required="!uploadedSoftDetail.selSoftware" class="custom_input_ddl"><!-- |packageWiseSoftwareList:uploadedSoftDetail.returnType.id -->
+                        <option value="">Please Select</option></select>
+                    </div>
+                    <!-- <div class="col-lg-7 col-sm-12 col-md-12 col-xs-12 float-right" style="height:27px;">
+                        <select class="form-control margin_right_10 float-left" data-ng-model="uploadedSoftDetail.softwareYear" data-ng-change="changeSoftwareYear()" data-ng-options="tax for tax in softwareYear" style="max-width:275px!important;height:30px !important;"  class="custom_input_ddl">
+                        </select>
+                    </div> -->
+                </div>
+                <div data-ng-show="uploadedSoftDetail.selSoftware.value=='Crosslink2013'||uploadedSoftDetail.selSoftware.value=='Crosslink2014'||uploadedSoftDetail.selSoftware.value=='Crosslink2015' || uploadedSoftDetail.selSoftware.value=='Crosslink2016'">
+                    <div class="row col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15">
+                        <span translate="CROSSLINK_UNAMEPASSWORD_NOTE" translate-default="<b>Note : </b>Crosslink encrypt data using your username and password. To convert data, we need your username and password."></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-16 col-sm-12 col-md-12 col-xs-12">
+                             <label>Username:</label>
+                        </div>
+                        <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12 float-right" style="height:27px;">
+                            <input type="text" name="userName" id="userName" class="form-control" placeholder="Username" data-ng-model='userData.userName' value="{{userData.userName}}" ng-required="userData.userName == undefined || userData.userName == ''">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-16 col-sm-12 col-md-12 col-xs-12">
+                              <label>Password:</label>
+                        </div>
+                        <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12 float-right" style="height:27px;">
+                             <input type="password" name="password" id="password" class="form-control" placeholder="Password" data-ng-model="userData.password" value="{{userData.password}}" ng-required="userData.password == undefined || userData.password == ''">
+                        </div>
+                        
+                    </div>
+                </div>
+            </form>
+           <!--  <div class="row">
+                <div class="col-lg-14 col-sm-15 col-md-16 col-xs-12">
+                    <label translate="CHANGEPASSWORD_OLDPASS_LBL" translate-default="Select software to convert To  "></label>
+                </div>
+                <div class="col-lg-10 col-sm-9 col-md-8 col-xs-12 float-right ">
+                    <select class="form-control">
+                        <option>1</option>
+                        <option>1</option>
+                        <option>1</option>
+                    </select>
+                </div>
+            </div> -->
+
+        </div>
+       
+ 

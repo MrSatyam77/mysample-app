@@ -1,0 +1,561 @@
+<style>
+    .print_option_wrapper { border: 1px solid #dddedf; line-height: 1.5; }
+    .print-wrapper { position: relative; padding-right: 15px; padding-left: 0px; padding-top: 10px; }
+    .modal-lg { width: 70vw;max-width: 100% !important;}
+    /* .modal-body { padding: 0; } */
+
+    /* loading text start */
+    .loading_background { background: #f5f5f5; opacity: 0.3; position: absolute; height: auto !important; width: 100%; z-index: 5 }
+    .loading_text { position: absolute; z-index: 7; top: 0; bottom: 0; left: 0; right: 0; color: #555555; font-size: 24px;height: 100px;
+        width: 150px;margin: auto;font-weight: bolder;}
+    .cross_icon { font-weight: bold; font-family: sans-serif; font-size: 14px; }
+
+    /* loading text End */
+
+    @media (min-width: 320px) and (max-width: 767px) {
+        .row_height_30 {
+            min-height: 0px !important;
+        }
+    }
+
+    @-webkit-keyframes preloader-inside-white {
+        0% {
+            -webkit-transform: scale(0, 0);
+            -moz-transform: scale(0, 0);
+            -ms-transform: scale(0, 0);
+            -o-transform: scale(0, 0);
+            transform: scale(0, 0);
+        }
+        100% {
+            -webkit-transform: scale(1, 1);
+            -moz-transform: scale(1, 1);
+            -ms-transform: scale(1, 1);
+            -o-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+    }
+
+    @keyframes preloader-inside-white {
+        0% {
+            -webkit-transform: scale(0, 0);
+            -moz-transform: scale(0, 0);
+            -ms-transform: scale(0, 0);
+            -o-transform: scale(0, 0);
+            transform: scale(0, 0);
+        }
+        100% {
+            -webkit-transform: scale(1, 1);
+            -moz-transform: scale(1, 1);
+            -ms-transform: scale(1, 1);
+            -o-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+    }
+
+    @-webkit-keyframes preloader-inside-red {
+        0% {
+            -webkit-transform: scale(0, 0);
+            -moz-transform: scale(0, 0);
+            -ms-transform: scale(0, 0);
+            -o-transform: scale(0, 0);
+            transform: scale(0, 0);
+        }
+        30% {
+            -webkit-transform: scale(0, 0);
+            -moz-transform: scale(0, 0);
+            -ms-transform: scale(0, 0);
+            -o-transform: scale(0, 0);
+            transform: scale(0, 0);
+        }
+        100% {
+            -webkit-transform: scale(1, 1);
+            -moz-transform: scale(1, 1);
+            -ms-transform: scale(1, 1);
+            -o-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+    }
+
+    @keyframes preloader-inside-red {
+        0% {
+            -webkit-transform: scale(0, 0);
+            -moz-transform: scale(0, 0);
+            -ms-transform: scale(0, 0);
+            -o-transform: scale(0, 0);
+            transform: scale(0, 0);
+        }
+        30% {
+            -webkit-transform: scale(0, 0);
+            -moz-transform: scale(0, 0);
+            -ms-transform: scale(0, 0);
+            -o-transform: scale(0, 0);
+            transform: scale(0, 0);
+        }
+        100% {
+            -webkit-transform: scale(1, 1);
+            -moz-transform: scale(1, 1);
+            -ms-transform: scale(1, 1);
+            -o-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+    }
+
+    /* Styles */
+    .preloader { display: inline-block; width: 100%; height: 100% !important; position: absolute; top: 0; left: 0; z-index: 999; text-align: center; background-color: rgba(0, 0, 0, 0.05); }
+    .preloader .preloader-container { display: inline-block; width: 50px; height: 50px; margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+    .preloader .preloader-container .animated-preloader { display: inline-block; width: 50px; height: 50px; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; background: #f5f5f5; border-radius: 50em; }
+    .preloader .preloader-container .animated-preloader:after { content: ''; display: inline-block; width: 50px; height: 50px; position: absolute; top: 0; left: 0; border-radius: 50em; background: #808080; -webkit-animation: preloader-inside-white 1s ease-in-out infinite; -ms-animation: preloader-inside-white 1s ease-in-out infinite; animation: preloader-inside-white 1s ease-in-out infinite; }
+    .preloader .preloader-container .animated-preloader:before { content: ''; display: inline-block; width: 50px; height: 50px; position: absolute; top: 0; left: 0; z-index: 10; border-radius: 50em; background: #f5f5f5; -webkit-animation: preloader-inside-red 1s ease-in-out infinite; -ms-animation: preloader-inside-red 1s ease-in-out infinite; animation: preloader-inside-red 1s ease-in-out infinite; }
+    .checkbox_label_flex { display: flex; }
+    .modal-dialog.modal-lg .modal-content { height: 100%; }
+    .pdf_top_optionbar { text-align: center; background-color: #5d6264; }
+    .page_counter { position: relative; left: 90px; text-align: center; display: inline-block; }
+    .page_number { color: #fff; font-size: 17px; padding: 12px 20px; display: inline-block; }
+    .pdf_action_btns { font-size: 18px; padding: 5px 20px; display: inline-block; }
+    .pdf_action_btns a { margin: 0 5px; display: inline-block; }
+    .pdf_action_btns a i { color: #fff; padding: 0; margin: 10px; cursor: pointer; }
+    .light_line{margin-top: 0 !important;}
+    .action_btn_img{position: relative;  bottom: 2px;}
+    #top_loder{position: absolute; text-align: center; top: 48px; font-size: 17px; left: 0; right: 0; background-color: rgba(0,0,0,0.5); color: #fff;z-index: 999999;padding: 10px;}
+    #bottom_loder{position: absolute; left:0; right:0; width: 100%; text-align: center; bottom: 0; font-size: 17px; padding: 10px; background-color: rgba(0,0,0,0.5);color: #fff; z-index: 999999;}
+    
+    .page_containers { position:relative; overflow: hidden; }
+    .page_content { z-index: 9999; width: 100%; margin: auto; }
+    .watermark{position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; height: 150px; display: table; width: 100%; transform: rotateZ(-45deg);}
+    .waterMark_text { display: table-cell; vertical-align: middle; font-size: 65px; color: #868282;font-weight: bold; opacity: 0.5;}
+    .overflow_containers {min-height: 1188px; min-width: 918px; display: inline-block; position: relative; border: 2px solid rgb(221, 221, 221);
+     margin-bottom: 20px;box-shadow: rgb(206, 206, 206) 0px 0px 6px 0px; text-align: left; padding: 15px}
+    .stmt_TitleDiv {font-weight:bold; padding: 10px 0px}
+    .box_shadow_containers {display: inline-block; position: relative; border: 2px solid #dddddd; margin-bottom: 20px; box-shadow : 0px 0px 6px 0px #cecece}
+    #fields_containers { z-index: 999; }
+    .overflow_containers table tr td , .overflow_containers table tr th {padding: 2px;}
+    table.asset_table  tr td , table.asset_table tr th {padding: 4px;font-size: 13px;}
+    .overflow_containers table tr th{font-family: Times New Roman; font-weight: bold;}
+    .asset_TitleDiv {padding: 10px 0px;text-align: center;}
+    .black-font-bold { font-weight: bold; color: #000000; float: left; display: block; }
+    .border-1 { border-top:transparent; border-bottom:1px solid #000;}
+    .textarea_chat { padding: 1px 5px; }
+    @media (max-width: 1200px){
+        .modal-lg{width: 100%;}
+    }
+    @media (max-width: 1000px){
+        .padding_l_r_resp{padding: 0 15px !important;}
+        #top_loder , #bottom_loder{left: 14px; right: 14px;}
+    }
+    </style>
+<div>
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <label translate="PRINTPRE_LBL" translate-default="Print Preview" data-ng-if="!signatureData.type"></label>
+            <label translate="PRINTPRE_REVIEW_SIGN_LBL" translate-default="Send to Taxpayer for Review" data-ng-if="signatureData.type === 'REVIEW_SIGN'"></label>
+            <label translate="PRINTPRE_REQ_SIGN_LBL" translate-default="Request for Remote Signature" data-ng-if="signatureData.type === 'REQ_SIGN'"></label>
+            
+        </h4>
+        <i class="fa fa-times mt-2 cursor_pointer" ng-click="close()" style="margin-top: 10px;" aria-hidden="true"></i>
+        <!-- <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button> -->
+    </div>
+    <div class="modal-body clearfix" data-ng-cloak>
+
+        <div class="col-lg-24" data-ng-if="signatureData.type === 'REQ_SIGN'">
+            <div class="col-lg-24 clearfix padding_l_0">
+                <span class="black-font-bold margin_top_15 margin_bottom_15 font_size_12">
+                    The text you enter here will be displayed in the taxpayer’s signature request message.
+                </span>
+            </div>
+            <div class="col-lg-24 clearfix padding_l_0">
+                <div class="col-lg-24 col-md-24 col-xs-24 padding_l_r_0">
+                    <div class="col-lg-4 col-md-4 col-xs-24 margin_bottom_10 padding_l_r_0">
+                        <span class="black-font-bold">Question Request</span>
+                    </div>
+                    <div class="col-lg-20 col-md-20 col-xs-24 margin_bottom_10 padding_l_r_0">
+                        <span>
+                            <textarea maxlength="300" name="questionText" class="textarea_chat" data-ng-model="question.questionText"
+                                    ng-required="!question.questionText" style="width: 100%; resize:none;"></textarea>
+                        </span>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="col-lg-24" data-ng-if="signatureData.type === 'REVIEW_SIGN'">
+            <div class="col-lg-24 clearfix padding_l_0">
+                <span class="black-font-bold margin_top_15 margin_bottom_15 font_size_12">
+                    The text you enter here will be displayed in the taxpayer's review request message.
+                </span>
+            </div>
+            <div class="row col-lg-24 col-md-24 col-xs-24">                
+                <span class="col-lg-4 col-md-4 col-sm-24 padding_l_r_0">
+                    Question
+                </span>
+                <div class="col-lg-20 col-md-20 col-sm-20 padding_l_r_0" >
+                    <!-- answertype start -->
+                    <div class="col-lg-24 col-md-24 col-sm-24 clearfix margin_bottom_5">
+                        <span>
+                            <textarea maxlength="300" name="questionText" class="textarea_chat" data-ng-model="question.questionText"
+                            ng-required="!question.questionText" style="width: 100%; resize: none;"></textarea>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-lg-24 col-md-24 col-xs-24">
+                <span class="col-lg-4 col-md-4 col-sm-24 pl-0">
+                    Answer Type
+                </span>
+                <div class="col-lg-20 col-md-20 col-sm-20 pl-0">
+                    <!-- answertype start -->
+                    <div class="col-lg-24 col-md-24 col-sm-24 clearfix padding_l_r_0 margin_bottom_5">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <label class="" translate="USER_AUTHENTICATION_LBL"
+                                translate-default="Answers" class="float-left"></label>
+                        </div>
+                        <div data-ng-show="showIsRequired(question.answerType)" class="col-lg-8 col-md-8 col-sm-8">
+                            <label class="" translate="USER_AUTHENTICATION_LBL"
+                                translate-default="Mandatory to Answer?" class="float-left"></label>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8" style="max-width: 150px;"
+                            data-ng-show="showDocument(question.answerType) || showFreeText(question.answerType)">
+                            <label class="" translate="USER_AUTHENTICATION_LBL"
+                                translate-default="Mandatory When" class="float-left"></label>
+                        </div>
+                    </div>
+                    <div class="col-lg-24 col-md-24 col-sm-24 clearfix padding_l_r_0 margin_bottom_5"
+                        data-ng-repeat="answerType in question.answerType">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class=" margin_left_1 margin_top_4 checkbox-xs float-left ">
+                                <button type="button" class="custom_input_dark float-left "
+                                    data-ng-class="{'active': answerType.isSelected == true}"
+                                    data-ng-click="answerType.isSelected = !answerType.isSelected "></button>
+                            </div>
+                            <label class="margin_left_15" translate="USER_AUTHENTICATION_LBL"
+                                translate-default="{{answerType.displayText}}" class="float-left"></label>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div data-ng-show="showIsRequired(question.answerType)" class=" margin_left_1 margin_top_4 checkbox-xs float-left ">
+                                <button type="button" class="custom_input_dark float-left "
+                                    data-ng-class="{'active':answerType.isRequired== true}"
+                                    data-ng-click="answerType.isRequired= !answerType.isRequired"></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div data-ng-show="answerType.id !== 'Yes/No' && answerType.id !== 'Document' && showFreeText(question.answerType)">
+                                <select class="form-control custom_input_ddl margin_right_10 float-left"
+                                    style="max-width: 150px;" ng-options="answerType.id as answerType.displayText for answerType in showAnswerYesOrNo"
+                                    data-ng-model="answerType.requiredWhen"></select>
+                            </div>
+                            <div data-ng-show="answerType.id !== 'Yes/No' && answerType.id !== 'Free Text' && showDocument(question.answerType)">
+                                <select class="form-control custom_input_ddl margin_right_10 float-left"
+                                    style="max-width: 150px;" ng-options="answerType.id as answerType.displayText for answerType in showAnswerYesOrNo"
+                                    data-ng-model="answerType.requiredWhen"></select>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-24" data-ng-if="signatureData.type === 'REVIEW_SIGN'">
+            <hr class="border-1">
+        </div>
+        <div class="row">
+        <div class="col-lg-7 col-sm-24 col-md-7">
+            <div class="padding_10 margin_top_10 print_option_wrapper" ng-style="{height:headerNav.screenHeight-430}" style="overflow-y:auto;">
+                <div class="check_wrapper">
+                    <div class="clearfix">
+                        <div class="padding_l_r_0 col-lg-24 col-sm-24 col-md-24">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7 col-sm-7 padding_r_0">
+                                        <label translate="PRINTPACKET_LBL" translate-default="Print Packet" class="padding_top_5 float-left"></label>
+                                </div>
+                                <div class="col-lg-17 col-md-17 col-sm-17 padding_l_0">
+                                        <select data-ng-model="selectedPacket" class="form-control float-left margin_bottom_10" data-ng-options="packet as packet.displayText for packet in  printPacket"
+                                        ng-change="changePrintPackets();" data-ng-disabled="signatureData.type === 'REQ_SIGN' || signatureData.type === 'REVIEW_SIGN'"></select>
+                                </div>                                   
+                            </div>                 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr class="light_line">
+                    </div>
+                    <div>
+
+                        <div class="clearfix margin_top_10">
+                            <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                                <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':maskSensitiveInfo == true, 'no-clicking':selectedPacket.value == 'filing'}"
+                                    data-ng-click="maskSensitiveInfo = !maskSensitiveInfo;maskSensitiveInfoClick()"></button>
+                                <span translate="MASKSENSITIVEINFO_LBL" translate-default="Mask Sensitive Information"></span>
+                            </div>
+                            <div class=" margin_left_20">
+                                <span class="float-left margin_top_5" translate="MASKSENSITIVEINFO_NOTE" translate-default="(SSN , EIN , RTN etc.)"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <hr class="light_line">
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="row margin_top_10"></div>
+                        <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_bottom_10 padding_l_r_0">
+                            <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':waterMarkDetails[selectedPacket.value].isChecked==true,'no-clicking':selectedPacket.value == 'filing'}"
+                                data-ng-click="waterMarkDetails[selectedPacket.value].isChecked = !waterMarkDetails[selectedPacket.value].isChecked;removeWaterMarkData();" data-ng-disabled="signatureData.type === 'REQ_SIGN'"></button>
+                            <span translate="WATERMARK_LBL" translate-default="Watermark"></span>
+                        </div>
+                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_6 padding_l_r_0 padding_bottom_10">
+                            <input type="text" name="waterMarkText" class="form-control padding_bottom_4_important" data-ng-model="waterMarkDetails[selectedPacket.value].value"
+                                placeholder="Enter Watermark Here" ng-disabled="waterMarkDetails[selectedPacket.value].isChecked == false || waterMarkDetails[selectedPacket.value].isChecked == undefined || signatureData.type === 'REQ_SIGN'"
+                                data-ng-blur="watermarkChange()"
+                            />
+                        </div>
+                    </div>
+                    <div class="clearfix" data-ng-show="signatureDataListLength>0" data-ng-if="hasLicense('enableSignaturePad') && hasFeature('SIGNATURE') && userCan('CAN_OPEN_SIGNATURE')">
+                        <div class="clearfix row"> <hr class="light_line clearfix"></div>
+                           <div class="clearfix padding_bottom_10 margin_top_10">
+                               <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':isAddSignature.isChecked==true}"
+                                       data-ng-click="isAddSignature.isChecked = !isAddSignature.isChecked;SignatureHandler()"></button>
+                               <span translate="SIGNATUREADD_LBL" translate-default=" Add Signature(s)"></span>
+                           </div>
+                           <div class="clearfix padding_bottom_10" data-ng-repeat="(key, value) in signatureDataList">
+                               <div class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-24 padding_l_r_0">
+                                   <label>{{signatureTypeLookup[key].displayText}}</label>
+                               </div>
+                                <div class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-24 padding_l_r_0">
+                                   <div class="sign_input_wrap">
+                                       <div class="signature_img_ui">
+                                       <img data-ng-if="value.image" ng-src="taxAppJs/{{value.image}}" />
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>  
+                       <div class="row">
+                            <hr class="light_line">
+                    </div>
+                    <div class="clearfix">
+                        <div class="checkbox col-lg-24 col-sm-24 col-md-24 padding_l_r_0" style="margin: 0;">
+                            <div class="float-left">
+                            <button class="custom_input_dark float-left margin_top_10 margin_bottom_10" data-ng-model="checkAll" data-ng-class="{'active':checkAll}"
+                                data-ng-click="checkAll = !checkAll ; checkAllForm(checkAll);" data-ng-disabled="signatureData.type === 'REQ_SIGN'">
+                            </button>
+                            <label class="margin_right_15 margin_top_10 margin_bottom_10 margin_left_10" style="padding: 0;" translate="CHECKALL_LBL"
+                                translate-default="Check All" ></label>
+                            </div>
+                            <div class="float-right">
+                            <button class="btn btn-outline-primary float-right margin_left_10 margin_bottom_10" ng-click="openAllItems();" translate="EXPANDALL_LBL"
+                                translate-default="Expand all"></button>
+                            <button class="btn btn-outline-primary float-right margin_left_10 margin_bottom_10" ng-click="closeAllItems();" translate="COLLAPSEALL_LBL"
+                                translate-default="Collapse all"></button>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="col-lg-24 col-sm-24 col-md-24 clearfix accordian-wrapper padding_l_r_0">
+                            <!-- <accordion close-others="false">
+                               
+                                <accordion-group ng-repeat="category in categories track by $index" is-open="category.isOpen">
+                                    <accordion-heading>
+                                        <a>
+                                            <h4 class="panel-title">
+                                                <i class="fa fa-chevron-right color_gray" aria-hidden="true" ng-class="{'fa fa-chevron-down': category.isOpen, 'fa fa-chevron-right': !category.isOpen}"></i>
+                                                <span class="color_gray">{{category.displayText}}</span>
+                                            </h4>
+                                        </a>
+                                    </accordion-heading>
+                                    <div class="clearfix allowScrollSync accordian_row_wrap">
+                                        <div class="col-lg-24 col-sm-24 col-md-24 accordian_row clearfix" ng-repeat="form in forms | printPacketCategoryDialogFilter:category.value track by $index"
+                                            data-ng-if="form.extendedProperties.isHiddenForm != true">
+                                            <div class="checkbox my-3 mr-sm-3">
+                                                
+                                                <button class="custom_input_dark float-left" data-ng-class="{'active': form.extendedProperties.whenToPrint[selectedPacket.value] == 'Always'}"
+                                                    data-ng-click="addOrRemoveForm(form)" data-ng-disabled="signatureData.type === 'REQ_SIGN'"></button>
+                                                <label class="checkbox_label_flex pl-3"> <div>{{form.extendedProperties.displayName}} <span style="font-size: 12px;" data-ng-if="previewNotSupported.indexOf(form.docName) > -1">(Not available in preview)</span></div></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion> -->
+
+                            <div id="printPreviewDialogId" class="my-accordion">
+                                <div class="card" ng-repeat="category in categories track by $index">
+                                    <div class="card-header" ng-click="category.isOpen = !category.isOpen">
+                                        <a class="collapsed card-link" data-toggle="collapse" data-target="#printPreviewDialog{{$index}}">                            
+                                                <!-- <sapn class="fa fa-chevron-right color_gray" aria-hidden="true" ng-class="{'fa fa-chevron-down': category.isOpen, 'fa fa-chevron-right': !category.isOpen}"></span> -->
+                                               <div>
+                                                    <span>{{category.displayText}}</span>
+                                                    <span aria-hidden="true"  ng-class="{'accordion-right-icon-wrap accordion-close': !category.isOpen , 'accordion-right-icon-wrap accordion-open': category.isOpen == true}"></span>
+                                               </div>                                         
+                                        </a>
+                                    </div>
+                                    <div id="printPreviewDialog{{$index}}" class="collapse" data-ng-class="{'show': category.isOpen == true}" data-parent="#printPreviewDialog{{$index}}">
+                                        <div class="card-body">
+                                            <div class="clearfix allowScrollSync accordian_row_wrap">
+                                                <div class="col-lg-24 col-sm-24 col-md-24 accordian_row clearfix" ng-repeat="form in forms | printPacketCategoryDialogFilter:category.value track by $index"
+                                                    data-ng-if="form.extendedProperties.isHiddenForm != true">
+                                                    <div class="checkbox my-3 mr-sm-3">
+                                                        
+                                                        <button class="custom_input_dark float-left" data-ng-class="{'active': form.extendedProperties.whenToPrint[selectedPacket.value] == 'Always'}"
+                                                            data-ng-click="addOrRemoveForm(form)" data-ng-disabled="signatureData.type === 'REQ_SIGN'"></button>
+                                                        <label class="checkbox_label_flex pl-3"> <div>{{form.extendedProperties.displayName}} <span style="font-size: 12px;" data-ng-if="previewNotSupported.indexOf(form.docName) > -1">(Not available in preview)</span></div></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-ng-if="enableLoading == true">
+                <div class="loading_background"></div>
+                <div class="preloader">
+                    <div class="preloader-container">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-17 col-md-17 col-sm-24 col-xs-24 padding_l_0 padding_l_r_resp">
+            <div data-ng-if="enableLoading == true">
+                <div class="loading_background"></div>
+                <div class="preloader">
+                    <div class="preloader-container">
+                        <span class="animated-preloader"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="float-left col-lg-24 col-sm-24 col-xs-24 pdf_top_optionbar">
+                <div class="page_counter">
+                    <span class="page_number">{{pages.currentPage}}/{{pages.totalPage}}</span>
+                </div>
+                <div class="float-right">
+                    <span class="pdf_action_btns">
+                        <a >
+                            <i class="fa fa-repeat" aria-hidden="true" data-ng-click="rotate();"></i>
+                        </a>
+                        <a >
+                            <i class="fa fa-download" aria-hidden="true" data-ng-click="print();"></i>
+                        </a>
+                        <a >
+                            <i class="fa fa-plus" aria-hidden="true" data-ng-click="zoomIn();"></i>
+                        </a>
+                        <a >
+                            <i class="fa fa-minus" aria-hidden="true" data-ng-click="zoomOut();"></i>
+                        </a>
+                        <a style=" cursor: pointer;" data-ng-click="fitToPage();">
+                            <img class="action_btn_img" src="taxAppJs/return/workspace/images/expand-solid-white.png" alt="expand-solid-white image" />
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div id="top_loder" data-ng-if="top_loder == true">Loading...</div>
+            <div id="print_preview_container" class="margin_top_10 clearfix print-wrapper" ng-style="{height:headerNav.screenHeight-450}"
+                style="overflow-y:auto;">
+                <div id="zoom_handler" style="position: fixed;display:inline-block;top: 60%;"></div>
+                <div id="displayed-svg" style="display: none; text-align: center;"></div>
+                <div style="display: table; text-align: center; width: 100%; height: 100%;" data-ng-if="noText == true">
+                    <span style="display: table-cell; vertical-align: middle; font-size: 40px;">
+                        <i class="fa fa-meh-o"></i>  Please select forms
+                    </span>
+                </div>
+                <div id="svg-code" style="display: none;"></div>
+                
+            </div>
+            <div id="bottom_loder" data-ng-if="bottom_loder == true" >Loading...</div>
+        </div>
+    </div>
+        <div  class="modal-footer margin_top_10" style="float: left; width: 100%; padding: 10px;">
+              <span data-ng-if="signatureData.type === 'REVIEW_SIGN' || signatureData.type === 'REQ_SIGN'"  style="padding-right: 10px;color: red;">Note: Once you press "Send", the return will be locked. In case you want to edit the return, press "Unlock".</span>
+               <button data-ng-if="signatureData.type === 'REVIEW_SIGN'" class="btn btn-outline-primary" translate="SEND_BUTTON" translate-default="Send"
+                data-ng-click="sendForSignatureOrReview();" data-ng-disabled="!isSaveDisabled()"></button>
+                <button data-ng-if="signatureData.type === 'REQ_SIGN'" class="btn btn-outline-primary" translate="SEND_BUTTON" translate-default="Send"
+                data-ng-click="sendForSignatureOrReview();" data-ng-disabled="isSendDisabled == true"></button>
+                <button class="btn btn-outline-primary" data-ng-if="pdfPasswordOption == 'selectedForPasswordProtectePdf' && !signatureData.type"
+                    translate="PRINT_BUTTON" data-ng-class="{'no-clicking':pdfPassword.$invalid}" translate-default="Print"
+                    data-ng-click="print();"></button>
+                <!-- <button class="btn btn-outline-primary" translate="PRINT_BUTTON" data-ng-class="{'no-clicking':pdfPassword.$invalid}" translate-default="Print"
+                    data-ng-click="print();"></button> -->
+                <button data-ng-if="(pdfPasswordOption == 'customPassword' || pdfPasswordOption == 'defaultPassword' || pdfPasswordOption == 'noPassword') && !signatureData.type"
+                    class="btn btn-outline-primary" translate="PRINT_BUTTON" translate-default="Print" data-ng-click="print();"
+                    data-ng-class="{'no-clicking':passwordDetails.isCustomPassword == true && (passwordDetails.customPassword==undefined || passwordDetails.customPassword == '')}"></button>
+                <button class="btn btn-outline-primary" translate="CANCEL_BUTTON" translate-default="Cancel" data-ng-click="close();"></button>
+            </div>
+    </div>
+</div>
+<style>
+@media (min-width:1801px) and (max-width:1860px){
+    #displayed-svg { zoom:96%; }
+    #zoom_handler { zoom:96%; }
+}
+@media (min-width:1701px) and (max-width:1800px){
+    #displayed-svg { zoom:90%; }
+    #zoom_handler { zoom:90%; }
+}
+@media (min-width:1601px) and (max-width:1700px){
+    #displayed-svg { zoom:84%; }
+    #zoom_handler { zoom:84%; }
+}
+@media (min-width:1501px) and (max-width:1600px){
+    #displayed-svg { zoom:78%; }
+    #zoom_handler { zoom:78%; }
+}
+@media (min-width:1401px) and (max-width:1500px){
+    #displayed-svg { zoom:72%; }
+    #zoom_handler { zoom:72%; }
+}
+@media (min-width:1301px) and (max-width:1400px){
+    #displayed-svg { zoom:68%; }
+    #zoom_handler { zoom:68%; }
+}
+
+@media (min-width:1201px) and (max-width:1300px){
+    #displayed-svg { zoom:65%; }
+    #zoom_handler { zoom:65%; }
+}
+
+@media (min-width:1101px) and (max-width:1200px){
+    #displayed-svg { zoom:78%; }
+    #zoom_handler { zoom:78%; }
+}
+@media (min-width:991px) and (max-width:1100px){
+    #displayed-svg { zoom:74%; }
+    #zoom_handler { zoom:74%; }
+}
+@media (min-width:901px) and (max-width:990px){
+    #displayed-svg { zoom:90%; }
+    #zoom_handler { zoom:90%; }
+}
+@media (min-width:801px) and (max-width:900px){
+    #displayed-svg { zoom:82%; }
+    #zoom_handler { zoom:82%; }
+}
+@media(min-width:751px) and (max-width:800px){
+    #displayed-svg { zoom:78%;}    
+    #zoom_handler { zoom:78%;}    
+}
+@media(min-width:701px) and (max-width:850px){
+    #displayed-svg { zoom:72%;}    
+    #zoom_handler { zoom:72%;}    
+}
+@media(min-width:620px) and (max-width:700px){
+    #displayed-svg { zoom:62%;}    
+    #zoom_handler { zoom:62%;}    
+}
+@media(min-width:561px) and (max-width:621px){
+    #displayed-svg { zoom:56%;}    
+    #zoom_handler { zoom:56%;}    
+}
+@media(min-width:500px) and (max-width:560px) {
+    #displayed-svg { zoom:50%;}    
+    #zoom_handler { zoom:50%;}    
+}
+@media(max-width:501px) {
+    #displayed-svg { zoom:50%;}    
+    #zoom_handler { zoom:50%;}    
+}
+@media(max-width:425px){
+    .pdf_top_optionbar .page_counter { left:0px !important;}
+}
+
+</style>

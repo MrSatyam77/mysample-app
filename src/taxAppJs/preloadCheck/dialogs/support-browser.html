@@ -1,0 +1,87 @@
+<style type="text/css">
+    .full_page_height.browser_support {
+        min-height: 100vh;
+        height: auto;
+        padding-top: 16%;
+    }
+
+.modal-body { padding: 0px; }
+.border-right { border-right: 1px solid #cacaca; }
+.small-text { font-size: 14px; color: #000; }
+/********* Browser support modal Starts ********/
+
+.browser-support-modal .modal-title { display: inline-block; width: 100%;}
+.browser-support-modal .modal-title img { float:left; height: 24px; width: auto; margin-right: 10px; }
+.browser-support-modal .modal-title span { font-size: 24px; line-height: 110%; float: left; font-family: arial; }
+.browser-support-modal-title-text { font-size: 18px; line-height: 24px; font-family: arial; color: #000; }
+.browser-support-modal .left-bold-text { font-size: 22px; font-weight: bold; line-height: 30px; font-family: arial; margin: 0; color: #858585; }
+.browser-support-modal .right-side-icons { display: inline-block; margin-right: 15px; }
+.browser-support-modal .right-side-icons:last-child { margin-right:0px; }
+.browser-support-modal .right-side-icons img.browser-icon { width: 64px; height: auto; }
+.browser-download-btn { padding: 0px !important; background: transparent; color: #848484; transition: all 0.5s ease; }
+.browser-download-btn:hover {background: #ebebeb; color: #848484; }
+.browser-download-btn span { font-size: 14px; padding: 5px 10px !important; display: inline-block; font-family: arial; }
+.browser-support-modal-footer { font-size: 16px; line-height: 26px; color: #000; font-weight: bold; }
+.browser-support-modal-footer a { border-bottom: 2px solid #337ab7; font-family: arial; background: #005074; padding: 6px 20px; border-radius: 5px; color: #fff; display: inline-block; }
+.vertical-align-middle { display: flex; vertical-align: middle; align-items: center; }
+/********* Browser support modal Ends ********/
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857146;color: #333333;" class="browser-support-modal">
+    <div class="modal-header dialog-header-confirm">
+        <div class="modal-title">
+            <img src="images/browser_support.png">
+            <span>Browser Support</span>
+        </div>
+        <!-- <i class="popup_close_icon fa fa-times" ng-click="close()" aria-hidden="true"></i> -->
+    </div>
+    <div class="modal-body static_form_wrap clearfix">
+        <div class="vertical-align-middle">                
+            <div class="col-lg-10 col-md-24 col-sm-24 col-xs-24 border-right">
+                <div class="margin_left_5 col-lg-24">
+                    <h2 class="browser-support-modal-title-text">
+                        <!-- <i class="fa fa-frown-o font_size_45  margin_right_10"></i> -->
+                        <span translate="PRELOADCHECK_OPPWENOTREADYTHISBROWSER_SPAN" translate-default="For the best software experience, please use one of our supported browsers. We recommend using Google Chrome for optimal performance."></span>
+                    </h2>
+                </div>
+
+                <div class="clearfix margin_top_40 col-lg-24">
+                    <h2 class="left-bold-text float-left"><span translate="PRELOADCHECK_RECOMMENDTRYONE_SPAN"
+                            translate-default='Install one of our supported browsers and login to the software to begin.'></span></h2>
+                </div>
+                
+                <div class="clearfix padding_bottom_50 margin_top_20 col-lg-24">
+                    <h3 class="browser-support-modal-footer">
+                        <span translate="PRELOADCHECK_WANTADVENTUWITHBROWSER_SPAN"
+                            translate-default="Want to be adventurous and continue with your current browser?"></span>
+                            <br>
+                        <a class="cursor_pointer margin_top_10" data-ng-click="forceBrowserSupport()">
+                            <span translate="PRELOADCHECK_ADVENTUROSE_CLICK_SPAN" translate-default="Click Here" class="blue-btn"></span>
+                        </a>
+                    </h3>
+                </div>
+
+            </div>
+            <div class="col-lg-14 col-md-24 col-sm-24 col-xs-24 text-center">
+                <div class="right-side-icons" data-ng-repeat="support in browserSupportList">
+                    <div class="text-center">
+                        <span class="small-text">{{support.os}}</span>
+                    </div>
+                    <div class="text-center margin_top_10">
+                        <img src="taxAppJs/{{support.image}}" title="{{support.browser}}" class="browser-icon" />
+                    </div>
+                    <div class="text-center margin_top_10">
+                        <span translate="PRELOADCHECK_29MOZILLA_SPAN" translate-default="{{support.version}} +"></span>
+                    </div>
+                    <div class="text-center margin_top_15">
+                        <a target="_blank" href="{{support.downloadLink}}" class="btn btn-outline-primary browser-download-btn"><span translate="DOWNLOAD_LBL"
+                                translate-default="Download"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary custom-btn " data-ng-click="close()"><span translate="RESEND_BTN_CLOSE"
+                translate-default="Cancel"></span></button>
+    </div> -->
+</div>

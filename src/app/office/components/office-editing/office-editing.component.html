@@ -1,0 +1,149 @@
+<form [formGroup]="officeEditForm">
+  <div class="form-group row">
+    <label for="firmName" class="col-sm-10 col-form-label">Firm Name</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="firmName" formControlName="firmName" [required]="!officeEditForm.controls.firmName.value"
+        pattern="(([A-Za-z0-9-\#\(\)]|&|') ?)*([A-Za-z0-9-\#\(\)]|&|')">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="officeEditForm.controls.firmName.errors && officeEditForm.controls.firmName.errors.pattern">
+    <label class="col-sm-10"></label>
+    <label class="col-sm-14 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, 0-9, #, hyphen, single space.
+    </label>
+  </div>
+  <!-- <div class="form-group row">
+    <label for="firstName" class="col-sm-10 col-form-label">First Name</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="firstName" formControlName="contactFirstName" [required]="!officeEditForm.controls.contactFirstName.value">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="lastName" class="col-sm-10 col-form-label">Last Name</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="lastName" formControlName="contactLastName" [required]="!officeEditForm.controls.contactLastName.value">
+    </div>
+  </div> -->
+  <div class="form-group row">
+    <label for="addressType" class="col-sm-10 col-form-label">Address Type</label>
+    <div class="col-sm-14">
+      <select id="addressType" class="form-control" formControlName="addressType">
+        <option [ngValue]="1">US Address</option>
+        <option [ngValue]="2">Foreign Address</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="street" class="col-sm-10 col-form-label">Street</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="street" formControlName="street" pattern="[A-Za-z0-9]( ?[A-Za-z0-9\-/])*">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="officeEditForm.controls.street.errors && officeEditForm.controls.street.errors.pattern">
+    <label class="col-sm-10"></label>
+    <label class="col-sm-14 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space.
+    </label>
+  </div>
+  <div class="form-group row">
+    <label for="zipCode" class="col-sm-10 col-form-label">Zip Code</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="zipCode" formControlName="zipCode" mask="00000" (blur)="setDataBasedOnZipCode()">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="city" class="col-sm-10 col-form-label">City</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="city" formControlName="city" pattern="([A-Za-z] ?)*[A-Za-z]">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="officeEditForm.controls.city.errors && officeEditForm.controls.city.errors.pattern">
+    <label class="col-sm-10"></label>
+    <label class="col-sm-14 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, single space.
+    </label>
+  </div>
+  <div class="form-group row">
+    <label for="state" class="col-sm-10 col-form-label">State</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="state" formControlName="state" pattern="([A-Za-z] ?)*[A-Za-z]">
+    </div>
+  </div>
+
+  <div class="form-group row" *ngIf="officeEditForm.controls.state.errors && officeEditForm.controls.state.errors.pattern">
+    <label class="col-sm-10"></label>
+    <label class="col-sm-14 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, single space.
+    </label>
+  </div>
+
+  <div class="form-group row" *ngIf="officeEditForm.controls.addressType.value === 2">
+    <label for="country" class="col-sm-10 col-form-label">Country</label>
+    <div class="col-sm-14">
+      <input type="text" class="form-control" id="country" formControlName="country" pattern="([A-Za-z] ?)*[A-Za-z]">
+    </div>
+  </div>
+
+  <div class="form-group row" *ngIf="officeEditForm.controls.country.errors && officeEditForm.controls.country.errors.pattern">
+    <label class="col-sm-10"></label>
+    <label class="col-sm-14 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, single space.
+    </label>
+  </div>
+  <div class="form-group row">
+    <label for="phone" class="col-sm-10 col-form-label">Telephone</label>
+    <div class="col-sm-14">
+      <!-- <div class="input-dropdown-wrapper"> -->
+      <!-- <ng-select [items]="countryList" [searchable]="false" dropdownPosition="bottom" bindValue="countryCode"
+          bindLabel="">
+          <ng-template ng-label-tmp let-item="item">
+            <span [class]="item.iconClass"></span>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="countryName">
+            <span [class]="item.iconClass"></span> {{item.countryName}} {{item.dialCode}}
+          </ng-template>
+        </ng-select> -->
+      <input type="text" class="form-control" id="phone" formControlName="telephone" mask="(000) 000-0000">
+      <!-- </div> -->
+    </div>
+    <!-- <div class="input-dropdown-wrapper">
+      <div multi-select output-model="selectedCountry" input-model="countryDetails" button-label="icon" helper-elements="all filter"
+        item-label="icon countryName dialCode" tick-property="isSelected" max-labels="1" selection-mode="single" on-item-click="updateCountry()"></div>
+
+      <input type="text" name="phoneNo" class="form-control input_text" data-ng-model="regForm.phoneNo" data-ng-focus="isPhoneNoError=false;"
+        data-ng-blur='isPhoneNoError=true;' ng-required="!regForm.phoneNo" taxpattern="[a-z,A-Z,/]" data-ng-class="{'patternerror':regFormStep1.phoneNo.$error.taxpattern}"
+        tax-mask="{{phoneMask}}" placeholder="Phone No" value="{{regForm.phoneNo}}">
+    </div> -->
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-24 col-form-label">
+      Are you planning on offering financial products (e.g. loans, audit protection, Fee Collect, and/or Refund Transfer)?
+      <div class="mtpo-custom-checkbox d-inline-block pr-3 ml-2">
+        <button class="mtpo-checkbox" id="useBankProductYes" (click)="officeDetail.planningToUseBankProduct = true" [ngClass]="{'active': officeDetail.planningToUseBankProduct === true}"></button>
+        <label class="d-inline" for="useBankProductYes"> Yes</label>
+      </div>
+
+      <div class="mtpo-custom-checkbox d-inline-block">
+        <button class="mtpo-checkbox" id="useBankProductNo" (click)="officeDetail.planningToUseBankProduct = false" [ngClass]="{'active': officeDetail.planningToUseBankProduct === false}"></button>
+        <label class="d-inline" for="useBankProductNo"> Never</label>
+      </div>
+    </div>
+    <!-- <div class="col-sm-6">
+      <div class="mtpo-custom-checkbox d-inline-block pr-3">
+        <button class="mtpo-checkbox" id="useBankProductYes" (click)="officeDetail.useBankProduct = true" [ngClass]="{'active': officeDetail.useBankProduct === true}"></button>
+        <label class="d-inline" for="useBankProductYes"> Yes</label>
+      </div>
+
+      <div class="mtpo-custom-checkbox d-inline-block">
+        <button class="mtpo-checkbox" id="useBankProductNo" (click)="officeDetail.useBankProduct = false" [ngClass]="{'active': officeDetail.useBankProduct === false}"></button>
+        <label class="d-inline" for="useBankProductNo"> Never</label>
+      </div>
+    </div> -->
+  </div>
+  <div class="col float-right border-top pt-3 p-0">
+    <div class="float-right">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="!officeEditForm.valid" (click)="save()">Save</button>
+      <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</form>

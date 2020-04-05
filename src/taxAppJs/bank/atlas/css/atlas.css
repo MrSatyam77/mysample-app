@@ -1,0 +1,29 @@
+.estimator_block{border:1px solid #dddedf;margin-bottom:20px;}
+.estimator_block h3{margin-top:0px;background:#ddd;color:#000;padding:5px;font-size:20px;}
+/* #tax_estimator_tab { margin-bottom:20px; margin-top:5px;}
+#tax_estimator_tab .nav.nav-tabs li {padding:0px 0px;float:left;display:block;margin-right:10px;width:auto;} */
+/*#tax_estimator_tab .nav.nav-tabs li.active:before {background:#F0514A; border-radius:0px; content: ""; height: 8px; margin-top: -2px; position: absolute; bottom:-20px; width:100%; z-index: -1; }*/
+/* #tax_estimator_tab .nav.nav-tabs li a {border-radius:0%; background:#f5f5f5; font-size:20px; margin:0 auto; border:none; color:#666;display:block;float:left;} 
+#tax_estimator_tab .nav.nav-tabs li.active a {background:#ddd; color:#444; border:none;}
+#tax_estimator_tab .tab-content {border-top:5px solid #ddd; margin-top:0px; margin-top:1px;padding-top:10px;} */
+h3.estimater_title { width: 100%; margin-top:10px;} 
+@media (min-width:320px) and (max-width:800px) { 
+/*#tax_estimator_tab .nav.nav-tabs.nav-justified li {float:left !important; border:1px solid #1de033;}*/
+.nav-tabs.nav-justified > li,.nav-justified > li {cursor: pointer; float: left !important; margin-bottom:20px; bottom:-21px;}
+/* #tax_estimator_tab .nav.nav-tabs li a {font-size:22px;}
+#tax_estimator_tab .nav.nav-tabs li.active:before {bottom:-15px;} */
+}
+.info_tile_wrap { padding:10px; margin-bottom:10px; padding-bottom:8px; border:1px solid #dfdfdf; border-bottom:3px solid #dfdfdf}
+.info_tile_wrap:hover{background:#F5F5F5;}
+.info_tile_title {color:#555555; font-weight: bold; padding-bottom:7px;font-size:20px;border-bottom:1px solid #dddedf;}
+.info_tile_content{color:#666;word-wrap:break-word;}
+.quick_search{height:30px;border:1px solid #dddedf;width:150px;padding:5px;margin-top:15px;margin-left:20px;margin-bottom:5px;font-size:14px; }
+.newusertextbox {max-width: 170px; padding:6px 12px;width:100%;}
+.newusertextbox_full {padding:6px 12px;}
+.row_height_31{min-height:31px;}
+.wrap_text{
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+width:80%;
+}

@@ -1,0 +1,79 @@
+<div class="clearfix border-bottom pb-3 mb-4">
+  <div class="row">
+    <div class="col">
+      <h6 class="font-weight-bold my-3">Email Invite</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24" *ngIf="settings.emailTemplates && settings.emailTemplates.length > 0 && mode === 'view'">
+      <div class="clearfix" *ngFor="let template of settings.emailTemplates">
+        <div class="form-group row">
+          <div class="col col-sm-4 pt-2">
+            <label>Email Subject</label>
+          </div>
+          <div class="col col-sm-10">
+            <span class="font-weight-bold pt-2 d-inline-block">{{template.subject}}</span>
+          </div>
+          <div class="col pl-0">
+            <div class="float-left">
+              <button type="button" class="btn btn-outline-primary mr-2" (click)="switchToEditMode()"
+                [disabled]="!permission.canSettingSave">
+                <i class="fa fa-edit" aria-hidden="true"></i> Edit
+              </button>
+              <button class="btn btn-outline-primary" (click)="previewMail()">
+                <i class="fas fa-eye"></i>
+                Preview
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col col-sm-4">
+            <label>Email Body</label>
+          </div>
+          <div class="col col-sm-10" [innerHTML]="template.body"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-24 border-bottom pb-3 mb-3"
+      *ngIf="settings.emailTemplates && settings.emailTemplates.length > 0 && mode === 'edit'">
+      <form name="updateEmailForm">
+        <div class="clearfix" *ngFor="let template of settings.emailTemplates">
+          <div class="form-group row">
+            <div class="col col-sm-4 pt-2">
+              <label>Email Subject</label>
+            </div>
+            <div class="col col-sm-10">
+              <input type="text" name="invEmailSub" class="form-control" style="font-weight: lighter;"
+                [(ngModel)]="template.subject" [required]="!template.subject" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col col-sm-4 pt-2">
+              <label>Email Body</label>
+            </div>
+            <div class="col col-sm-13 pr-0">
+              <quill-editor class="clarfix editor" [required]="!template.body" name="invEmailBody"
+                [(ngModel)]="template.body">
+              </quill-editor>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col col-sm-13 pr-sm-0 offset-sm-4">
+              <div class="float-right">
+                <button class="btn btn-outline-primary" (click)="saveSettings('viewEmailTemplate')"
+                  [disabled]="!permission.canSettingSave"> <i class="fa fa-save" aria-hidden="true"></i> Save</button>
+                <button type="button" class="btn btn-outline-primary ml-2" (click)="switchToEditMode()">
+                  <i class="fa fa-times" aria-hidden="true"></i> Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- EDIT EMAIL TEMPLATE -->

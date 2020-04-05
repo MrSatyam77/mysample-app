@@ -1,0 +1,222 @@
+<style>
+    .que_ans_main_wrapper {
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .que_line_bar {
+        padding-bottom: 5px;
+        padding-left: 20px !important;
+        padding-right: 30px !important;
+    }
+
+    .que_line_bar:before {
+        content: 'Q :';
+        position: absolute;
+        margin-left: -20px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .file_uploaded_box {
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        margin-right: 5px;
+        display: inline-block;
+        color: #005074;
+        font-size: 13px;
+        float: left;
+        border-radius: 18px;
+        font-weight: lighter;
+        cursor: pointer;
+    }
+
+    .file_uploaded_box i {
+        color: #005074;
+        margin-right: 5px;
+    }
+
+    .answer_line_bar {
+        min-height: 20px !important;
+    }
+
+    .answer_line_bar b {
+        margin-bottom: 10px;
+        padding-left: 20px !important;
+    }
+
+    .answer_line_bar:before {
+        content: 'A :';
+        margin-left: 0px;
+        color: #000;
+        font-weight: bold;
+        position: absolute;
+    }
+
+    .signature_box {
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        margin-right: 5px;
+        display: inline-block;
+        color: #005074;
+        font-size: 13px;
+        float: left;
+        border-radius: 18px;
+        font-weight: lighter;
+        cursor: pointer;
+    }
+
+    .signature_box i {
+        color: #005074;
+        margin-right: 5px;
+    }
+
+    .validation-container.orange-tooltip .tooltip .tooltip-arrow {
+        border-right-color: #ff9600 !important;
+    }
+
+    .validation-container.orange-tooltip .tooltip .tooltip-inner {
+        background-color: #ff9600 !important;
+        padding: 2px 12px;
+    }
+
+    .validation-container.orange-tooltip .tooltip {
+        min-width: 160px;
+    }
+
+    .validation-container.orange-tooltip button.btn-outline-default {
+        border-color: #ff9600 !important;
+        color:black !important;
+    }
+    .progressbar_wrapper{position: relative; float: left; width: 100%; margin-bottom: 0px;}
+   
+</style>
+
+<div ng-if="questionDetails.answers && questionDetails.answers.length > 0">
+  <div class="row">
+    <div class="progressbar_wrapper">
+        <span class="black_font" style="font-size: 16px;">Progress</span>
+        <div class="float-right cursor_pointer" style="margin-right: 10px;" title="Download all documents" data-ng-if="downloadAllAvailable">
+            <a class="float-right cursor_pointer" data-ng-click="downloadQuestionDocuments(questionDetails.clientId)" style="font-size:18px;">
+                <i class="fa fa-download" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="progress" style="height: 18px !important; background: #ddd !important; margin-bottom: 10px !important; width:100% !important;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{ratio}}" aria-valuemin="0" aria-valuemax="100"
+                style="width:{{ratio}}">
+                <span>{{ratio}}</span>
+            </div>
+        </div>
+    </div>
+</div>  
+
+    <div data-ng-repeat="ques in questionDetails.answers" class="row col-lg-24 col-md-24 col-xs-24 padding_l_r_0">
+        <div class="que_ans_main_wrapper col-lg-24 col-md-24 col-xs-24">
+            <div class="row">
+                <span class="que_line_bar col-lg-24 col-md-24 col-xs-24">
+                    {{ques.questionText}}
+                    <a class="float-right cursor_pointer" data-ng-click="historyQuestion(ques.history)" ng-if="ques.history && ques.history.length > 0"
+                        style=" position: absolute; top: 0; right: 10px;" title="Answer History">
+                        <i class="fa fa-history" aria-hidden="true"></i>
+                    </a>
+                    <a class="float-right cursor_pointer" data-ng-click="downloadQuestionDocuments(questionDetails.clientId, ques.id)"
+                        ng-if="ques.answer && ques.answer.documents && ques.answer.documents.length > 0"  title="Download all documents related to this question" style=" position: absolute; top: 0; right: 26px;">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </a>
+                </span>
+                <div class="answer_line_bar col-lg-24 col-md-24 col-xs-24 pl-0">
+                    <div class="row pl-3">
+                        <b ng-if="ques.answer.yesNo === true || ques.answer.yesNo === false" class="col-lg-24 col-md-24 col-xs-24">
+                            <span ng-if="ques.answer.yesNo === true">Yes</span>
+                            <span ng-if="ques.answer.yesNo === false">No</span>
+                        </b>
+                        <div class="float-left validation-container orange-tooltip">
+                            <b>{{ques.answer.freeText}} </b>
+                        </div>
+                        <div ng-if="ques.type === 'REVIEW_SIGN'" class="margin_left_5 float-left validation-container orange-tooltip free_text_tooltip">
+                            <div ng-if="ques.signatureData.status === 'Invalid'" title="Not valid for the current version of the return">
+                                <img src="taxAppJs/images/exclamation-mark.png">
+                            </div>
+                            <div class="tooltip right" ng-if="ques.signatureData.status === 'Invalid'">
+                                <div class="tooltip-arrow"></div>
+                                <div class="tooltip-inner">
+                                    <span>Not valid for the current<br>version of the return</span>
+                                </div>
+                            </div>
+                        </div>
+                        <b ng-if="ques.answer.documents && ques.answer.documents.length > 0" class="col-lg-24 col-md-24 col-xs-24"
+                            style="margin-bottom: 5px !important;">
+                            <a data-ng-repeat="document in ques.answer.documents" class="file_uploaded_box" data-ng-click="download(document.docId)">
+                                <i class="fa fa-download" aria-hidden="true"></i> {{document.fileName}}
+                            </a>
+                        </b>
+                        <b ng-if="ques.type === 'REQ_SIGN'" class="float-left" style="margin-bottom: 5px !important; padding-left: 10px !important; ">
+                            <div>
+                                <div class="float-left validation-container orange-tooltip">
+                                    <button class="signature_box btn btn-outline-default" ng-if="ques.signatureData.status === 'Valid' && ques.isAnswered != true"
+                                        data-ng-click="openSignatureVerificationDialog(ques.signatureData, ques.id,'taxPayer')"
+                                        disabled>
+                                        View Signature
+                                    </button>
+                                    <button class="signature_box btn btn-outline-default" ng-if="ques.signatureData.status === 'Valid' && ques.isAnswered == true"
+                                        data-ng-click="openSignatureVerificationDialog(ques.signatureData, ques.id,'taxPayer')">
+                                        View Signature
+                                    </button>
+                                </div>
+                                <div class="float-left validation-container orange-tooltip right_side_button_info" ng-if="ques.signatureData.status === 'Invalid'">
+                                    <button class="signature_box btn btn-outline-default" disabled>
+                                        <!-- data-ng-click="openSignatureVerificationDialog(ques.signatureData,ques.id, 'taxPayer')" -->
+                                        View Signature <img src="taxAppJs/images/exclamation-mark.png">
+                                    </button>
+                                    <div class="tooltip right">
+                                        <div class="tooltip-arrow"></div>
+                                        <div class="tooltip-inner">
+                                            <span>Not valid for the current<br>version of the return</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="float-left validation-container" ng-if="ques.signatureData.status === 'Rejected'">
+                                    <button type="button" class="btn btn-information small-btn" data-ng-disabled="true">Rejected
+                                        <img src="taxAppJs/images/error-image.png" class="margin_right_5">
+
+                                </div>
+                                <div class="float-left validation-container" ng-if="ques.signatureData.status === 'Approved'">
+                                    <button type="button" class="btn btn-information small-btn" data-ng-disabled="true">Approved
+                                        <img src="taxAppJs/images/checked-icon.png" class="btn-icon"></button>
+                                </div>
+                            </div>
+                        </b>
+                    </div>    
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>
+<div ng-if="!(questionDetails.answers && questionDetails.answers.length > 0)">
+    <div style="padding-bottom: 10px">
+        Click “Invite Clients” on the Dashboard MyTAXPortal widget to enable the <b>Send to Taxpayer for Review</b> and <b>Request for Remote Signature</b> features.</div>
+    <link href="taxAppJs/common/widgets/training/css/training.css" rel="stylesheet" />
+    <div class="clearfix video_area">
+        <div ng-repeat="training in clienthelp">
+            <div class="video_wrap_without_padding margin_bottom_10">
+                <div class="video_player_without_padding clearfix">
+                    <a ng-href="{{training.link}}" target="_blank" class="float-left">
+                        <div class="width_full_30 float-left padding_5" ng-if="training.video || training.image"> <img
+                                ng-src={{training.image}} ng-if="training.image" height="65" class="back_video" /><img
+                                ng-src={{training.video}} ng-if="training.video" height="65" class="back_video" /></div>
+                        <div class="float-left" data-ng-class="{'width_full_65':training.video||training.image,'width_full padding_10 padding_bottom_8':!training.video && !training.image}">
+                            <div class=" video_title">{{training.title}}</div>
+                            <!--<div ng-if="betaOnly() == false" class="video_txt_info font_size_12">{{training.description}}</div> -->
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

@@ -1,0 +1,309 @@
+<style>
+    /*style for print second module start*/
+    .modal-lg {width: 70vw;max-width: 100% !important;}
+    .print_option_wrapper {border: 1px solid #dddedf;line-height: 1.5;}
+    .print-wrapper {border: 1px solid #dddedf;position: relative}
+    .check_wrapper {width: 100%;}
+    .check_wrapper .checkbox {margin-bottom: 0px;}
+    .panel-title .checkbox {margin-top: 0px;margin-bottom: 0px;}
+    .accordian-wrapper {clear: both}
+    .accordian-wrapper .panel-heading {padding: 3px 10px;}
+    .accordian-wrapper .panel-body .checkbox {margin-top: 5px;margin-bottom: 5px;border-bottom: 1px solid #dddedf;padding: 5px 0px;}
+    .accordian-wrapper .panel-body .checkbox:last-child {border-bottom: none;}
+    .accordian-wrapper .panel-body {padding: 5px 20px;}
+    .sidebar-menu-wrapper {clear: both}
+    .menu-inner-tile {padding: 5px;border: 1px solid #dddedf;font-size: 16px;font-weight: bold;cursor: pointer;color: #005074;background: #f5f5f5;margin: 10px 0px}
+    .menu-inner-tile:hover {background: #ffffff;}
+    .menu-inner-tile.active {background: #cccccc;}
+    .accordian_row {border-bottom: 1px solid #dddedf;padding-bottom: 2px;padding-top: 2px;}
+    .accordian-wrapper .panel-group .panel+.panel {margin-top: 10px;}
+    .accordian_row_wrap .accordian_row:last-of-type {border-bottom: 0px solid red;}
+    div#printPacketsDialogId .checkbox {margin-top: 5px;margin-bottom: 5px;padding: 5px 0px;}
+    .accordian_row_wrap>.col-lg-24.col-sm-24.col-md-24 {border-bottom: 1px solid #dddedf;padding-bottom: 2px;padding-top: 2px;}
+    .accordian_row_wrap>.col-lg-24.col-sm-24.col-md-24:last-of-type {border-bottom: 0px;}
+    /*style for print second module end*/
+</style>
+
+
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <label translate="PRINTRETURNDIALOG_LBL" translate-default="Print Return Dialog"></label>
+        </h4>
+    </div>
+    <div class="modal-body clearfix row">
+        <div class=" col-lg-7 col-sm-24 col-md-7">
+            <div class="padding_10 margin_top_10 print_option_wrapper" ng-style="{height:headerNav.screenHeight-320}"
+                style="overflow-y:auto;">
+                <span class="font_size_17 page_title_lg">{{selectedPacket.displayText}}</span>
+                <div class="row">
+                    <hr class="light_line">
+                </div>
+                <div class="clearfix">
+
+                    <ng-form name="nameDialog" role="form" data-ng-if="pdfPasswordOption == 'customPassword'">
+                        <form name="pdfPassword">
+                            <div class="form-group clearfix input-group-lg">
+                                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_5 padding_l_r_0">
+                                    <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_5 padding_l_r_0">
+                                        <button type="button" class="custom_input_dark pull-left margin_right_5"
+                                            data-ng-class="{'active':passwordDetails.isCustomPassword==true}"
+                                            data-ng-click="passwordDetails.isCustomPassword = !passwordDetails.isCustomPassword"></button>
+                                        <span translate="RETURNPDFPASSWORD_SECUREPASSWORD_SPAN" translate-default="Set Custom Password"></span>
+                                    </div>
+                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                                        <input type="text" name="enterPassword" class="newusertextbox form-control margin_top_7"
+                                            data-ng-model="passwordDetails.customPassword" data-ng-required="passwordDetails.isCustomPassword==true && (passwordDetails.customPassword ==undefined || passwordDetails.customPassword == '')"
+                                            ng-disabled="passwordDetails.isCustomPassword == undefined || passwordDetails.isCustomPassword == false"
+                                            placeholder="Enter Password" />
+                                    </div>
+                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_10 padding_l_r_0">
+                                        <span translate="RETURNCUSTOMPASSWORD_NOTE_SPAN" translate-default="<b>Note:</b> You will be prompted to enter a desired password for each print request. You may change your settings from the Change Preferences screen."></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </ng-form>
+
+                    <ng-form name="nameDialog" role="form" data-ng-if="pdfPasswordOption == 'defaultPassword'">
+                        <div class="form-group clearfix input-group-lg">
+                            <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_5 padding_l_r_0">
+                                <button type="button" class="custom_input_dark pull-left margin_right_5" data-ng-class="{'active':pdfPasswordOption == 'defaultPassword'}"
+                                    ng-disabled="true"></button>
+                                <span translate="RETURNPDFPASSWORD_SECUREPASSWORD_SPAN" translate-default="Set Default Password"></span>
+                            </div>
+                            <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_10 padding_l_r_0">
+                                <span translate="RETURNCUSTOMPASSWORD_NOTE_SPAN" translate-default="<b>Note:</b> The default password is a combination of the first four letters of the taxpayer’s first name or the company name (for business returns) and the last four numbers of the SSN/ITIN or EIN. You may change your settings from the Change Preferences screen."></span>
+                            </div>
+                        </div>
+                    </ng-form>
+                    <ng-form name="nameDialog" role="form" data-ng-if="pdfPasswordOption == 'selectedForPasswordProtectePdf'">
+                        <div class="form-group input-group-lg row_height_30">
+                            <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_5  padding_l_r_0">
+                                <span translate="RETURNPDFPASSWORD_SECUREPASSWORD_SPAN" translate-default="Do you want to password protect returns when printing ?"></span>
+                            </div>
+                            <div class="col-lg-14 col-md-9 col-sm-9 clearfix  padding_l_r_0">
+                                <div class="clearfix margin_left_3 margin_top_15 checkbox-xs">
+                                    <button type="button" class="custom_input_dark pull-left margin_right_5"
+                                        data-ng-class="{'active':passwordDetails.isPasswordProtectedPDF==true}"
+                                        data-ng-model="passwordDetails.isPasswordProtectedPDF" data-ng-click="passwordDetails.isPasswordProtectedPDF=true"
+                                        data-ng-required="passwordDetails.isPasswordProtectedPDF==undefind"></button><span
+                                        class="pull-left" translate="PDFSECURE_YES_LBL" translate-default="Yes"></span>
+                                    <button type="button" class="custom_input_dark pull-left margin_right_5 margin_left_10"
+                                        data-ng-class="{'active':passwordDetails.isPasswordProtectedPDF==false}"
+                                        data-ng-model="passwordDetails.isPasswordProtectedPDF" data-ng-required="passwordDetails.isPasswordProtectedPDF==undefind"
+                                        data-ng-click="passwordDetails.isPasswordProtectedPDF=false;passwordDetails.isProtectedDefaultPassword=undefined;
+                                          passwordDetails.customPassword='';"></button><span
+                                        class="pull-left" translate="PDFSECURE_NO_LBL" translate-default="No"></span>
+                                </div>
+                            </div>
+                            <div data-ng-if="passwordDetails.isPasswordProtectedPDF">
+                                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                                    <div translate="RETURNPDFPASSWORD_DEFAULT_SPAN" translate-default="Select Password Type"
+                                        class="font_bold margin_top_10"></div>
+                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_10">
+                                        <button type="button" name="defaultPassword" id="defaultPassword" class="custom_input pull-left margin_right_5"
+                                            data-ng-class="{'active':passwordDetails.isProtectedDefaultPassword==true}"
+                                            data-ng-model="passwordDetails.isProtectedDefaultPassword" data-ng-required="passwordDetails.isPasswordProtectedPDF==true && passwordDetails.isProtectedDefaultPassword==undefined"
+                                            data-ng-click="passwordDetails.isProtectedDefaultPassword=true;passwordDetails.customPassword='';"></button>
+                                        <span translate="RETURNPDFPASSWORD_DEFAULT_SPAN" translate-default="Default"></span>
+                                    </div>
+                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_10">
+                                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0"><span
+                                                translate="RETURNSUBSCRIPTION_NOTE_SPAN" translate-default="<b>Note:</b> Note: The default password is a combination of the first four letters of the taxpayer’s first name or the company name (for business returns) and the last four numbers of the SSN/ITIN or EIN. You may change your settings from the Change Preferences screen."></span></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_8 padding_l_r_0">
+                                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                        <button type="button" name="customPassword" id="customPassword" class="custom_input pull-left margin_right_5"
+                                            data-ng-required="passwordDetails.isPasswordProtectedPDF==true && passwordDetails.isProtectedDefaultPassword==undefined"
+                                            data-ng-class="{'active':passwordDetails.isProtectedDefaultPassword==false}"
+                                            data-ng-model="passwordDetails.isProtectedDefaultPassword" data-ng-click="passwordDetails.isProtectedDefaultPassword=false"></button>
+                                        <span translate="RETURNPDFPASSWORD_CUSTOM_SPAN" translate-default="Custom"></span>
+                                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                                            <div class="row row_height_30 margin_top_10">
+                                                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                                                    <input type="text" name="enterPassword" class="newusertextbox form-control "
+                                                        data-ng-model="passwordDetails.customPassword" ng-required="!passwordDetails.customPassword && passwordDetails.isProtectedDefaultPassword==false"
+                                                        ng-disabled="passwordDetails.isProtectedDefaultPassword == true || passwordDetails.isProtectedDefaultPassword == undefined "
+                                                        placeholder="Enter Password" />
+                                                </div>
+                                                <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_8 padding_l_r_0">
+                                                    <span translate="RETURNCUSTOMPASSWORD_NOTE_SPAN" translate-default="<b>Note:</b> You will be prompted to enter a desired password for each print request. You may change your settings from the Change Preferences screen."></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-form>
+                </div>
+                <div class="row">
+                    <hr class="light_line" ng-show="pdfPasswordOption == 'customPassword' ||pdfPasswordOption == 'selectedForPasswordProtectePdf' || pdfPasswordOption =='defaultPassword'">
+                </div>
+
+
+                <div class="clearfix margin_top_10">
+                    <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                        <button type="button" class="custom_input_dark pull-left margin_right_5" data-ng-class="{'active':maskSensitiveInfo == true, 'no-clicking':selectedPacket.value == 'filing'}"
+                            data-ng-click="maskSensitiveInfo = !maskSensitiveInfo;"></button>
+                        <span translate="MASKSENSITIVEINFO_LBL" translate-default="Mask Sensitive Information"></span>
+                    </div>
+                    <div class=" margin_left_20">
+                        <span class="pull-left margin_top_5" translate="MASKSENSITIVEINFO_NOTE" translate-default="(SSN , EIN , RTN etc.)"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr class="light_line">
+                </div>
+
+                <div class="clearfix">
+                    <div class="row margin_top_10"></div>
+                    <div class="clearfix col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                        <button type="button" class="custom_input_dark pull-left margin_right_5" data-ng-class="{'active':waterMarkDetails[selectedPacket.value].isChecked==true,'no-clicking':selectedPacket.value == 'filing'}"
+                            data-ng-click="waterMarkDetails[selectedPacket.value].isChecked = !waterMarkDetails[selectedPacket.value].isChecked;removeWaterMarkData();"></button>
+                        <span translate="WATERMARK_LBL" translate-default="Watermark"></span>
+                    </div>
+                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_top_6 padding_l_r_0">
+                        <input type="text" name="waterMarkText" class="form-control padding_bottom_4_important"
+                            data-ng-model="waterMarkDetails[selectedPacket.value].value" placeholder="Enter Watermark Here"
+                            ng-disabled="waterMarkDetails[selectedPacket.value].isChecked == false || waterMarkDetails[selectedPacket.value].isChecked == undefined" />
+                    </div>
+                </div>
+                <div class="clearfix" data-ng-show="signatureDataListLength>0" data-ng-if="hasLicense('enableSignaturePad') && hasFeature('SIGNATURE') && userCan('CAN_OPEN_SIGNATURE')">
+                    <div class="clearfix row">
+                        <hr class="light_line clearfix">
+                    </div>
+                    <div class="clearfix padding_bottom_10 margin_top_10">
+                        <button type="button" class="custom_input_dark pull-left margin_right_5" data-ng-class="{'active':isAddSignature.isChecked==true}"
+                            data-ng-click="isAddSignature.isChecked = !isAddSignature.isChecked;"></button>
+                        <span translate="SIGNATUREADD_LBL" translate-default=" Add Signature(s)"></span>
+                    </div>
+                    <div class="clearfix padding_bottom_10" data-ng-repeat="(key, value) in signatureDataList">
+                        <div class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-24 padding_l_r_0">
+                            <label>{{signatureTypeLookup[key].displayText}}</label>
+                        </div>
+                        <div class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-24 padding_l_r_0">
+                            <div class="sign_input_wrap">
+                                <div class="signature_img_ui">
+                                    <img data-ng-if="value.image" ng-src="{{value.image}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-17 col-md-17 col-sm-24">
+            <div class="padding_10 margin_top_10 clearfix print-wrapper" ng-style="{height:headerNav.screenHeight-320}"
+                style="overflow-y:auto;">
+                <div class="font_size_17 page_title_lg"><span translate="PRINTRETURNDIALOGHEADER_LBL" translate-default="What do you want to print?"></span></div>
+                <div class="row">
+                    <hr class="light_line">
+                </div>
+                <div class="check_wrapper row">
+                    <div class="col-lg-16 col-sm-12 col-md-12 ml-0 row">
+                        <div class="checkbox col-lg-7 col-sm-24 col-md-24 padding_top_10"> <button class="custom_input_dark float-left margin_bottom_10"
+                                data-ng-model="checkAll" data-ng-class="{'active':checkAll}" data-ng-click="checkAll = !checkAll ; checkAllForm(checkAll);"></button><label
+                                translate="CHECKALL_LBL" translate-default="Check All"></label>
+                        </div>
+                        <div class="col-lg-13 col-sm-24 col-md-24">
+                            <div class="float-left padding_right_20">
+                                <label translate="PRINTPACKET_LBL" translate-default="Print Packet" class="padding_top_10"></label>
+                            </div>
+                            <div class="float-left">
+                                <select data-ng-model="selectedPacket" class="form-control margin_bottom_10"
+                                    data-ng-options="packet as packet.displayText for packet in  printPacket" ng-change="changePrintPackets();"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-sm-12 col-md-12 pull-right">
+                        <div class="pull-right">
+                            <button class="btn btn-outline-primary float-right margin_left_10 margin_bottom_10"
+                                ng-click="openAllItems();" translate="EXPANDALL_LBL" translate-default="Expand all"></button>
+                            <button class="btn btn-outline-primary float-right margin_left_10 margin_bottom_10"
+                                ng-click="closeAllItems();" translate="COLLAPSEALL_LBL" translate-default="Collapse all"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-24 col-sm-24 col-md-24 clearfix accordian-wrapper">
+                    <!-- <accordion close-others="false">
+                   
+                    <accordion-group ng-repeat="category in categories track by $index" is-open="category.isOpen">
+                        <accordion-heading>
+                            <a>
+                                 <h4 class="panel-title">
+                                  <i class="fa fa-chevron-right color_gray" aria-hidden="true" ng-class="{'fa fa-chevron-down': category.isOpen, 'fa fa-chevron-right': !category.isOpen}"></i>
+                                  <span class="color_gray">{{category.displayText}}</span>
+                                </h4>
+                            </a>
+                        </accordion-heading>
+                        <div class="clearfix allowScrollSync accordian_row_wrap">
+                            <div class="col-lg-24 col-sm-24 col-md-24 accordian_row clearfix" ng-repeat="form in forms | printPacketCategoryDialogFilter:category.value track by $index" data-ng-if="form.extendedProperties.isHiddenForm != true">
+                                  <div class="checkbox">
+                                    <button class="custom_input_dark pull-left" data-ng-class="{'active': form.extendedProperties.whenToPrint[selectedPacket.value] == 'Always'}" data-ng-click="(form.extendedProperties.whenToPrint[selectedPacket.value] == 'Always' ? form.extendedProperties.whenToPrint[selectedPacket.value] = 'Never' : form.extendedProperties.whenToPrint[selectedPacket.value] = 'Always')"></button>
+                                    <label>{{form.extendedProperties.displayName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                  </accordion> -->
+
+                    <div id="printPacketsDialogId" class="my-accordion">
+                        <div class="card" ng-repeat="category in categories track by $index">
+                            <div class="card-header" ng-click="category.isOpen = !category.isOpen">
+                                <a class="collapsed card-link" data-toggle="collapse" data-target="#printPacketsDialog{{$index}}">
+                                    <div>
+                                        
+                                        <span>{{category.displayText}}</span>
+                                        <span aria-hidden="true" ng-class="{'accordion-right-icon-wrap accordion-close': !category.isOpen , 'accordion-right-icon-wrap accordion-open': category.isOpen == true}"></span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="printPacketsDialog{{$index}}" class="collapse" data-ng-class="{'show': category.isOpen == true}"
+                                data-parent="#printPacketsDialog{{$index}}">
+                                <div class="card-body">
+                                    <div class="clearfix allowScrollSync accordian_row_wrap">
+                                        <div class="col-lg-24 col-sm-24 col-md-24" ng-repeat="form in forms | printPacketCategoryDialogFilter:category.value track by $index"
+                                            data-ng-if="form.extendedProperties.isHiddenForm != true">
+                                            <div class="checkbox">
+                                                <button class="custom_input_dark float-left" data-ng-class="{'active': form.extendedProperties.whenToPrint[selectedPacket.value] == 'Always'}"
+                                                    data-ng-click="(form.extendedProperties.whenToPrint[selectedPacket.value] == 'Always' ? form.extendedProperties.whenToPrint[selectedPacket.value] = 'Never' : form.extendedProperties.whenToPrint[selectedPacket.value] = 'Always')"></button>
+                                                <label class="pl-3">{{form.extendedProperties.displayName}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Remove as per instruction-->
+        <!-- <div class="col-lg-24 col-sm-24 col-md-24">
+            <hr class="light_line">
+            <div class="pull-left">
+                <button class="btn btn-outline-primary" ng-click="openPrintPacketsConfigurationDialog();"
+                    data-ng-disabled="!userCan('CAN_OPEN_PRINTSET')">
+                    <i class="fas fa-cog margin_right_5"></i>
+                    <span translate="PRINTPACKET_LBL" translate-default="Print Packets"></span></button>
+            </div>
+
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-primary" data-ng-if="pdfPasswordOption == 'selectedForPasswordProtectePdf'"
+            translate="PRINT_BUTTON" data-ng-class="{'no-clicking':pdfPassword.$invalid}" translate-default="Print"
+            data-ng-click="print();"></button>
+        <button data-ng-if="pdfPasswordOption == 'customPassword' || pdfPasswordOption == 'defaultPassword' || pdfPasswordOption == 'noPassword'"
+            class="btn btn-outline-primary" translate="PRINT_BUTTON" translate-default="Print" data-ng-click="print();"
+            data-ng-class="{'no-clicking':passwordDetails.isCustomPassword == true && (passwordDetails.customPassword==undefined || passwordDetails.customPassword == '')}"></button>
+        <button class="btn btn-outline-primary" translate="CANCEL_BUTTON" translate-default="Cancel" data-ng-click="close();"></button>
+    </div>
+
+</div>

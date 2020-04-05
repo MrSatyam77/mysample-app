@@ -1,0 +1,52 @@
+<div class="inner_col_second clearfix"
+    data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+   
+    <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+			<section class="page_title_wrap title_height_40 clearfix">
+				<span class="page_title_lg ng-binding">Templates</span>
+				<div class="row float-right mt-2">
+					<button class="btn btn-outline-primary pl-2 mr-3" translate="BACKTOHOMESCREEN_BTN"
+						translate-default="Back To Dashboard" data-ng-click="backToHomeScreen()"></button>
+				</div>
+			</section>
+		</div>
+   
+   
+    <!-- <section class="page_title_wrap title_height_40 clearfix">
+        <span class="page_title_lg ng-binding title_height_40">
+            <span class="page_title_lg ng-binding">Templates</span> -->
+            <!-- <i class="fas fa-redo float-right color_gray font_size_20  margin_top_12 cursor_pointer"  data-ng-class="{'rotate':vm.refreshStart}" data-ng-click="manuallyRefresh();vm.refreshStart=true;"></i> -->
+        <!-- </span>
+    </section> -->
+    <tabset justified="true">
+        <div class="custom-line-tab">
+            <tab class="" heading="Print Packets" active="openTab.printPackets"
+                data-ng-click="changeTab('printPackets')">
+                <span ng-if='openTab.printPackets'>
+                    <print-packets-configurations></print-packets-configurations>
+                </span>
+            </tab>
+            <tab heading="Price List" active="openTab.priceList" data-ng-click="changeTab('priceList')">
+                    <span ng-if='openTab.priceList'>
+                <manage-price-list></manage-price-list>
+                </span>
+            </tab>
+            <tab heading="Client Letter" active="openTab.clientLetter" data-ng-click="changeTab('clientLetter')">
+                    <span ng-if='openTab.clientLetter'>
+                <manage-client-letters></manage-client-letters>
+                </span>
+            </tab>
+            <tab heading="Return Templates" active="openTab.customerReturnTemplates"
+                data-ng-click="changeTab('customerReturnTemplates')">
+                <span ng-if='openTab.customerReturnTemplates'>
+                <custom-return-template-lists></custom-return-template-lists>
+                </span>
+            </tab>
+            <tab heading="EIN Library" active="openTab.einLibraries" data-ng-click="changeTab('einLibraries')">
+                    <span ng-if='openTab.einLibraries'>
+                <ein-lists></ein-lists>
+                    </span>
+            </tab>
+        </div>
+    </tabset>
+</div>

@@ -1,0 +1,301 @@
+<!--for the rejection - start -->
+<div ng-show="eFileRejectionFlag">
+    <div class="p_header" id="performHeader">
+        <span translate="RETURNWORKSPACE_REJECTION_LBL" translate-default="Rejection"></span><span ng-show="rejectionErrorList.length > 0 && currentEfileStatus == 8 ">
+            ({{ rejectionErrorList.length }})</span><i class="fas fa-times float-right margin_top_5 margin_right_15" data-ng-click="toggleErrorPanel(false)"></i>
+    </div>
+    <div class="main_content" data-ng-class="{'offline_future_wrap':!isOnline}">
+        <div class="table-responsive">
+            <table ng-table="rejectionGrid" class="table" id="scroll_rejection" data-ng-show="rejectionErrorList.length > 0 && currentEfileStatus == 8">
+                <thead>
+                    <tr>
+                        <th class="sortable col-lg-4 col-md-4 col-sm-4" ng-class="{'sort-asc': rejectionGrid.isSortBy('ruleNumber', 'asc'), 'sort-desc': rejectionGrid.isSortBy('ruleNumber', 'desc')}"
+                            ng-click="rejectionGrid.sorting({'ruleNumber' : rejectionGrid.isSortBy('ruleNumber', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Rule Number</div>
+                        </th>
+                        <th class="sortable col-lg-3 col-md-3 col-sm-3" ng-class="{'sort-asc': rejectionGrid.isSortBy('severity', 'asc'), 'sort-desc': rejectionGrid.isSortBy('severity', 'desc')}"
+                            ng-click="rejectionGrid.sorting({'severity' : rejectionGrid.isSortBy('severity', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Severity</div>
+                        </th>
+                        <th class="sortable col-lg-3 col-md-3 col-sm-3" ng-class="{'sort-asc': rejectionGrid.isSortBy('stateName', 'asc'),'sort-desc': rejectionGrid.isSortBy('stateName', 'desc')}"
+                            ng-click="rejectionGrid.sorting({'stateName' : rejectionGrid.isSortBy('stateName', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">State</div>
+                        </th>
+                        <th class="sortable col-lg-4 col-md-4 col-sm-4" ng-class="{'sort-asc': rejectionGrid.isSortBy('errorCategory', 'asc'), 'sort-desc': rejectionGrid.isSortBy('errorCategory', 'desc')}"
+                            ng-click="rejectionGrid.sorting({'errorCategory' : rejectionGrid.isSortBy('errorCategory', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Category</div>
+                        </th>
+
+                        <th class="sortable col-lg-10 col-md-10 col-sm-10" ng-class="{'sort-asc': rejectionGrid.isSortBy('errorMessage', 'asc'), 'sort-desc': rejectionGrid.isSortBy('errorMessage', 'desc')}"
+                            ng-click="rejectionGrid.sorting({'errorMessage' : rejectionGrid.isSortBy('errorMessage', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Message</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-ng-style="{height:ercTable.height+'px'}">
+                    <div ng-show="isRejectionLoading">
+                        <div class="loading_background"></div>
+                        <div class="loading_text">
+                            <div id="fountainTextG">
+                                <img src="taxAppJs/return/workspace/images/file.gif" />
+                            </div>
+                        </div>
+                    </div>
+                    <tr data-ng-repeat="rejectionError in $data">
+                        <td data-title="'Rule Number'" sortable="'ruleNumber'" class="col-lg-4 col-md-4 col-sm-4">
+                            <div data-ng-if="rejectionError.field !== undefined && rejectionError.field !== ''">
+                                <button class="btn btn-outline-primary break_txt" data-ng-click="goTorejectedFileld(rejectionError)">{{rejectionError.ruleNumber}}</button>
+                            </div>
+                            <div data-ng-if="rejectionError.field == undefined || rejectionError.field == ''">
+                                {{rejectionError.ruleNumber}}
+                            </div>
+
+                        </td>
+                        <td data-title="'Severity'" sortable="'severity'" class="col-lg-3 col-md-3 col-sm-3">{{rejectionError.severity}}</td>
+                        <td data-title="'State'" sortable="'stateName'" class="col-lg-3 col-md-3 col-sm-3">{{rejectionError.stateName|uppercase}}</td>
+                        <td data-title="'Category'" sortable="'errorCategory'" class="col-lg-4 col-md-4 col-sm-4">{{rejectionError.errorCategory}}</td>
+                        <td data-title="'Message'" sortable="'errorMessage'" class="col-lg-9 col-md-9 col-sm-9">
+                            <div data-ng-if="rejectionError.originalErrorMessage && rejectionError.originalErrorMessage !== ''" class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+                                <span data-ng-show="!rejectionError.messageType || rejectionError.messageType == 'simplified'" class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+                                    <span class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">{{rejectionError.errorMessage}}</span>
+                                    <span class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+                                        <a class="float-right" data-ng-click="rejectionError.messageType = 'original'" style="text-decoration: underline;">Display
+                                            IRS' Reject Description</a>
+                                    </span>
+                                </span>
+                                <span data-ng-show="rejectionError.messageType == 'original'" class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+                                    <span class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">{{rejectionError.originalErrorMessage}}</span>
+                                    <span class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+                                        <a class="float-right" data-ng-click="rejectionError.messageType = 'simplified'" style="text-decoration: underline;">Display
+                                            Simplified Reject Description</a>
+                                    </span>
+                                </span>
+                            </div>
+                            <div data-ng-if="rejectionError.originalErrorMessage == undefined || rejectionError.originalErrorMessage == ''" class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0"
+                                ng-bind-html="rejectionError.errorMessage">
+
+                            </div>
+                            <div data-ng-show="rejectionError.dataValue != undefined && rejectionError.dataValue != ''" class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0 margin_top_5 padding_top_5"
+                                style="border-top: 1px dashed black;font-weight: bold">
+                                <span translate="RETURNWORKSPACE_REJECTION_DATAVALUE_LBL" translate-default="Value =">
+                                </span>
+                                {{rejectionError.dataValue}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <div ng-show="rejectionErrorList.length==0 || currentEfileStatus != 8 && isRejectionLoading!=true" data-ng-style="{height:ercTable.height+'px'}">
+                <div class="loading_background"></div>
+                <div class="smily_text_wrap">
+                    <i class="far fa-smile smily_icon cursor_default"></i>
+                    <span class="smily_text">Congratulations, there are no E-File rejections.</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--for the rejection - end -->
+
+<!--for the bank rejection - start -->
+<div ng-show="eFileBankRejectionFlag">
+    <div class="p_header clearfix" id="performHeader">
+        <span translate="RETURNWORKSPACE_BANKREJECTION_LBL" translate-default="Bank App Rejection"></span>
+        <span ng-show="bankRejectionErrorList.length > 0 && currentBankEfileStatus == 14 "> ({{ bankRejectionErrorList.length
+            }})
+        </span>
+        <div class="float-right pr-4">
+            <button type="button" class="btn btn-outline-secondary d-inline mr-4 mb-1" ng-click="printBankRejection()" ng-disabled="bankRejectionErrorList.length <= 0 || currentBankEfileStatus !== 14">Print
+                Rejection
+            </button>
+            <i class="fas fa-times d-inline" data-ng-click="toggleBankErrorPanel(false)"></i>
+        </div>
+    </div>
+    <div class="main_content" data-ng-class="{'offline_future_wrap':!isOnline}">
+        <div class="table-responsive">
+            <table ng-table="bankRejectionGrid" class="table" id="scroll_rejection" data-ng-show="bankRejectionErrorList.length > 0 && currentBankEfileStatus == 14 ">
+                <thead>
+                    <tr>
+                        <th class="sortable col-lg-24 col-md-24 col-sm-24" ng-class="{
+	    				'sort-asc': bankRejectionGrid.isSortBy('errorMessage', 'asc'),
+	    				'sort-desc': bankRejectionGrid.isSortBy('errorMessage', 'desc')
+	    				}" ng-click="bankRejectionGrid.sorting({'errorMessage' : bankRejectionGrid.isSortBy('errorMessage', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Error Message</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-ng-style="{height:ercTable.height+'px'}">
+                    <div ng-show="isBankRejectionLoading">
+                        <div class="loading_background"></div>
+                        <div class="loading_text">
+                            <div id="fountainTextG">
+                                <img src="taxAppJs/return/workspace/images/file.gif" />
+                            </div>
+                        </div>
+                    </div>
+                    <tr data-ng-repeat="bankRejectionError in $data">
+                        <td data-title="'errorMessage'" sortable="'errorMessage'" class="col-lg-24 col-md-24 col-sm-24">{{bankRejectionError.errorMessage}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="bankRejectionErrorList.length==0 || currentBankEfileStatus != 14 && isBankRejectionLoading!=true" data-ng-style="{height:ercTable.height+'px'}">
+                <div class="loading_background"></div>
+                <div class="smily_text_wrap">
+                    <i class="far fa-smile smily_icon cursor_default"></i>
+                    <span class="smily_text">Congratulations, there are no Bank App rejections.</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--for the bank rejection - end -->
+
+<!--for the Perform Review - Start -->
+<div ng-show="performReviewFlag">
+    <div class="p_header" id="performHeader">
+        <span translate="RETURNWORKSPACE_PERREV_LBL" translate-default="Perform Review"></span>
+        <i class="fas fa-times float-right margin_top_3 margin_right_15" data-ng-click="toggleERCPanel(false)"></i>
+        <i id="step13" class="m-2 refresh-loader  fas fa-redo font_size_14 float-right margin_right_8" style="margin-top: 6px !important;"
+            data-ng-click="performReview();refreshStart=true;" data-ng-class="{'rotate':isERCLoading && refreshStart}"></i>
+    </div>
+    <div class="main_content">
+        <div class="table-responsive">
+            <table ng-table="ercGrid" class="table" id="scroll" data-ng-show="availableERC.length>0">
+                <!--<tr data-ng-repeat="erc in $data">
+	                <td data-title="'Type'" sortable="'key'"><button class="btn btn-outline-primary" data-ng-click="goToERCField(erc)">{{erc.key}}</button></td>
+	                <td data-title="'Form Name'" sortable="'docName'">{{erc.form.extendedProperties.displayName}}</td>
+	                <td data-title="'Error Message'" sortable="'message'">{{erc.message}}</td>
+	            </tr>-->
+                <thead>
+                    <tr>
+                        <th class="sortable col-lg-5 col-md-5 col-sm-4" ng-class="{'sort-asc': ercGrid.isSortBy('key', 'asc'), 'sort-desc': ercGrid.isSortBy('key', 'desc')}"
+                            ng-click="ercGrid.sorting({'key' : ercGrid.isSortBy('key', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator" translate="TYPE_LBL" translate-default="Type"></div>
+                        </th>
+
+                        <th class="sortable col-lg-2 col-md-2 col-sm-3" ng-class="{'sort-asc': ercGrid.isSortBy('severity', 'asc'),'sort-desc': ercGrid.isSortBy('severity', 'desc')}"
+                            ng-click="ercGrid.sorting({'severity' : ercGrid.isSortBy('severity', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator" translate="SEVERITY_LBL" translate-default="Severity"></div>
+                        </th>
+
+                        <th class="sortable col-lg-5 col-md-5 col-sm-6" ng-class="{'sort-asc': ercGrid.isSortBy('docName', 'asc'),'sort-desc': ercGrid.isSortBy('docName', 'desc')}"
+                            ng-click="ercGrid.sorting({'docName' : ercGrid.isSortBy('docName', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator" translate="FORM_NAME_LBL" translate-default="Form Name"></div>
+                        </th>
+
+                        <th class="sortable col-lg-12 col-md-12 col-sm-11" ng-class="{'sort-asc': ercGrid.isSortBy('message', 'asc'),'sort-desc': ercGrid.isSortBy('message', 'desc')}"
+                            ng-click="ercGrid.sorting({'message' : ercGrid.isSortBy('message', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator" translate="ERROR_MESSAGE_LBL" translate-default="Error Message"></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-ng-style="{height:ercTable.height+'px'}" style="padding-bottom: 24px;">
+                    <div ng-show="isERCLoading">
+                        <div class="loading_background"></div>
+                        <div class="loading_text">
+                            <div id="fountainTextG">
+                                <!--<span class="float-left" translate="RETUWORKSPC_RECALCULATRETUN_LOADING" translate-default="Performing Review"></span>
+	                <div id="fountainTextG_1" class="fountainTextG">.</div>
+	                <div id="fountainTextG_2" class="fountainTextG">.</div>
+	                <div id="fountainTextG_3" class="fountainTextG">.</div>-->
+                                <img src="taxAppJs/return/workspace/images/file.gif" />
+                            </div>
+                        </div>
+                    </div>
+                    <tr data-ng-repeat="erc in $data" ng-style="{color: '{{ ::(colorPreference.performReview[erc.severity.toLowerCase()])}}'}">
+                        <td data-title="'Type'" sortable="'key'" class="col-lg-5 col-md-5 col-sm-4"><button class="btn break_txt"
+                                data-ng-click="goToERCField(erc)" ng-style="{color: '{{ ::(colorPreference.performReview[erc.severity.toLowerCase()])}}', border: '1px solid {{ ::(colorPreference.performReview[erc.severity.toLowerCase()])}}'}">{{::erc.key}}</button></td>
+                        <td data-title="'Severity'" sortable="'severity'" class="col-lg-2 col-md-2 col-sm-3">{{::erc.severity}}</td>
+                        <td data-title="'Form Name'" sortable="'docName'" class="col-lg-5 col-md-5 col-sm-6">{{::erc.form.extendedProperties.displayName}}</td>
+                        <td data-title="'Error Message'" sortable="'message'" class="col-lg-12 col-md-12 col-sm-11">{{::erc.message}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="availableERC.length==0 && isERCLoading!=true" data-ng-style="{height:ercTable.height+'px'}">
+                <div class="loading_background"></div>
+                <div class="smily_text_wrap">
+                    <i class="far fa-smile smily_icon cursor_default"></i>
+                    <span class="smily_text">Congratulations, there are no errors. The return is now ready to be E-filed.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--for the Perform Review - end -->
+
+<!--for the alert Message - Start -->
+<div ng-show="eFileAlertFlag">
+    <div class="p_header" id="performHeader">
+        <span translate="RETURNWORKSPACE_ALERT_LBL" translate-default="IRS Alerts / Messages"></span>
+        <span ng-show="alertList.length > 0 && (currentEfileStatus == 9 || currentEfileStatus == 8) "> ({{ alertList.length
+            }})
+        </span>
+        <i class="fas fa-times float-right margin_top_5" data-ng-click="toggleAlertPanel(false)"></i>
+    </div>
+    <div class="main_content" data-ng-class="{'offline_future_wrap':!isOnline}">
+        <div class="table-responsive">
+            <table ng-table="alertGrid" class="table" id="scroll_rejection" data-ng-show="alertList.length > 0 && (currentEfileStatus == 9 || currentEfileStatus == 8)">
+                <thead>
+                    <tr>
+                        <th class="sortable col-lg-4 col-md-4 col-sm-4" ng-class="{'sort-asc': alertGrid.isSortBy('ruleNumber', 'asc'), 'sort-desc': alertGrid.isSortBy('ruleNumber', 'desc')}"
+                            ng-click="alertGrid.sorting({'ruleNumber' : alertGrid.isSortBy('ruleNumber', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Rule Number</div>
+                        </th>
+                        <th class="sortable col-lg-3 col-md-3 col-sm-3" ng-class="{'sort-asc': alertGrid.isSortBy('severity', 'asc'), 'sort-desc': alertGrid.isSortBy('severity', 'desc')}"
+                            ng-click="alertGrid.sorting({'severity' : alertGrid.isSortBy('severity', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Severity</div>
+                        </th>
+                        <th class="sortable col-lg-3 col-md-3 col-sm-3" ng-class="{'sort-asc': alertGrid.isSortBy('stateName', 'asc'),'sort-desc': alertGrid.isSortBy('stateName', 'desc')}"
+                            ng-click="alertGrid.sorting({'stateName' : alertGrid.isSortBy('stateName', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">State</div>
+                        </th>
+                        <th class="sortable col-lg-4 col-md-4 col-sm-4" ng-class="{'sort-asc': alertGrid.isSortBy('alertCategory', 'asc'), 'sort-desc': alertGrid.isSortBy('alertCategory', 'desc')}"
+                            ng-click="alertGrid.sorting({'alertCategory' : alertGrid.isSortBy('alertCategory', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Category</div>
+                        </th>
+                        <th class="sortable col-lg-10 col-md-10 col-sm-10" ng-class="{'sort-asc': alertGrid.isSortBy('alertMessageTxt', 'asc'), 'sort-desc': alertGrid.isSortBy('alertMessageTxt', 'desc')}"
+                            ng-click="alertGrid.sorting({'alertMessageTxt' : alertGrid.isSortBy('alertMessageTxt', 'asc') ? 'desc' : 'asc'})">
+                            <div class="sort-indicator">Message</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-ng-style="{height:ercTable.height+'px'}">
+                    <div ng-show="isAlertLoading">
+                        <div class="loading_background"></div>
+                        <div class="loading_text">
+                            <div id="fountainTextG">
+                                <img src="taxAppJs/return/workspace/images/file.gif" />
+                            </div>
+                        </div>
+                    </div>
+                    <tr data-ng-repeat="alertData in $data">
+                        <td data-title="'Rule Number'" sortable="'ruleNumber'" class="col-lg-4 col-md-4 col-sm-4">{{alertData.ruleNumber}}</td>
+                        <td data-title="'Severity'" sortable="'severity'" class="col-lg-3 col-md-3 col-sm-3">{{alertData.severity}}</td>
+                        <td data-title="'State'" sortable="'stateName'" class="col-lg-3 col-md-3 col-sm-3">{{alertData.stateName|uppercase}}</td>
+                        <td data-title="'Category'" sortable="'alertCategory'" class="col-lg-4 col-md-4 col-sm-4">{{alertData.alertCategory}}</td>
+                        <td data-title="'Message'" sortable="'alertMessageTxt'" class="col-lg-9 col-md-9 col-sm-9">
+                            {{alertData.alertMessageTxt}}<br>
+                            <span data-ng-show="alertData.dataValue != undefined && alertData.dataValue != ''">
+                                <span translate="RETURNWORKSPACE_ALERT_DATAVALUE_LBL" translate-default="Value =">
+                                </span>
+                                {{alertData.dataValue}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="alertList.length==0 || (currentEfileStatus != 9 && currentEfileStatus != 8) && isAlertLoading!=true" data-ng-style="{height:ercTable.height+'px'}">
+                <div class="loading_background"></div>
+                <div class="smily_text_wrap">
+                    <i class="far fa-smile smily_icon cursor_default"></i>
+                    <span class="smily_text">Congratulations, there are no IRS alerts / Messages.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--for the alert Message - end -->

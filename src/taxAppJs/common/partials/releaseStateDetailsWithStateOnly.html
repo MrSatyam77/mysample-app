@@ -1,0 +1,179 @@
+<style>
+    .modal-lg {
+        width: 80vw;
+    }
+
+    .releaseStateDetailsWithStimatedDate table thead tr th {
+        padding: 2px 0px;
+    }
+
+    .releaseStateDetailsWithStimatedDate table tbody tr td {
+        padding: 3px 4px;
+        text-align: left;
+    }
+
+    .table-container {
+        max-height: 500px;
+        overflow: auto;
+    }
+
+    .table-padding-right {
+        padding-right: 12px;
+        background: #eaeaea;
+    }
+
+    @media(max-width:1150px) {
+        .modal-body .row_height_30 {
+            overflow: auto;
+        }
+        .table-container,
+        .table-padding-right {
+            width: 1105px !important;
+        }
+        .modal-lg {
+            width: 95vw;
+        }
+    }
+  
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(95, 95, 95, 0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #e0e0e0;
+}
+
+
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span class="text-left">Approved E-File and Print List</span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="row_height_30 clearfix">
+            <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 row">
+                <div class="status_icon_wrap">
+                    <div class="status_name col-lg-3 col-sm-3 col-xs-3 text-left">
+                        <div class="float-left"><img data-ng-src="taxAppJs/return/workspace/images/approved.png" class="margin_right_5"></div>
+                        <span class="col-lg-20 col-sm-20 col-xs-20 padding_l_r_0">E-File Approved</span>
+                    </div>
+                    <div class="status_name col-lg-3 col-sm-3 col-xs-3 text-left"> 
+                        <div class="margin_right_5 float-left"><i style="color:graytext;" class="fa fa-exclamation-triangle padding_right_5"></i></div>
+                        <span class="col-lg-20 col-sm-20 col-xs-20 padding_l_r_0">In Testing</span>
+                    </div>
+                    <div class="status_name col-lg-5 col-sm-5 col-xs-5 text-left">
+                        <div class="margin_right_5 float-left"><i style="color:graytext;" class="fa fa-print padding_right_5"></i></div>
+                        <span class="col-lg-20 col-sm-20 col-xs-20 padding_l_r_0">Forms Approved For Paper Filing</span>
+                    </div>
+                    <div class="status_name col-lg-3 col-sm-3 col-xs-3 text-left">
+                        <div class="float-left"><img data-ng-src="taxAppJs/return/workspace/images/notapplicable.png" class="margin_right_5"></div>
+                        <span class="col-lg-20 col-sm-20 col-xs-20 padding_l_r_0">Not Available</span>
+                    </div>
+                    <!-- <div class="status_name col-lg-3 col-sm-3 col-xs-3 text-left">
+                        <img data-ng-src="taxAppJs/return/workspace/images/closeicon.png" class="margin_right_5">
+                        Not Supported
+                    </div> -->
+                    <div class="status_name col-lg-5 col-sm-5 col-xs-5 text-left">
+                        <div class="margin_right_5 float-left"> <i style="color:graytext;" class="fa fa-unlink padding_right_5"></i></div>
+                        <span class="col-lg-20 col-sm-20 col-xs-20 padding_l_r_0">State Form Can Be E-Filed Unlinked</span>
+                    </div>
+                    <div class="status_name col-lg-5 col-sm-5 col-xs-5 text-left">
+                        <div class="margin_right_5 float-left"><i style="color:graytext;" class="fa fa-link padding_right_5"></i></div>
+                        <span class="col-lg-20 col-sm-20 col-xs-20 padding_l_r_0">State Form Must Be E-Filed Linked</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row_height_30 preferences-header clearfix releaseStateDetailsWithStimatedDate margin_top_20">
+            <div class="table-padding-right">
+                <table style="width: 100%" class="table-fixed">
+                    <thead>
+                        <tr class="table-header-custom" style="border-bottom: 1px solid #ddd !important;">
+                            <th style="width: 100px; border-right: 1px solid #fff;">&nbsp;</th>
+                            <th ng-repeat="packageName in packageNameList" style="padding:0px !important;">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <th class="font_bold" style="width: 100px; text-align: center; padding:2px 0px; font-size: 16px; border-right: 1px solid #fff;" data-ng-if="packageName.packageName != '1040'">{{packageName.packageName}}</th>
+                                        <th class="font_bold" style="width: 160px; text-align: center; padding:2px 0px; font-size: 16px; border-right: 1px solid #fff;" data-ng-if="packageName.packageName == '1040'">{{packageName.packageName}}</th>
+                                        <!-- <th class="font_bold" style="width: 50px; font-size: 16px; border-right: 1px solid #fff;"></th>
+                                            <th class="font_bold" style="width: 50px; font-size: 16px; border-right: 1px solid #fff;" data-ng-if="packageName.packageName == '1040'"></th> -->
+                                    </tr>
+                                </table>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table-padding-right" style="background: transparent;">
+                <table style="width: 100%;" class="table-fixed">
+                    <thead>
+                        <tr class="table-body-row-custom" style="background: transparent; border-color:#a5a5a5 !important;">
+                            <th style="width: 100px; border-right: 1px solid #cacaca;">States</th>
+                            <th ng-repeat="packageName in packageNameList" style="border-right: 1px solid #cacaca;">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th class="font_bold" style="width: 50px; text-align: center;">E-File</th>
+                                        <th class="font_bold" style="width: 50px; text-align: center;">Print</th>
+                                        <th class="font_bold" style="width: 60px; text-align: center;" data-ng-if="packageName.packageName == '1040'">E-File
+                                            Method</th>
+                                    </tr>
+                                </table>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table-container scrollbar" id="style-1">
+                <table style="width: 100%" class="table-fixed">
+                   <tbody>
+                        <tr ng-repeat="state in stateWisePackageList" class="table-body-row-custom">
+                            <td style="width: 100px; border-right: 1px solid #cacaca;">{{state.stateName}}</td>
+                            <td ng-repeat="package in state.packageList" style="border-right: 1px solid #cacaca; padding:3px 0px!important;">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 50px; text-align: center; padding:3px 0px !important;">
+                                            <img ng-if="package.isState==true && package.eFileStatus.value=='approved'" data-ng-src="taxAppJs/return/workspace/images/approved.png">
+                                            <img ng-if="package.isState==true && package.eFileStatus.value=='NAForefile'" data-ng-src="taxAppJs/return/workspace/images/notapplicable.png">
+                                            <i ng-if="package.isState==true && package.eFileStatus.value=='ats'" style="color:graytext;" class="fa fa-exclamation-triangle"></i>
+                                            <img ng-if="package.isState==false" data-ng-src="taxAppJs/return/workspace/images/notapplicable.png">
+                                        </td>
+                                        <td style="width: 50px; text-align: center; padding:3px 0px !important;">
+                                            <i ng-if="package.isState==true && package.printingStatus == 'Approved'" style="color:graytext;" class="fa" ng-class="{'fa-print':package.printingStatus=='Approved'}"></i>
+                                            <i ng-if="package.isState==true && package.printingStatus =='In Testing'" style="color:graytext;" class="fa" ng-class="{'fa-exclamation-triangle':package.printingStatus=='In Testing'}"></i>
+                                            <img ng-if="package.isState==true && package.printingStatus =='NAPaperFiling'" data-ng-src="taxAppJs/return/workspace/images/notapplicable.png">
+                                            <img ng-if="package.isState==false" data-ng-src="taxAppJs/return/workspace/images/notapplicable.png"> 
+                                            <!-- <img ng-if="package.isState==false" data-ng-src="taxAppJs/return/workspace/images/closeicon.png"> -->
+                                        </td>
+                                        <td style="width: 60px; text-align: center; padding:3px 0px !important;" data-ng-if="package.packageName == '1040'">
+                                            <i ng-if="package.stateOnly == true" style="color:graytext;" class="fa fa-unlink"></i>
+                                            <i ng-if="!package.stateOnly || package.stateOnly == false" style="color:graytext;" class="fa fa-link"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary margin_top_10" data-ng-click="close()">Close</button>
+        </div>
+    </div>
+</div>

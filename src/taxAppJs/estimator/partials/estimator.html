@@ -1,0 +1,965 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">	
+    <link href="taxAppJs/estimator/css/estimator.css" rel="stylesheet" />
+</head>
+<body>   
+   
+     
+    
+    <section class="page_title_wrap title_height_40 clearfix">
+        <span class="page_title_lg ng-binding" translate="ESTIMATOR_HEADER" translate-default="Tax Estimator"></span>
+    </section>
+    <div class="inner_page_wrap clearfix">
+        <!--tax estimator tab start-->
+        <div class="clearfix" id="tax_estimator_tab">
+            <tabset justified="true">
+                <tab heading="1">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title clearfix" translate="ESTIMATOR_PERSONALINFO_LBL" translate-default="Personal Information"></h3>
+                            <div class="col-lg-13 padding_l_r_0">
+                            
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12 float-left">
+                                    <label translate="ESTIMATOR_SELECTFILLIG_LBL" translate-default="Select Your Filling Status"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <select class="form-control float-right md_width_control">
+                                        <option>Single</option>
+                                        <option>Single</option>
+                                        <option>Single</option>
+                                        <option>Single</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_TAXPAYERDOB_LBL" translate-default="TaxPayer's Date Of Birth:"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_SPOUSEDOB_LBL" translate-default="Spouse's Date Of Birth:"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_CHECKIFBLIND_LBL" translate-default="Check If Blind:"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="float-right">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Tax Payers
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> Spouse
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_CANBECLAIMED_LBL" translate-default="Check If You Or Your Spouse(MFJ) Can Be Claimed On SOmebody Else's Return:"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="float-right">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Tax Payers
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> Spouse
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row row_height_30">
+                                    <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                                </div>
+
+                                <div class="row_height_30">                                 
+                                        <div class="float-right">
+                                            <button class="btn btn-outline-primary float-left" ng-click="tabs[1].active = true" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>                                           
+                                        </div>                                    
+                                </div>
+                        </div>
+
+                    </div>
+                </tab>
+                <tab heading="2">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title" translate="ESTIMATOR_DEPENDANTINFO_LBL" translate-default="Dependant Information"></h3>
+                        <div class="col-lg-12 padding_l_r_0">
+                            <!--first line-->
+                            <div class="row row_height_30">
+                                <label class="col-xs-24 col-sm-24 col-md-24 col-lg-24 text-center" translate="ESTIMATOR_NOOFDEPENDANTS_LBL" translate-default="Enter No Of Dependants"></label>
+                                <div class="col-xs-24 col-sm-9 col-md-9 col-lg-9" translate="ESTIMATOR_CHILDWITHYOU_LBL" translate-default="Child Who Lived With You">
+
+
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <label translate="ESTIMATOR_TOTAL_LBL" translate-default="Total"></label>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <label translate="ESTIMATOR_STUDENT_LBL" translate-default="Student"></label>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <label translate="ESTIMATOR_DISABLED_LBL" translate-default="Disabled"></label>
+                                </div>
+                            </div>
+                            <!--second line-->
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-9 col-md-9 col-lg-9" translate="ESTIMATOR_AGEUNDER_LBL" translate-default="Age: Under 17">
+
+
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+                            </div>
+                            <!--third line-->
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-9 col-md-9 col-lg-9" translate="ESTIMATOR_SEVTEENTOEIGHTEEN_LBL" translate-default="17 To 18">
+
+
+                                </div>
+
+
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+                            </div>
+                            <!--Fourth line-->
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-9 col-md-9 col-lg-9" translate="ESTIMATOR_NIGHTEENTOTWETYFOUR_LBL" translate-default="19 To 24">
+
+
+                                </div>
+
+
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+                            </div>
+                            <!--Fifth line-->
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-9 col-md-9 col-lg-9" translate="ESTIMATOR_ABOVETWETYFOUR_LBL" translate-default="Above 24">
+
+
+                                </div>
+
+
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+                            </div>
+                            <!--sixth line-->
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-9 col-md-9 col-lg-9" translate="ESTIMATOR_OTHERDEPENDANTS_LBL" translate-default="Other Dependants">
+
+
+                                </div>
+
+
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+                            </div>
+                            <!--seven line-->
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-9 col-md-12 col-lg-9" translate="ESTIMATOR_TOTALDEPEDANTS_LBL" translate-default="Total Dependants:">
+
+
+                                </div>
+
+
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                                <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="md_width_control" />
+                                </div>
+
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">
+                              
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"> </button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>
+                                    </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="3">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title" translate="ESTIMATOR_INCOMEESTIMATE_LBL" translate-default="Income Estimte"></h3>
+                        <div class="col-lg-12 padding_l_r_0">
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_WAGESSALARIES_LBL" translate-default="Wages,Salaries,Tips etc (Form W-2)"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_NONTAXABLECOMBAT_LBL" translate-default="Enter NonTaxable Combat:"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_EXCESSRRTA_LBL" translate-default="Excess Social Security and RRTA1 Taxes   :"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_INTRESTDIVIDENT_LBL" translate-default="Intrest And Divident Recieved (Form 1099-Div,1099-Int)"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_BUISINESSINCOME_LBL" translate-default="Business Income (Sch C)"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30" style="display:none;">
+                                <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+                                    <label translate="ESTIMATOR_CAPITALGAIN_LBL" translate-default="Capital Gain/Loss"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12"></div>
+                                    <label class="col-xs-24 col-sm-12 col-md-12 col-lg-12" translate="ESTIMATOR_GAIN_LBL" translate-default="Gain"></label>
+
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_LOSS_LBL" translate-default="Loss"></label>
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+                                    <label translate="ESTIMATOR_CAPITALGAIN_LBL" translate-default="Capital Gain/Loss"></label>
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-5 col-md-9 col-lg-9">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5" translate="ESTIMATOR_GAIN_LBL" translate-default="Gain">
+                                    
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5" translate="ESTIMATOR_LOSS_LBL" translate-default="Loss">
+                                    
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5">
+
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                                </div>
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8" translate="ESTIMATOR_SHORTTERM_LBL" translate-default="Short Term">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="float-left md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="float-left md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5">
+
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                                </div>
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8" translate="ESTIMATOR_LONGTERM_LBL" translate-default="Long Term">
+                                    
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="float-left md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="float-left md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                                                      
+
+
+                          
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_RENTROYALTYINCOME_LBL" translate-default="Rent And Royalty Income"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_UNEMPLOYMENTCOM_LBL" translate-default="Unemployment Compensation( Form 1099G )"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_SOCIALSECURITY_LBL" translate-default="Social Security Benefits( Form 1099G-SSA )"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_RETIERMENTINCOME_LBL" translate-default="Retierment Income( Form 1099R )"> </label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_OTHERIMCOME_LBL" translate-default="Other Income,If Any"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-18 col-md-18 col-lg-18 text-right">
+                                    <label><b translate="ESTIMATOR_TOTALINCOME_LBL" translate-default="Total Income"></b></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">
+                               
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"></button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>
+                                    </div>
+
+
+                               
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </tab>
+
+                <tab heading="4">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title" translate="ESTIMATOR_ADJUSTMENTDETAILS_LBL" translate-default="Adjustment Details"></h3>
+                        <div class="col-lg-12 padding_l_r_0">
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_MOVINGEXPENSES_LBL" translate-default="Moving Expenses"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_HEALTHSAVINGDEDUCTION_LBL" translate-default="Health Saving Account Deduction"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_ONESELFEMPLOYEETAX_LBL" translate-default="One Half Of Self Employment Tax"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+                                    <label translate="ESTIMATOR_DEDUTIBLEIRA_LBL" translate-default="Dedutible Contribution To IRA"></label>
+                                </div>
+
+
+                            </div>
+                         
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-2 col-md-2 col-lg-2">
+
+                                </div>
+                                
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8" translate="ESTIMATOR_TAXPAYER_LBL" translate-default="Taxpayer">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                   
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-2 col-md-2 col-lg-2">
+                                  
+                                </div>                                
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8" translate="ESTIMATOR_SPOUSE_LBL" translate-default="Spouse">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">                                
+                                <div class="col-xs-24 col-sm-10 col-md-10 col-lg-10" translate="ESTIMATOR_STUDENTLOANINTEREST_LBL" translate-default="Student Loan Intrest">
+
+                                </div>                              
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                                                    
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-10 col-md-10 col-lg-10" translate="ESTIMATOR_OTHERADJUSTMENT_LBL" translate-default="Other Adjustments">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-8 col-md-8 col-lg-8">
+                                   
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">                                
+                                    <div class="col-xs-18 col-sm-18 col-md-18 col-lg-18 text-right">
+                                        <label><b translate="ESTIMATOR_TOTALADJUSTMENT_LBL" translate-default="Total Adjustments"></b></label>
+                                    </div>
+                                    <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                        <input type="text" class="float-right md_width_control" />
+                                    </div>
+                                </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-18 col-sm-18 col-md-18 col-lg-18 text-right">
+                                    <label><b translate="ESTIMATOR_ADJUSTGROSSINCOME_LBL" translate-default="Adjusted Gross Income"></b></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>                         
+                                                     
+
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">
+                               
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"> </button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>
+                                    </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="5">
+                    <div class="tab_border clearfix">
+
+                        <h3 class="estimater_title" translate="ESTIMATOR_DEDUCTIONANDEXEMPTION_LBL" translate-default="Deduction & Exemption"></h3>
+                        <div class="col-lg-12 padding_l_r_0">
+                         
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12" translate="ESTIMATOR_STANDARDDEDUCTION_LBL" translate-default="Standard Deduction or">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                   
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12" translate="ESTIMATOR_ITEMISEDDEDUCTION_LBL" translate-default="Itemised Deduction">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-left md_width_control" />
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                          
+                            <div class="row row_height_30">
+
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="option1" id="inlineCheckbox1" /> Check Here To Elect Itemised Deduction
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+
+                                <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+                                    <button class="btn btn-outline-primary float-right" translate="ESTIMATOR_MOREDEDUCTION_BTN" translate-default="More Deduction"></button>
+                                </div>
+                            </div>
+
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12" translate="ESTIMATOR_EXEMPTIONS_LBL" translate-default="Exemptions">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12" translate="ESTIMATOR_TOTALEXEMPTIONSCLAIMED_LBL" translate-default="Total number of exemptions claimed">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12" translate="ESTIMATOR_TAXBLEINCOME_LBL" translate-default="Taxable Income">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">
+                               
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"> </button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>
+                                    </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="6">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title" translate="ESTIMATOR_TAXCALCULATION_LBL" translate-default="Tax Calculation"></h3>
+                        <div class="col-lg-12 padding_l_r_0">
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_FEDERALTAX_LBL" translate-default="Federal Tax"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control"/>
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_SELFEMPLOYMENTTAX_LBL" translate-default="Self Employment Tax"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control"/>
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_HOUSEEMPTAX_LBL" translate-default="House hold employee tax"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_ADVANCEDINCOMECREDIT_LBL" translate-default="Advanced Earned Income Credit"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_OTHERTAXES_LBL" translate-default="Other Taxes"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-18 col-md-18 col-lg-18 text-right">
+                                    <label><b translate="ESTIMATOR_TOTALTAX_LBL" translate-default="Total Tax"></b></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">
+                              
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"> </button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>
+                                    </div>
+                               
+                            </div>
+                        </div>
+
+                    </div>
+                </tab>
+
+                <tab heading="7">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title">Tax Credits</h3>
+                        <div class="col-lg-12 padding_l_r_0">
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_FOREIGNTAXCREDIT_LBL" translate-default="Foreign Tax Credit"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_CHILDDEPENDENTCREDIT_LBL" translate-default="Child & Dependednt Care Credit"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_EDUCATION_CREDIT" translate-default="Education Credit"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_CHILDTAXCREDIT_LBL" translate-default="Child Tax Credit"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_ADOPTIONCREDIT_LBL" translate-default="Adoption Credit"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_CREDITFORELDERLY_LBL" translate-default="Credit for Elderly or Disabled "></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_OTHERCREDITS_LBL" translate-default="Other Credits"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-18 col-md-18 col-lg-18 text-right">
+                                    <label><b translate="ESTIMATOR_CREDITSTOTAL_LBL" translate-default="Credits Total"></b></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-18 col-md-18 col-lg-18 text-right">
+                                    <label><b translate="ESTIMATOR_CREDITALLOWED_LBL" translate-default="Credit Allowed"></b></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-18 col-md-18 col-lg-18 text-right">
+                                    <label><b translate="ESTIMATOR_TAXLESSCREDITS_LBL" translate-default="Tax Less Credits"></b></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                           
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">
+                              
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"> </button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>
+                                    </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="8">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title" translate="ESTIMATOR_PAYMENTS_LBL" translate-default="Payments"></h3>
+                        <div class="col-lg-12 padding_l_r_0">
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_FEDERALTAXWITHHELD_LBL" translate-default="Federal Tax Withheld"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_ESTIMATEDTAX_LBL" translate-default="2010 Estimated Tax Payment"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_EXTENSTIONSFILEAMOUNT_LBL" translate-default="Amount Paid with Request for Extenstion To File"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_EARNEDINCOMECREDIT_LBL" translate-default="Earned Income Credit"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_ADDITIONALCHILDTAX_LBL" translate-default="Additional Child Tax Credit  "></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_IFANYOTHERPAYMENT_LBL" translate-default="Other Payments, if any"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">
+                               
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"></button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NEXT" translate-default="Next"></button>
+                                    </div>
+                               
+                            </div>
+
+
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="9">
+                    <div class="tab_border clearfix">
+                        <h3 class="estimater_title" translate="ESTIMATOR_FINALSTATUS_LBL" translate-default="Final Status : Tax Due & Refunds"></h3>
+                        <div class="col-lg-12 padding_l_r_0 clearfix">
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_TAXAMOUNTDUE_LBL" translate-default="Tax Amount Due"></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <label translate="ESTIMATOR_REFUNDAMT_LBL" translate-default="Refund Amount" ></label>
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" class="float-right md_width_control" />
+                                </div>
+                            </div>
+
+                            <div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+
+                            <div class="row_height_30">                              
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left" translate="ESTIMATOR_BTN_PREVIOUS" translate-default="Previous"> </button> <button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NINE_RESET" translate-default="Reset"></button><button class="btn btn-outline-primary float-left margin_left_10" translate="ESTIMATOR_BTN_NINE_CREATE" translate-default="Create Return"></button>
+                                    </div>                               
+                            </div>
+
+                            <!--<div class="row row_height_30">
+                                <div class="col-lg-24 col-md-24 col-sm-24">  <hr class="light_line">  </div>
+                            </div>
+                            <div class="row row_height_30">
+                                <div class="col-xs-24 col-sm-12 col-md-12 col-lg-24">
+
+                                    <div class="float-right">
+                                        <button class="btn btn-outline-primary float-left">Previous </button>
+                                        <button class="btn btn-outline-primary float-right margin_percleft_10">Reset</button>
+                                        <button class="btn btn-outline-primary float-right margin_percleft_10">Create Return</button>
+                                    </div>
+                                   
+
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+
+        </div>
+
+        <!--tax estimator tab end-->
+
+    </div>   
+
+</body>
+</html>

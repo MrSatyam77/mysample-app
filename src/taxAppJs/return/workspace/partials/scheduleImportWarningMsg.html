@@ -1,0 +1,26 @@
+<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+        Import error
+    </h4>
+</div>
+<div class="modal-body clearfix">
+	<div class="clearfix margin_bottom_20">
+		The errors below were found while trying to complete the import process. You will find a caution icon
+		next to the affected row(s). The values will not be imported if you decide to proceed.
+	</div>
+	<div class="clearfix">
+		<div class="clearfix" data-ng-repeat="column in ColWithInvalidData">
+			<span>
+				<i class="fa fa-circle color_gray margin_right_2 font_size_12"></i>
+			</span>
+			<span data-ng-if="column.dataType =='date'">Column '{{column.columnName}}' contains invalid date(s). Valid format is 'mm/dd/yyyy' or 'mm/dd/yy'.</span>
+			<span data-ng-if="column.dataType =='number'">For column '{{column.columnName}}', only numeric values are allowed.</span>
+			<span data-ng-if="column.dataType =='boolean'">For column '{{column.columnName}}', value must be from 'yes,y,no,n'.</span>
+			<span data-ng-if="column.columnName =='shortTermOrLongTerm'"> If record(s) belongs to short term then write 'S' or if it is belongs to long term then write 'L'.</span>
+		</div>
+	</div>
+</div>
+<div class="modal-footer margin_top_10">
+	<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="SCHEDULEIMPORTDIALOG_CANCEL_BUTTON" translate-default="Cancel"></span></button>
+	<button type="button" class="btn btn-outline-primary" data-ng-click="proceed()"><span translate="SCHEDULEWARNINGDIALOG_PROCEED_BUTTON" translate-default="Proceed"></span></button>
+</div>

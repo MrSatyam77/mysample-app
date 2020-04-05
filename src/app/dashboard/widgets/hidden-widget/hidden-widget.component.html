@@ -1,0 +1,13 @@
+<div class="dashboard-content">
+  <perfect-scrollbar>
+    <div class="dashboard-data-wrap scroll-y">
+      <div class="list-ui-wrap">
+        <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}" *ngFor="let widget of hiddenWidgets; trackBy: trackByFn;"
+          (click)="unhideWidget(widget)">
+          <!-- <span class="float-right">show</span> -->
+          <div class="raw-main-lbl">{{widget.title}} </div>
+        </div>
+      </div>
+    </div>
+  </perfect-scrollbar>
+</div>

@@ -1,0 +1,49 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+      <i class="fa fa-warning" style="font-size:20px;color:#bd081c"></i><span class="text-left margin_left_10">Alert</span>
+    </h4>
+  </div>
+  <div class="modal-body clearfix">
+    <!-- Body Start From Here -->
+    <div class="state-list-dashboard-body-overflow" style="min-height: 430px;">
+      <div class="terms-of-use-wrapper col-lg-24 col-md-24 col-sm-24 col-xs-24">
+        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 row">
+          <p>
+            Dear {{userDetails.firstName}}&nbsp;{{userDetails.lastName}},
+          </p>
+          <p>
+            The TaxVision, LLC contract with MyTAXPrepOffice has ended. As a courtesy, we are currently holding your data from prior
+            tax seasons. We’re offering you the same great software with perks only we, as the software developer, can give.
+
+          </p>
+          <ul>
+            <li>Don’t worry about learning to use a new tax software program - you already know it</li>
+            <li>NO conversions needed</li>
+            <li>Use the same login information</li>
+            <li> Lock in your price with our Lifetime Price Guarantee</li>
+            <li>Enjoy the stability of dealing directly with the software developer and no third-party fees</li>
+
+          </ul>
+          <p> Please call us at 307.414.1211 to renew your contract with MyTAXPrepOffice and get your software reactivated.
+            We look forward to partnering with you for the upcoming tax season.</p>
+          <p>
+            Sincerely,
+          </p>
+
+          <p>The MyTAXPrepOffice Team</p>
+          <div class="col-lg-24 col-md-24 col-sm-24 margin_top_5 row_height_70 padding_l_r_0"><textarea placeholder="Leave Message Here"
+              class="form-control textarea" [(ngModel)]="leaveMessage" style="height: 100px;"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" [disabled]="!leaveMessage" (click)="leaveMsg()">
+      <span>Leave Mesaage</span>
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">
+      <span>Log Out</span>
+    </button>
+  </div>
+</div>

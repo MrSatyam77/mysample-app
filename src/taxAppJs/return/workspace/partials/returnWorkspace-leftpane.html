@@ -1,0 +1,592 @@
+<style>
+    .dropdown-item {
+        font-style: normal;
+    }
+
+    .border_set {
+        border-radius: 0px;
+        border-left: 0px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+</style>
+<section class="sidebar">
+    <div class="sidebar_top_part clearfix">
+        <div class="dropdown">
+            <!--add form start-->
+            <div class="btn-group">
+                <div class="btn-group dropdown no-arrow" is-open="addFormToogle.isOpen">
+                    <button id="step1" class="btn btn-outline-secondary" data-toggle="dropdown" type="button" ng-click="addFormListGrid.reload()">
+                        <i class="fa fa-list-alt margin_right_5"></i><span translate="RETURNWORKSPACELEFT_ADDFORM" translate-default="Add Form"></span>
+                    </button>
+                    <div class="dropdown-menu" id="addFormDropdown">
+                        <div class="form_outer_spacing">
+                            <div class="form-group">
+                                <!--<label>Form Name</label>-->
+                                <button class="btn btn-outline-primary float-right" data-ng-click="addForms(addFormListGrid.data)">
+                                    <i class="fa fa-plus margin_right_5"></i><span translate="RETURNWORKSPACELEFT_Add" translate-default="Add"></span>
+                                </button>
+                                <form id="returnWorkspaceFormOne" ng-click="$event.stopPropagation()">
+                                    <!--searchtextbox start-->
+                                    <div class="row">
+                                        <div class="col-xl-7 col-lg-9 col-md-8 col-8">
+                                            <!-- This will filter $data in ng-repeat instead of in Grid. -->
+                                            <input type="text" class="form-control" placeholder="Search..." ng-model="addForm.Search" ng-model-options="{debounce:200}"
+                                                tax-focus-me="addFormToogle.isOpen" value="{{addForm.Search}}">
+                                        </div>
+                                        <!--searchbox end-->
+                                        <div class="float-left width_full_30 margin_left_10">
+                                            <select ng-init="addForm.TypeSearch = ''" class="select_control" data-ng-model="addForm.TypeSearch" style="max-width: inherit;">
+                                                <option value="" translate="RETURNWORKSPACELEFT_ALLFORMS" translate-default="ALL Forms"></option>
+                                                <option ng-repeat="category in ::categories" value="{{category.name}}">{{::category.name}}
+                                                </option>
+                                                <option value="State">State</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xl-24 col-md-24 col-lg-24 returnaddform">
+                            <div class="table-responsive">
+                                <form id="returnWorkspaceFormTwo" ng-click="$event.stopPropagation()">
+                                    <!-- Form List for add form -->
+                                    <!--Note: Currently Table grid is initialize based on current available
+                                                                    forms. We have to write code to refresh this grid as result of change in
+                                                                    availableForms when adding states. formName:addForm.Search,displayName:addForm.Search,description:addForm.Search-->
+                                    <table ng-table="addFormListGrid" class="table" id="scroll_main">
+                                        <thead>
+                                            <tr>
+                                                <th class="sortable col-xl-1 col-md-1 col-lg-1 cursor_pointer" height="44"></th>
+                                                <th class="sortable col-xl-8 col-md-8 col-lg-8 cursor_pointer" ng-class="{'sort-asc': addFormListGrid.isSortBy('displayName', 'asc'),'sort-desc': addFormListGrid.isSortBy('displayName', 'desc')}"
+                                                    ng-click="addFormListGrid.sorting({'displayName' : addFormListGrid.isSortBy('displayName', 'asc') ? 'desc' : 'asc'})">
+                                                    <div class="sort-indicator">Form Name</div>
+                                                </th>
+                                                <th class="sortable col-xl-15 col-md-15 col-lg-15 cursor_pointer" ng-class="{'sort-asc': addFormListGrid.isSortBy('description', 'asc'),'sort-desc': addFormListGrid.isSortBy('description', 'desc')}"
+                                                    ng-click="addFormListGrid.sorting({'description' : addFormListGrid.isSortBy('description', 'asc') ? 'desc' : 'asc'})">
+                                                    <div class="sort-indicator">Description</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="allowScrollSync">
+                                            <tr data-ng-repeat="form in $data|addFormFilter:addForm.Search|filter:{category:addForm.TypeSearch} track by form.id" data-ng-if="::form.isHiddenForm != true">
+                                                <td class="cursor_pointer col-xl-1 col-md-1 col-lg-1">
+                                                    <input type="checkbox" ng-model="form.letsAdd" data-ng-show="!form.isAdded">
+                                                    <i class="fas fa-check color_green" data-ng-show="form.isAdded"></i>
+                                                </td>
+                                                <td data-title="'Form Name'" sortable="'displayName'" class="col-xl-8 col-md-8 col-lg-8 cursor_pointer" data-ng-click="addFormToogle.isOpen=false;addForm(form)">
+                                                    {{::form.displayName}}
+                                                    <span data-ng-if="::taxYear!='2014'">({{::form.status || 'Preview'}})
+                                                    </span>
+                                                </td>
+                                                <td data-title="'Description'" sortable="'description'" class="col-xl-15 col-lg-15 col-md-15 cursor_pointer" data-ng-click="addFormToogle.isOpen=false;addForm(form)"><span
+                                                        class="padding_add_form_left_7">{{::form.description}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                                <!-- Form list for add form - end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Quick Add form Split button Start -->
+                <!-- Issue: In bootstrap one button can open only one dropdown, Heere, we require two dropdown on button. 
+                         So, we have created two button but by css we have combined them like there are one.-->
+                <div id="step2" class="float-left dropdown" is-open="quickAddFormToggle.isOpen">
+                    <!-- <button type="button" class="btn btn-outline-secondary dropdown-toggle left_corner_none padding_6_8" dropdown-toggle=""> <span
+                                    class="caret"></span>
+                                <span class="sr-only">Split button!</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" ng-if="availableQuickForms.length&gt;0">
+                                <li class="dropdown-item"><a translate="RETURNWORKSPACE_QUICK_ADDFORM_TITLE" translate-default="Quick Forms"></a>
+                                </li>
+                                <li class="dropdown-divider dropdown-item"></li>
+                                <li data-ng-repeat="quickForm in availableQuickForms" class="dropdown-item"><a href="" data-ng-click="addFormByDocName(quickForm.docName,$event);quickAddFormToggle.isOpen=false;">{{quickForm.formName|formDisplayName}}<span
+                                            data-ng-if="::taxYear!='2014'"> ({{::quickForm.status || 'Preview'}})</span></a>
+                                </li>
+                                <li class="dropdown-divider dropdown-item"></li>
+                                <li data-ng-click="openMoreFormsDropDown($event)" class="cursor_pointer dropdown-item"><a translate="RETURNWORKSPACE_MOREFORMS_TITLE"
+                                        translate-default="More Forms..."></a>
+                                </li>
+                            </ul> -->
+
+                    <button id="quickAddFormToggle" type="button" class="btn btn-outline-secondary dropdown-toggle-split dropdown-toggle border_set"
+                        data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Split button!</span>
+                    </button>
+                    <div class="dropdown-menu" ng-if="availableQuickForms.length > 0" id="availableQuickForms">
+                        <a class="dropdown-item" translate="RETURNWORKSPACE_QUICK_ADDFORM_TITLE" translate-default="Quick Forms"></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" data-ng-repeat="quickForm in availableQuickForms" data-ng-click="addFormByDocName(quickForm.docName,$event);quickAddFormToggle.isOpen=false;">{{quickForm.formName|formDisplayName}}<span
+                                data-ng-if="::taxYear!='2014'"> ({{::quickForm.status || 'Preview'}})</span></a>
+                        <a class="dropdown-item" data-ng-click="openMoreFormsDropDown($event)" translate="RETURNWORKSPACE_MOREFORMS_TITLE" translate-default="More Forms..."></a>
+                    </div>
+
+                </div>
+                <!-- Quick Add form Split button End -->
+            </div>
+            <!--add form end-->
+            <!--add state start-->
+            <div class="btn-group dropdown no-arrow float-right" is-open="addStateToggle.isOpen" auto-close="outsideClick">
+                <button id="step6" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" type="button">
+                    <i class="fa fa-plus margin_right_5"></i><span translate="RETURNWORKSPACELEFT_ADDSTATE" translate-default="Add State"></span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="width_600px float-left">
+                        <div class="width_full float-left padding_5" data-ng-if="client.packageName == '1040'">
+                            <div class="float-right margin_right_5">
+                                <!-- Button with popover, Beta Only -->
+                                <button class="btn btn-outline-primary" data-ng-click="addStates(availableStates,'FY')" popover-trigger="focus" popover-enable="residentStatesLimitExceed"
+                                    popover-placement="right" popover="You can only add two full year resident state returns. Consider adding a part year or non-resident return if applicable.">
+                                    <i class="fa fa-plus margin_right_5"></i><span translate="RETURNWORKSPACELEFT_FYR" translate-default="Resident"></span>
+                                </button>
+                                <!-- Button without popover -->
+                                <!-- <button class="btn btn-outline-primary" data-ng-click="addStates(availableStates,'FY')">
+                                    
+                                                                        <i class="fa fa-plus margin_right_5"></i><span translate="RETURNWORKSPACELEFT_FYR" translate-default="Resident"></span>
+                                    
+                                                                    </button> -->
+                                <button class="btn btn-outline-primary" data-ng-click="addStates(availableStates,'PY')">
+                                    <i class="fa fa-plus margin_right_5"></i><span translate="RETURNWORKSPACELEFT_PYR" translate-default="Part Year Resident"></span>
+                                </button>
+                                <button class="btn btn-outline-primary" data-ng-click="addStates(availableStates,'NR')">
+                                    <i class="fa fa-plus margin_right_5"></i><span translate="RETURNWORKSPACELEFT_NYR" translate-default="Nonresident"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="width_full float-left padding_5" data-ng-if="client.packageName != '1040'">
+                            <div class="float-right margin_right_5">
+                                <button class="btn btn-outline-primary" data-ng-click="addStates(availableStates)"> <i class="fa fa-plus margin_right_5"></i><span
+                                        translate="RETURNWORKSPACELEFT_ADD" translate-default="Add"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="float-left width_full">
+                            <form id="returnWorkspaceFormThree" ng-click="$event.stopPropagation()">
+                                <!-- State List - start -->
+                                <div data-ng-if="availableStates.length &gt; 0">
+                                    <div class="d-flex">
+                                        <h4 class="padding_left_10" translate="RETURNWORKSPACELEFT_AVAILABLESTATELIST_LBL" translate-default="Available States"></h4>
+                                        <div class="status_name margin_top_5">
+                                            <img data-ng-src="taxAppJs/return/workspace/images/approved.png">E-File Approved
+                                        </div>
+                                        <div class="status_name margin_top_5">
+                                            <!-- <img data-ng-src="taxAppJs/return/workspace/images/ats.png"> --><i style="color:graytext;" class="fa fa-exclamation-triangle padding_right_5"></i>In
+                                            E-File Testing</div>
+                                        <div class="status_name margin_top_5">
+                                            <!-- <img data-ng-src="taxAppJs/return/workspace/images/paperOnly.png"> --><i style="color:graytext;" class="fa fa-print padding_right_5"></i>{{taxYear}}
+                                            Paper Only
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="width_full_30 float-left min_height_27" data-ng-repeat="state in availableStates track by state.name">
+                                    <!-- <div class="width_full clearfix"> --><span class="float-left">
+
+                                        <label class="padding_right_5 padding_left_10 min_width_30">
+
+                                            <input type="checkbox" data-ng-disabled="state.isDisabled == true || state.isReleased==false ||(!isOnline && !state.preCache)"
+                                                data-ng-show="!state.isAdded" data-ng-model="state.letsAdd" class="padding_right_5">
+
+                                            <i class="fas fa-check color_green" data-ng-show="state.isAdded"></i>
+
+                                        </label>
+
+                                    </span> <span class="float-left">
+
+                                        <img ng-if="state.eFileStatus.value=='approved'" data-ng-src="taxAppJs/return/workspace/images/approved.png">
+
+                                        <i ng-if="state.eFileStatus.value!='approved'" style="min-width: 14px;min-height: 14px;color:graytext;" class="fa" ng-class="{'fa-print':state.eFileStatus.value=='paperOnly','fa-exclamation-triangle':state.eFileStatus.value=='ats'}"></i>
+
+                                        {{::state.name}}
+
+                                        <span data-ng-if="state.isAdded && state.residencyStatus">({{state.residencyStatus}})</span>
+                                    </span>
+                                    <!--
+                                                            </div> -->
+                                </div>
+                                <div class="row width_full float-left min_height_27 margin_left_10" data-ng-if="upcomingStates.length &gt; 0">
+                                    <h4 class="padding_left_10" translate="RETURNWORKSPACELEFT_UPCOMINGSTATELIST_LBL" translate-default="Upcoming States"></h4>
+                                </div>
+                                <!-- note: We have used bind once for array because this array doesnot
+                                                        change. IF in future this array updates then we have to remove bindonce
+                                                        from it. -->
+                                <div class="width_full_30 float-left min_height_27" data-ng-repeat="state in ::upcomingStates track by state.name">
+                                    <!-- <div class="width_full clearfix"> --><span class="float-left">
+
+                                        <label class="padding_right_5 padding_left_10">
+
+                                            <input type="checkbox" data-ng-disabled="state.isDisabled == true || state.isReleased==false" data-ng-show="!state.isAdded"
+                                                data-ng-model="state.letsAdd" class="padding_right_5">
+
+                                        </label>
+
+                                    </span> <span class="float-left">{{::state.name}}</span>
+                                    <!--
+                                                            </div> -->
+                                </div>
+                                <!-- State List - End -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--add state end-->
+        </div>
+        <!--searchtextbox start-->
+        <form method="get" class="sidebar-form">
+            <div class="input-group" id="step5">
+                <input type="text" name="q" id="search_control" class="form-control" placeholder="Search..." data-ng-model="formTree.search"
+                    value="{{formTree.search}}"> <span class="input-group-btn">
+                    <span name="seach" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </span>
+            </div>
+        </form>
+        <!--searchbox end-->
+    </div>
+
+
+    <div id="side_bar_menu_wrap" class="clearfix" data-ng-style="{'height':headerNav.screenHeight-145+'px'}">
+
+        <accordion id="manualAccordian" close-others="true" class="left_accordion_area" ng-class="{scroll_visible : isAccordianScrollVisible==true}">
+            <div class="Federal_outer_div" id="step3">
+                <div class="absolulate_area_of_i_tag dropdown">
+                    <div class="i_tag_space">
+                        <i class="float-right clearfix" ng-click="formTree.fedAccordionOpen = true">
+                            <a class="fa fa-ellipsis-v card-title-moreicon dropdown-toggle" data-toggle="dropdown" is-open="formTree.feddropdown.isopen">
+                            </a>
+                            <div class="dropdown-menu" role="menu">
+                                <a class="dropdown-item" target="_blank" data-ng-click="getRefundStatusLink('federal')" translate="RETURNWORKSPACELEFT_REFUNDSTATUS_LBL"
+                                    translate-default="Check Refund"></a>
+                            </div>
+                        </i>
+                    </div>
+                </div>
+
+                <!-- <div class="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                              Dropdown button
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item">Link 1</a>
+                              <a class="dropdown-item">Link 2</a>
+                              <a class="dropdown-item">Link 3</a>
+                            </div>
+                          </div> -->
+                <!--<accordion close-others="true" class="left_accordion_area scroll_visible" id="manualAccordian" watch-height-and-update-class>-->
+                <!-- Federal Accordian -->
+                <!-- used isFirstAccordian to make this accordian bydefault expanded scroll_visible-->
+                <accordion-group is-open="formTree.fedAccordionOpen">
+                    <accordion-heading>
+                        <a href="">
+                            <div class="clearfix">
+                                <span class="color_gray" translate="RETURNWORKSPACELEFT_FEDERAL_LBL" translate-default="Federal"></span>
+                                <span class="float-right width_full_70 clearfix">
+                                    <div class="float-left width_full font_size_12 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1040'">
+                                        <div class="width_full_60 float-left">
+                                            <div class="font_bold color_gray line_height_14" translate="RETURNWORKSPACELEFT_AGI_LBL" translate-default="AGI" data-ng-show="formTree.fedAGI!=undefined"></div>
+                                            <div class="color_gray line_height_14"> {{formTree.fedAGI|currency}}</div>
+                                        </div>
+                                        <div class="float-right" ng-class="{'float-left': getFedFiguresLength() > 14}">
+                                            <div class="color_green" data-ng-show="formTree.fedRefund!=undefined">
+                                                {{formTree.fedRefund|currency}}</div>
+                                            <div class="color_red" data-ng-show="formTree.fedOwe!=undefined">
+                                                {{formTree.fedOwe|currency}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left width_full font_size_12 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1065'">
+                                        <div class="width_full_60 float-left">
+                                            <div class="font_bold color_gray line_height_14" translate="RETURNWORKSPACELEFT_ORD_LBL" translate-default="Ord Inc" data-ng-show="formTree.fedBIS!=undefined"></div>
+                                            <div class="color_gray line_height_14"> {{formTree.fedBIS|currency}}</div>
+                                        </div>
+                                        <span class="float-right" ng-class="{'float-left': getFedFiguresLength() > 14}"><span
+                                                class="color_green" data-ng-show="formTree.fedRefund!=undefined">{{formTree.fedRefund|currency}}</span><span
+                                                class="color_red" data-ng-show="formTree.fedOwe!=undefined">{{formTree.fedOwe|currency}}</span></span>
+                                    </div>
+                                    <div class="float-left width_full font_size_12 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1120' || client.packageName == '990'">
+                                        <div class="width_full_60 float-left">
+                                            <div class="font_bold color_gray line_height_14" translate="RETURNWORKSPACELEFT_TAX_LBL" translate-default="Tax Inc" data-ng-show="formTree.fedTAX!=undefined"></div>
+                                            <div class="color_gray line_height_14"> {{formTree.fedTAX|currency}}</div>
+                                        </div>
+                                        <span class="float-right" ng-class="{'float-left': getFedFiguresLength() > 14}"><span
+                                                class="color_green" data-ng-show="formTree.fedRefund!=undefined">{{formTree.fedRefund|currency}}</span><span
+                                                class="color_red" data-ng-show="formTree.fedOwe!=undefined">{{formTree.fedOwe|currency}}</span></span>
+                                    </div>
+                                    <div class="float-left width_full font_size_12 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1120s'">
+                                        <div class="width_full_60 float-left">
+                                            <div class="font_bold color_gray line_height_14" translate="RETURNWORKSPACELEFT_ORD_LBL" translate-default="Ord Inc" data-ng-show="formTree.fedTAX!=undefined"></div>
+                                            <div class="color_gray line_height_14"> {{formTree.fedTAX|currency}}</div>
+                                        </div>
+                                        <span class="float-right" ng-class="{'float-left': getFedFiguresLength() > 14}">
+                                            <span class="color_green" data-ng-show="formTree.fedRefund!=undefined">{{formTree.fedRefund|currency}}</span>
+                                            <span class="color_red" data-ng-show="formTree.fedOwe!=undefined">{{formTree.fedOwe|currency}}</span>
+                                        </span>
+                                    </div>
+                                    <div class="float-left width_full font_size_12 padding_right_10  padding_top_2 clearfix" data-ng-if="client.packageName == '1041'">
+                                        <div class="width_full_60 float-left">
+                                            <div class="font_bold color_gray line_height_14" translate="RETURNWORKSPACELEFT_TAX_LBL" translate-default="Tax Inc" data-ng-show="formTree.fedAGI!=undefined"></div>
+                                            <div class="color_gray line_height_14"> {{formTree.fedAGI|currency}}</div>
+                                        </div>
+                                        <span class="float-right" ng-class="{'float-left': getFedFiguresLength() > 14}"><span
+                                                class="color_green" data-ng-show="formTree.fedRefund!=undefined">{{formTree.fedRefund|currency}}</span><span
+                                                class="color_red" data-ng-show="formTree.fedOwe!=undefined">{{formTree.fedOwe|currency}}</span></span>
+                                    </div>
+                                </span>
+                            </div>
+                        </a>
+                    </accordion-heading>
+                    <!-- Form Tree for Federal data-ng-style="{'max-height':headerNav.screenHeight-(202+(45*returnStates.length))+'px'}" -->
+                    <!--data-ng-class="{with_scroll : isClassApplied }"-->
+                    <div class="clearfix allowScrollSync wrap_with_y with_scroll allowScrollSync" data-ng-style="{'max-height': (headerNav.screenHeight - (180 + (45 * returnStates.length)) - 15) + 'px' }">
+                        <div id="federalAccordianContent">
+                            <div data-ng-repeat="category in categories" class="sidebar-menu">
+                                <li data-ng-click="category.isOpen = !category.isOpen" class="treeview">
+                                    <a href="">
+                                        <span class="main_level">{{::category.name}}</span>
+                                        <span class="color_gray">({{(forms|categoryFilter:category.name| filter:formTree.search).length}})
+                                        </span>
+                                        <i data-ng-class="{'fa-angle-down':category.isOpen,'fa-angle-right':!category.isOpen}" class="fa float-right"></i>
+                                    </a>
+                                </li>
+                                <div collapse="!category.isOpen && !formTree.search">
+                                    <ul class="treeview-menu">
+                                        <li class="clearfix" data-ng-repeat="form in forms |categoryFilter:category.name| orderBy: 'extendedProperties.printOrder.client'| filter:formTree.search track by form.docIndex"
+                                            ng-class="{'activeitem':form.docIndex==formScope.currentForm.docIndex}" ng-swipe-left="form.isContextOpen=true"
+                                            data-ng-if="::form.extendedProperties.isHiddenForm != true">
+                                            <a class="fedral_form_name" data-ng-click="loadForm(form);" href="">
+                                                <i class="far margin_right_5" ng-class="{'fa-frown normal_color':form.extendedProperties.formStatus=='InActive'||form.extendedProperties.formStatus===undefined,'fa-smile active_form_color':form.extendedProperties.formStatus=='Active' && betaOnly() == true,'fa-smile normal_color':form.extendedProperties.formStatus=='Active' && betaOnly() !== true,'fa-smile required_color':form.extendedProperties.formStatus=='Required'}"></i>{{::form.extendedProperties.displayName}}&nbsp;{{form
+                                                | formPrefix}}
+                                            </a>
+                                            <div class="inner-menu-right-dot-wrap">
+                                                <i id="step4" class="btn-group dropdown inner-menu-ddl-wrap clearfix" is-open="form.isContextOpen">
+
+                                                    <a class="cls_btn fa fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" href=""> </a>
+
+                                                    <div class="dropdown-menu custom_drpdown_eclips" role="menu">
+
+                                                        <a data-ng-if="form.formName && form.extendedProperties.isNewInstanceAllowed" class="dropdown-item" data-ng-click="addFormByDocName(form.docName,$event)"
+                                                            translate="RETURNWORKSPACETOOL_NEWINSTANCE_LBL" translate-default="Add New Form"></a>
+
+                                                        <a data-ng-if="form.formName|canDeleteForm" class="dropdown-item" data-ng-click="removeForm(form,$event)" translate="RETURNWORKSPACELEFT_DELETEFORM_LBL"
+                                                            translate-default="Delete Form"></a>
+
+                                                        <a data-ng-click="printForm(form,'printSingleForm')" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN') || !isOnline}"
+                                                            class="dropdown-item" href="" translate="RETURNWORKSPACE_PRINTFORM_LBL"
+                                                            translate-default="Print Form"></a>
+
+                                                        <a data-ng-if="taxYear == '2019' && betaOnly() == true" data-ng-click="printForm(form,'printSingleForm', false, true)" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN') || !isOnline}"
+                                                            class="dropdown-item" href="" translate="RETURNWORKSPACE_PRINTFORM_LBL"
+                                                            translate-default="Print Form - New"></a>
+
+                                                        <a data-ng-click="printForm(form,'printBlankForm')" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN') || !isOnline}"
+                                                            class="dropdown-item" href="" translate="RETURNWORKSPACE_PRINTBLANKFRM_LBL"
+                                                            translate-default="Print Blank Form"></a>
+
+                                                        <a  data-ng-if="taxYear == '2019' && betaOnly() == true" data-ng-click="printForm(form,'printBlankForm', false, true)" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN') || !isOnline}"
+                                                            class="dropdown-item" href="" translate="RETURNWORKSPACE_PRINTBLANKFRM_LBL"
+                                                            translate-default="Print Blank Form - New"></a>
+
+                                                        <a data-ng-if="taxYear=='2018' && previewNotSupported.indexOf(form.docName) == -1" data-ng-click="printPreview(form)" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN') || !isOnline}"
+                                                            class="dropdown-item" href="" translate="RETURNWORKSPACE_PRINTPREVIEW_LBL"
+                                                            translate-default="Print Preview"></a>
+
+                                                        <!-- Parent Form Information - Start -->
+
+                                                        <!-- <a ng-if="form.parentDocIndex"
+                                                        class="dropdown-divider dropdown-item"></a> -->
+
+                                                        <a ng-if="form.parentDocIndex" class="padding_left_20 dropdown-item">Belongs
+                                                            To
+                                                        </a>
+
+                                                        <a ng-if="form.parentDocIndex" ng-click="loadFormWithRefreshTree(getParentForm(form))" class="dropdown-item" href="">{{getParentFormName(form)}}&#xA0;{{getParentForm(form)
+                                                            | formPrefix}}
+                                                        </a>
+
+
+                                                        <!-- <div class="dropdown">
+                                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                          Dropdown button
+                                                                        </button>
+                                                                        <div class="dropdown-menu">
+                                                                          <a class="dropdown-item">Link 1</a>
+                                                                          <a class="dropdown-item">Link 2</a>
+                                                                          <a class="dropdown-item">Link 3</a>
+                                                                        </div>
+                                                                      </div> -->
+                                                        <!-- change parent html-->
+
+                                                        <!--   <li ng-if="form.parentDocIndex">
+                                                                    
+                                                                                                                                <div class="padding_left_20">
+                                                                    
+                                                                                                                                    <i data-ng-show="!form.isDropDownVisible" class="cursor_pointer fa fa-pencil" data-ng-click="$event.stopPropagation();getParentForms(form);"></i>
+                                                                    <a
+                                                                    data-ng-show="!form.isDropDownVisible" class="margin_left_5" href="" ng-click="loadFormWithRefreshTree(getParentForm(form))">{{getParentFormName(form)}}&nbsp;{{getParentForm(form) | formPrefix}}</a>
+                                                                        <div
+                                                                        data-ng-show="form.isDropDownVisible">
+                                                                            <select class="form-control" data-ng-model="form.currentParent" data-ng-change="changeParent(form);"
+                                                                            data-ng-options="id.prefixTitle group by id.objType for id in form.parents"></select>
+                                                                            </div>
+                                                                            </div>
+                                                                            </li>-->
+                                                        <!-- Parent Form Information - End -->
+                                                    </div>
+                                                </i>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Form Tree for Federal End -->
+                </accordion-group>
+                <!-- Federal Accordian - End -->
+            </div>
+            <!-- State accordian - start -->
+            <!-- Note :- 
+                        In the following structure we have put <i></i> outside accordian To prevent accordian toggle on click of context menu.
+                        Otherwise we have to set it's isOpen to false.
+                        Putting <i></i> inside accordian will also cause a problem while opening right context menu because of overflow to div.
+                        Do not try to remove any div tags as this whole structure works together, removing any div will stop the workflow as we need. 
+                    -->
+            <div data-ng-repeat="state in returnStates" class="state_outer_div">
+                <div class="absolulate_area_of_i_tag">
+                    <div class="i_tag_space">
+                        <i class="btn-group dropdown float-right clearfix" data-ng-click="state.isOpen = true">
+                            <a class="fa fa-ellipsis-v card-title-moreicon dropdown-toggle" data-toggle="dropdown" href="" is-open="status.isopen"> </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" data-ng-click="removeState(state.name,$event,state.residencyStatus)"><span
+                                        translate="RETURNWORKSPACELEFT_REMOVESTATE_LBL" translate-default="Remove State"></span></a>
+                                <a class="dropdown-item" target="_blank" data-ng-click="getRefundStatusLink(state.name)"><span
+                                        translate="RETURNWORKSPACELEFT_REFUNDSTATUS_LBL" translate-default="Check Refund"></span></a>
+                                <div class="dropdown-divider" data-ng-if="client.packageName == '1040'"></div>
+                                <a class="dropdown-item" data-ng-if="client.packageName == '1040'">
+                                    <span translate="RETURNWORKSPACELEFT_RESTYP_LBL" translate-default="Residency Type"></span>
+
+                                    <ul class="ResidencyType_ddl" data-ng-if="client.packageName == '1040'">
+                                        <li>
+                                            <i class="fas fa-check green_tickmark" data-ng-show="state.residencyStatus=='FY'"></i>
+                                            <a data-ng-click="changeStateResidency(state,state.residencyStatus,'FY',$event)">FY</a>
+                                        </li>
+                                        <li> <i class="fas fa-check green_tickmark" data-ng-show="state.residencyStatus=='PY'"></i>
+                                            <a data-ng-click="changeStateResidency(state,state.residencyStatus,'PY',$event)">PY</a>
+                                        </li>
+                                        <li> <i class="fas fa-check green_tickmark" data-ng-show="state.residencyStatus=='NR'"></i>
+                                            <a data-ng-click="changeStateResidency(state,state.residencyStatus,'NR',$event)">NR</a>
+                                        </li>
+                                    </ul>
+                                </a>
+                            </div>
+                        </i>
+                    </div>
+                </div>
+
+                <accordion-group is-open="state.isOpen" ng-click="status.isopen=false">
+                    <accordion-heading>
+                        <a href="">
+                            <div class="clearfix">
+                                <span class="color_gray float-left">
+                                    <span>{{::state.name}}</span>
+                                    <span data-ng-if="client.packageName == '1040'">({{state.residencyStatus}})</span>
+                                </span>
+
+                                <span class="float-right width_full_70 clearfix">
+                                    <div class="float-left width_full font_size_12 padding_right_10 padding_top_2 clearfix">
+                                        <div class="width_full_60 float-left" data-ng-if="client.packageName == '1065'">
+                                            <div class="font_bold color_gray line_height_14" translate="RETURNWORKSPACELEFT_BIS_LBL" translate-default="BIS" ng-show="state.stateBIS != undefined"></div>
+                                            <div class="color_gray line_height_14" ng-show="state.stateBIS!=undefined">
+                                                {{state.stateBIS|currency}}</div>
+                                        </div>
+                                        <span class="float-right" data-ng-if="client.packageName == '1040' || client.packageName == '1120' || client.packageName == '1120s' || client.packageName == '1041' || client.packageName == '990' || client.packageName == '1065'"><span
+                                                class="color_green clearfix float-right" ng-show="state.stateRefund!=undefined">{{state.stateRefund|currency}}</span>
+                                            <span class="color_red clearfix float-right" ng-show="state.stateOwe!=undefined">{{state.stateOwe|currency}}</span>
+                                    </div>
+                                    </span>
+                            </div>
+                        </a>
+                    </accordion-heading>
+
+                    <div class="clearfix allowScrollSync wrap_with_y with_scroll" data-ng-style="{'max-height':stateCategoryMaxHeight}">
+                        <div id="stateAccordianContent_{{state.name}}">
+                            <ul id="step11" class="treeview-menu state_level">
+                                <li class="clearfix" data-ng-repeat="form in forms|stateFilter:state.name| orderBy: 'extendedProperties.printOrder.client'|filter:formTree.search track by form.docIndex"
+                                    ng-class="{'activeitem':form.docIndex==formScope.currentForm.docIndex}" ng-swipe-left="form.isContextStateOpen=true">
+                                    <a class="width_full_80 fedral_form_name float-left" data-ng-click="loadForm(form)" href="">
+                                        <i class="far margin_right_5" ng-class="{'fa-frown normal_color':form.extendedProperties.formStatus=='InActive'||form.extendedProperties.formStatus===undefined,'fa-smile active_form_color':form.extendedProperties.formStatus=='Active' && betaOnly() == true,'fa-smile normal_color':form.extendedProperties.formStatus=='Active' && betaOnly() != true,'fa-smile required_color':form.extendedProperties.formStatus=='Required'}"></i>{{form.extendedProperties.displayName}}&nbsp;{{form
+                                        | formPrefix}}
+                                    </a>
+                                    <div class="inner-menu-right-dot-wrap">
+                                        <i class="btn-group dropdown inner-menu-ddl-wrap" is-open="form.isContextStateOpen">
+
+                                            <a class="cls_btn fa fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" href="">
+                                            </a>
+
+                                            <div class="dropdown-menu custom_drpdown_eclips" role="menu">
+
+                                                <a data-ng-if="form.formName && form.extendedProperties.isNewInstanceAllowed " class="dropdown-item" href="" data-ng-click="addFormByDocName(form.docName,$event)"
+                                                    translate="RETURNWORKSPACETOOL_NEWINSTANCE_LBL" translate-default="Add New Form"></a>
+
+                                                <a class="dropdown-item" href="" data-ng-if="form.formName|canDeleteForm" data-ng-click="removeForm(form,$event)" translate="RETURNWORKSPACELEFT_DELETEFORM_LBL"
+                                                    translate-default="Delete Form"></a>
+
+                                                <a data-ng-click="printForm(form,'printSingleForm')" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}" class="dropdown-item"
+                                                    href="" translate="RETURNWORKSPACELEFT_PRINTFORM_LBL" translate-default="Print Form"></a>
+                                                
+                                                <a data-ng-click="printForm(form,'printSingleForm', false, true)" data-ng-if="taxYear == '2019' && betaOnly() == true" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}" class="dropdown-item"
+                                                    href="" translate="RETURNWORKSPACELEFT_PRINTFORM_LBL" translate-default="Print Form - New"></a>
+
+                                                <a data-ng-click="printForm(form,'printBlankForm')" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}" class="dropdown-item"
+                                                    href="" translate="RETURNWORKSPACELEFT_PRINTBLANK_LBL" translate-default="Print Blank Form"></a>
+
+                                                <a data-ng-click="printForm(form,'printBlankForm', false, true)" data-ng-if="taxYear == '2019' && betaOnly() == true" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}" class="dropdown-item"
+                                                    href="" translate="RETURNWORKSPACELEFT_PRINTBLANK_LBL" translate-default="Print Blank Form - New"></a>
+
+                                                <a data-ng-if="taxYear=='2018' && previewNotSupported.indexOf(form.docName) == -1" data-ng-click="printPreview(form)" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN') || !isOnline}"
+                                                    class="dropdown-item" href="" translate="RETURNWORKSPACE_PRINTPREVIEW_LBL"
+                                                    translate-default="Print Preview"></a>
+
+                                                <!-- Parent Form Information - Start -->
+
+                                                <a ng-if="form.parentDocIndex" class="dropdown-divider dropdown-item"></a>
+
+                                                <a ng-if="form.parentDocIndex" class="padding_left_20 dropdown-item">Belongs
+                                                    To
+                                                </a>
+
+                                                <a ng-if="form.parentDocIndex" ng-click="loadFormWithRefreshTree(getParentForm(form))" class="dropdown-item" href="">{{getParentFormName(form)}}&#xA0;{{getParentForm(form)
+                                                    | formPrefix}}</a>
+
+                                                <!-- Parent Form Information - End -->
+                                                <!-- <div class="dropdown">
+                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                              Dropdown button
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                              <a class="dropdown-item">Link 1</a>
+                                                              <a class="dropdown-item">Link 2</a>
+                                                              <a class="dropdown-item">Link 3</a>
+                                                            </div>
+                                                          </div> -->
+                                            </div>
+
+                                        </i>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </accordion-group> <!-- State accordian - end -->
+            </div>
+        </accordion>
+    </div>
+</section>
+
+<!-- /.sidebar -->

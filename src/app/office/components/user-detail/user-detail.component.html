@@ -1,0 +1,265 @@
+<div class="mtpo-action float-right">
+  <button type="button" class="btn btn-sm btn-clean float-left" (click)="editUser()" *ngIf="userCan.saveUser === true || userCan.openUser === true">
+    <i class="fa fa-pencil-alt"></i>
+  </button>
+
+  <div class="dropdown dropdown-inline float-left">
+    <button type="button" class="btn btn-sm btn-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="userDetail.key !== 'newUser'">
+      <i class="fa fa-ellipsis-v"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right dropdown-custom-w">
+      <button type="button" (click)="deleteUser()" class='dropdown-item' *ngIf="hasFeature.deleteUser" [disabled]="!userCan.removeUser || userDetail.isRolePredefined || userDetail.isLoggedInUser">Delete</button>
+      <button type="button" (click)="activeDeactiveUser(false)" class='dropdown-item' *ngIf="userDetail.isActiveUser" [disabled]="!userCan.saveUser || userDetail.isLoggedInUser || userDetail.createdBy==='system'">Deactivate</button>
+      <button type="button" (click)="activeDeactiveUser(true)" class='dropdown-item' *ngIf="!userDetail.isActiveUser" [disabled]="!userCan.saveUser || noMoreActiveUser">Activate</button>
+      <button type="button" (click)="resendConfirmation()" class='dropdown-item' [disabled]="userDetail.isActivated || !userCan.saveUser">
+        Resend Confirmation Email </button>
+      <button type="button" (click)="changeOtherUserPassword()" class='dropdown-item' [disabled]="!userDetail.isActivated || !userCan.saveUser">Change
+        Password
+      </button>
+      <button type="button" (click)="getConfirmationLink()" class='dropdown-item' [disabled]="userDetail.isActivated || !userCan.saveUser">Get
+        Confirmation Link</button>
+      <button type="button" class='dropdown-item' (click)="resetCheckedOutReturn()" [disabled]="!userCan.removeUser">Reset
+        open returns for editing</button>
+      <button type="button" class='dropdown-item' (click)="gotoPreferenceScreen()" [disabled]="!userDetail.isActiveUser || !userCan.openUser">Change
+        Preference
+      </button>
+      <button type="button" class='dropdown-item' (click)="unlockOtherUser()" [disabled]="!userDetail.isActivated || !userCan.saveUser">Unlock
+        User
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="user-details">
+  <div class="col position-relative user-details-thumb mb-0 p-0">
+    <div class="text-center"><img class="img-thumbnail rounded-circle" [src]="userDetail.userImageSrc"></div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="col user-basic-info p-0 pt-3">
+    <ul class="list-unstyled">
+      <!-- <li class="d-block clearfix" *ngIf="userDetail.firstName || userDetail.lastName">
+        <span class="float-left"><i class="fa fa-user text-primary"></i></span>
+        <span class="flot-left">{{userDetail.firstName}} {{userDetail.lastName}}</span>
+      </li> -->
+      <li class="d-block clearfix" *ngIf="userDetail.isActiveUser === true">
+        <span class="float-left"><i class="fa fa-check-circle text-primary"></i></span>
+        <span class="flot-left">Login Activated</span>
+      </li>
+      <li class="d-block clearfix" *ngIf="!userDetail.isActiveUser">
+        <span class="float-left"><i class="fa fa-exclamation-circle text-danger"></i></span>
+        <span class="flot-left">Login Deactivated</span>
+      </li>
+      <li class="d-block clearfix" *ngIf="userDetail.email">
+        <span class="float-left"><i class="fa fa-envelope text-primary"></i></span>
+        <span class="float-left">
+          <span class="d-block">{{userDetail.email}}
+            <i class="fa fa-exclamation-circle text-danger ml-2" *ngIf="!userDetail.isEmailVerified" placement="right" ngbTooltip="Email not verified! Click on the Pencil icon to complete verification."
+              container="body" tooltipClass="error"></i>
+            <i class="fa fa-check-circle text-success ml-2" *ngIf="userDetail.isEmailVerified === true" placement="right" ngbTooltip="Email verified"
+              container="body" tooltipClass="success"></i>
+          </span>
+          <span class="d-block" *ngIf="userDetail.secondaryEmail === true">{{userDetail.recoveryEmail}}
+            <i class="fa fa-exclamation-circle text-danger ml-2" *ngIf="!userDetail.isSecondaryEmailVerified" placement="right" ngbTooltip="Recovery Email not verified! Click on the Pencil icon to complete verification."
+              container="body" tooltipClass="error"></i>
+            <i class="fa fa-check-circle text-success ml-2" *ngIf="userDetail.isSecondaryEmailVerified === true" placement="right" ngbTooltip="Recovery Email verified"
+              container="body" tooltipClass="success"></i>
+          </span>
+        </span>
+      </li>
+      <li class="d-block clearfix" *ngIf="userDetail.phoneNo">
+        <span class="float-left"><i class="fa fa-phone-alt text-primary"></i></span>
+        <span class="flot-left">{{userDetail.phoneNo | mask: '(000) 000-0000'}}
+          <i class="fa fa-exclamation-circle text-danger ml-2" *ngIf="!userDetail.isPhoneVerified" placement="right" ngbTooltip="Cell Phone not verified! Click on the Pencil icon to complete verification."
+            container="body" tooltipClass="error"></i>
+          <i class="fa fa-check-circle text-success ml-2" *ngIf="userDetail.isPhoneVerified === true" placement="right" ngbTooltip="Cell Phone verified"
+            container="body" tooltipClass="success"></i>
+        </span>
+      </li>
+    </ul>
+
+
+    <div class="clerfix pt-3"></div>
+    <div class="row mb-2">
+      <div class="col-10">
+        <span class="font-weight-bold mr-1">User Type:</span>
+      </div>
+      <div class="col-12">
+        <span *ngIf="userDetail.isERO === true">ERO</span>
+        <span *ngIf="userDetail.isPreparer === true && !userDetail.isERO">Preparer</span>
+        <span *ngIf="!userDetail.isPreparer && !userDetail.isERO">User</span>
+      </div>
+    </div>
+
+    <div class="row mb-2" *ngIf="userDetail.twoFactorAuthentication && userDetail.twoFactorAuthentication.isEmailEnabled === true">
+      <div class="col-10">
+        <span class="font-weight-bold mr-1">Two Factor Authentication:</span>
+      </div>
+      <div class="col-12">
+        Via Email
+      </div>
+    </div>
+
+    <!-- Preparer specific fields start -->
+    <div *ngIf="userDetail.isPreparer === true">
+      <div class="row mb-2" *ngIf="userDetail.preparerId">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">Preparer ID:</span>
+        </div>
+        <div class="col-12">
+          {{userDetail.preparerId}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.preparerEmail">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">Preparer Email:</span>
+        </div>
+        <div class="col-12">
+          {{userDetail.preparerEmail}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.preparerPhone">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">Preparer Phone:</span>
+        </div>
+        <div class="col-12">
+          {{userDetail.preparerPhone}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.PTIN">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">PTIN:</span>
+          <!-- <span class="d-inline"><i class="fa fa-info-circle text-info" placement="right" ngbTooltip="Preparer Tax Identification Number"
+              container="body" tooltipClass="info"></i></span> -->
+        </div>
+        <div class="col-12">
+          {{userDetail.PTIN}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.STIN">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">STIN:</span>
+          <!-- <span class="d-inline"><i class="fa fa-info-circle text-info" placement="right" ngbTooltip="Practitioner PIN" container="body"
+              tooltipClass="info"></i></span> -->
+        </div>
+        <div class="col-12">
+          {{userDetail.STIN}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.PPIN">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">PPIN:</span>
+          <!-- <span class="d-inline"><i class="fa fa-info-circle text-info" placement="right" ngbTooltip="Practitioner PIN" container="body"
+              tooltipClass="info"></i></span> -->
+        </div>
+        <div class="col-12">
+          {{userDetail.PPIN}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.ein && !userDetail.isSelfEmployed">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">EIN:</span>
+          <!-- <span class="d-inline"><i class="fa fa-info-circle text-info" placement="right" ngbTooltip="Employer Identification Number"
+              container="body" tooltipClass="info"></i></span> -->
+        </div>
+        <div class="col-12">
+          {{userDetail.ein}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.isNMEfileState === true && userDetail.NM_CRS">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1 d-block">For NM State:</span>
+          <span class="d-block">CRS Identification Number:</span>
+        </div>
+        <div class="col-12">
+          <span class="d-block">&nbsp;</span>
+          <span class="d-block">{{userDetail.NM_CRS}}</span>
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.isNYEfileState === true && (userDetail.NYTPRIN || userDetail.NY_ExemptCode)">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1 d-block">For NY State:</span>
+          <span class="d-block" *ngIf="userDetail.NYTPRIN">NYTPRIN:
+            <!-- <span class="d-inline"><i class="fa fa-info-circle text-info" placement="right" ngbTooltip="Tax Preparer Registration Identification Number"
+                container="body" tooltipClass="info"></i></span> -->
+          </span>
+          <span class="d-block" *ngIf="userDetail.NY_ExemptCode">Exempt code:</span>
+        </div>
+        <div class="col-12">
+          <span class="d-block">&nbsp;</span>
+          <span class="d-block" *ngIf="userDetail.NYTPRIN">{{userDetail.NYTPRIN}}</span>
+          <span class="d-block" *ngIf="userDetail.NY_ExemptCode">{{userDetail.NY_ExemptCode}}</span>
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.isOREfileState === true && userDetail.OR_LicenseNumber">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1 d-block">For OR State:</span>
+          <span class="d-block" *ngIf="userDetail.NYTPRIN">License Number:</span>
+        </div>
+        <div class="col-12">
+          <span class="d-block">&nbsp;</span>
+          <span class="d-block">{{userDetail.OR_LicenseNumber}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- Preparer specific fields end -->
+
+    <!-- ERO specific fields start -->
+    <div *ngIf="userDetail.isERO === true">
+      <div class="row mb-2" *ngIf="userDetail.efin">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">EFIN:</span>
+        </div>
+        <div class="col-12">
+          {{userDetail.efin}}
+          <i class="fa fa-exclamation-circle text-danger ml-2" *ngIf="!userDetail.userVerified" placement="right" ngbTooltip="Not Verified!"
+            container="body" tooltipClass="error"></i>
+          <i class="fa fa-check-circle text-success ml-2" *ngIf="userDetail.userVerified === true" placement="right" ngbTooltip="Verified"
+            container="body" tooltipClass="success"></i>
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.trackingNumber">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">Tracking Number:</span>
+        </div>
+        <div class="col-12">
+          {{userDetail.trackingNumber}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.ssn">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">SSN:</span>
+          <!-- <span class="d-inline"><i class="fa fa-info-circle text-info" placement="right" ngbTooltip="Social Security Number"
+              container="body" tooltipClass="info"></i></span> -->
+        </div>
+        <div class="col-12">
+          {{userDetail.ssn | mask: '000-00-0000'}}
+        </div>
+      </div>
+
+      <div class="row mb-2" *ngIf="userDetail.address">
+        <div class="col-10">
+          <span class="font-weight-bold mr-1">Personal Address:</span>
+        </div>
+        <div class="col-12">
+          <span class="d-block" *ngIf="userDetail.address.street">{{userDetail.address.street}}</span>
+          <span *ngIf="userDetail.address.city">{{userDetail.address.city}}</span>
+          <span *ngIf="userDetail.address.state">, {{userDetail.address.state}}</span>
+          <span *ngIf="userDetail.address.country">, {{userDetail.address.country | uppercase}}</span>
+          <span *ngIf="userDetail.address.postalCode">, {{userDetail.address.postalCode}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- ERO specific field end -->
+  </div>
+</div>

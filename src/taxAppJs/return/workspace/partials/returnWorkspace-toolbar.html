@@ -1,0 +1,875 @@
+<style>
+	.activetoggle,
+	.inactivetoggle {
+		font-size: 20px !important;
+		cursor: pointer;
+	}
+
+	i.activetoggle {
+		color: #5cb85c
+	}
+
+	i.inactivetoggle {
+		color: #d9534f
+	}
+
+	.print_preview_img {
+		height: auto;
+		width: 12px;
+		float: left;
+		margin-top: 3px;
+		margin-right: 2px;
+	}
+
+	.toolbar-wrap {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.toolbar-wrap .btn.btn-outline-secondary {
+		margin-right: 0.5rem;
+		margin-top: 0.5rem;
+	}
+
+	.toolbar-wrap .btn.btn-outline-secondary,
+	.toolbar-wrap div.dropdown {
+		float: left;
+	}
+
+	.toolbar-wrap .btn.btn-outline-secondary i,
+	.toolbar-wrap div.dropdown i {
+		margin-right: 3px;
+	}
+</style>
+
+<!-- File For Toolbar  in Return Work Space-->
+<div class="toolbar-wrap">
+	<div id="step8">
+		<button type="button" class="btn btn-outline-secondary" data-ng-click="saveReturn()"
+			data-ng-show="!lockToggle.isLocked && !SignlockToggle.isRemoteSignLocked"
+			data-ng-disabled="!userCan('CAN_SAVE_RETURN')">
+			<i class="fa fa-save"></i>
+			<span translate="RETURNWORKSPACETOOL_SAVE_LBL" translate-default="Save"></span>
+		</button>
+		<button type="button" class="btn btn-outline-secondary" data-ng-show="SignlockToggle.isRemoteSignLocked"
+			data-ng-click="signatureUnLock()">
+			<i class="fa fa-unlock-alt"></i>
+			<span translate="RETURNWORKSPACETOOL_UNLOCKRETURN_LBL" translate-default="Unlock"></span>
+		</button>
+		<button type="button" class="btn btn-outline-secondary" data-ng-click="onUnlockReturn()"
+			data-ng-show="lockToggle.isLocked">
+			<i class="fa fa-unlock-alt"></i>
+			<span translate="RETURNWORKSPACETOOL_UNLOCKRETURN_LBL" translate-default="Unlock"></span>
+		</button>
+	</div>
+
+	<button type="button" class="btn btn-outline-secondary" data-ng-click="closeReturn()">
+		<i class="fa fa-times"></i>
+		<span translate="RETURNWORKSPACETOOL_CLOSE_LBL" translate-default="Close"></span>
+	</button>
+
+	<div class="dropdown" is-open="statusToggle.isOpen">
+		<button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+			<i class="fas fa-star-half-alt"></i>
+			<span translate="RETURNWORKSPACETOOL_STATUS_LBL" translate-default="Status"></span>
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" data-ng-class="{'no-clicking':!userCan('CAN_SAVE_LOCATION')}" tabindex="-1"
+				ng-click="returnStatusToggle.isOpen=false; openCustomStatusDialog()">
+				Customize Status
+			</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item position-relative"
+				data-ng-repeat="crntReturnStatus in returnStatus | orderBy:'isPredefined'"
+				data-ng-click="changeReturnStatus(crntReturnStatus);statusToggle.isOpen=false" class="dropdown-item">
+				<i class="fas fa-check green_tick_for_ddl"
+					data-ng-show="crntReturnStatus.isSelected"></i>{{crntReturnStatus.title}}
+			</a>
+		</div>
+	</div>
+
+	<button type="button" class="btn btn-outline-secondary" data-ng-if="parseValueOfTaxYear>=2018"
+		data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}" data-ng-click="printPreview()">
+		<i class="fas fa-search-plus"></i>
+		<span translate="RETURNWORKSPACETOOL_PRINTPRE_LBL" translate-default="Print Preview"></span>
+	</button>
+
+
+	<div class="dropdown" is-open="printToggle.isOpen" data-ng-class="{'no-clicking':!isOnline}">
+		<button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-print"></i>
+			<span translate="RETURNWORKSPACETOOL_PRINT_LBL" translate-default="Print"></span>
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printForm(undefined,'printSingleForm')">
+				<span translate="RETURNWORKSPACE_PRINTFORM_LBL" translate-default="Print Form"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="taxYear == '2019' && betaOnly() == true" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printForm(undefined,'printSingleForm', false, true)">
+				<span translate="RETURNWORKSPACE_PRINTFORM_LBL" translate-default="Print Form - New"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printForm(undefined,'printBlankForm')">
+				<span translate="RETURNWORKSPACE_PRINTBLANKFRM_LBL" translate-default="Print Blank Form"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="taxYear == '2019' && betaOnly() == true" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printForm(undefined,'printBlankForm', false, true)">
+				<span translate="RETURNWORKSPACE_PRINTBLANKFRM_LBL" translate-default="Print Blank Form - New"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="parseValueOfTaxYear>=2018"
+				data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printPreview()">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNWORKSPACETOOL_PRINTPRE_LBL"
+						translate-default="Print Preview"></span>
+					<span class="right-item">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+F2</span>
+				</div>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="taxYear == '2014' || taxYear == '2015'"
+				ng-click="printToggle.isOpen=false;printSelectedForms()"
+				data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}">
+				<span translate="RETURNWORKSPACETOOL_PRINTSELECTEDFRM_LBL"
+					translate-default="Print Selected Forms"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="taxYear == '2014' || taxYear == '2015'"
+				data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printCompleteReturn()">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNWORKSPACETOOL_PRINTRTN_LBL"
+						translate-default="Print Return"></span>
+					<span class="right-item">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+P</span>
+				</div>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="taxYear != '2014' &&  taxYear != '2015'"
+				data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printPackets()">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNWORKSPACETOOL_PRINTRTN_LBL"
+						translate-default="Print Return"></span>
+					<span class="right-item">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+P</span>
+				</div>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="taxYear == '2019' && betaOnly() == true"
+				data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+				ng-click="printToggle.isOpen=false;printPackets(true)">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNPRINTBROWSER_PRINTRTN_LBL"
+						translate-default="Print Return - New"></span>
+					<!-- <span class="right-item">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+P</span> -->
+				</div>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('40Set','OR')">
+				<span>Print OR 40 Barcode</span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('40PSet','OR')">
+				<span>Print OR 40P Barcode</span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('40NSet','OR')">
+				<span>Print OR 40N Barcode</span>
+			</a>
+
+
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('WFCSet','OR')">
+				<span>Print OR WFHDC Barcode</span>
+			</a>
+
+
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('WFCNPSet','OR')">
+				<span>Print OR WFHDC-NP Barcode</span>
+			</a>
+
+
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('20SSet','OR')">
+				<span>Print OR 20S Barcode</span>
+			</a>
+
+
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('500Set','GA')">
+				<span>Print GA 500 Barcode</span>
+			</a>
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('600Set','GA')">
+				<span>Print GA 600 Barcode</span>
+			</a>
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				ng-click="printToggle.isOpen=false;printBarcodeReturn('600SSet','GA')">
+				<span>Print GA 600S Barcode</span>
+			</a>
+
+		</div>
+	</div>
+
+	<div class="dropdown" id="step10" is-open="efileToggle.isOpen">
+		<button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+			<i class="fas fa-file-alt"></i>E-File
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" ng-click="toggleERCPanel(true);efileToggle.isOpen=false;performReview()">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNWORKSPACETOOL_PERFORMREVIEW_LBL"
+						translate-default="Perform Review"></span>
+					<span class="right-item">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+D</span>
+				</div>
+			</a>
+
+			<a class="dropdown-item"
+				data-ng-if="client.packageName == '1040' && taxYear == '2018' && isClientPortalFeatureEnable == true"
+				data-ng-class="{'no-clicking':lockToggle.isLocked}" ng-click="performBeforeSignature('REVIEW_SIGN');">
+				<span translate="RETURNWORKSPACETOOL_REQUESTREVIEW_LBL"
+					translate-default="Send to Taxpayer for Review"></span>
+			</a>
+
+			<a class="dropdown-item"
+				data-ng-if="client.packageName == '1040' && taxYear == '2018' && isClientPortalFeatureEnable == true"
+				data-ng-class="{'no-clicking':lockToggle.isLocked}" ng-click="performBeforeSignature('REQ_SIGN');">
+				<span translate="RETURNWORKSPACETOOL_REQUESTSIGNATURE_LBL"
+					translate-default="Request for Remote Signature"></span>
+			</a>
+
+
+			<a class="dropdown-item"
+				data-ng-class="{'no-clicking':lockToggle.isLocked || !isOnline || isDefaultReturn == true || !userCan('CAN_CREATE_EFILE')}"
+				ng-click="checkAndEfile('advanceEfile');efileToggle.isOpen=false">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNWORKSPACETOOL_TRANSMITRETURN_LBL"
+						translate-default="Transmit Return"></span>
+					<span class="right-item">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+E</span>
+				</div>
+			</a>
+
+			<a class="dropdown-item" ng-click="toggleErrorPanel(true);efileToggle.isOpen=false">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNWORKSPACETOOL_REJECTION_LBL"
+						translate-default="Rejection"></span>
+					<span class="right-item">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+R</span>
+				</div>
+
+			</a>
+			<a class="dropdown-item" ng-click="toggleBankErrorPanel(true);efileToggle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_BANKREJECTION_LBL" translate-default="Bank App Rejection"></span>
+			</a>
+
+
+			<a class="dropdown-item" ng-click="toggleAlertPanel(true);efileToggle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_ALERT_LBL" translate-default="IRS Alerts / Messages"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="betaOnly() === true" ng-click="getXML();efileToggle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_GENERATEXML_LBL" translate-default="Generate XML"></span>
+			</a>
+		</div>
+	</div>
+
+	<div id="step9" class="dropdown" is-open="toolsToogle.isOpen">
+		<button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-cog"></i>Tools
+		</button>
+		<!-- data-ng-click="$event.stopPropagation()" -->
+		<div class="dropdown-menu">
+			<a class="dropdown-item" data-ng-click="addFormByDocName('dPriceList');toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACE_INVOICE_LBL" translate-default="Invoice"></span>
+			</a>
+			<a class="dropdown-item" data-ng-if="client.packageName == '1040'"
+				data-ng-click="addFormByDocName('d2YrFormCompare');toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACE_2YRCMPR_LBL" translate-default="2 Year Comparison"></span>
+			</a>
+			<a class="dropdown-item" data-ng-if="client.packageName == '1040'"
+				data-ng-class="{'no-clicking':(lockToggle.isLocked==true || dMainInfo.filstts.value!=2 && dMainInfo.filstts.value!=3)}"
+				data-ng-click="splitReturn();toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_SPLIT_LBL" translate-default="Split Return"></span>
+			</a>
+			<a class="dropdown-item"
+				data-ng-click="openDepriciationDialog('assetDepreciationWktStatementList');toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_ASSETDEPRECIATIONDIALOG_LBL"
+					translate-default="Asset Depreciation Summary"></span>
+			</a>
+			<a class="dropdown-item"
+				data-ng-click="openDepriciationDialog('vehicleDepreciationWktStatementList');toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_VEHICLEDEPRECIATIONDIALOG_LBL"
+					translate-default="Vehicle Depreciation Summary"></span>
+			</a>
+			<a class="dropdown-item" data-ng-click="recalcReturn();toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_RECALCULATE_LBL" translate-default="Recalculate"></span>
+			</a>
+			<a class="dropdown-item" data-ng-class="{'no-clicking':!isOnline}"
+				data-ng-click="openScheduleImportDialog();toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_SCHEDULEC/DIMPORT_LBL"
+					translate-default="Schedule C/D Import"></span>
+			</a>
+			<a class="dropdown-item" data-ng-click="toggleFullTextPrefrence();toolsToogle.isOpen=false"
+				data-ng-if="userSettings.preferences.returnWorkspace.wrapText != true">
+				<span translate="RETURNWORKSPACETOOL_WRAPTEXT_LBL" translate-default="Wrap Text"></span>
+			</a>
+			<a class="dropdown-item" data-ng-click="toggleFullTextPrefrence();;toolsToogle.isOpen=false"
+				data-ng-if="userSettings.preferences.returnWorkspace.wrapText == true">
+				<span translate="RETURNWORKSPACETOOL_DONOTWRAPTEXT_LBL" translate-default="Do Not Wrap Text"></span>
+			</a>
+			<a class="dropdown-item" data-ng-click="openCalculator();">
+				<div class="dropdown-item-inner">
+					<span class="left-item" translate="RETURNWORKSPACETOOL_CALCULATOR_LBL"
+						translate-default="Calculator"></span>
+					<span class="right-item">F4</span>
+				</div>
+			</a>
+			<a class="dropdown-item" data-ng-click="lockReturn();toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_LOCKRETURN_LBL" translate-default="Lock Return"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-click="openSendReturntoSupportDialog();">
+				<span translate="RETURNWORKSPACETOOL_SENDRETURNTOSUPPORT_LBL"
+					translate-default="Send Return To Support"></span>
+			</a>
+
+			<a class="dropdown-item" data-ng-if="client.packageName == '1040'"
+				data-ng-click="openK1ImportDialog();toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_K1IMPORT_LBL" translate-default="Schedule K-1 Import"></span>
+			</a>
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				data-ng-click="importToQATool();toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_IMPORTTOQA_LBL"
+					translate-default="Import Return to QA Tool"></span>
+			</a>
+			<a class="dropdown-item" data-ng-if="betaOnly() == true"
+				data-ng-click="restoreReturnByJsonData();toolsToogle.isOpen=false">
+				<span translate="RETURNWORKSPACETOOL_RETORERTURNBYJSONDATA_LBL"
+					translate-default="Restore Return By Json Data"></span>
+			</a>
+		</div>
+	</div>
+
+	<button type="button" class="btn btn-outline-secondary" data-ng-click="openTextMessage()">
+		<i class="fa fa-envelope"></i>
+		<span translate="RETURNWORKSPACETOOL_MESSAGE_LBL" translate-default="Message"></span>
+	</button>
+
+	<button type="button" class="btn btn-outline-secondary" data-ng-click="goToInterView()"
+		data-ng-disabled="(!userCan('CAN_INTERVIEW') || (isCalcRunning && !isRecalculateReturn))"
+		data-ng-if="client.packageName == '1040' && taxYear != '2014'">
+		<img alt="" src="taxAppJs/return/workspace/images/Interview_12.png" class="margin_right_3"
+			style="margin-top:-5px;">
+		<span translate="RETURNWORKSPACETOOL_INTERVIEW_LBL" translate-default="Interview"></span>
+	</button>
+
+	<div class="dropdown" is-open="signatureToggle.isOpen"
+		data-ng-class="{'no-clicking':(!userCan('CAN_OPEN_SIGNATURE'))}"
+		data-ng-if="hasLicense('enableSignaturePad') && hasFeature('SIGNATURE') && client.packageName == '1040' && parseValueOfTaxYear >= 2016">
+		<button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+			data-ng-click="getSignaturesData()">
+			<i class="fas fa-pen-square" style="font-weight: bold;font-size: 15px;"></i>Signature
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item">
+				<div class="clearfix signater_capture_ddl_wrap">
+					<div class="clearfix signater_capture_ddl_row">
+						<div class="lbl_wrap">
+							<label>Taxpayer</label>
+						</div>
+						<div class="sign_input_wrap">
+							<div class="signature_img_ui">
+								<img data-ng-if="TaxPayerSignatureData" ng-src="{{TaxPayerSignatureData}}"> <span
+									class="delete_sign_img" data-ng-if="TaxPayerSignatureData"
+									data-ng-class="{'no-clicking':(!userCan('CAN_REMOVE_SIGNATURE'))}"
+									data-ng-click="signatureToggle.isOpen=false;removeSignature(3)">
+									<i class="fa fa-trash-o" aria-hidden="true"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix signater_capture_ddl_row" data-ng-if="fillingStatus==2">
+						<div class="lbl_wrap">
+							<label>Spouse</label>
+						</div>
+						<div class="sign_input_wrap">
+							<div class="signature_img_ui">
+								<img data-ng-if="SpouseSignatureData" ng-src="{{SpouseSignatureData}}"> <span
+									class="delete_sign_img" data-ng-if="SpouseSignatureData"
+									data-ng-class="{'no-clicking':(!userCan('CAN_REMOVE_SIGNATURE'))}"
+									data-ng-click="signatureToggle.isOpen=false;removeSignature(4)">
+
+									<i class="fa fa-trash-o" aria-hidden="true"></i>
+
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix signater_capture_ddl_row">
+						<div class="lbl_wrap"></div>
+						<div class="sign_input_wrap float-right padding_right_22">
+							<button class="float-right btn btn-outline-secondary" type="button"
+								data-ng-disabled="!userCan('CAN_SAVE_SIGNATURE')"
+								data-ng-click="signatureToggle.isOpen=false;captureSignature()">Capture</button>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<button type="button" title="Click to go back" data-ng-click="goToStackNavigation('previous');"
+		data-ng-class="{'no-clicking':(isStackNavigationEnabled.previous==false)}" class="btn btn-outline-secondary">
+		<i class="margin_right_3 fa fa-backward"></i>
+	</button>
+
+	<button type="button" title="Click to go forward" data-ng-click="goToStackNavigation('next');"
+		data-ng-class="{'no-clicking':(isStackNavigationEnabled.next==false)}" class="btn btn-outline-secondary"
+		style="margin-right: 0px;">
+		<i class="margin_left_3 fa fa-forward"></i>
+	</button>
+	<div class="float-right">
+		<img src="taxAppJs/return/workspace/images/print.gif" height="34" width="26" ng-show="isPrinting" />
+		<img src="taxAppJs/return/workspace/images/calculator.gif" height="34" width="26"
+			ng-show="isCalcRunning && !isRecalculateReturn" />
+	</div>
+</div>
+
+
+
+<!-- Existing toolbar code -->
+
+<!-- File For Toolbar  in Return Work Space-->
+<!-- <div class="clearfix margin_bottom_5" style="border: 1px solid blue;">
+
+	<div class="float-left margin_right_3" id="step8">
+		<button class="btn btn-outline-secondary" data-ng-click="saveReturn()" data-ng-show="!lockToggle.isLocked && !SignlockToggle.isRemoteSignLocked"
+		 data-ng-disabled="!userCan('CAN_SAVE_RETURN')">
+			<i class="margin_right_3 fa fa-save"></i>
+			<span translate="RETURNWORKSPACETOOL_SAVE_LBL" translate-default="Save"></span>
+		</button>
+		<button class="btn btn-outline-secondary" data-ng-show="SignlockToggle.isRemoteSignLocked" data-ng-click="signatureUnLock()">
+			<i class="margin_right_3 fa fa-unlock-alt"></i>
+			<span translate="RETURNWORKSPACETOOL_UNLOCKRETURN_LBL" translate-default="Unlock"></span>
+		</button>
+		<button class="btn btn-outline-secondary" data-ng-click="onUnlockReturn()" data-ng-show="lockToggle.isLocked">
+			<i class="margin_right_3 fa fa-unlock-alt"></i>
+			<span translate="RETURNWORKSPACETOOL_UNLOCKRETURN_LBL" translate-default="Unlock"></span>
+		</button>
+	</div>
+
+	<a class="float-left margin_right_3 btn btn-outline-secondary"  data-ng-click="closeReturn()">
+		<i class="fa fa-times margin_right_3"></i>
+		<span translate="RETURNWORKSPACETOOL_CLOSE_LBL" translate-default="Close"></span>
+	</a>
+
+	<div class="float-left margin_right_3 btn-group dropdown" dropdown="" is-open="statusToggle.isOpen">
+		<button class="btn btn-outline-secondary dropdown-toggle custom_tgl_btn" dropdown-toggle="" type="button">
+			<i class="margin_right_3 fas fa-star-half-alt"></i>
+			<span translate="RETURNWORKSPACETOOL_STATUS_LBL" translate-default="Status"></span>
+			<span class="toggle_arrow">
+				<span class="caret"></span>
+			</span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul role="menu" class="dropdown-menu">
+			<li role="presentation" class="dropdown-item"> <a role="menuitem" data-ng-class="{'no-clicking':!userCan('CAN_SAVE_LOCATION')}"
+				 tabindex="-1"  ng-click="returnStatusToggle.isOpen=false; openCustomStatusDialog()">
+					Customize Status
+				</a>
+			</li>
+			<li class="dropdown-divider dropdown-item"></li>
+			
+			<li data-ng-repeat="crntReturnStatus in returnStatus | orderBy:'isPredefined'" data-ng-class="{'no-clicking':lockToggle.isLocked}"
+			 data-ng-click="changeReturnStatus(crntReturnStatus);statusToggle.isOpen=false" class="dropdown-item"> <a  class="position_relative">
+					<i class="fas fa-check green_tick_for_ddl" data-ng-show="crntReturnStatus.isSelected"></i>{{crntReturnStatus.title}}
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<a data-ng-if="taxYear=='2018'" class="float-left margin_right_3 btn btn-outline-secondary"  data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+	 data-ng-click="printPreview()">
+		<img class="print_preview_img" src="taxAppJs/return/workspace/images/print_preview.png" />
+		<span translate="RETURNWORKSPACETOOL_PRINTPRE_LBL" translate-default="Print Preview"></span>
+	</a>
+
+	<div class="float-left margin_right_3 btn-group dropdown" dropdown="" is-open="printToggle.isOpen" data-ng-class="{'no-clicking':!isOnline}">
+		<button class="btn btn-outline-secondary dropdown-toggle custom_tgl_btn" dropdown-toggle="" type="button"> <i class="margin_right_3 fa fa-print"></i>
+			<span translate="RETURNWORKSPACETOOL_PRINT_LBL" translate-default="Print"></span>
+			<span class="toggle_arrow">
+
+				<span class="caret"></span>
+			</span> <span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul role="menu" class="dropdown-menu print-menu">
+			<li data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}" class="dropdown-item"> <a 
+				 ng-click="printToggle.isOpen=false;printForm(undefined,'printSingleForm')">
+
+					<span translate="RETURNWORKSPACE_PRINTFORM_LBL" translate-default="Print Form"></span>
+
+				</a>
+			</li>
+			<li data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}" class="dropdown-item"> <a 
+				 ng-click="printToggle.isOpen=false;printForm(undefined,'printBlankForm')">
+
+					<span translate="RETURNWORKSPACE_PRINTBLANKFRM_LBL" translate-default="Print Blank Form"></span>
+
+				</a>
+			</li>
+			<li data-ng-if="taxYear=='2018'" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+			 class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printPreview()">
+
+					<span translate="RETURNWORKSPACETOOL_PRINTPRE_LBL" translate-default="Print Preview" class="float-left"></span>
+
+					<span class="float-right shortcutlabel">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+F2</span>
+
+				</a>
+			</li>
+			<li data-ng-if="taxYear == '2014' || taxYear == '2015'" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+			 class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printSelectedForms()">
+
+					<span translate="RETURNWORKSPACETOOL_PRINTSELECTEDFRM_LBL" translate-default="Print Selected Forms"></span>
+
+				</a>
+			</li>
+			<li data-ng-if="taxYear == '2014' || taxYear == '2015'" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+			 class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printCompleteReturn()">
+
+					<span translate="RETURNWORKSPACETOOL_PRINTRTN_LBL" translate-default="Print Return" class="float-left"></span>
+
+					<span class="float-right shortcutlabel">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+P</span>
+
+				</a>
+			</li>
+			<li data-ng-if="taxYear != '2014' &&  taxYear != '2015'" data-ng-class="{'no-clicking':!userCan('CAN_PRINT_RETURN')}"
+			 class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printPackets()">
+
+					<span translate="RETURNWORKSPACETOOL_PRINTRTN_LBL" translate-default="Print Return" class="float-left"></span>
+
+					<span class="float-right shortcutlabel">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+P</span>
+
+				</a>
+			</li>
+		
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('40Set','OR')">
+
+					<span>Print OR 40 Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('40PSet','OR')">
+
+					<span>Print OR 40P Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('40NSet','OR')">
+
+					<span>Print OR 40N Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('WFCSet','OR')">
+
+					<span>Print OR WFHDC Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('WFCNPSet','OR')">
+
+					<span>Print OR WFHDC-NP Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('20SSet','OR')">
+
+					<span>Print OR 20S Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('500Set','GA')">
+
+					<span>Print GA 500 Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('600Set','GA')">
+
+					<span>Print GA 600 Barcode</span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() == true" class="dropdown-item"> <a  ng-click="printToggle.isOpen=false;printBarcodeReturn('600SSet','GA')">
+
+					<span>Print GA 600S Barcode</span>
+
+				</a>
+			</li>
+	
+		</ul>
+	</div>
+
+	<div id="step10" class="float-left margin_right_3 btn-group dropdown" dropdown="" is-open="efileToggle.isOpen">
+		<button class="btn btn-outline-secondary dropdown-toggle custom_tgl_btn" dropdown-toggle="" type="button">
+			<i class="margin_right_3 fas fa-file-alt"></i>E-File
+			<span class="toggle_arrow">
+
+				<span class="caret"></span>
+			</span> <span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul role="menu" class="dropdown-menu print-menu">
+			<li class="dropdown-item"> <a  ng-click="toggleERCPanel(true);efileToggle.isOpen=false;performReview()">
+
+					<span translate="RETURNWORKSPACETOOL_PERFORMREVIEW_LBL" translate-default="Perform Review" class="float-left"></span>
+
+					<span class="float-right shortcutlabel">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+D</span>
+
+				</a>
+			</li>
+	
+			<li data-ng-if="client.packageName == '1040' && taxYear == '2018' && isClientPortalFeatureEnable == true"
+			 data-ng-class="{'no-clicking':lockToggle.isLocked}" class="dropdown-item"> <a  ng-click="performBeforeSignature('REVIEW_SIGN');">
+
+					<span translate="RETURNWORKSPACETOOL_REQUESTREVIEW_LBL" translate-default="Send to Taxpayer for Review" class="float-left"></span>
+
+				</a>
+			</li>
+	
+			<li data-ng-if="client.packageName == '1040' && taxYear == '2018' && isClientPortalFeatureEnable == true"
+			 data-ng-class="{'no-clicking':lockToggle.isLocked}" class="dropdown-item"> <a  ng-click="performBeforeSignature('REQ_SIGN');">
+
+					<span translate="RETURNWORKSPACETOOL_REQUESTSIGNATURE_LBL" translate-default="Request for Remote Signature" class="float-left"></span>
+
+				</a>
+			</li>
+			<li data-ng-class="{'no-clicking':lockToggle.isLocked || !isOnline || isDefaultReturn == true || !userCan('CAN_CREATE_EFILE')}"
+			 class="dropdown-item"> <a  ng-click="checkAndEfile('advanceEfile');efileToggle.isOpen=false">
+
+					<span class="float-left" translate="RETURNWORKSPACETOOL_TRANSMITRETURN_LBL" translate-default="Transmit Return"></span>
+
+					<span class="float-right shortcutlabel">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+E</span>
+
+				</a>
+			</li>
+		
+			<li class="dropdown-item"> <a  ng-click="toggleErrorPanel(true);efileToggle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_REJECTION_LBL" translate-default="Rejection" class="float-left"></span>
+
+					<span class="float-right shortcutlabel">{{ os==&quot;mac&quot;? '&#x2318;':'Ctrl'}}+R</span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  ng-click="toggleBankErrorPanel(true);efileToggle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_BANKREJECTION_LBL" translate-default="Bank App Rejection" class="float-left"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  ng-click="toggleAlertPanel(true);efileToggle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_ALERT_LBL" translate-default="IRS Alerts / Messages" class="float-left"></span>
+
+				</a>
+			</li>
+			<li data-ng-if="betaOnly() === true" class="dropdown-item"> <a  ng-click="getXML();efileToggle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_GENERATEXML_LBL" translate-default="Generate XML" class="float-left"></span>
+
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="step9" class="float-left margin_right_3 btn-group dropdown" dropdown="" is-open="toolsToogle.isOpen">
+		<button class="btn btn-outline-secondary dropdown-toggle custom_tgl_btn" dropdown-toggle="" type="button"> <i class="margin_right_3 fa fa-cog"></i>Tools
+			<span class="toggle_arrow">
+
+				<span class="caret"></span>
+			</span>
+		</button>
+		<ul role="menu" class="dropdown-menu" data-ng-click="$event.stopPropagation()">
+			<li class="dropdown-item"> <a  data-ng-click="addFormByDocName('dPriceList');toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACE_INVOICE_LBL" translate-default="Invoice"></span>
+
+				</a>
+			</li>
+			<li data-ng-if="client.packageName == '1040'" class="dropdown-item"> <a  data-ng-click="addFormByDocName('d2YrFormCompare');toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACE_2YRCMPR_LBL" translate-default="2 Year Comparison"></span>
+
+				</a>
+			</li>
+			<li data-ng-if="client.packageName == '1040'" data-ng-class="{'no-clicking':(lockToggle.isLocked==true || dMainInfo.filstts.value!=2 && dMainInfo.filstts.value!=3)}"
+			 class="dropdown-item"> <a  data-ng-click="splitReturn();toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_SPLIT_LBL" translate-default="Split Return"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="openDepriciationDialog('assetDepreciationWktStatementList');toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_ASSETDEPRECIATIONDIALOG_LBL" translate-default="Asset Depreciation Summary"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="openDepriciationDialog('vehicleDepreciationWktStatementList');toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_VEHICLEDEPRECIATIONDIALOG_LBL" translate-default="Vehicle Depreciation Summary"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="recalcReturn();toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_RECALCULATE_LBL" translate-default="Recalculate"></span>
+
+				</a>
+			</li>
+			<li data-ng-class="{'no-clicking':!isOnline}" class="dropdown-item"> <a  data-ng-click="openScheduleImportDialog();toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_SCHEDULEC/DIMPORT_LBL" translate-default="Schedule C/D Import"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="toggleFullTextPrefrence();toolsToogle.isOpen=false" data-ng-if="userSettings.preferences.returnWorkspace.wrapText != true">
+
+					<span translate="RETURNWORKSPACETOOL_WRAPTEXT_LBL" translate-default="Wrap Text"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="toggleFullTextPrefrence();;toolsToogle.isOpen=false" data-ng-if="userSettings.preferences.returnWorkspace.wrapText == true">
+
+					<span translate="RETURNWORKSPACETOOL_DONOTWRAPTEXT_LBL" translate-default="Do Not Wrap Text"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="openCalculator();">
+
+					<span translate="RETURNWORKSPACETOOL_CALCULATOR_LBL" translate-default="Calculator" class="float-left"></span>
+
+					<span class="float-right shortcutlabel">F4</span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="lockReturn();toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_LOCKRETURN_LBL" translate-default="Lock Return" class="float-left"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-click="openSendReturntoSupportDialog();">
+
+					<span translate="RETURNWORKSPACETOOL_SENDRETURNTOSUPPORT_LBL" translate-default="Send Return To Support"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-if="client.packageName == '1040'" data-ng-click="openK1ImportDialog();toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_K1IMPORT_LBL" translate-default="Schedule K-1 Import"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-if="betaOnly() == true" data-ng-click="importToQATool();toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_IMPORTTOQA_LBL" translate-default="Import Return to QA Tool"></span>
+
+				</a>
+			</li>
+			<li class="dropdown-item"> <a  data-ng-if="betaOnly() == true" data-ng-click="restoreReturnByJsonData();toolsToogle.isOpen=false">
+
+					<span translate="RETURNWORKSPACETOOL_RETORERTURNBYJSONDATA_LBL" translate-default="Restore Return By Json Data"></span>
+
+				</a>
+			</li>
+		</ul>
+	</div>
+
+
+	<div class="btn-group dropdown" dropdown="" is-open="signatureToggle.isOpen" data-ng-class="{'no-clicking':(!userCan('CAN_OPEN_SIGNATURE'))}"
+	 data-ng-if="hasLicense('enableSignaturePad') && hasFeature('SIGNATURE') && client.packageName == '1040' && (taxYear == '2016' || taxYear == '2017' || taxYear == '2018')">
+		<button class="btn btn-outline-secondary dropdown-toggle custom_tgl_btn" dropdown-toggle="" type="button" data-ng-click="getSignaturesData()">
+		<i class="margin_right_3 fas fa-pen-square" style="font-weight: bold;font-size: 15px;"></i> Signature
+			<span class="toggle_arrow"> <span class="caret"></span>
+			</span> <span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul role="menu" class="dropdown-menu signater_capture_ddl">
+			<div class="clearfix signater_capture_ddl_wrap">
+				<div class="clearfix signater_capture_ddl_row">
+					<div class="lbl_wrap">
+						<label>Taxpayer</label>
+					</div>
+					<div class="sign_input_wrap">
+						<div class="signature_img_ui">
+							<img data-ng-if="TaxPayerSignatureData" ng-src="taxAppJs/{{TaxPayerSignatureData}}"> <span class="delete_sign_img"
+							 data-ng-if="TaxPayerSignatureData" data-ng-class="{'no-clicking':(!userCan('CAN_REMOVE_SIGNATURE'))}"
+							 data-ng-click="signatureToggle.isOpen=false;removeSignature(3)">
+
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix signater_capture_ddl_row" data-ng-if="fillingStatus==2">
+					<div class="lbl_wrap">
+						<label>Spouse</label>
+					</div>
+					<div class="sign_input_wrap">
+						<div class="signature_img_ui">
+							<img data-ng-if="SpouseSignatureData" ng-src="taxAppJs/{{SpouseSignatureData}}"> <span class="delete_sign_img" data-ng-if="SpouseSignatureData"
+							 data-ng-class="{'no-clicking':(!userCan('CAN_REMOVE_SIGNATURE'))}" data-ng-click="signatureToggle.isOpen=false;removeSignature(4)">
+
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix signater_capture_ddl_row">
+					<div class="lbl_wrap"></div>
+					<div class="sign_input_wrap float-right padding_right_22">
+						<button class="float-right btn btn-outline-secondary" type="button" data-ng-disabled="!userCan('CAN_SAVE_SIGNATURE')" data-ng-click="signatureToggle.isOpen=false;captureSignature()">Capture</button>
+					</div>
+				</div>
+			</div>
+		</ul>
+	</div>
+
+
+	<button class="float-left btn btn-outline-secondary margin_right_3" data-ng-click="openTextMessage()">
+		<i class="margin_right_3 fa fa-envelope"></i>
+		<span translate="RETURNWORKSPACETOOL_MESSAGE_LBL" translate-default="Message"></span>
+	</button>
+	<button class="float-left btn btn-outline-secondary" data-ng-click="goToInterView()" data-ng-disabled="(!userCan('CAN_INTERVIEW') || (isCalcRunning && !isRecalculateReturn))"
+	 data-ng-if="client.packageName == '1040' && taxYear != '2014'">
+		<img alt="" src="taxAppJs/return/workspace/images/Interview_12.png" class="margin_right_3" style="margin-top:-5px;">
+		<span translate="RETURNWORKSPACETOOL_INTERVIEW_LBL" translate-default="Interview"></span>
+	</button>
+	<span title="Click to go back">
+		<button class="btn btn-outline-secondary" type="button" data-ng-click="goToStackNavigation('previous');" data-ng-class="{'no-clicking':(isStackNavigationEnabled.previous==false)}">
+			<i class="margin_right_3 fa fa-backward"></i>
+		</button>
+	</span>
+	<span title="Click to go forward">
+		<button class="btn btn-outline-secondary" type="button" data-ng-click="goToStackNavigation('next');" data-ng-class="{'no-clicking':(isStackNavigationEnabled.next==false)}">
+			<i class="margin_left_3 fa fa-forward"></i>
+		</button>
+	</span>
+	
+	<div class="float-right">
+		<img src="taxAppJs/return/workspace/images/print.gif" height="34" width="26" ng-show="isPrinting" />
+		<img src="taxAppJs/return/workspace/images/calculator.gif" height="34" width="26" ng-show="isCalcRunning && !isRecalculateReturn"
+		/>
+	</div>
+</div> -->
+
+<!-- File For Toolbar  -->
+<!-- File For Toolbar  -->

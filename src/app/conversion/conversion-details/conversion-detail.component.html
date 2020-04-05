@@ -1,0 +1,74 @@
+<div class="clearfix bg-white border">
+  <section class="page_title_wrap title_height_40 clearfix">
+    <span class="page_title_lg ng-binding title_height_40">
+      <span class="page_title_lg ng-binding ng-scope">Convert {{taxYear}} Returns</span>
+      <div class="row float-right mt-2">
+        <button class="btn btn-outline-primary pl-2 mr-3 d-none d-md-block" (click)="backToHomeScreen()">Back
+          To Dashboard</button>
+      </div>
+    </span>
+  </section>
+
+  <div class="p-3 position-relative">
+    <!-- <conversion-welcome *ngIf="!selectedSoftwareName"></conversion-welcome> -->
+    <button class="btn btn-outline-primary margin_left_5 pl-2 float-right back-to-list-button" *ngIf="IsShowBackButton"
+      (click)="backToList()">Back to
+      List</button>
+    <conversion-software-selection (selectedSoftware)="getSelectedSoftware($event)" *ngIf="!selectedSoftwareName">
+    </conversion-software-selection>
+    <div *ngIf="selectedSoftwareName">
+      <div class="row mt-3">
+        <div class="col-24">
+          <h5 class="mb-3 border-bottom pb-2 text-dark conversion-title ">Select Software</h5>
+
+        </div>
+        <div class="col-24">
+          <ul class="list-unstyled">
+            <li>
+              <p>You have chosen <span class="font-weight-bold">{{selectedSoftwareName.text}}</span> as your previous
+                software.</p>
+              <p><ins>Note:</ins>&nbsp;&nbsp;All listed return types will be converted except 706, 709, 990, and 1041.
+              </p>
+            </li>
+            <li>
+              <p>If {{selectedSoftwareName.text}} is not your previous software, please click here: <a
+                  class="btn-link text-primary font-weight-bold" (click)="backToSoftwareSelection()"><ins>Select
+                    Software</ins></a></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- <conversion-instructions></conversion-instructions> -->
+      <div class="row mt-4">
+        <div class="col-24">
+          <h5 class="mb-3 border-bottom pb-2 text-dark conversion-title">Backup Instructions</h5>
+        </div>
+      </div>
+      <conversion-backup-instructions [selectedSoftware]="selectedSoftwareName" *ngIf="selectedSoftwareName">
+      </conversion-backup-instructions>
+
+      <div class="row mt-4">
+        <div class="col-24">
+          <div class="border-bottom mb-3 pb-2 w-100 float-left">
+            <h5 class="text-dark conversion-title float-left mb-0 mt-2">Upload Backup</h5>
+            <!-- <div class="float-right">
+              <button type="button" class="btn btn-outline-primary float-right"
+                (click)="backToSoftwareSelection()">Select Software</button>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-24">
+          <p>Select the files that you want to convert. Alternatively, you can also drag and drop the desired files
+            below:</p>
+          <p *ngIf="selectedSoftwareName.isDirectory">When you upload a folder, the browser will show a warning dialog
+            to confirm your upload. Please select
+            "Upload" in this dialog. Below you can see how the dialog looks:</p>
+          <div *ngIf="selectedSoftwareName.isDirectory" class="mt-3"><img src="assets/images/folder_confirm.png"
+              class="border border-secondary"></div>
+        </div>
+      </div>
+      <convesrion-upload *ngIf="selectedSoftwareName" (checkFileUpload)="showBackToList()"
+        [selectedSoftware]="selectedSoftwareName"></convesrion-upload>
+    </div>
+  </div>
+</div>

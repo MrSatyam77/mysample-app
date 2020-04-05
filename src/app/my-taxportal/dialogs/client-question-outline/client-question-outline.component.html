@@ -1,0 +1,280 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Client Questions Outline Form</h5>
+    <button type="button" class="close" (click)="close(false)">×</button>
+  </div>
+  <div class="modal-body p-0">
+    <div class="clearfix allowScrollSync" *ngIf="questionData?.questions && questionData?.questions?.length > 0">
+      <!-- Progressbar Start -->
+      <div class=" clearfix p-3 mt-2">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="ratio" [attr.aria-valuemin]="0"
+            [attr.aria-valuemax]="100" [style.width.vw]="ratio">
+            <span>{{ratio}}%</span>
+          </div>
+        </div>
+      </div>
+      <!-- Progressbar End -->
+
+      <form #clientQuestionForm="ngForm" (ngSubmit)="save()">
+        <div class="clearfix p-3">
+          <div class="row">
+            <div class="col">
+              <h5 class="">{{questionData.title}}</h5>
+            </div>
+          </div>
+          <div class="row mt-3" style="overflow-y: auto; height: 650px;">
+            <div class="col">
+              <div class="clearfix" [sortablejs]="questionData.questions" [sortablejsOptions]="{ handle: '.handle' }">
+                <div class="clearfix border-bottom  mb-3 question-wrap"
+                  *ngFor="let question of questionData.questions;index as i">
+                  <div class="row">
+                    <div class="col col-lg-16">
+                      <!-- Question part start -->
+                      <div class="form-group row">
+                        <label class="col col-sm-4 col-lg-3">Question</label>
+                        <div class="col">
+                          <label *ngIf="question.mode === 'preview'">{{question.questionText}}</label>
+                          <div *ngIf="question.mode !== 'preview'">
+                            <textarea rows="2" maxlength="300" name="questionText{{i}}" class="textarea_chat"
+                              [(ngModel)]="question.questionText" style="width: 100%;"
+                              [required]="!question.questionText"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Question part end -->
+
+                      <div class="form-group mb-0 row">
+                        <!-- Answer type start-->
+                        <label class="col col-sm-4 col-lg-3">Answer Type</label>
+                        <div class="col" *ngIf="question.mode === 'preview'">
+                          <div *ngFor="let type of question.answerType">
+                            <!-- Check box start -->
+                            <div class="form-group clearfix"
+                              *ngIf="type.displayText === 'Yes/No' && type.isSelected === true">
+                              <div class="d-inline-block mr-4">
+                                <button type="button" class="custom_input_dark float-left margin_right_5 no-clicking"
+                                  [ngClass]="{'active':question?.answer?.yesNo == true}"></button>
+                                <span class="float-left">Yes</span>
+                              </div>
+                              <div class="d-inline-block">
+                                <button type="button" class="custom_input_dark float-left margin_right_5 no-clicking"
+                                  [ngClass]="{'active':question?.answer?.yesNo == false}"></button>
+                                <span class="float-left">No</span>
+                              </div>
+                            </div>
+                            <!-- Check box end -->
+
+                            <!-- Free Text start -->
+                            <div class="form-group clearfix"
+                              *ngIf="type.displayText === 'Free Text'  && type.isSelected === true">
+                              <textarea rows="2" maxlength="300" name="questionText" class="textarea_chat"
+                                [(ngModel)]="question.answer.freeText" style="width: 100%;" readonly></textarea>
+                            </div>
+                            <!-- Free Text end -->
+
+                            <!-- document start -->
+                            <div class="form-group clearfix"
+                              *ngIf="type.displayText === 'Document' && type.isSelected === true">
+                              <button type="button" class="btn btn-outline-primary float-left margin_right_5">Document</button>
+                              <b *ngIf="question?.answer?.documents && question?.answer?.documents?.length > 0"
+                                class="float-left">
+                                <a class="uploaded_tag_card" *ngFor="let document of question.answer.documents"
+                                  (click)="download(document.docId)">
+                                  <i class="fa fa-download" aria-hidden="true"></i>
+                                  {{document?.fileName}}</a>
+                              </b>
+                            </div>
+                            <!-- document start -->
+                          </div>
+                          <!-- Signature status start-->
+                          <div class="text-danger"
+                            *ngIf="question.type === 'REVIEW_SIGN' && question.signatureData.status === 'Invalid'">
+                            Not valid for the current version of the return
+                          </div>
+                          <!-- Signature status end-->
+                        </div>
+                        <!-- Answer type end-->
+
+                        <!-- REQ_SIGN Start -->
+                        <div class="col-lg-24 padding_l_r_0 row" *ngIf="question.type === 'REQ_SIGN'">
+                          <div class="col-lg-24 padding_l_r_0"
+                            *ngIf="question.signatureData.status === 'Approved' || question.signatureData.status === 'Valid'">
+                            <div class="upload_btn_txt_wrpper float-left margin_bottom_10">
+                              <div class="float-left">
+                                <span class="responsive_wrp">
+                                  <a class="orange_font margin_right_10 file_name_uploaded"
+                                    (click)="downloadPdf(question.returnPdf.pdfLink, question.returnPdf?.fileName )">{{question.returnPdf?.fileName}}</a>
+                                  <img class="margin_left_5 " src="taxAppJs/images/view.png">
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-3 padding_l_r_0"
+                            *ngIf="!question.isTaxPayerSigned || question.isTaxPayerSigned == false">
+                            <button type="button" class="signature_box btn btn-outline-primary" disabled> Taxpayer
+                            </button>
+                          </div>
+
+                          <div class="col-lg-3 padding_l_r_0"
+                            *ngIf="(!question.isSpouseSigned || question.isSpouseSigned == false) && question.signatureData.isSpouseSignatureNeeded == true">
+                            <button type="button" class="signature_box btn btn-outline-primary" disabled> Spouse
+                            </button>
+                          </div>
+
+                          <div class="col-lg-24 margin_top_15 margin_bottom_15 padding_l_r_0" *ngIf="question.signatureData && question.signatureData.signatures && question.signatureData.signatures.length>
+        0 && (question.signatureData.status === 'Valid'  || question.signatureData.status === 'Approved')">
+                            <div *ngFor="let sign of question.signatureData.signatures"
+                              class="float-left box_signature">
+                              <span *ngIf="sign.signatureType == 'taxpayer'" class="floating sign_title">
+                                Taxpayer Signature:
+                              </span>
+                              <span *ngIf="sign.signatureType == 'spouse'" class="floating sign_title">
+                                Spouse Signature:
+                              </span>
+                              <div class="floating sign_output">
+                                <img [src]="sign.base64Data" [attr.title]="sign.fileName" [attr.alt]="sign.fileName"
+                                  class="signature-image" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- when signature is not valid -->
+                          <div class="col-lg-20 padding_l_r_0"
+                            *ngIf="(question.signatureData.status === 'Invalid'  || question.signatureData.status === 'Rejected')"
+                            class="float-left margin_top_15 ">
+                            <span class="orange_font"> The preparer has modified this
+                              return.You will
+                              receive new copy of the return for your
+                              signature.</span>
+                          </div>
+                        </div>
+                        <!-- REQ_SIGN End -->
+
+
+
+                        <!-- Edit Mode Start-->
+                        <div class="col" *ngIf="question.mode !== 'preview'">
+                          <div class="form-group row mb-1">
+                            <div class="col col-sm-8">
+                              <label class="float-left">Answers</label>
+                            </div>
+                            <div class="col col-sm-8" *ngIf="question?.showIsRequired">
+                              <label class="float-left">Mandatory to Answer?</label>
+                            </div>
+                            <div class="col col-sm-8" style="max-width: 150px;"
+                              *ngIf="question?.showDocument || question?.showFreeText">
+                              <label class="float-left">Mandatory When</label>
+                            </div>
+                          </div>
+                          <div class="form-group row mb-1"
+                            *ngFor="let answerType of question.answerType;i as ansTypeIndex">
+                            <!-- Check box for control type start-->
+                            <div class="col col-sm-8">
+                              <div class="checkbox-xs float-left ">
+                                <button type="button" class="custom_input_dark float-left "
+                                  [ngClass]="{'active': answerType.isSelected == true}"
+                                  (click)="answerType.isSelected = !answerType.isSelected;showIsRequired(question.answerType,i)"></button>
+                              </div>
+                              <label class="ml-2 float-left">{{answerType.displayText}}</label>
+                            </div>
+                            <!-- Check box for control type end-->
+                            <div class="col col-sm-8" *ngIf="question?.showIsRequired">
+                              <div *ngIf="answerType.showIsRequired" class="checkbox-xs float-left ">
+                                <button type="button" class="custom_input_dark float-left "
+                                  [ngClass]="{'active': answerType.isRequired== true}"
+                                  (click)="mandatorySectionHandle(answerType,question,i)"></button>
+                              </div>
+                            </div>
+
+                            <div class="col col-sm-8"
+                              *ngIf="answerType.id !== 'Yes/No' && answerType.id !== 'Document' && answerType.showFreeText">
+                              <select class="form-control custom_input_ddl mr-2 float-left"
+                                [(ngModel)]="answerType.requiredWhen" style="max-width: 150px;"
+                                name="ddlMandatory1{{i}}">
+                                <option *ngFor="let yesNoAns of showAnswerYesOrNo" [value]="yesNoAns.id">
+                                  {{yesNoAns.displayText}}</option>
+                              </select>
+                            </div>
+                            <div class="col col-sm-8"
+                              *ngIf="answerType.id !== 'Yes/No' && answerType.id !== 'Free Text' && answerType.showDocument">
+                              <select class="form-control custom_input_ddl mr-2 float-left" style="max-width: 150px;"
+                                [(ngModel)]="answerType.requiredWhen" name="ddlMandatory2{{i}}">
+                                <option *ngFor="let yesNoAns of showAnswerYesOrNo" [value]="yesNoAns.id">
+                                  {{yesNoAns.displayText}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Edit Mode End-->
+                      </div>
+                    </div>
+
+                    <!-- Action Button Start-->
+                    <div class="col" *ngIf="permission.canSaveClientQue">
+                      <div class="float-right mr-2" *ngIf="questionData.questions.length > 1">
+                        <button type="button" class="handle btn btn-outline-primary" placement="bottom"
+                          container="body" ngbTooltip="Move Question's Sequence" tooltipClass="default" style="cursor:move !important;">
+                          <!-- <i class="fa fa-bars mr-2" aria-hidden="true" style="cursor:move !important;"></i> -->
+                          <i class="fas fa-bars" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                      <div class="float-right mr-2" *ngIf="question.type != 'REQ_SIGN'">
+                        <div class="clearfix" *ngIf="question && question.history && question.history.length > 0">
+                          <button type="button" (click)="historyQuestion(question.history)"
+                            class="btn-outline-primary btn" placement="bottom" container="body" ngbTooltip="Answer History"
+                            tooltipClass="default">
+                            <i class="fa fa-history mr-2" aria-hidden="true"></i> Answer History
+                          </button>
+                        </div>
+                      </div>
+                      <div class="float-right mr-2" *ngIf="questionData.questions.length > 1">
+                        <button type="button" (click)="removeQuestion(i)" [disabled]="question.isAnswered"
+                          class="btn-outline-primary btn" placement="bottom" container="body" ngbTooltip="Remove Question"
+                          tooltipClass="default">
+                          <i class="fa fa-trash mr-2" aria-hidden="true"></i>Delete
+                        </button>
+                      </div>
+                      <div class="float-right mr-2" *ngIf="question.mode === 'preview'">
+                        <button type="button" (click)="question.mode = ''" [disabled]="question.isAnswered"
+                          title="Edit Question" class="btn-outline-primary btn" placement="bottom"
+                          container="body" ngbTooltip="Remove Question" tooltipClass="default">
+                          <i class="fa fa-edit mr-2" aria-hidden="true"></i>Edit
+                        </button>
+                      </div>
+
+                      <div class="float-right mr-2" *ngIf="question.mode !== 'preview'">
+                        <button type="button" (click)="question.mode = 'preview'" [disabled]="question.isAnswered"
+                          class="btn-outline-primary btn" placement="bottom" container="body" ngbTooltip="Preview Question"
+                          tooltipClass="default">
+                          <!-- <img class="add-que-btn-icon" src="taxAppJs/images/view.png" /> -->
+                          <i class="far fa-eye mr-2"></i> Preview
+                        </button>
+                      </div>
+
+                      <div class="float-right mr-2" *ngIf="i == questionData.questions.length-1">
+                        <button type="button" (click)="addQuestion()" class="btn-outline-primary btn" placement="bottom"
+                          container="body" ngbTooltip="Add Question" tooltipClass="default">
+                          <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>Add
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Action Button End-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix p-3 pb-0 border-top">
+          <div class="float-right">
+            <button class="btn btn-outline-primary"
+              [disabled]="!clientQuestionForm.form.valid || !permission.canSaveClientQue || !isFormValid">Save</button>
+            <button type="button" class="btn btn-outline-primary ml-2" (click)="close()">Close</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

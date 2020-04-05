@@ -1,0 +1,66 @@
+﻿<div class="col_third_inner margin_top_5" data-ng-style="{height:headerNav.screenHeight-55 +'px'}" style="overflow:hidden;">
+    <accordion close-others="true">
+        <!--training start-->
+        <accordion-group  id="step14" is-open="rightPane.rightPaneFirstAccordionOpen">
+            <accordion-heading>
+                <a>
+                    <h4 class="panel-title">
+                        <span class="color_gray">Training</span>
+                        <span class="color_gray">({{trainingDataList.length}})</span>
+                        <span class="returnrightpanelrotateicon" data-ng-click="rightPane.rightPaneFirstAccordionOpen=true;manuallyRefreshTraining();firstRefreshStart=true;$event.stopPropagation()" data-ng-class="{'rotate':firstRefreshStart}"><i class="fas fa-redo float-right right_panel_refresh_icon"></i></span>
+                    </h4>
+                </a>
+            </accordion-heading>
+            <div class="clearfix allowScrollSync" data-ng-style="{height:headerNav.screenHeight-265 +'px'}" style="overflow:auto;"><training-widget></training-widget></div>
+        </accordion-group>
+        <!--training end-->
+
+        <!--notes start-->
+        <accordion-group is-open="rightPane.rightpanesecondaccordionopen">
+            <accordion-heading>
+                <a>
+                    <h4 class="panel-title">
+                        <span class="color_gray">Notes</span>
+                        <span class="color_gray">({{(formReturnNoteDataList|filter:{type:'form'}|filter:{returnId:returnId}|filter:{docName:docName}).length+(formReturnNoteDataList|filter:{type:'return'}|filter:{returnId:returnId}).length+preparerNoteDataList.length}})</span>
+                        <span class="returnrightpanelrotateicon" data-ng-class="{'no-clicking disabled':!userCan('CAN_LIST_CLIENTNOTE'),'rotate':secondRefreshStart}" data-ng-click="rightPane.rightpanesecondaccordionopen=true;manuallyRefreshNote();secondRefreshStart=true;$event.stopPropagation()"><i class="fas fa-redo float-right right_panel_refresh_icon"></i></span>
+                    </h4>
+                </a>
+            </accordion-heading>
+            <div class="clearfix allowScrollSync" data-ng-style="{height:headerNav.screenHeight-265 +'px'}" style="overflow:auto;"> <notes></notes></div>
+        </accordion-group>
+        <!--notes end-->
+
+        <!--documents start-->
+        <accordion-group is-open="rightPane.rightpanethirdaccordionopen">
+            <accordion-heading>
+                <a>
+                    <h4 class="panel-title">
+                        <span class="color_gray">Documents</span>
+                        <span class="color_gray">({{(documentList|filter:{type:'form'}|filter:{returnId:documentReturnId}|filter:{docName:documentDocName}).length+(documentList|filter:{type:'return'}|filter:{returnId:documentReturnId}).length}})</span>
+                        
+                        <span class="returnrightpanelrotateicon" data-ng-click="rightPane.rightpanethirdaccordionopen=true;manuallyRefreshDocument();thirdRefreshStart=true;$event.stopPropagation()" data-ng-class="{'rotate':thirdRefreshStart}"><i class="fas fa-redo float-right right_panel_refresh_icon"></i></span>
+                        
+                        <span class="color_gray float-right margin_right_5 font_size_14" data-ng-show="maxStorageSize">({{availableDocumentSize}} of {{availableMaxStorageSize}} used)</span>
+</h4>
+                </a>
+            </accordion-heading>
+            <div class="clearfix allowScrollSync" data-ng-style="{height:headerNav.screenHeight-265 +'px'}" style="overflow:auto;"> <documents></documents></div>
+        </accordion-group>
+        <!--documents end-->
+         <!-- quick return summary start-->
+        <accordion-group is-open="rightPane.rightpanefourthaccordionopen" >
+            <accordion-heading>
+                <a>
+                    <h4 class="panel-title">
+                        <span class="color_gray">Quick Return Summary</span>
+                        <span class="returnrightpanelrotateicon" data-ng-disabled="!userCan('CAN_OPEN_RETURN')" data-ng-click="rightPane.rightpanefourthaccordionopen=true;getReturnStummary();fourthRefreshStart=true;$event.stopPropagation()" data-ng-class="{'rotate':fourthRefreshStart}"><i class="fas fa-redo float-right right_panel_refresh_icon"></i></span>
+                    </h4>
+                </a>
+            </accordion-heading>
+            <div class="clearfix allowScrollSync" data-ng-style="{height:headerNav.screenHeight-265 +'px'}" style="overflow:auto;">
+                <complete-summary></complete-summary>
+            </div>
+        </accordion-group>
+        <!--quick return summary end-->
+    </accordion>
+</div>

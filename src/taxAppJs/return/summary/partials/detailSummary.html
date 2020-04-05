@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <link href="taxAppJs/return/summary/css/summary.css" rel="stylesheet" />
+</head>
+<body>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">	
+     
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding title_height_40">
+                <span translate="QUICKRETURN_QUIKRETSUMMARU_HEADER" translate-default="Quick Return Summary"></span>
+            </span>
+        </section>
+        <div class="col-24 allowScrollSync"   ng-style="{height:headerNav.screenHeight-106}"   style="overflow-y:auto;">
+            <complete-summary></complete-summary>
+        </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+
+</body>
+</html>

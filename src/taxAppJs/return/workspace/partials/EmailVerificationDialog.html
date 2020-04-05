@@ -1,0 +1,51 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            Confirm your account information
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <ng-form name="nameDialog" role="form">
+            <div class="input-group-lg row_height_30">
+                <div ng-show="!IsCodeSend">
+                    <div> <span translate="EMAIL_VERIFICATION_DIALOG_DESCRIPTION1" translate-default="A code will be sent to your registered email address for verification and security purposes."></span></div>
+                </div>
+                <div ng-show="IsCodeSend" class="height_20">
+                    <div> <span translate="EMAIL_VERIFICATION_DIALOG_DESCRIPTION2" translate-default="Please enter the 6-digit code that was emailed to you to complete the verification process."></span></div>
+                </div>
+
+                <div ng-show="IsCodeSend">
+                    <div class="row_height_30 margin_top_10">
+                        <div class="col-lg-4 col-sm-24 col-xs-24 float-left padding_l_0">
+                            <input type="text" data-ng-model="verificationCode" ng-required="!verificationCode" tax-mask="999999" tax-mask-use-view-value="true" class="form-control" />
+                        </div>
+
+                        <div ng-show="InValidcode" class="text-danger_normal float-left">
+                            <div class="padding_top_5"> <span translate="EMAIL_VERIFICATION_DIALOG_ERRORMESSAGE" translate-default="The code you entered is invalid."></span></div>
+                        </div>
+                        <div ng-show="showResendMsg" class="color_green float-left">
+                            <div class="padding_top_5"> <span translate="EMAIL_VERIFICATION_DIALOG_RETRYMESSAGE" translate-default="A new code was sent to your registered email address."></span></div>
+                        </div>
+                    </div>
+                    <div class="margin_top_15 col-lg-24 col-sm-24 col-xs-24 clearfix padding_l_0">
+                        <button type="button"  class="btn btn-outline-primary" ng-disabled="!verificationCode" data-ng-click="ValidateCode()"><span translate="RETURNSUBSCRIPTION_VALIDATE_SPAN" translate-default="Validate Code"></span></button>
+                        <button type="button"  class="btn btn-outline-primary" data-ng-click="ResendCode()"><span translate="RETURNSUBSCRIPTION_VALIDATE_SPAN" translate-default="Didn't receive a code"></span></button>
+                        
+                    </div>
+
+
+                </div>
+                <button type="button" ng-show="!IsCodeSend" class="btn btn-outline-primary margin_top_15" data-ng-click="SendEmailVerificationcode()"><span translate="RETURNSUBSCRIPTION_OK_SPAN" translate-default="Send Verification Code"></span></button>
+            </div>
+        </ng-form>
+    </div>
+    <div class="modal-footer">
+        <!-- Temporary -->
+        <div class="float-left mr-auto">
+            <div class="padding_top_5"> <span translate="EMAIL_VERIFICATION_DIALOG_MESSAGE" translate-default="This process is required for e-filing or printing a return."></span></div>
+        </div>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="RETURNSUBSCRIPTION_LATER_SPAN" translate-default="Do it Later"></span></button>
+
+
+    </div>
+</div>

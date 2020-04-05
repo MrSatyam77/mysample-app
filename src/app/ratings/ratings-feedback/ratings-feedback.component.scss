@@ -1,0 +1,69 @@
+
+.rating {
+    float:left;
+}
+
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0.1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+
+
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+}
+
+.rating-star-wrap{ display: inline-block;}
+
+.rating-star{ 
+    li{
+        list-style: none; float: left;
+        img{
+            width: 45px;
+            margin: 0 5px;
+        }
+    }
+}
+
+.leavefeedback p,
+.opinion p,
+.feedback p,
+.leavefeedback button,
+.opinion button,
+.feedback button{
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.opinion p span {
+    font-size: 18px;
+    font-weight: normal;
+}

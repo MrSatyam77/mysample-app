@@ -1,0 +1,17 @@
+
+    .verificationqanda .checkbox-container button {
+        vertical-align: middle;
+    }
+    .verificationqanda .que-area {
+        font-weight: bold;
+        color: #858585;
+    }
+    .modal-lg {
+        width: 950px;
+    }
+    @media(max-width:768px)
+     {
+         .modal-lg { width: 90vw; }
+         .verificationqanda-container { min-height:auto; padding:30px 0px; }
+     }
+     .color-red { color: red !important}

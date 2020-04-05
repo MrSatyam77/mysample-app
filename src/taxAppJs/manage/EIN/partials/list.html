@@ -1,0 +1,98 @@
+﻿﻿<style>
+    .height_31 {
+        min-height: 31px;
+    }
+    .middle-wrap{
+        overflow: hidden;
+    }
+    .tbl-first-td thead tr th:first-child, .tbl-first-td tbody tr td:first-child {
+        width: 150px;
+    }
+</style>
+
+
+
+<!-- Header -->
+
+<div class="inner_col_second clearfix border-0"
+    data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+    <!-- <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="MANAGEEINLIST_HEADER" translate-default="Manage EIN Library"></span>
+        </section> -->
+    <div class="inner_padding_15 clearfix allowScrollSync" ng-style="{height:headerNav.screenHeight-170}" style="overflow-y:auto;">
+        <div ng-cloak>   
+            <div class="col-24 padding_l_r_0">
+                <div class="float-left mr-2">
+                    <!-- This will filter $data in ng-repeat instead of in Grid. -->
+                    <div class="input-group">   
+                    <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+                        ng-model="searchField" value="{{searchField}}" />
+                        <div class="input-group-append" data-ng-if="searchField.length">
+                                <span class="input-group-text cursor_pointer" data-ng-click="clearSearch()"> <i
+                                        class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                </div>
+                <div class="float-left mr-2">
+                    <button class="btn btn-outline-primary mr-2 float-left" translate="MANAGE_NEW_BTN" translate-default="New"
+                        data-ng-click="createNewEIN()" data-ng-disabled="!userCan('CAN_CREATE_EIN')"></button>
+                    <button class="btn btn-outline-primary" translate="MANAGE_DELETE_BTN" translate-default="Delete"
+                        data-ng-click="removeEIN()" data-ng-disabled="!userCan('CAN_REMOVE_EIN')"></button>
+                </div>
+            </div>
+            
+            <div class="col-24 padding_l_r_0 custom-table margin_top_15 table-responsive pt-3">
+                <table ng-table="availableEINList" class="table tbl-first-td">
+                    <tr data-ng-repeat="EIN in $data" data-ng-click="">
+                        <td data-title="'EIN'" sortable="'ein.ein'" header-class="'custom-header'">
+                            <div class="float-left">
+                                <button class="custom_input_dark float-left margin_right_5"
+                                    data-ng-model="EIN.ein.isSelected" data-ng-class="{'active':EIN.ein.isSelected}"
+                                    data-ng-click="EIN.ein.isSelected =! EIN.ein.isSelected"></button>
+                                <!-- <input type="checkbox" data-ng-model="EIN.ein.isSelected" class="float-left" /> -->
+                                <a data-ng-click="editEIN(EIN.ein.ein);"
+                                    data-ng-class="{'no-clicking disabled':!userCan('CAN_OPEN_EIN')}"
+                                    class="margin_left_3" style="color:#00628e;">{{EIN.ein.ein}}</a>
+                            </div>
+                        </td>
+
+                        <td data-title="'NAME'" sortable="'ein.employersName'" header-class="'custom-header'">
+                            {{EIN.ein.employersName}}</td>
+                        <td data-title="'ADDRESS'" sortable="'ein.usAddress.address'" header-class="'custom-header'">
+                            {{EIN.ein.usAddress.street}}</td>
+                        <td data-title="'CITY'" sortable="'ein.usAddress.city'" header-class="'custom-header'">
+                            {{EIN.ein.usAddress.city}}</td>
+                        <td data-title="'STATE'" sortable="'ein.usAddress.state'" header-class="'custom-header'">
+                            {{EIN.ein.usAddress.state}}</td>
+                        <td data-title="'ZIP'" sortable="'ein.usAddress.zipCode'" header-class="'custom-header'">
+                            {{EIN.ein.usAddress.zipCode}}</td>
+                        <td data-title="'ACTIONS'" header-class="'custom-header'">
+                            <!-- <div class="dropdown" dropdown="">
+                                <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="typeFilter" data-toggle="dropdown">
+                                <i class="fas fa-cog padding_right_5"></i> <span class="caret font_size_12"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter">
+                                    <li class="dropdown-item"><a  data-ng-click="removeEIN(EIN.ein.ein);" data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_EIN')}"><span
+                                                translate="MANAGE_DELETE_LBL" translate-default="Delete"></span> </a>
+                                    </li>
+                                </ul>
+                            </div> -->
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle" id="typeFilter"
+                                    data-toggle="dropdown">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" data-ng-click="removeEIN(EIN.ein.ein);"
+                                        data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_EIN')}"
+                                        translate="MANAGE_DELETE_LBL" translate-default="Delete"></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->

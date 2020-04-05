@@ -1,0 +1,418 @@
+<div class="blur-top-for-notification" *ngIf="isNotificationSupported && Notification.isOpen"></div>
+
+<nav class="navbar navbar-expand bg-reseller navbar-dark">
+
+  <div class="header-logo">
+    <a class="navbar-brand" (click)="redirectToHome()" id="header_logo_myTaxPrepOffice">
+      <img *ngIf="resellerShortCode === 'mtpo'" src="assets/images/reseller-logos/logo_mtpo.png" width="80%" />
+      <img *ngIf="resellerShortCode !== 'mtpo'" src="assets/images/reseller-logos/logo_{{resellerShortCode}}.png" />
+    </a>
+  </div>
+
+  <div class="navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <div class="toggler-button nav-left-button mt-1 float-left" *ngIf="toggler.left">
+          <button class="mtpo-toggler-btn" (click)="headerToggle('headerToggleLeft')">
+            <span></span>
+          </button>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div class="toggler-button nav-left-button" *ngIf="currentPage.pageName=='Home' && hasFeature('TAX_ADVICE')">
+          <a target="_blank" class="btn btn-light " href="https://mytaxprepoffice.com/tax-research">Tax Advice</a>
+        </div>
+      </li>
+    </ul>
+
+    <!-- for desktop use -->
+    <div class="mr-auto  d-none d-sm-block">
+      <button class="btn btn-danger float-left mr-2" *ngIf="offerButton == 'FREE' && hasFeature('SUBSCRIPTION')" (click)="goToSubscription()">Buy Now </button> <!--  -->
+      <button type="button" (click)="goToSubscription()" class="btn btn-danger float-left mr-2" *ngIf="offerButton=='RENEWAL' && hasFeature('SUBSCRIPTION')">Renew Now</button>
+      <button type="button" (click)="redirectToSetup()" class="btn btn-danger d-none d-sm-block" *ngIf="!userDetails.locationData || userDetails.locationData.efinStatus !== 2">Complete Setup</button> <!--  -->
+    </div>
+
+    <!-- for mobile use -->
+    <div class="mr-auto navbar-nav d-sm-none">
+      <button class="btn btn-danger nav-link" *ngIf="offerButton == 'FREE' && hasFeature('SUBSCRIPTION')"
+        (click)="goToSubscription()">
+        <i class="fas fa-credit-card font-17"></i>
+      </button>
+      <button type="button" (click)="goToSubscription()" class="btn btn-danger nav-link"
+        *ngIf="offerButton=='RENEWAL' && hasFeature('SUBSCRIPTION')">
+        <i class="fas fa-sync font-17"></i>
+      </button>
+      <button type="button" (click)="redirectToSetup()" class="btn btn-link nav-link"
+        *ngIf="!userDetails.locationData || userDetails.locationData.efinStatus !== 2">
+        <i class="fas fa-users-cog font-17"></i>
+      </button>
+    </div>
+
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown ml-3" [ngClass]="{'no-clicking':!isOnline}"
+        *ngIf="currentPage.pageName!='InterviewMode' && currentPage.pageName!='ReturnWorkspace'">
+        <button class="btn btn-light dropdown-toggle d-none d-sm-block" type="button" id="step9" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{taxYear.title}}
+        </button>
+        <a class="nav-link dropdown-toggle d-sm-none" id="step9" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="fas fa-calendar-alt font-17"></i><!-- {{taxYear.title}} -->
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="step9">
+          <div role="presentation" *ngFor=" let taxYear of availableTaxYear">
+            <a role="menuitem" class="dropdown-item" (click)="changeTaxYear(taxYear)">{{taxYear.title}}</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- NOTIFICATION START -->
+
+      <li class="nav-item dropdown ml-3" style="list-style: none">
+        <a class="btn nav-link" (click)="openNotificationAlert()"
+          *ngIf="isNotificationSupported && hasFeature('NOTIFICATION') && isDemoUser != true && notiyNotAllowdLocation != true">          
+
+          <i class="fa fa-bell font-17" *ngIf="!notificationStatus" placement="bottom" ngbTooltip="Notification Permission" tooltipClass="default"></i>            
+
+          <span class="mtpo mtpo-notification-granted font-17" *ngIf="notificationStatus === 'granted'" placement="bottom" ngbTooltip="Notification Enabled" tooltipClass="default">
+            <span class="path1"></span>
+            <span class="path2"></span>
+            <span class="path3"></span>
+          </span>
+
+          <span class="mtpo mtpo-notification-blocked" *ngIf="notificationStatus === 'blocked'" placement="bottom" ngbTooltip="Notification Disabled" tooltipClass="default">
+            <span class="path1"></span>
+            <span class="path2"></span>
+            <span class="path3"></span>
+          </span>          
+        </a>
+
+        <!-- <a class="btn" (click)="openNotificationAlert()"
+          *ngIf="isNotificationSupported && hasFeature('NOTIFICATION') && isDemoUser != true && notiyNotAllowdLocation != true">
+          <img src="taxAppJs/images/notification.png" class="header_btn" *ngIf="!notificationStatus"
+            title="Notification Permission">
+          <img src="taxAppJs/images/notification-granted.png" class="header_btn"
+            *ngIf="notificationStatus === 'granted'" title="Notification Enabled">
+          <img src="taxAppJs/images/notification-blocked.png" class="header_btn"
+            *ngIf="notificationStatus === 'blocked'" title="Notification Disabled">
+        </a> -->
+      </li>
+      <li class="arrow-pos dropdown" style="position: relative;top: 30px;right: -15px; z-index: 99;list-style: none">
+        <a [autoClose]="false" [openDelay]="300" [ngbPopover]="popContentNotification" container="body"
+          #notificationPopover="ngbPopover"></a>
+      </li>
+      <!-- NOTIFICATION END -->
+
+      <li class="nav-item dropdown ml-3" style="list-style: none" *ngIf="isShowActiveSession">
+        <a href='#' class='nav-link' (click)="instancePreviewPopover.toggle()" aria-expanded='false'>
+          <i class="fa fa-desktop font-17" placement="bottom" ngbTooltip="Instant Form View Devices" container="body"
+            tooltipClass="default"></i>
+        </a>
+      </li>
+      <li class="arrow-pos dropdown" style="position: relative;top: 30px;right: -50px; z-index: 99;list-style: none">
+        <div [autoClose]="'outside'" [ngbPopover]="instancePreviewDeviceInfo" #instancePreviewPopover="ngbPopover">
+        </div>
+      </li>
+
+      <li class="nav-item dropdown ml-3">
+        <a href='#' class='nav-link dropdown-toggle' aria-expanded='false' data-toggle='dropdown'>
+          <i class="fa fa-question-circle  font-17" placement="bottom" ngbTooltip="Help" container="body"
+            tooltipClass="default"></i>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right dropdown-custom-w">
+          <a class='dropdown-item' role='menuitem' (click)="ManualInAppTraining()">Online Tutorial</a>
+          <a (click)="openKeyboardShortcutDialog()" class='dropdown-item' role='menuitem'>
+            <span class="page_title_lg">Keyboard Shortcuts</span>
+            <span class="float-right shortcutlabel">F1</span>
+          </a>
+          <a (click)="addSampleReturns()" class='dropdown-item'
+            [ngClass]="{'no-clicking':taxYear.id == '2019' && betaOnly() == false}" role='menuitem'> Add Sample
+            Returns
+          </a>
+          <a (click)="helpToggle.isOpen=false;writeToUs()" class='dropdown-item' role='menuitem'> Write To Us
+          </a>
+          <a (click)="accountPopover.toggle()" class='dropdown-item' role='menuitem'> Account Information </a>
+          <a class='dropdown-item' role='menuitem' href="{{getUrlToDownloadPdfUserMenual('user_menual')}}"
+            *ngIf="helpToggle.isOpen==false;" target="_blank" download>
+            <span>User Manual</span>
+          </a>
+          <a (click)="openGenerateCuatomerIdDialog()" class='dropdown-item' role='menuitem'> Customer ID </a>
+          <a class='dropdown-item' role='menuitem' (click)="reloadApplication()">Reload App</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown account-info-popover" style="position: relative;top: 28px;right: -28px; z-index: 99">
+        <a [autoClose]="'outside'" [ngbPopover]="accountInformation" #accountPopover="ngbPopover" placement="bottom" container="body"></a>
+      </li>
+      <li class="nav-item dropdown ml-2">
+        <a class='nav-link dropdown-toggle' aria-expanded='false' data-toggle='dropdown'>
+          <span>{{userDetails.firstName}} {{userDetails.lastName}}</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class='dropdown-item' [routerLink]="['/office/selection/change']">Change Office <span
+              class="font-weight-bold blue-col"
+              *ngIf="userDetails.locationData">({{userDetails.locationData.name}})</span></a>
+          <a class='dropdown-item' [ngClass]="{'no-clicking':taxYear.id == '2019' && betaOnly() == false}"
+            (click)="openInstantFormViewinNewWindow()">Open
+            Instant Form View in a New Tab</a>
+          <a class='dropdown-item' (click)="openRatingsConfirmationDialog()" *ngIf="askForRating">Rate Your Experience
+          </a>
+          <!-- <a class='dropdown-item' [routerLink]="['/preferences']">Change Preferences</a> -->
+          <a class='dropdown-item' [routerLink]="['/manage/change/password']">Change Password</a>
+          <a class='dropdown-item' [routerLink]="['logout']">Log Out</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <div class="toggler-button nav-left-button mt-1 float-left" *ngIf="toggler.right">
+          <button class="mtpo-toggler-btn" (click)="headerToggle('headerToggleRight')">
+            <span></span>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
+    aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!--<div class="margin_top_11 buy_now_btn" *ngIf="offerButton == 'FREE' && hasFeature('SUBSCRIPTION')"
+    (click)="goToSubscription()"><button class="btn btn-orange-header">BUY NOW</button></div>
+
+   <div class="float-left margin_left_10 margin_right_5 margin_top_6 btn_resp_grp"
+    *ngIf="currentPage.pageName=='Home' && hasFeature('TAX_ADVICE')">
+    <a target="_blank" href="https://mytaxprepoffice.com/tax-research">
+      <button type="button" class="btn float-left btn-orange-dropdown">
+        <span style="color: #005074;">Tax Advice</span>
+      </button>
+    </a>
+  </div>
+
+  <div class="float-left margin_left_5 margin_right_5 btn_resp_grp"
+    *ngIf="offerButton=='RENEWAL' && hasFeature('SUBSCRIPTION')">
+    <button type="button" (click)="goToSubscription()" class="btn margin_top_7 float-left btn-red">Renew Now</button>
+  </div> -->
+
+  <!-- <div class="float-left margin_left_5 btn_resp_grp" *ngIf="isSetupDone == false">
+    <button type="button" (click)="redirectToSetup()" class="btn margin_top_7 float-left btn-red">
+      <span>Complete Setup</span>
+    </button>
+  </div> -->
+
+  <!-- <div [ngClass]="{'no-clicking':!isOnline}" class="float-left margin_right_5 margin_left_10 btn_resp_grp"
+    *ngIf="currentPage.pageName!='InterviewMode' && currentPage.pageName!='ReturnWorkspace'">
+    <div class="dropdown" dropdown is-open="taxYearToggle.isOpen">
+      <button class="dropdown-toggle btn-orange-dropdown" dropdown-toggle type="button" id="step9"
+        data-toggle="dropdown">
+        {{taxYear.title}}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="step9" style="cursor: pointer;">
+        <li class="dropdown-item" role="presentation" *ngFor=" let taxYear of availableTaxYear">
+          <a role="menuitem" (click)="changeTaxYear(taxYear)">{{taxYear.title}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="choice_icon_wrap float-left">
+    <div class="btn-group dropdown" dropdown="">
+      <a class="btn dropdown-toggle" dropdown-toggle="">
+        <i class="header_btn glyphicon fas fa-cog"></i>
+       </a>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item">
+          <a [routerLink]="['dashboard/settings']">
+            <span class="page_title_lg">Open Settings</span>
+          </a>
+        </li>
+        <li class="dropdown-item">
+          <a [routerLink]="['/password/change']">
+            <span>Change Password</span>
+          </a>
+        </li>
+        <li class="dropdown-item">
+          <a [routerLink]="['logout']" >
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>                                                                                                                                                                                                                                                                               
+    </div>
+  </div>
+  <div class="choice_icon_wrap float-left" [ngClass]="{'margin_right_10':currentPage.pageName=='Home'}">
+    <div class="btn-group dropdown" dropdown="" is-open="helpToggle.isOpen">
+      <a class="btn dropdown-toggle" dropdown-toggle="" (click)="Account.isOpen=false">
+
+        <i class="header_btn fas fa-question-circle"></i>
+
+      </a>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item">
+          <a (click)="ManualInAppTraining()">
+            <span>Online Tutorial</span>
+          </a>
+        </li>
+        <li class="dropdown-item" *ngIf="isShortcutHelpAllowed == true">
+          <a (click)="openKeyboardShortcutDialog()">
+            <span class="page_title_lg">Keyboard Shortcuts</span>
+            <span class="float-right shortcutlabel">F1</span>
+          </a>
+        </li>
+        <li class="dropdown-item">
+          <a (click)="addSampleReturns()">
+            <span>Add Sample Returns</span>
+          </a>
+        </li>
+        <li class="dropdown-item" [ngClass]="{'no-clicking':!isOnline}">
+          <a (click)="helpToggle.isOpen=false;writeToUs()">
+            <span class="page_title_lg">Write To Us</span>
+          </a>
+        </li>
+        <li class="dropdown-item">
+          <a (click)="callMediaAPI()">
+            <span>Account Information</span>
+          </a>
+        </li>
+        <li class="dropdown-item"><a href="{{getUrlToDownloadPdfUserMenual('user_menual')}}"
+            *ngIf="helpToggle.isOpen==false;" target="_blank" download><span translate="HEADERNAV_USER_MENUAL_LBL"
+              translate-default='User Manual'></span></a></li>
+        <li class="dropdown-item">
+          <a (click)="reloadApplication()">
+            <span class="page_title_lg">Reload App</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div> -->
+
+  <ng-template #instancePreviewDeviceInfo>
+    <div class="popover-inner p-0 header-tab">
+      <div class="popover-content color_black  p-0">
+        <app-instance-preview-session (closePreview)="closePreview($event)" [newDeviceRequest]="newDeviceRequest">
+        </app-instance-preview-session>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #accountInformation>
+    <div class="popover-inner">
+
+      <div class="popover-content color_black">
+        <div class="row">
+          <div class="col">
+            <label class="font-weight-bold d-block">Email</label>
+            <label class="d-block">{{userDetails.email}}</label>
+          </div>
+          <div class="col-auto ml-auto">
+            <span (click)="refreshUserDetailsWithAPI()">
+              <i class="fas fa-redo float-right cursor_pointer font_size_14" [ngClass]="{'rotate':refreshStart}"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="font-weight-bold d-block">Customer Account Number</label>
+          <label class="d-block"
+            *ngIf="masterLocationDetails.customerNumber">{{masterLocationDetails.customerNumber}}</label>
+          <label class="d-block" *ngIf="!masterLocationDetails.customerNumber">Not Applicable</label>
+        </div>
+
+
+        <div class="form-group">
+          <label class="font-weight-bold d-block">License(s)</label>
+          <label class="d-block" *ngFor="let license of licenseDetails.licenseNames">{{license.year}} - {{license.name}}
+          </label>
+        </div>
+
+        <!-- license name for each year -->
+
+
+        <div class="form-group">
+          <label class="font-weight-bold d-block">Additional user Subscription</label>
+          <div class="d-block">
+            <label
+              class="d-inline mr-2">{{licenseDetails.noAddOnUsersSubscription==undefined?0:licenseDetails.noAddOnUsersSubscription}}</label>
+            <a class="cursor_pointer" (click)="goToSubscription()"
+              *ngIf="masterLocationDetails.customerNumber!=undefined && hasFeature('SUBSCRIPTION')">
+              <span>(Buy Addon)
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="masterLocationDetails.maxStorageSize">
+          <label class="font-weight-bold d-block"><span>Document Manager Storage</span></label>
+          <label class="d-block" *ngIf="masterLocationDetails.maxStorageSize">{{availableDocumentSize}} <span>of</span>
+            {{availableMaxStorageSize}}</label>
+        </div>
+
+        <div class="form-group">
+          <label class="font-weight-bold d-block"><span>Logged in Office</span></label>
+          <label class="d-block" *ngIf="userDetails.locationData">{{userDetails.locationData.name}}</label>
+          <label class="d-block">{{userDetails.currentLocationId}}</label>
+        </div>
+
+        <div class="form-group">
+          <label class="font-weight-bold d-block"><span>Main Office</span></label>
+          <label class="d-block">{{masterLocationDetails.name}}</label>
+          <label>{{userDetails.masterLocationId}}</label>
+        </div>
+
+        <div class="form-group">
+          <label class="font-weight-bold d-block"><span>Browser Information</span></label>
+          <div class="d-block">
+            <div class="d-block mr-2" *ngIf="userAgent.agent == undefiend">
+              <img class="d-inline-block"
+                src="taxAppJs/common/headerNav/images/{{userAgent.browserName | lowercase}}.png" width="22"
+                height="22" />
+              <span class="d-inline-block">({{userAgent.browserName}} v.{{userAgent.version}})</span>
+            </div>
+            <div class="d-block" *ngIf="userAgent.agent">{{userAgent.agent}}</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-outline-primary float-right mr-3 mb-2" (click)="close()">Close</button>
+    </div>
+  </ng-template>
+
+
+
+  <ng-template #popContentNotification>
+    <div class="notification-popover" *ngIf="!notificationStatus">
+      <img src="taxAppJs/images/MTPO-Orange.png" class="notification-logo-image">
+      <h3 class="notification-title">{{notificationSettings.alertTitle}}</h3>
+      <span class="notification-body">
+        <span class="font-size-12">{{notificationSettings.alertSubTitle}}</span>
+      </span>
+      <div class="notification-footer">
+        <button type="button" class="btn btn-outline-primary margin_right_10" (click)="notificationAction('later')">
+          Do it later
+        </button>
+        <button type="button" class="btn btn-primary" (click)="notificationAction('allow')">
+          Yes I'm in!
+        </button>
+      </div>
+    </div>
+    <div class="popover-inner notification-process-inner" *ngIf="notificationStatus === 'blocked'">
+      <div class="notification-body">
+        <span class="full-row margin_bottom_10">Notifications are <span class="font-red">blocked</span></span>
+        <span class="full-row margin_bottom_10">1. Click on the <img src="taxAppJs/images/blocked.png"
+            class="text-icon" /> <b>Lock Icon</b> in the address bar above</span>
+        <span class="full-row margin_bottom_10">2. Locate the <b>Notifications</b> Settings</span>
+        <span class="full-row">3. Change it to <b>Allow</b></span>
+      </div>
+    </div>
+  </ng-template>
+</nav>
+
+
+<!-- d-none d-sm-block -->
+<!-- d-sm-none -->
+
+<!-- <div id="page-header" class="clearfix">
+    <div class="header-logo">
+        <a class="navbar-brand" >MyTAXPrepOffice</a>
+    </div>
+</div> -->

@@ -1,0 +1,124 @@
+﻿<link href="taxAppJs/common/widgets/documents/css/documents.css" rel="stylesheet" />  
+<tabset justified="true" class="tab-out-line">
+    <tab heading="Form ({{(documentList|filter:{type:'form'}|filter:{returnId:documentReturnId}|filter:{docIndex:docIndex}|filter:{docName:docName}).length}})" active="activeTab.formTab">
+        <div class="tab_border">
+
+            <div class="notes_area">
+                <div class="notes_body" style="max-height:310px;overflow:auto;min-height:310px;">
+                    <div ng-repeat="document in documentList|filter:{type:'form'}|filter:{returnId:documentReturnId}|filter:{docIndex:docIndex}|filter:{docName:docName}">
+                        <div class="notes_wrap">
+                            <a data-ng-click="removeDocument(document.key)" data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_DOCUMENT')}">
+                                <i class="fas fa-times note_icon_document_right"></i>
+                            </a>
+                            <div class="clearfix">
+                                <div class="cursor_pointer" data-ng-class="{'no-clicking disabled':!userCan('CAN_DOWNLOAD_DOCUMENT')}">
+                                    <a ng-href="{{getURL(document.key)}}" target="_blank"><span class="notes_title width_full_95">{{document.fileName}}</span></a>
+                                </div>
+                                <span class="float-left document_user_name" data-ng-if="email===document.createdByEmail">You</span>
+                                <span class="float-left document_user_name" data-ng-if="email!==document.createdByEmail">{{document.createdByName}}</span>
+                                <span class="notes_date margin_right_5">{{toDate(document.date)| date:'MM/dd/yyyy h:mm a'}}</span>
+                            </div>
+                            <div class="width_full" data-ng-show="document.lineText">
+                                <span translate="DOCUMENTS_LINE_LBL" translate-default="Type:" class="width_full_15 float-left"></span>
+                                <label class="doc_line" title="{{document.lineText}}">{{document.lineText}}</label>
+                            </div>
+                            <div class="video_txt_info clearfix">{{document.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+    <tab heading="Return ({{(documentList|filter:{type:'return'}|filter:{returnId:documentReturnId}).length}})" active="activeTab.returnTab">
+        <div class="tab_border">
+
+            <div class="notes_area">
+                <div class="notes_body" style="max-height:310px;overflow:auto;min-height:310px;">
+                    <div ng-repeat="document in documentList|filter:{type:'return'}|filter:{returnId:documentReturnId}">
+                        <div class="notes_wrap">
+                            <a data-ng-click="removeDocument(document.key)" data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_DOCUMENT')}">
+                                <i class="fas fa-times note_icon_document_right"></i>
+                            </a>
+                            <div class="clearfix">
+                                <div class="cursor_pointer" data-ng-class="{'no-clicking disabled':!userCan('CAN_DOWNLOAD_DOCUMENT')}">
+                                    <a ng-href="{{getURL(document.key)}}" target="_blank"><span class="notes_title width_full_95">{{document.fileName}}</span></a>
+                                </div>
+                                <span class="float-left document_user_name" data-ng-if="email===document.createdByEmail">You</span>
+                                <span class="float-left document_user_name" data-ng-if="email!==document.createdByEmail">{{document.createdByName}}</span>
+                                <span class="notes_date margin_right_5">{{toDate(document.date)| date:'MM/dd/yyyy h:mm a'}}</span>
+                            </div>
+                            <div class="width_full" data-ng-show="document.lineText">
+                                <span translate="DOCUMENTS_LINE_LBL" translate-default="Line:" class="width_full_15 float-left"></span>
+                                <label class="doc_line" title="{{document.lineText}}">{{document.lineText}}</label>
+                            </div>
+                            <div class="video_txt_info clearfix">{{document.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+</tabset>
+  <!--conversion start-->
+<div class="clearfix description_wrap">
+    <div class="padding_7 clearfix">
+        
+        <div class="row_height_30 width_full margin_bottom_10">
+            <div class="float-left width_full">
+                <label>Description</label>
+            </div>
+            <div class="float-right width_full row_height_70" data-ng-class="{'no-clicking':!isOnline}">
+                <textarea class="form-control" data-ng-model="description" value="{{description}}"> </textarea>
+            </div>
+        </div>
+
+        <div class="row_height_30 width_full margin_bottom_10" ng-if="betaOnly() == true">
+            <div class="float-left width_full row_height_30">
+                <a href="#" data-ng-click="openAcceptedFileDialog()"><u>Supported File Types</u></a>
+            </div>
+        </div>
+
+        <div class="row_height_30 width_full" ng-hide="!lineList || lineList.length==0">
+            <div>
+                <div class="float-left width_full_40">
+                    <label>Attachment type</label>
+                </div>
+                <div class="float-right width_full_60">
+                    <select class="form-control float-right select_width_full" name="lineNo" ng-options="line as line.value for line in lineList" data-ng-model="lineNo"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="padding_7 clearfix">
+        <div class="drop-box upload_main" ngf-drag-over-delay="100" ngf-drag-over-class="" ngf-drop-available="dropSupported=true" ngf-drop ngf-change="onFileSelect($files)" ng-show="dropSupported">
+            <div class="clearfix">
+                <span class="text-center font_size_24">Drag here</span>
+            </div>
+            <div class="row">
+                <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+                    <div class="text-center height_10"><div data-ng-show="fileName"><span>{{fileName}} <span class="cursor_pointer"><a data-ng-click="removeFile()"><i class="fa fa-times color_gray"></i></a></span></span></div></div>
+                    <div class="btn btn-outline-primary btn_conversion selectbutton margin_top_10  margin_bottom_10">
+                        <i class="fa fa-folder-open margin_right_3"></i>
+                        Select file
+                        <input type="file" ngf-select="onFileSelect($files)" data-max-size="100" accept="{{acceptFileType}}">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="box-shadow-outset margin_5 float-left" data-ng-class="{'no-clicking disabled': !fileName ||!userCan('CAN_UPLOAD_DOCUMENT')||uploadProgress}" data-ng-click="uploadDocument()">
+            <i class="fa fa-long-arrow-right float-left  margin_top_4"></i> <span>Upload</span>
+        </div>
+        <div class="float-left width_full_75 margin_top_8">
+            <progressbar data-ng-show="uploadProgress" animate="true" class="progress-striped active" value="uploadProgress" type="success"><b>{{uploadProgress}}%</b></progressbar>
+            <div data-ng-show="fileSizeMessage"><span class="text-danger_normal">Your selected file is more than 5MB in size.</span></div>
+            <div data-ng-show="maxDocumentSizeMessage"><span class="text-danger_normal">Your file is larger then remaining storage size.</span></div>
+            <div data-ng-show="uploadErrMessage"><span class="text-danger_normal">Error occurred. Please try again later</span></div>
+            <div data-ng-show="invalidType"><span class="text-danger_normal">Please upload one of valid scanned document.</span></div>
+        </div>
+    </div>
+</div>
+
+    <!--conversion end-->

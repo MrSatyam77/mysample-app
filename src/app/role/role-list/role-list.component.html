@@ -1,0 +1,45 @@
+<div class="bg-white border h-100">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg title_height_40">
+        <span class="page_title_lg">
+          <span>Custom Roles</span>
+        </span>
+        <div class="row float-right d-none d-md-block">
+          <button class="btn btn-outline-primary margin_left_5 pl-2" (click)="gotoHome()">Back
+            To Dashboard</button>
+        </div>
+      </span>
+    </section>
+  </div>
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <div class="inner_padding_15 clearfix allowScrollSync">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-4">
+          <!-- This will filter $data in ng-repeat instead of in Grid. -->
+          <div class="input-group">
+            <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+              [(ngModel)]="filter.searchText" (ngModelChange)="quickSearch(filter.searchText)" />
+            <div class="input-group-append" *ngIf="filter.searchText && filter.searchText.length > 0">
+              <span class="input-group-text cursor_pointer"
+                (click)="filter.searchText = ''; quickSearch(filter.searchText);">
+                <i class="fa fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-13 col-md-3 col-xl-3 col-sm-3 padding_l_0 col-xs-margin_top_10">
+          <button class="btn btn-outline-primary mr-2" (click)="createNewRole()"
+            [disabled]="!userCan('CAN_CREATE_ROLE')">New</button>
+          <button class="btn btn-outline-primary" (click)="multipleDelete()"
+            [disabled]="!userCan('CAN_REMOVE_ROLE')|| selctedRowCount <= 0">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix col-24 col-md-24 col-xl-24 col-sm-24 col-lg-24 pl-3 pr-3">
+    <app-standard-ag-grid #roleList name="roleList" [gridOptions]="gridOptions" [result]="rowData"
+      (onStandardGridReady)="onGridReady($event)" [rowSelection]="'multiple'" (action)="onActionClicked($event)"
+      (onCellClick)="cellClick($event)">
+    </app-standard-ag-grid>
+  </div>
+</div>

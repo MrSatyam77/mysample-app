@@ -1,0 +1,42 @@
+<div class="dashboard-content" *ngIf="appointmentList">
+  <perfect-scrollbar>
+    <div class="dashboard-data-wrap scroll-y">
+      <div class="list-ui-wrap">
+        <div class="list-ui-raw no-pointer" [ngStyle]="{'background-color':rowColor}">
+          <div class="raw-main-lbl font-weight-bold">Today's Upcoming Appointments</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="list-ui-wrap" *ngIf="appointmentList.appointment.length!==0"
+          [class.no-clicking]="!permission.canOpenCalender">
+          <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}"
+            *ngFor="let appointment of appointmentList.appointment" (click)="edit(appointment.id)">
+            <div class="raw-main-lbl">
+              
+              <span> {{appointment.start | date:'h:mm a'}} </span>
+              <span> {{appointment.subject}} </span>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-center-data-wrap" *ngIf="appointmentList.appointment.length ===0">You have no appointment
+          scheduled for today.</div>
+      </div>
+
+      <div class="list-ui-wrap">
+        <div class="list-ui-raw" [ngStyle]="{'background-color':rowColor}">
+          <div class="raw-main-lbl font-weight-bold" [class.no-clicking]="!permission.canListCalender" (click)="viewTomorrow()">
+            Tomorrow's
+            Appointment<span class="float-right">{{appointmentList.tomorrowsAppointment}}</span></div>
+        </div>
+      </div>
+    </div>
+  </perfect-scrollbar>
+  <div class="dashboard-footer-wrap">
+    <a class="footer-btn" [class.no-clicking]="!permission.canListCalender" (click)="openCalender()">Appointment
+      Scheduler</a>
+    <a class="footer-btn" [class.no-clicking]="!permission.canCreateCalender" (click)="newAppointment()">New
+      Appointment</a>
+  </div>
+</div>
+<!-- -->

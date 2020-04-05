@@ -1,0 +1,35 @@
+<div class="drop-box upload_main" #dragHere>
+  <div class="row">
+    <div class="col-24 mt-3">
+      <div class="drag-file">
+        <div class="d-block icon-upload">
+          <i class="fa fa-cloud-upload-alt d-block "></i>
+          <span>Drag here</span>
+          <div class="my-3">Or if you prefer</div>
+        </div>
+
+        <button class="btn btn-primary btn_conversion selectbutton" #browseButton>
+          <i class="fa fa-folder-open margin_right_3"></i>
+          {{this.selectedSoftware.isDirectory?'Select Folder':'Select file'}}
+        </button>
+      </div>
+    </div>
+    <div class="col-24 text-danger mt-3 font-weight-normal" style="display: none">
+      <ul class="list-unstyle">
+        <li>
+          <p>Your selected file is more than 3 GB in size.</p>
+        </li>
+        <li>
+          <p>An error occurred while uploading your file. Please try again later.</p>
+        </li>
+        <li>
+          <p>Your browser is trying to upload a file of type</p>
+        </li>
+        <li>
+          <p>Please make sure your browser is uploading a zip file by verifying the extension is .zip. Please refer to
+            the trouble shooting conversions in training.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

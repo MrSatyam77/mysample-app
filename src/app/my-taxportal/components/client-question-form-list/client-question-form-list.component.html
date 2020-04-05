@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col col-sm-4">
+    <h6 class="font-weight-bold my-3">Default Question Sets</h6>
+  </div>
+  <div class="col-auto  offset-sm-10 pl-0">
+    <button class="btn btn-outline-primary" (click)="addEditTaxMnanager(null)">
+      <i class="fa fa-plus" aria-hidden="true"></i> Add
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-24">
+    <div class="form-group row" *ngFor="let object of settings.questionSets">
+      <div class="col col-sm-4 mt-2 text-center">
+        <button class="custom_input_dark margin_right_5"
+          [ngClass]="{'active':settings.selectedQuestionSet == object.id, 'no-clicking':!userCan('CAN_SAVE_CLIENT_QUE')}"
+          (click)="settings.selectedQuestionSet = object.id; setSelectedQuestionSet(settings.selectedQuestionSet)">
+        </button>
+      </div>
+      <div class="col col-sm-10" [ngClass]="{'font-weight-bold':settings.selectedQuestionSet == object.id}">
+        <label>{{object.title}}</label>
+      </div>
+      <div class="col pl-0">
+        <div class="float-left">
+          <button type="button" class="btn btn-outline-primary mr-2" (click)="addEditTaxMnanager(object.id)"
+            [disabled]="!userCan('CAN_SAVE_CLIENT_QUE')">
+            <i class="fa fa-edit" aria-hidden="true"></i> Edit
+          </button>
+          <button type="button" class="btn btn-outline-primary mr-2"
+            [disabled]="!userCan('CAN_SAVE_CLIENT_QUE') || settings.selectedQuestionSet === object.id"
+            (click)="deleteQuestionSet(object.id)" *ngIf="settings.questionSets && settings.questionSets.length > 1"
+            title="Delete Question">
+            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+          </button>
+          <span>
+            <button class="btn transprnt_btn" class="btn btn-outline-primary" title="Copy"
+              [disabled]="!userCan('CAN_SAVE_CLIENT_QUE')" (click)="copyTaxMnanager(object.id, object.title)">
+              <i class="fa fa-copy"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

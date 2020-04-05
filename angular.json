@@ -1,0 +1,430 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "hybridApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "styles": [
+            "src/styles.css",
+            "src/sass/main.scss",
+            "src/taxAppJs/auth/login/css/login.css",
+            "src/taxAppJs/auth/registration/css/registration.css"
+          ],
+          "options": {
+            "outputPath": "dist/taxapp",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/taxAppJs",
+              "src/app/Printing-engine",
+              "src/firebase-messaging-sw.js",
+              "src/serviceWorker-main.js",
+              "src/sw-mtpo.js",
+              "src/sw-co9.js",
+              "src/sw-empiretax.js",
+              "src/sw-incometax.js",
+              "src/sw-incomeusa.js",
+              "src/sw-nextworld.js",
+              "src/sw-sam.js",
+              "src/sw-siglo.js",
+              "src/sw-trooblr.js",
+              "src/sw-tsg.js",
+              "src/sw-uplus.js",
+              "src/sw-dist.js"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/sass/main.scss"
+            ],
+            "scripts": [
+              "src/taxAppJs/lib/lodash.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/taxAppJs/lib/jquery-2.1.1.min.js",
+              "src/assets/js/jquery-ui.js",
+              "src/assets/js/jquery.ui.touch-punch.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/crypto-js/crypto-js.js",
+              "src/assets/js/gridstack.js",
+              "src/assets/js/gridstack.jQueryUI.js",
+              "src/taxAppJs/lib/angular/angular.min.js",
+              "src/taxAppJs/lib/angular/angular-route.min.js",
+              "src/taxAppJs/lib/angular/angular-animate.min.js",
+              "src/taxAppJs/lib/angular/angular-sanitize.min.js",
+              "src/taxAppJs/lib/angular/angular-touch.min.js",
+              "src/taxAppJs/lib/angular/angular-cookies.min.js",
+              "src/taxAppJs/lib/angular-lodash.js",
+              "src/taxAppJs/lib/angular-translate/angular-translate.min.js",
+              "src/taxAppJs/lib/ui-bootstrap-tpls.js",
+              "src/taxAppJs/lib/ui-bootstrap-custom-tpls-0.13.4.js",
+              "src/taxAppJs/lib/ng-table.min.js",
+              "src/taxAppJs/lib/toaster.js",
+              "src/taxAppJs/lib/ui-layout.js",
+              "src/taxAppJs/lib/loading-bar.js",
+              "src/taxAppJs/lib/select.min.js",
+              "src/taxAppJs/lib/dialogs.min.js",
+              "src/taxAppJs/lib/dialogs-default-translations.min.js",
+              "src/taxAppJs/lib/text-angular/rangy-core.js",
+              "src/taxAppJs/lib/text-angular/rangy-selectionsaverestore.js",
+              "src/taxAppJs/lib/text-angular/textAngularSetup.js",
+              "src/taxAppJs/lib/text-angular/textAngular.js",
+              "src/taxAppJs/lib/text-angular/textAngular-sanitize.js",
+              "src/taxAppJs/lib/moment/moment.js",
+              "src/taxAppJs/lib/moment/moment-timezone.js",
+              "src/taxAppJs/lib/moment/moment-timezone-with-data-2010-2020.js",
+              "src/taxAppJs/lib/ui-calendar/fullcalendar.js",
+              "src/taxAppJs/lib/ui-calendar/calendar.js",
+              "src/taxAppJs/lib/angular-multi-select.js",
+              "src/taxAppJs/lib/file-upload/ng-file-upload-shim.min.js",
+              "src/taxAppJs/lib/file-upload/ng-file-upload.min.js",
+              "src/taxAppJs/lib/angular-sortable-view.js",
+              "src/taxAppJs/lib/export/ng-csv.min.js",
+              "src/taxAppJs/lib/pdfMaker/pdfmake.min.js",
+              "src/taxAppJs/lib/pdfMaker/vfs_fonts.js",
+              "src/taxAppJs/lib/kendo-ui/kendo.custom.min.js",
+              "src/taxAppJs/lib/kendo-ui/jszip.min.js",
+              "src/taxAppJs/lib/kendo-ui/pako_deflate.min.js",
+              "src/taxAppJs/lib/intro.min.js",
+              "src/taxAppJs/lib/angular-intro.min.js",
+              "src/taxAppJs/lib/irs/fingerprint.js",
+              "src/taxAppJs/lib/postal.min.js",
+              "src/taxAppJs/lib/bootstrap-colorpicker-module.js",
+              "src/taxAppJs/lib/hotkeys.js",
+              "src/taxAppJs/lib/cropper/cropper.js",
+              "src/taxAppJs/lib/angular-recaptcha.js",
+              "src/taxAppJs/lib/angular-qrcode.js",
+              "src/taxAppJs/lib/qrcode.js",
+              "src/taxAppJs/lib/socket.io.js",
+              "src/taxAppJs/lib/ngclipboard.min.js",
+              "src/taxAppJs/lib/ng-clipboard.min.js",
+              "src/taxAppJs/lib/ua-parser.min.js",
+              "src/taxAppJs/lib/angular-pretty-xml.js",
+              "src/taxAppJs/lib/ilink-chat.js",
+              "src/taxAppJs/lib/firebase/firebase-app.js",
+              "src/taxAppJs/lib/firebase/firebase-messaging.js",
+              "src/taxAppJs/common/widgets/lineHelp/lineHelp-app.js",
+              "src/taxAppJs/common/widgets/training/training-app.js",
+              "src/taxAppJs/common/widgets/notes/notes-app.js",
+              "src/taxAppJs/common/widgets/documents/documents-app.js",
+              "src/taxAppJs/common/widgets/eFileSummary/eFileSummary-app.js",
+              "src/taxAppJs/common/widgets/client-portal-ques-ans/clientPortal-ques-ans.js",
+              "src/taxAppJs/common/widgets/calculator/calculator-app.js",
+              "src/taxAppJs/common/widgets/printPacketsConfiguration/printPacketsConfiguration-app.js",
+              "src/taxAppJs/return/workspace/return-app.js",
+              "src/taxAppJs/return/workspace/taxline-directives.js",
+              "src/taxAppJs/tax-app.js",
+              "src/taxAppJs/return/workspace/tax-filters.js",
+              "src/taxAppJs/return/workspace/tax-directives.js",
+              "src/taxAppJs/return/workspace/return-service.js",
+              "src/taxAppJs/return/workspace/return-dialogController.js",
+              "src/taxAppJs/return/workspace/return-controller.js",
+              "src/taxAppJs/return/workspace/content-service.js",
+              "src/taxAppJs/return/summary/summary-directive.js",
+              "src/taxAppJs/return/summary/summary-app.js",
+              "src/taxAppJs/return/new/newReturn-app.js",
+              "src/taxAppJs/return/interview/interview-app.js",
+              "src/taxAppJs/return/customTemplate/customTemplate-app.js",
+              "src/taxAppJs/manage/role/role-app.js",
+              "src/taxAppJs/manage/setup/setup-app.js",
+              "src/taxAppJs/manage/priceList/priceList-app.js",
+              "src/taxAppJs/manage/preparer/preparer-app.js",
+              "src/taxAppJs/manage/EIN/EIN-app.js",
+              "src/taxAppJs/manage/clientOrganizer/clientOrganizer-app.js",
+              "src/taxAppJs/manage/clientLetter/clientLetter-app.js",
+              "src/taxAppJs/manage/printPacketsConfiguration/printPacketsConfiguration-app.js",
+              "src/taxAppJs/common/redirect/redirect-app.js",
+              "src/taxAppJs/bank/tpg/tpg-app.js",
+              "src/taxAppJs/bank/refundAdvantage/refundAdvantage-app.js",
+              "src/taxAppJs/bank/redBird/redBird-app.js",
+              "src/taxAppJs/bank/auditAllies/auditAllies-app.js",
+              "src/taxAppJs/bank/protectionPlus/protectionPlus-app.js",
+              "src/taxAppJs/bank/eps/eps-app.js",
+              "src/taxAppJs/bank/epsepay/epsepay-app.js",
+              "src/taxAppJs/bank/atlas/atlas-app.js",
+              "src/taxAppJs/auth/tryItNow/tryItNow-app.js",
+              "src/taxAppJs/report/report-app.js",
+              "src/taxAppJs/preloadCheck/preloadCheck-app.js",
+              "src/taxAppJs/estimator/estimator-app.js",
+              "src/taxAppJs/conversion/conversion-app.js",
+              "src/taxAppJs/common/media-service.js",
+              "src/taxAppJs/common/common-services.js",
+              "src/taxAppJs/common/common-directive.js",
+              "src/taxAppJs/common/common-controller.js",
+              "src/taxAppJs/common/common-filters.js",
+              "src/taxAppJs/common/widgets/client-portal-ques-ans/clientPortal-dialog-controller.js",
+              "src/taxAppJs/tax-routes.js",
+              "src/taxAppJs/return/workspace/webRTC/webRTC-service.js",
+              "src/taxAppJs/manage/templates/templates-app.js"
+            ],
+            "webWorkerTsConfig": "tsconfig.worker.json"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "20mb"
+                }
+              ],
+              "serviceWorker": true
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "20mb"
+                }
+              ],
+              "serviceWorker": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "hybridApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "hybridApp:build:production"
+            },
+            "test": {
+              "browserTarget": "hybridApp:build:test"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "hybridApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/taxAppJs",
+              "src/serviceWorker-main.js",
+              "src/sw-mtpo.js",
+              "src/sw-co9.js",
+              "src/sw-empiretax.js",
+              "src/sw-incometax.js",
+              "src/sw-incomeusa.js",
+              "src/sw-nextworld.js",
+              "src/sw-sam.js",
+              "src/sw-siglo.js",
+              "src/sw-trooblr.js",
+              "src/sw-tsg.js",
+              "src/sw-uplus.js"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/sass/main.scss"
+            ],
+            "scripts": [
+              "src/taxAppJs/lib/lodash.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/taxAppJs/lib/jquery-2.1.1.min.js",
+              "src/assets/js/jquery-ui.js",
+              "src/assets/js/jquery.ui.touch-punch.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/crypto-js/crypto-js.js",
+              "src/assets/js/gridstack.js",
+              "src/assets/js/gridstack.jQueryUI.js",
+              "src/taxAppJs/lib/angular/angular.min.js",
+              "src/taxAppJs/lib/angular/angular-route.min.js",
+              "src/taxAppJs/lib/angular/angular-animate.min.js",
+              "src/taxAppJs/lib/angular/angular-sanitize.min.js",
+              "src/taxAppJs/lib/angular/angular-touch.min.js",
+              "src/taxAppJs/lib/angular/angular-cookies.min.js",
+              "src/taxAppJs/lib/angular-lodash.js",
+              "src/taxAppJs/lib/angular-translate/angular-translate.min.js",
+              "src/taxAppJs/lib/ui-bootstrap-tpls.js",
+              "src/taxAppJs/lib/ui-bootstrap-custom-tpls-0.13.4.js",
+              "src/taxAppJs/lib/ng-table.min.js",
+              "src/taxAppJs/lib/toaster.js",
+              "src/taxAppJs/lib/ui-layout.js",
+              "src/taxAppJs/lib/loading-bar.js",
+              "src/taxAppJs/lib/select.min.js",
+              "src/taxAppJs/lib/dialogs.min.js",
+              "src/taxAppJs/lib/dialogs-default-translations.min.js",
+              "src/taxAppJs/lib/text-angular/rangy-core.js",
+              "src/taxAppJs/lib/text-angular/rangy-selectionsaverestore.js",
+              "src/taxAppJs/lib/text-angular/textAngularSetup.js",
+              "src/taxAppJs/lib/text-angular/textAngular.js",
+              "src/taxAppJs/lib/text-angular/textAngular-sanitize.js",
+              "src/taxAppJs/lib/moment/moment.js",
+              "src/taxAppJs/lib/moment/moment-timezone.js",
+              "src/taxAppJs/lib/moment/moment-timezone-with-data-2010-2020.js",
+              "src/taxAppJs/lib/ui-calendar/fullcalendar.js",
+              "src/taxAppJs/lib/ui-calendar/calendar.js",
+              "src/taxAppJs/lib/angular-multi-select.js",
+              "src/taxAppJs/lib/file-upload/ng-file-upload-shim.min.js",
+              "src/taxAppJs/lib/file-upload/ng-file-upload.min.js",
+              "src/taxAppJs/lib/angular-sortable-view.js",
+              "src/taxAppJs/lib/export/ng-csv.min.js",
+              "src/taxAppJs/lib/pdfMaker/pdfmake.min.js",
+              "src/taxAppJs/lib/pdfMaker/vfs_fonts.js",
+              "src/taxAppJs/lib/kendo-ui/kendo.custom.min.js",
+              "src/taxAppJs/lib/kendo-ui/jszip.min.js",
+              "src/taxAppJs/lib/kendo-ui/pako_deflate.min.js",
+              "src/taxAppJs/lib/intro.min.js",
+              "src/taxAppJs/lib/angular-intro.min.js",
+              "src/taxAppJs/lib/irs/fingerprint.js",
+              "src/taxAppJs/lib/postal.min.js",
+              "src/taxAppJs/lib/bootstrap-colorpicker-module.js",
+              "src/taxAppJs/lib/hotkeys.js",
+              "src/taxAppJs/lib/cropper/cropper.js",
+              "src/taxAppJs/lib/angular-recaptcha.js",
+              "src/taxAppJs/lib/angular-qrcode.js",
+              "src/taxAppJs/lib/qrcode.js",
+              "src/taxAppJs/lib/socket.io.js",
+              "src/taxAppJs/lib/ngclipboard.min.js",
+              "src/taxAppJs/lib/ng-clipboard.min.js",
+              "src/taxAppJs/lib/ua-parser.min.js",
+              "src/taxAppJs/lib/angular-pretty-xml.js",
+              "src/taxAppJs/lib/ilink-chat.js",
+              "src/taxAppJs/lib/firebase/firebase-app.js",
+              "src/taxAppJs/lib/firebase/firebase-messaging.js",
+              "src/taxAppJs/common/widgets/lineHelp/lineHelp-app.js",
+              "src/taxAppJs/common/widgets/training/training-app.js",
+              "src/taxAppJs/common/widgets/notes/notes-app.js",
+              "src/taxAppJs/common/widgets/documents/documents-app.js",
+              "src/taxAppJs/common/widgets/eFileSummary/eFileSummary-app.js",
+              "src/taxAppJs/common/widgets/client-portal-ques-ans/clientPortal-ques-ans.js",
+              "src/taxAppJs/common/widgets/calculator/calculator-app.js",
+              "src/taxAppJs/common/widgets/printPacketsConfiguration/printPacketsConfiguration-app.js",
+              "src/taxAppJs/return/workspace/return-app.js",
+              "src/taxAppJs/return/workspace/taxline-directives.js",
+              "src/taxAppJs/tax-app.js",
+              "src/taxAppJs/return/workspace/tax-filters.js",
+              "src/taxAppJs/return/workspace/tax-directives.js",
+              "src/taxAppJs/return/workspace/return-service.js",
+              "src/taxAppJs/return/workspace/return-dialogController.js",
+              "src/taxAppJs/return/workspace/return-controller.js",
+              "src/taxAppJs/return/workspace/content-service.js",
+              "src/taxAppJs/return/summary/summary-directive.js",
+              "src/taxAppJs/return/summary/summary-app.js",
+              "src/taxAppJs/return/new/newReturn-app.js",
+              "src/taxAppJs/return/interview/interview-app.js",
+              "src/taxAppJs/return/customTemplate/customTemplate-app.js",
+              "src/taxAppJs/manage/role/role-app.js",
+              "src/taxAppJs/manage/setup/setup-app.js",
+              "src/taxAppJs/manage/priceList/priceList-app.js",
+              "src/taxAppJs/manage/preparer/preparer-app.js",
+              "src/taxAppJs/manage/EIN/EIN-app.js",
+              "src/taxAppJs/manage/clientOrganizer/clientOrganizer-app.js",
+              "src/taxAppJs/manage/clientLetter/clientLetter-app.js",
+              "src/taxAppJs/manage/printPacketsConfiguration/printPacketsConfiguration-app.js",
+              "src/taxAppJs/common/redirect/redirect-app.js",
+              "src/taxAppJs/bank/tpg/tpg-app.js",
+              "src/taxAppJs/bank/refundAdvantage/refundAdvantage-app.js",
+              "src/taxAppJs/bank/redBird/redBird-app.js",
+              "src/taxAppJs/bank/auditAllies/auditAllies-app.js",
+              "src/taxAppJs/bank/protectionPlus/protectionPlus-app.js",
+              "src/taxAppJs/bank/eps/eps-app.js",
+              "src/taxAppJs/bank/epsepay/epsepay-app.js",
+              "src/taxAppJs/bank/atlas/atlas-app.js",
+              "src/taxAppJs/auth/tryItNow/tryItNow-app.js",
+              "src/taxAppJs/report/report-app.js",
+              "src/taxAppJs/preloadCheck/preloadCheck-app.js",
+              "src/taxAppJs/estimator/estimator-app.js",
+              "src/taxAppJs/conversion/conversion-app.js",
+              "src/taxAppJs/common/media-service.js",
+              "src/taxAppJs/common/common-services.js",
+              "src/taxAppJs/common/common-directive.js",
+              "src/taxAppJs/common/common-controller.js",
+              "src/taxAppJs/common/common-filters.js",
+              "src/taxAppJs/common/widgets/client-portal-ques-ans/clientPortal-dialog-controller.js",
+              "src/taxAppJs/tax-routes.js",
+              "src/taxAppJs/return/workspace/webRTC/webRTC-service.js",
+              "src/taxAppJs/manage/templates/templates-app.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json",
+              "tsconfig.worker.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "hybridApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "hybridApp:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "hybridApp"
+}

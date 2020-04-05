@@ -1,0 +1,89 @@
+﻿<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+
+   
+    <div class="inner_col_second clearfix"
+        data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+      
+        <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+                <section class="page_title_wrap title_height_40 clearfix">
+                        <span class="page_title_lg ng-binding" translate="MANAGEROLESLIST_HEADER"
+                        translate-default="Custom Roles"></span>
+                    <div class="row float-right mt-2">
+                        <button class="btn btn-outline-primary pl-2 mr-3" translate="BACKTOHOMESCREEN_BTN"
+                            translate-default="Back To Dashboard" data-ng-click="backToHomeScreen()"></button>
+                    </div>
+                </section>
+            </div>
+      
+      
+      
+     
+        <div class="inner_padding_15 clearfix allowScrollSync" ng-style="{height:headerNav.screenHeight-106}"
+            style="overflow-y:auto;">
+            <div ng-cloak>
+                <div class="row ml-1">
+
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        
+                        <div class="input-group">
+                        <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+                            ng-model="searchField" value="{{searchField}}" />
+                        <div class="input-group-append" data-ng-if="searchField.length">
+                            <span class="input-group-text cursor_pointer" data-ng-click="clearSearch()"> <i
+                                    class="fa fa-times"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-10 col-sm-10 padding_l_0 col-xs-margin_top_10">
+                    <button class="btn btn-outline-primary" translate="MANAGE_NEW_BTN" translate-default="New"
+                        data-ng-click="createNewRole()" data-ng-disabled="!userCan('CAN_CREATE_ROLE')"></button>
+                    <button class="btn btn-outline-primary" translate="MANAGE_DELETE_BTN" translate-default="Delete"
+                        data-ng-click="removeRoles()" data-ng-disabled="!userCan('CAN_REMOVE_ROLE') || !selectedCheckBox"></button>
+
+                </div>
+
+               </div>
+               <div class="clearfix custom-table table-responsive  margin_top_15">
+                   <table ng-table="availableRolesList" class="table">
+                       <tr data-ng-repeat="role in $data">
+                           <td data-title="'ROLES'" sortable="'name'">
+                               <div class="float-left">
+                               		<button class="custom_input_dark float-left margin_right_5" data-ng-model="role.isSelected" data-ng-class="{'active':role.isSelected,'no-clicking':role.isPredefined}"  data-ng-disabled="role.isPredefined" data-ng-click="role.isSelected =! role.isSelected;selectcheckBox(role.isSelected) "></button>
+                               		
+                               		<a  data-ng-click="returnActionToggle.isOpen=false;editRole(role.key);" data-ng-class="{'no-clicking disabled':!userCan('CAN_OPEN_ROLE') }" class="margin_left_3" style="color:#00628e;">{{role.name}}</a>
+                               	</div>
+
+                        </td>
+                        <td data-title="'DESCRIPTION'" sortable="'description'">{{role.description}}</td>
+                        <td data-title="'ACTIONS'">
+                          
+                                </div> 
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle" id="typeFilter"
+                                    data-toggle="dropdown">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" data-ng-click="removeRoles(role.key);"
+                                        data-ng-class="{'no-clicking disabled':!userCan('CAN_REMOVE_ROLE') || role.isPredefined}"
+                                        translate="MANAGE_DELETE_LBL" translate-default="Delete"></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+  
+</body>
+
+</html> -->

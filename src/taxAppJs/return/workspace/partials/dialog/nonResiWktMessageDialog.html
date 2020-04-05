@@ -1,0 +1,29 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span class="fas fa-check-square"></span>
+            <span class="margin_left_5" translate="CONFIRMATION" translate-default="Confirmation"></span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="margin_bottom_15">Please review these values on the federal "Full Year / Non Resident Worksheet" to
+            determine whether an amended return is required.</div>
+        <div class="custom-table table-responsive">
+            <table ng-table="changeFieldsGrid" class="table">
+                <tr data-ng-repeat="change in changeFields">
+                    <td width="15%" data-title="'LineNumber'">{{change.lineNumber}}</td>
+                    <td width="55%" data-title="'Description'">{{change.description}}</td>
+                    <td width="15%" data-title="'Primary value'">{{change.primary}}</td>
+                    <td width="15%" data-title="'Current value'">{{change.diff}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="float-right">
+            <button type="button" class="btn btn-outline-primary" data-ng-click="close()" tax-focus-me="focusMe">
+                <span translate="CONFIRMATION_DIALOG_YES_BTN" translate-default="OK"></span>
+            </button>
+        </div>
+    </div>
+</div>

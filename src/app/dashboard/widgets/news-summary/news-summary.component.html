@@ -1,0 +1,58 @@
+<div class="dashboard-content">
+    <div class="dashboard-data-wrap">
+        <div class="dashboard-center-data-wrap" *ngIf="newsSummaryList && newsSummaryList.length === 0">
+            Welcome to {{appName}}, Watch this area for any upcoming news.
+        </div>
+        <div class="col-24" *ngIf="newsSummaryList && newsSummaryList.length > 0">
+            <div id="newsSummaryAccordion">
+                <ng-template ngFor let-news [ngForOf]="newsSummaryList" let-i="index">
+                    <div class="card">
+                        <div class="card-header" [id]="i">
+                            <h5 class="mb-0" data-toggle="collapse" [attr.data-target]="'#accordion' + i"
+                                [attr.aria-expanded]="true" [attr.aria-controls]="'accordion' + i"
+                                [ngStyle]="{'background-color':rowColor, color:foregroundColor}">
+                                <button class="btn btn-link" [ngStyle]="{color:foregroundColor}">
+                                    <div class="list-ui-raw">
+                                        <div class="raw-main-lbl text-truncate" [title]="news.title">
+                                            {{news.title}}
+                                        </div>
+                                    </div>
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div [id]="'accordion' + i" class="collapse" [attr.aria-labelledby]="i"
+                            data-parent="#newsSummaryAccordion">
+                            <div class="card-body">
+                                <span class="float-right width_full text-right text-dark">{{news.publish_date}}</span>
+                                <p class="text-dark text-justify" [title]="news.description">
+                                    <span [innerHtml]="news.description | slice:0:120"></span>
+                                    <span *ngIf="news.description && news.description.length > 120">...</span></p>
+                                <div class="float-right margin_right_9 tile-news-box-shadow-outset mt-2 mb-2">
+                                    <i class="fas fa-long-arrow-alt-right float-left pr-1 text-dark pt-1"></i>
+                                    <a [href]="news.link" target="_blank"><span>Read more</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-footer-wrap new-btn-summary">
+        <div>
+            <a class="footer-btn" (click)="openLink()"><span>More</span></a>
+        </div>
+        <div *ngIf="taxYear < 2018">
+            <div>
+                <a class="footer-btn" (click)="openStateReleaseDetailsDialog()"><span>Approved E-File States</span></a>
+            </div>
+            <div *ngIf="taxYear ==  2017">
+                <a class="footer-btn" (click)="openPrintingReleaseDetailsDialog()"> <span>Forms Approval</span></a>
+            </div>
+        </div>
+        <div *ngIf="taxYear >= 2018">
+            <a class="footer-btn" (click)="openStateReleaseDetailsDialog()"><span>Approved E-File and Print
+                    List</span></a>
+        </div>
+    </div>

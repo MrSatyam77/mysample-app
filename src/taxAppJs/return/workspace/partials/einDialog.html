@@ -1,0 +1,18 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            EIN
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        Would you like to add the EIN to the EIN auto-fill library?
+    </div>
+    <div class="modal-footer">
+    	<div class="float-left margin_top_7">
+    		<button class="custom_input_dark float-left margin_right_5" data-ng-model="isDonotShowDialog" data-ng-class="{'active': isDonotShowDialog}" data-ng-click="isDonotShowDialog = !isDonotShowDialog"></button>
+    		Do not show this message again
+    	</div>		 	
+	<button type="button" class="btn btn-outline-primary" data-ng-click="saveEIN(true)"><span translate="RENEWALNOTIFICATION_DLG_BTN_BUYNOW" translate-default="Yes"></span></button>
+	<button type="button" class="btn btn-outline-primary" data-ng-click="saveEIN(false)"><span translate="RENEWALNOTIFICATION_DLG_BTN_SKIPNOW" translate-default="No"></span></button>        
+    </div>
+</div>

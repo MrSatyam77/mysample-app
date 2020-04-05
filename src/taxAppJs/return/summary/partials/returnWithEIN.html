@@ -1,0 +1,923 @@
+<style>
+    .card .card-body .tab-content .quickreturn-summary .row .col-lg-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .card .card-body .tab-content .quickreturn-summary .row .col-lg-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .sidebar-table-data .sidebar-table-scroll {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        overflow-x: scroll;
+    }
+
+    .sidebar-table-data .sidebar-accordian-row {
+        flex-wrap: nowrap;
+    }
+
+    .sidebar-table-data .sidebar-table-scroll .sidebar-accordian-row .col {
+        flex: 0 0 100%;
+        max-width: 30%;
+    }
+</style>
+<tabset justified="true">
+    <div class="custom-line-tab width-auto d-flex">
+        <tab heading="Return">
+            <div class="p-0 col tab_border quickreturn-summary">
+                <div class="col-24">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6 p-2 quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    Return
+                                </div>
+                                <div class="info_tile_content">
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_RETURNTYPE_LBL"
+                                            translate-default="Return Type" class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40"
+                                            ng-if="quickSummary.returnInfoDetail.returnType == '1065'">Partnership</span>
+                                        <span class="float-right width_full_40"
+                                            ng-if="quickSummary.returnInfoDetail.returnType == '1120'">C
+                                            Corporation</span>
+                                        <span class="float-right width_full_40"
+                                            ng-if="quickSummary.returnInfoDetail.returnType == '1120s'">S
+                                            Corporation</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_RETURNFILLINGSTATUS_LBL"
+                                            translate-default="Filling Status" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.returnInfoDetail.fillStatus}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_RETURNCREATEDBY_LBL"
+                                            translate-default="Created By" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.returnInfoDetail.createdBy}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_RETURNCREATEDDATEANDTIME_LBL"
+                                            translate-default="Created Date & Time"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.returnInfoDetail.createdDateTime |
+                                        date:'MM/dd/yyyy h:mm a'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_RETURNUPDATEDBY_LBL"
+                                            translate-default="Updated By" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.returnInfoDetail.updatedBy}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_RETURNUPDATEDDATEANDTIME_LBL"
+                                            translate-default="Updated Date & Time"
+                                            class="float-left width_full_60"></label>
+                                        <span class=" float-right width_full_40">{{quickSummary.returnInfoDetail.lastEdited | date:'MM/dd/yyyy
+                                        h:mm a'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_RETURNRETURNSTATUS_LBL"
+                                            translate-default="Return Status" class="float-left width_full_60"></label>
+                                        <span
+                                            class=" float-right width_full_40">{{getDefaultStatus(quickSummary.returnInfoDetail.status).title}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-6 p-2 quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    {{quickSummary.packageName}}
+                                </div>
+                                <div class="info_tile_content">
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PARTNERSHIPEIN_LBL" translate-default="EIN"
+                                            class="float-left width_full_40"></label>
+                                        <span class="float-right width_full_60">{{quickSummary.partnership.ein}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PARTNERSHIPCOMPANYNAME_LBL"
+                                            translate-default="Company Name" class="float-left width_full_40"></label>
+                                        <span
+                                            class="float-right width_full_60">{{quickSummary.partnership.companyName}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_TAXPAYERADDRESS_LBL"
+                                            translate-default="Address" class="float-left width_full_40"></label>
+                                        <div class="float-right width_full_60"
+                                            data-ng-show="quickSummary.partnership.usStreet != ''">
+                                            <div>{{quickSummary.partnership.usStreet}}</div>
+                                            <div>{{quickSummary.partnership.usCity}}<span
+                                                    data-ng-show="quickSummary.partnership.usCity && quickSummary.partnership.usState">,
+                                                </span>{{quickSummary.partnership.usState}}<span
+                                                    data-ng-show="quickSummary.partnership.usState && quickSummary.partnership.usZipCode">
+                                                </span>{{quickSummary.partnership.usZipCode}}</div>
+                                        </div>
+                                        <div class="float-right width_full_60"
+                                            data-ng-show="quickSummary.partnership.usStreet == '' ">
+                                            <div>{{quickSummary.partnership.fgStreet}}<span
+                                                    data-ng-show="quickSummary.partnership.fgCity && quickSummary.partnership.fgStreet">,
+                                                </span>{{quickSummary.partnership.fgCity}}</div>
+                                            <div>{{quickSummary.partnership.fgPostalCode}}<span
+                                                    data-ng-show="quickSummary.partnership.fgPostalCode && quickSummary.partnership.fgState">,
+                                                </span>{{quickSummary.partnership.fgState}}<span
+                                                    data-ng-show="quickSummary.partnership.fgCountry && quickSummary.partnership.fgState">,
+                                                </span>{{quickSummary.partnership.fgCountry}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PARTNERSHIPPHONENO_LBL"
+                                            translate-default="Phone No" class="float-left width_full_40"></label>
+                                        <span
+                                            class="float-right width_full_60">{{quickSummary.partnership.phoneNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--second info card end-->
+                        <!--third info card start-->
+                        <div class="col-sm-12 col-lg-6 p-2 quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    Preparer
+                                </div>
+                                <div class="info_tile_content">
+
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PREPARERID_LBL" translate-default="Id"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.preparerDetail.preparerId}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PREPARERNAME_LBL" translate-default="Name"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.preparerDetail.name}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PREPARERSSN_LBL" translate-default="SSN"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.preparerDetail.ssn}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PREPARERPTIN_LBL" translate-default="PTIN"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.preparerDetail.ptin}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PREPAREREIN_LBL" translate-default="EIN"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.preparerDetail.ein}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PREPARERPHONENO_LBL"
+                                            translate-default="Phone No" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.preparerDetail.telephoneNo}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PREPAREREMAIL_LBL"
+                                            translate-default="Email" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.preparerDetail.email}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-6 p-2 quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    Bank
+                                </div>
+                                <div class="info_tile_content">
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_BANKRTN_LBL" translate-default="RTN"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.bankDetail.rtn}}</span>
+                                    </div>
+
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_BANKACCOUNTNO_LBL"
+                                            translate-default="Account No" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.bankDetail.accountNo}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_BANKACCOUNTTYPE_LBL"
+                                            translate-default="Account Type" class="float-left width_full_60"></label>
+                                        <span class=" float-right width_full_40"
+                                            ng-if="quickSummary.bankDetail.accountType == '2'">Saving</span>
+                                        <span class=" float-right width_full_40"
+                                            ng-if="quickSummary.bankDetail.accountType == '1'">Current</span>
+                                    </div>
+
+
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_BANKNAME_LBL" translate-default="Name"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.bankDetail.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--additional information end-->
+            </div>
+        </tab>
+        <tab heading="Tax Summary">
+            <div class="tab_border col p-0 quickreturn-summary">
+                <div class="col-24">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-24 col-sm-24 margin_top_10  quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    Income
+                                </div>
+                                <div class="info_tile_content">
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMEGROSSRECIEPTS_LBL"
+                                            translate-default="Gross Receipts / Net Sales"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.incomeDetail.grossRecieptsOrNetSales
+                                        | currency:'$' }}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMEINTERESTANDDIVIDEND_LBL"
+                                            translate-default="Interest & Dividend"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.incomeDetail.interestAndDividend |
+                                        currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMEBUSINESSINCOME_LBL"
+                                            translate-default="Business Income"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class=" float-right width_full_40">{{quickSummary.incomeDetail.businessIncome | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMECAPITALGAIN_LBL"
+                                            translate-default="Capital Gain" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.incomeDetail.capitalGain | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMEFARMINCOME_LBL"
+                                            translate-default="Farm Income" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.incomeDetail.farmIncome | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMEOTHERINCOME_LBL"
+                                            translate-default="Other Income" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.incomeDetail.otherIncome | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMETOTALINCOME_LBL"
+                                            translate-default="Total Income" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.incomeDetail.totalIncome | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMETOTALADJUSTMENT_LBL"
+                                            translate-default="Total Adjustment"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.incomeDetail.totalAdjustment | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMEAGI_LBL" translate-default="AGI"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.incomeDetail.adjustedGrossIncome |
+                                        currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMEITEMISEDORSTDDEDUCTION_LBL"
+                                            translate-default="Itemized / Std. Deduction"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.incomeDetail.itemizedOrStandardDed
+                                        | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_INCOMETAXABLEINCOME_LBL"
+                                            translate-default="Taxable income" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.incomeDetail.taxableIncome | currency:'$'}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--CREDIT SUMMARY start-->
+                        <div class="col-lg-6 col-md-24 col-sm-24 margin_top_10 padding_l_0 quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    Credit
+                                </div>
+                                <div class="info_tile_content">
+
+
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITFOREIGNTAX_LBL"
+                                            translate-default="Foreign tax" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.foreignTaxCredit | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITCHILDANDDEPENDENTCARE_LBL"
+                                            translate-default="Child & dependent care  "
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.childAndDepCare | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITELDERLYORDISABLED_LBL"
+                                            translate-default="Elderly or disabled"
+                                            class="float-left width_full_60"></label>
+                                        <span class=" float-right width_full_40">{{quickSummary.creditDetail.elderlyAndDisableCr |
+                                        currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITEDUCATION_LBL"
+                                            translate-default="Education  " class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.educationCredit | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITRETIREMENTSAVINGCONTRIBUTION_LBL"
+                                            translate-default="Retirement savings contri.  "
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.rtrSavingsCredit | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITEIC_LBL" translate-default="EIC"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.eic | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITCTC_LBL" translate-default="CTC"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.ctc | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITADOPTION_LBL"
+                                            translate-default="Adoption  " class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40"></span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITADDITIONALCHILDCARE_LBL"
+                                            translate-default="Additional child care  "
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.additionCTC | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITOTHERCREDIT_LBL"
+                                            translate-default="Other Credit" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.otherCredit | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CREDITTOTALCREDIT_LBL"
+                                            translate-default="Total Credit" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.creditDetail.totalCredit | currency:'$'}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--second info card end-->
+                        <!--third info card start-->
+                        <div class="col-lg-6 col-md-24 col-sm-24 margin_top_10 padding_l_0 quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    Tax
+                                </div>
+                                <div class="info_tile_content">
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_TAXTAXONINCOME_LBL"
+                                            translate-default="Tax on Income" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.taxDetail.taxOnIncome | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_TAXATM_LBL" translate-default="AMT"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.taxDetail.amt | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_TAXOTHERTAX_LBL"
+                                            translate-default="Other taxes" class="float-left width_full_60"></label>
+                                        <span
+                                            class=" float-right width_full_40">{{quickSummary.taxDetail.otherTaxes | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_TAXTOTALTAX_LBL"
+                                            translate-default="Total Tax" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.taxDetail.totalTax | currency:'$'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-24 col-sm-24 margin_top_10 padding_l_0 quick_width_full">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    Payment
+                                </div>
+                                <div class="info_tile_content">
+
+
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PAYMENTINCOMETAXWITHHELD_LBL"
+                                            translate-default="Income tax withheld"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.paymentDetail.incomeTaxWithheld | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PAYMENTESTIMATETAXPAYMENT_LBL"
+                                            translate-default="Estimated tax payment"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.paymentDetail.estimateTaxPayAmt | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PAYMENTOTHERPAYMENT_LBL"
+                                            translate-default="Other payments" class="float-left width_full_60"></label>
+                                        <span
+                                            class=" float-right width_full_40">{{quickSummary.paymentDetail.otherPayments | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_PAYMENTESTIMATETAXPENALTY_LBL"
+                                            translate-default="Estimated tax penalty"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{quickSummary.paymentDetail.estimateTaxPenalyt |
+                                        currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix" data-ng-show="quickSummary.paymentDetail.balanceDue>0">
+                                        <label translate="QUICKRETURNSUMMARY_PAYMENTBALANCEDUEORREFUND_LBL"
+                                            translate-default="Balance Due" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.paymentDetail.balanceDue | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix"
+                                        data-ng-show="!quickSummary.paymentDetail.balanceDue && quickSummary.paymentDetail.balanceDue>=0">
+                                        <label translate="QUICKRETURNSUMMARY_PAYMENTBALANCEDUEORREFUND_LBL"
+                                            translate-default="Refund" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{quickSummary.paymentDetail.refund | currency:'$'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--additional information start-->
+                    <div class="clearfix" data-ng-show="quickSummary.stateDetails.length!==0">
+                        <h3 class="page_title_wrap title_height_40 margin_bottom_20 clearfix"
+                            translate="ESTIMATOR_PERSONALINFO_LBL" translate-default="State Information"></h3>
+                        <div class="col-lg-6 col-md-24 col-sm-24 margin_top_10 padding_l_0 quick_width_full"
+                            data-ng-repeat="state in quickSummary.stateDetails">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    {{subState.stateName}}
+                                </div>
+                                <div class="info_tile_content">
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CATAXABLEINCOME_LBL"
+                                            translate-default="Taxable income" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{subState.taxableIncome | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CATAX_LBL" translate-default="Tax"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{subState.tax | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CACREDITS_LBL" translate-default="Credits"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class=" float-right width_full_40">{{subState.credits | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CAPAYMENTS_LBL"
+                                            translate-default="Payments" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{subState.payments | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="QUICKRETURNSUMMARY_CAINTERESTANDPENALIES_LBL"
+                                            translate-default="Interest & Penalties"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{subState.interstAndPenalties | currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix" data-ng-show="subState.balanceDue>0">
+                                        <label translate="QUICKRETURNSUMMARY_CABALANCEDUE_LBL"
+                                            translate-default="Balance due" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{subState.balanceDue |currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix" data-ng-show="!subState.balanceDue || subState.balanceDue<=0">
+                                        <label translate="QUICKRETURNSUMMARY_CAREFUND_LBL" translate-default="Refund"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{subState.refund |currency:'$'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--additional information end-->
+                </div>
+            </div>
+        </tab>
+        <tab heading="E-File">
+            <div class="tab_border p-1 margin_top_10 col quickreturn-summary">
+                <div class="col-24">
+                    <div class="row">
+                        <!--<h3 class="page_title_wrap title_height_40 clearfix margin_bottom_20" translate="ESTIMATOR_PERSONALINFO_LBL" translate-default="E-File Summary"></h3>-->
+                        <div class="col-lg-8 col-md-24 col-sm-24 quick_width_full"
+                            data-ng-repeat="federal in quickSummary.eFileDetail">
+                            <div class="info_tile_wrap">
+                                <div class="info_tile_title">
+                                    {{federal.returnTypeDisplayText | uppercase}}
+                                </div>
+                                <div class="info_tile_content">
+
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_STATUS" translate-default="Status"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40"
+                                            ng-if="federal">{{federal|statusFromNumber}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_SUBMISSIONID"
+                                            translate-default="Submission Id" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40 cursor_pointer">{{federal.submissionId}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_DATEFILED_LBL"
+                                            translate-default="Date filed" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{federal.createdDate|date:'MM/dd/yyyy h:mm a'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_TRADATE"
+                                            translate-default="Transmission date"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{federal.transmittedDate|date:'MM/dd/yyyy h:mm a'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_ACKDATE"
+                                            translate-default="Acknowledgement date"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{federal.acknowledgementDate|date:'MM/dd/yyyy h:mm
+                                    a'}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_FILEDBY" translate-default="Filed By"
+                                            class="float-left width_full_60 font_bold"></label>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_NAME" translate-default="Name"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{federal.createdByName}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label translate="ESTIMATOR_FEDERAL_EMAIL" translate-default="Email"
+                                            class="float-left width_full_60"></label>
+                                        <span class="float-right width_full_40">{{federal.createdBy}}</span>
+                                    </div>
+                                    <div class="clearfix" data-ng-show="federal.balanceDue>0">
+                                        <label translate="QUICKRETURNSUMMARY_CABALANCEDUE_LBL"
+                                            translate-default="Balance due" class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{federal.balanceDue |currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix"
+                                        data-ng-show="(!federal.balanceDue || federal.balanceDue<=0) && federal.acknowledgedRefund > 0">
+                                        <label translate="QUICKRETURNSUMMARY_ACKREFUND_LBL"
+                                            translate-default="Acknowledged Refund"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{federal.acknowledgedRefund |currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix"
+                                        data-ng-show="(!federal.balanceDue || federal.balanceDue<=0) && (!federal.acknowledgedRefund || federal.acknowledgedRefund <= 0)">
+                                        <label translate="QUICKRETURNSUMMARY_EXPECTEDREFUND_LBL"
+                                            translate-default="Expected Refund"
+                                            class="float-left width_full_60"></label>
+                                        <span
+                                            class="float-right width_full_40">{{federal.expectedRefund |currency:'$'}}</span>
+                                    </div>
+                                    <div class="clearfix" data-ng-if="federal.refundStatusLink != undefined">
+                                        <a href="{{federal.refundStatusLink}}" class="float-left width_full_60"
+                                            target="_blank">
+                                            <label translate="QUICKRETURNSUMMARY_REFUND_STATUS_LBL"
+                                                translate-default="Check Refund"
+                                                class="float-left width_full_60 cursor_pointer"></label>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"
+                                        data-ng-if="quickSummary != undefined && federal != undefined &&  federal.key != undefined && federal.status != undefined && federal.status>2">
+                                        <a class="float-left width_full_60"
+                                            data-ng-class="{'no-clicking':!userCan('CAN_DOWNLOAD_EFILE')}"
+                                            data-ng-click="openEFile(federal.key)"><label
+                                                translate="ESTIMATOR_FEDERAL_VIEW_EFILE" translate-default="View E-File"
+                                                class="cursor_pointer"></label></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--additional information start-->
+                    <div class="clearfix" data-ng-show="quickSummary.eFileStateDetails.length!==0">
+                        <h3 class="page_title_wrap title_height_40 margin_bottom_20 clearfix"
+                            translate="ESTIMATOR_PERSONALINFO_LBL" translate-default="State Information"></h3>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-24 col-sm-24 quick_width_full"
+                                data-ng-repeat="state in quickSummary.eFileStateDetails">
+                                <div class="info_tile_wrap" data-ng-repeat="subState in state">
+                                    <div class="info_tile_title">
+                                        {{subState.returnTypeDisplayText | uppercase}}
+                                    </div>
+                                    <div class="info_tile_content">
+
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_STATUS" translate-default="Status"
+                                                class="float-left width_full_60"></label>
+                                            <span class="float-right width_full_40"
+                                                ng-if="state">{{subState|statusFromNumber}}</span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_SUBMISSIONID"
+                                                translate-default="Submission Id"
+                                                class="float-left width_full_60"></label>
+                                            <span
+                                                class="float-right width_full_40 cursor_pointer">{{subState.submissionId}}</span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_DATEFILED_LBL"
+                                                translate-default="Date filed" class="float-left width_full_60"></label>
+                                            <span
+                                                class="float-right width_full_40">{{subState.createdDate|date:'MM/dd/yyyy h:mm a'}}</span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_TRADATE"
+                                                translate-default="Transmission date"
+                                                class="float-left width_full_60"></label>
+                                            <span
+                                                class="float-right width_full_40">{{subState.transmittedDate|date:'MM/dd/yyyy h:mm a'}}</span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_ACKDATE"
+                                                translate-default="Acknowledgement date"
+                                                class="float-left width_full_60"></label>
+                                            <span class="float-right width_full_40">{{subState.acknowledgementDate|date:'MM/dd/yyyy h:mm
+                                        a'}}</span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_FILEDBY" translate-default="Filed By"
+                                                class="float-left width_full_60 font_bold"></label>
+                                        </div>
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_NAME" translate-default="Name"
+                                                class="float-left width_full_60"></label>
+                                            <span class="float-right width_full_40">{{subState.createdByName}}</span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <label translate="ESTIMATOR_FEDERAL_EMAIL" translate-default="Email"
+                                                class="float-left width_full_60"></label>
+                                            <span class="float-right width_full_40">{{subState.createdBy}}</span>
+                                        </div>
+                                        <div class="clearfix" data-ng-show="subState.balanceDue>0">
+                                            <label translate="QUICKRETURNSUMMARY_CABALANCEDUE_LBL"
+                                                translate-default="Balance due"
+                                                class="float-left width_full_60"></label>
+                                            <span
+                                                class="float-right width_full_40">{{subState.balanceDue |currency:'$'}}</span>
+                                        </div>
+                                        <div class="clearfix"
+                                            data-ng-show="(!subState.balanceDue||subState.balanceDue<=0) && subState.acknowledgedRefund > 0">
+                                            <label translate="QUICKRETURNSUMMARY_ACKREFUND_LBL"
+                                                translate-default="Acknowledged Refund"
+                                                class="float-left width_full_60"></label>
+                                            <span
+                                                class="float-right width_full_40">{{subState.acknowledgedRefund |currency:'$'}}</span>
+                                        </div>
+                                        <div class="clearfix"
+                                            data-ng-show="!subState.balanceDue||subState.balanceDue<=0 && (!subState.acknowledgedRefund || subState.acknowledgedRefund <= 0)">
+                                            <label translate="QUICKRETURNSUMMARY_EXPECTEDREFUND_LBL"
+                                                translate-default="Expected Refund"
+                                                class="float-left width_full_60"></label>
+                                            <span
+                                                class="float-right width_full_40">{{subState.expectedRefund |currency:'$'}}</span>
+                                        </div>
+                                        <div class="clearfix" data-ng-if="subState.refundStatusLink != undefined ">
+                                            <a href="{{subState.refundStatusLink}}" class="float-left width_full_60"
+                                                target="_blank">
+                                                <label translate="QUICKRETURNSUMMARY_REFUND_STATUS_LBL"
+                                                    translate-default="Check Refund"
+                                                    class="float-left width_full_60 cursor_pointer"></label>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"
+                                            data-ng-if="subState.key != undefined && subState.status!= undefined && subState.status>2">
+                                            <a class="float-left width_full_60"
+                                                data-ng-click="openEFile(subState.key)"><label
+                                                    translate="ESTIMATOR_FEDERAL_VIEW_EFILE"
+                                                    translate-default="View E-File" class="cursor_pointer"></label></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--additional information end-->
+                </div>
+
+            </div>
+        </tab>
+        <tab heading="E-File History">
+            <div class="p-3 tab_border summary_tab_table">
+                <!-- <accordion close-others="true" ng-repeat="(key , state ) in quickSummary.efileHistory">
+                <accordion-group ng-repeat="(subKey , subState) in state">
+                    <accordion-heading>
+                        <a>
+                            <h4 class="panel-title">
+                                <i class="fa fa-chevron-right color_gray" aria-hidden="true" ng-class="{'fa fa-chevron-down': state.isOpen, 'fa fa-chevron-right': !state.isOpen}"></i>
+                                <span class="color_gray" ng-if="titleCaseStates[key] && titleCaseStates[key] != undefined">{{titleCaseStates[key]}}&nbsp;<span
+                                        ng-if="subKey != 'tpg' && subKey != 'eps' && subKey != 'navigator' && subKey != 'protectionplus' && subKey != 'refundadvantage'">{{subKey}}</span></span>
+                                <span class="color_gray" ng-if="!titleCaseStates[key] && titleCaseStates[key] == undefined">{{key
+                                    | uppercase}}&nbsp;<span ng-if="subKey != 'tpg' && subKey != 'eps' && subKey != 'navigator' && subKey != 'protectionplus' && subKey != 'refundadvantage'">{{subKey}}</span></span></h4>
+                        </a>
+                    </accordion-heading>
+                    <div class="clearfix allowScrollSync">
+                        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 accordian_row font_bold">
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                Name
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                Status
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                createdDate
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                Transmitted Date
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                Submission Id
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                Ack Date
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                                Rejection
+                            </div>
+
+                        </div>
+                        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 accordian_row" ng-repeat="subNode in subState">
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                {{subNode.name}}
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                {{efileStatusLookup[subNode.status].displayText}}
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                {{subNode.createdDate}}
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                {{subNode.transmittedDate}}
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                {{subNode.submissionId}}
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                {{subNode.acknowledgementDate}}
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ng-if="subNode.rejection.length>0">
+                                <div ng-repeat="rej in subNode.rejection">
+                                    - {{rej}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>  -->
+
+                <div ng-repeat="(key , state ) in quickSummary.efileHistory">
+                    <div ng-repeat="(subKey , subState) in state track by $index">
+                        <div id="returnWithEINID" class="my-accordion">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse"
+                                        data-target="#returnWithEIN{{$index + key}}">
+                                        <div ng-click="subState.isOpen = !subState.isOpen">
+                                            <span aria-hidden="true"
+                                                ng-class="{'accordion-right-icon-wrap accordion-close': !subState.isOpen, 'accordion-right-icon-wrap accordion-open': subState.isOpen}"></span>
+                                            <span class="color_gray"
+                                                ng-if="titleCaseStates[key] && titleCaseStates[key] != undefined">{{titleCaseStates[key]}}&nbsp;<span
+                                                    ng-if="subKey != 'tpg' && subKey != 'eps' && subKey != 'navigator' && subKey != 'protectionplus' && subKey != 'refundadvantage'">{{subKey}}</span></span>
+                                            <span class="color_gray"
+                                                ng-if="!titleCaseStates[key] && titleCaseStates[key] == undefined">{{key
+                                        | uppercase}}&nbsp;<span
+                                                    ng-if="subKey != 'tpg' && subKey != 'eps' && subKey != 'navigator' && subKey != 'protectionplus' && subKey != 'refundadvantage'">{{subKey}}</span></span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="returnWithEIN{{$index + key}}"
+                                    ng-class="{'collapse show': subState.isOpen,'collapse': !subState.isOpen}"
+                                    data-parent="#returnWithEINID">
+                                    <div class="col-24 sidebar-table-scroll">
+                                        <div class="row accordian_row sidebar-accordian-row  font_bold p-0">
+                                            <div class="col col-xl-3 col py-2">
+                                                Name
+                                            </div>
+                                            <div class="col col-xl-2 py-2">
+                                                Status
+                                            </div>
+                                            <div class="col col-xl-3 py-2">
+                                                Created Date
+                                            </div>
+                                            <div class="col col-xl-3 py-2">
+                                                Transmitted Date
+                                            </div>
+                                            <div class="col col-xl-4 py-2">
+                                                Submission ID
+                                            </div>
+                                            <div class="col col-xl-3 py-2">
+                                                Ack Date
+                                            </div>
+                                            <div class="col col-xl-6 py-2">
+                                                Rejection
+                                            </div>
+
+                                        </div>
+                                        <div class="row accordian_row sidebar-accordian-row "
+                                            ng-repeat="subNode in subState">
+                                            <div class="col col-xl-3 ">
+                                                {{subNode.name}}
+                                            </div>
+                                            <div class="col col-xl-2">
+                                                {{efileStatusLookup[subNode.status].displayText}}
+                                            </div>
+                                            <div class="col col-xl-3">
+                                                {{subNode.createdDate}}
+                                            </div>
+                                            <div class="col col-xl-3">
+                                                {{subNode.transmittedDate}}
+                                            </div>
+                                            <div class="col col-xl-4">
+                                                {{subNode.submissionId}}
+                                            </div>
+                                            <div class="col col-xl-3">
+                                                {{subNode.acknowledgementDate}}
+                                            </div>
+                                            <div class="col col-xl-6" ng-if="subNode.rejection.length>0">
+                                                <div ng-repeat="rej in subNode.rejection">
+                                                    - {{rej}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </div>
+</tabset>

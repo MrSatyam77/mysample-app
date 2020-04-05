@@ -1,0 +1,68 @@
+<!-- <div>
+  <div *ngFor="let formInfo of staticFormData[formInfo.docName]; let i=index" style="position: relative">
+    <div id="svg_containers_{{i}}" [innerHTML]="formInfo.svg | safe"></div>
+  </div>
+  <div id="stmt_container" #stmt_container style="width: 918px">
+  </div> -->
+
+  <div class="fix-height">
+    <header id="mainheader">
+        <nav class="navbar navbar-expand bg-primary navbar-dark">
+            <div class="header-logo">
+              <a class="navbar-brand">
+                <img src="assets/images/logo_mtpo.png" />
+              </a>
+            </div>
+          </nav>
+      <!-- <div class="container-fluid">
+        <div class="col-md-12">
+          <div class="d-flex justify-content-between flex-lg-row flex-sm-row flex-column">
+  
+            <div class="main-logo d-flex align-items-center">
+              <img src="assets/images/MTPOpreviewscreenLogo.svg" alt="logo">
+            </div>
+  
+            <div class="btn-disconnect align-items-center">
+              <button class="btn btn-danger" (click)="disconnetSession()"><img src="assets/images/Disconnect.svg" alt="Disconnect">Disconnect</button>
+            </div>
+  
+          </div>
+        </div>
+      </div> -->
+  
+    </header>
+  
+    <div class=" bg-transparent form-preview flex-1">
+      <div class="col form-previews" *ngIf="staticFormData[formInfo.docName] && isCustomeTamplate !== true">
+        <div *ngFor="let formInfo of staticFormData[formInfo.docName]; let i=index" style="width: 100%;margin: 0px auto;height: 1198px;position: relative;display: block;max-width: 918px;">
+          <div class="form-previewss" id="svg_containers_{{i}}" [innerHTML]="formInfo.svg | safe"></div>
+  
+        </div>
+        <div id="stmtContainer" #stmtContainer>
+        </div>
+      </div>
+      <div id="custome_tamplate_container" #custome_tamplate_container *ngIf="isCustomeTamplate === true">
+      </div>
+      <div *ngIf="isCustomeTamplate !== true">
+      <div class="container-fluid flex-1" *ngIf="(notSupportYear == undefined || notSupportYear == '') && (!staticFormData[formInfo.docName] || staticFormData[formInfo.docName].length ==0)" style="background: #ffff;">
+        <div class="col-24 d-flex justify-content-center align-items-center" style="height: calc(100vh - 50px);">
+          <div class="preview-set text-center">
+            <i class="fas fa-ban"></i><br>
+            <h1>Instant Form View has not been started</h1>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid flex-1" *ngIf="notSupportYear !== undefined && notSupportYear !== ''" style="background: #ffff;">
+        <div class="col-24 d-flex justify-content-center align-items-center" style="height: calc(100vh - 50px);">
+          <div class="preview-set text-center">
+            <i class="fas fa-ban"></i><br>
+            <h1>Instant form view is not available for {{notSupportYear}}</h1>
+          </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    
+  
+   
+  </div>

@@ -1,0 +1,52 @@
+<div class="bg-white border">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg title_height_40">
+        <span class="page_title_lg">
+          Select Office
+        </span>
+      </span>
+    </section>
+  </div>
+  <div class="row mt-3">
+    <div class="row_height_30 col-lg-24 col-md-24 col-sm-24 clearfix">
+      <label class="float-left margin_right_10 margin_left_15 width_full_10">Office</label>
+      <div class="radio clearfix float-left">
+        <div class="checkbox row_height_30 clearfix" *ngFor="let availableLocation of availableLocationList">
+          <label>
+            <button class="custom_input_dark float-left margin_right_5"
+              [class.active]="location.currentLocationKey === availableLocation.locationId"
+              (click)="location.currentLocationKey = availableLocation.locationId"></button>
+            <span class="float-left">{{availableLocation.efin}}</span><span
+              [class.margin_left_10]="availableLocation.efin">{{availableLocation.name}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row_height_30 col-lg-24 col-md-24 col-sm-24 clearfix">
+      <label class="float-left margin_right_10 margin_left_15 width_full_10">Default Office</label>
+      <select class="col-lg-6 col-md-7 col-sm-12 form-control float-left clearfix py-0" name="locationId"
+        [(ngModel)]="location.defaultLocationKey">
+        <option></option>
+        <option *ngFor="let office of availableLocationList" [value]="office.key">{{office.name}}</option>
+      </select>
+    </div>
+    <div class="clearfix col-lg-24 col-md-24 col-sm-24 clearfix">
+      <div class="float-left margin_top_5 margin_left_15">
+        <span>*You will be connected automatically to this Office the next time you log in.</span>
+      </div>
+    </div>
+    <div class="row col-lg-10 col-md-13 col-sm-17 mb-2">
+      <hr class="light_line">
+      <div class="float-right ml-auto">
+        <button class="btn btn-outline-primary mr-2"
+          [disabled]="!(location.defaultLocationKey !== undefined && location.defaultLocationKey !== null && location.currentLocationKey !== undefined && location.currentLocationKey !== null)"
+          *ngIf="mode === 'change'" (click)="changeLocation()">Change</button>
+        <button class="btn btn-outline-primary"
+          [disabled]="!(location.defaultLocationKey !== undefined && location.defaultLocationKey !== null && location.currentLocationKey !== undefined && location.currentLocationKey !== null)"
+          *ngIf="mode !== 'change'" (click)="changeLocation()">Select</button>
+        <button class="btn btn-outline-primary" *ngIf="mode === 'change'" (click)="gotoHome()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

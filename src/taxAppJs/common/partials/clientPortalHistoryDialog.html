@@ -1,0 +1,41 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <span class="modal-title" style="font-size: 18px;">
+            <span translate="CUSTOMRETURNSTATUS_DLG_TEXT0" translate-default="Answer History"></span>
+        </span>
+        <i class="fa fa-times mt-2 cursor_pointer" ng-click="close()" aria-hidden="true"></i>
+    </div>
+    <div class="modal-body">
+        <div class="col-24 padding_l_r_0 custom-table margin_top_15 table-responsive">
+            <table ng-table="historyGrid" class="table que_ans_hist_table">
+                <tr data-ng-repeat="history in $data">
+                    <td width="15%" sortable="'name'" data-title="'Field Name'" class="'custom-header'">
+                        {{history.name}}
+                    </td>
+                    <td width="35%" data-title="'Old Value'" class="'custom-header'">
+                        <span ng-if="history.name.indexOf('Documents') === -1">{{history.oldValue}}</span>
+                        <div ng-if="history.name.indexOf('Documents') !== -1">
+                            <a class="cursor_pointer uploaded_tag_card" data-ng-repeat="doc in history.oldValue"
+                                data-ng-click="download(doc.docId)">{{doc.fileName}}</a>
+                        </div>
+                    </td>
+                    <td width="35%" data-title="'New Value'" class="'custom-header'">
+                        <span ng-if="history.name.indexOf('Documents') === -1">{{history.newValue}}</span>
+                        <div ng-if="history.name.indexOf('Documents') !== -1">
+                            <a class="cursor_pointer uploaded_tag_card" data-ng-repeat="doc in history.newValue"
+                                data-ng-click="download(doc.docId)">{{doc.fileName}}</a>
+                        </div>
+                    </td>
+                    <td width="15%" data-title="'Date'" sortable="'changeDate'" class="'custom-header'">
+                        {{history.changeDate | date : 'MM/dd/yyyy hh:mm a'}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-class="{'no-clicking' : isProcessing}" data-ng-click="close()"><span
+                translate="RENEWALNOTIFICATION_DLG_BTN_CANCEL" translate-default="Close"></span></button>
+    </div>
+</div>

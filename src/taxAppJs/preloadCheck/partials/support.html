@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="taxAppJs/common/css/Styles.css" rel="stylesheet" />
+    <style type="text/css">
+        .full_page_height.browser_support {min-height:100vh; height:auto; padding-top:16%; }
+    </style>
+</head>
+<body>  
+    <div class="clearfix bg_common full_page_height browser_support">
+        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+            <!--<div class="row color_white text-center font_size_100">
+                <i class="fa fa-frown-o"></i>
+            </div>-->
+            <div class="container">
+
+                <div class="row_height_95 margin_left_5">
+                    <h2 class="color_white"><i class="fa fa-frown-o font_size_45 color_white margin_right_10"></i><span translate="PRELOADCHECK_OPPWENOTREADYTHISBROWSER_SPAN" translate-default="To use our software you need to use one of our supported browsers."></span></h2>
+                </div>
+
+                <div class="col-lg-10 col-md-24 col-sm-24 col-xs-24">
+                    <div class="row_height_70 clearfix margin_perctop_5">
+                        <h2 class="color_white float-left text-justify"><span translate="PRELOADCHECK_RECOMMENDTRYONE_SPAN" translate-default='Install one of our supported browsers and click the "Log In" link on the home page.'></span></h2>
+                    </div>
+                    <div class="row row_height_70 clearfix"></div>
+                </div>
+
+
+                <div class="col-lg-14 col-md-24 col-sm-24 col-xs-24">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-24 padding_r_0">
+                        <div class="row_height_70 text-center">
+                            <img src="taxAppJs/preloadCheck/images/64-firefox.png" title="Mozilla" />
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <h3 class="color_white"><span translate="PRELOADCHECK_29MOZILLA_SPAN" translate-default="29 +"></span></h3>
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <a href="https://www.mozilla.org/download" class="btn btn-outline-primary"><span translate="PRELOADCHECK_MOZILLA_DOWNLOAD_SPAN" translate-default="Download"></span></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-24 padding_r_0">
+                        <div class="row_height_70 text-center">
+                            <img src="taxAppJs/preloadCheck/images/64-chrome.png" title="Chrome" />
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <h3 class="color_white"><span translate="PRELOADCHECK_34CHROME_SPAN" translate-default="34 +"></span></h3>
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <a href="https://www.google.com/chrome/browser/" class="btn btn-outline-primary"><span translate="PRELOADCHECK_CHROME_DOWNLOAD_SPAN" translate-default="Download"></span></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-24 padding_r_0">
+                        <div class="row_height_70 text-center">
+                            <img src="taxAppJs/preloadCheck/images/64-safari.png" title="Safari" />
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <h3 class="color_white"><span translate="PRELOADCHECK_7MACONLY_SPAN" translate-default="7 +(Mac Only)"></span></h3>
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <a href="http://www.apple.com/safari/" class="btn btn-outline-primary" translate="PRELOADCHECK_APPLE_DOWNLOAD_SPAN" translate-default="Download"></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-24 padding_r_0">
+                        <div class="row_height_70 text-center">
+                            <img src="taxAppJs/preloadCheck/images/64-ie.png" title="Internet Explorer" />
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <h3 class="color_white"><span translate="PRELOADCHECK_7MACONLY_SPAN" translate-default="11 +"></span></h3>
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <a href="http://windows.microsoft.com/en-in/internet-explorer/ie-11-worldwide-languages" class="btn btn-outline-primary" translate="PRELOADCHECK_APPLE_DOWNLOAD_SPAN" translate-default="Download"></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-24 padding_r_0">
+                        <div class="row_height_70 text-center">
+                            <img src="taxAppJs/preloadCheck/images/64-microsoft_edge.png" title="Microsoft Edge" />
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <h3 class="color_white"><span translate="PRELOADCHECK_7MACONLY_SPAN" translate-default="31 +"></span></h3>
+                        </div>
+                        <div class="row_height_70 text-center">
+                            <a href="https://www.microsoft.com/en-us/download/details.aspx?id=48126" class="btn btn-outline-primary" translate="PRELOADCHECK_APPLE_DOWNLOAD_SPAN" translate-default="Download"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row  clearfix padding_bottom_10" data-ng-if="betaOnly()">
+                    <h3 class="color_white margin_left_20"><span translate="PRELOADCHECK_WANTADVENTUWITHBROWSER_SPAN" translate-default="Want to be adventurous and continue with this browser"></span> <a class="cursor_pointer" style="color:white;text-decoration:underline;" data-ng-click="forceBrowserSupport()"><span translate="PRELOADCHECK_ADVENTUROSE_CLICK_SPAN" translate-default="click here"></span></a></h3>
+                </div>
+            </div>
+        </div>
+    </div>   
+</body>
+</html>

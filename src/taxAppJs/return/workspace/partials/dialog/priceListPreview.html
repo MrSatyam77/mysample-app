@@ -1,0 +1,233 @@
+<style type="text/css">
+	/* * { margin: 0; padding: 0; }
+	body { text-align: center; font-family: 'helvetica'; } */
+	.price-list-container .clearfix { clear: both; }
+	.price-list-container .margin-top-5 { margin-top: 5px; }
+	.price-list-container .margin-top-10 { margin-top: 10px; }
+	.price-list-container .margin-top-15 { margin-top: 15px; }
+	.price-list-container .margin-top-30 { margin-top: 30px; }
+	.price-list-container .margin-top-50 { margin-top: 50px; }
+	.price-list-container .margin-bottom-10 { margin-bottom: 10px; }
+	.price-list-container .margin-bottom-15 { margin-bottom: 15px; }
+	.price-list-container .margin-bottom-30 { margin-bottom: 30px; }
+	.price-list-container .margin-bottom-50 { margin-bottom: 50px; }
+	
+	.price-list-container .col-md-priceList-12{ float:left; width:100%; }
+	.price-list-container .col-md-priceList-11{ float:left; width:91.66666667%; }
+	.price-list-container .col-md-priceList-10{ float:left; width:83.33333333%; }
+	.price-list-container .col-md-priceList-9{ float:left; width:75%; }
+	.price-list-container .col-md-priceList-8{ float:left; width:66.66666667%; }
+	.price-list-container .col-md-priceList-7{ float:left; width:58.33333333%; }
+	.price-list-container .col-md-priceList-6{ float:left; width:50%; }
+	.price-list-container .col-md-priceList-5{ float:left; width:41.66666667%; }
+	.price-list-container .col-md-priceList-4{ float:left; width:33.33333333%; }
+	.price-list-container .col-md-priceList-3{ float:left; width:25%; }
+	.price-list-container .col-md-priceList-2{ float:left; width:16.66666667%; }
+	.price-list-container .col-md-priceList-1{ float:left; width:8.33333333%; }
+
+	.price-list-container .text-left { text-align: left; }
+	.price-list-container .text-right { text-align: right; }
+	.price-list-container .text-center { text-align: center; }
+	.price-list-container .pdf-container { width: 800px; display: inline-block; text-align: left; }
+	.price-list-container span { font-weight:normal; font-size:14px; line-height:20px; font-family: 'helvetica'; display: block; }
+	.price-list-container .bill-username { color:#000000; font-weight:normal; font-size:18px; line-height:22px; font-family: 'helvetica'; }
+	.price-list-container .bill-firmName { color:#000000; font-weight:normal; font-size:14px; line-height:22px; font-family: 'helvetica'; }
+	.price-list-container .bill-address { color:#808080; font-weight:normal; font-size:14px; line-height:20px; }
+	.price-list-container .bill-phone { display: block; color:#808080; font-weight:normal; font-size:14px; line-height:20px; }
+	.price-list-container .bill-email { display: block; color:#808080; font-weight:normal; font-size:14px; line-height:20px; }
+	.price-list-container .bill-invoice-title { color:#000000; font-weight:normal; font-size:24px; line-height:28px; font-family: 'helvetica'; color:#000000; }
+	.price-list-container .bill-title { color:#808080; text-transform: uppercase; }
+	.price-list-container .bill-content { color:#000000;display: inline-block; }
+	.price-list-container .bill-footer-title { background-color: #c0c0c0; display: block; overflow: hidden; }
+	.price-list-container .bill-footer-title span { display: inline-block; padding: 8px 8px; }
+	.price-list-container .bill-footer-body { display: block; overflow: hidden; }
+	.price-list-container .border-bottom-gray { border-top-color: transparent; border-bottom: 1px solid #cacaca; }
+	.price-list-container .border-bottom-black { border-top-color: transparent; border-bottom: 2px solid #000000; }
+	.price-list-container .vertical-align-middle { display: flex; vertical-align: middle; align-items: center; }
+	.price-list-container .gray-text { color: #808080; }
+	.price-list-container .font-14 { font-size: 14px; }
+	.price-list-container .font-20 { font-size: 20px; }
+</style>
+<div class="pdf-container price-list-container" style="padding:15px;">
+	<div class="header-area">
+		<div class="col-md-priceList-12 margin-bottom-10">
+			<span class="bill-username">{{priceListDetail.prepareFName}}</span>
+		</div>
+		<div class="col-md-priceList-12 margin-bottom-10">
+				<span class="bill-firmName">{{priceListDetail.strprfrmnm}}</span>
+			</div>
+		<div class="clearfix"></div>
+		<div class="col-md-priceList-6">
+			<span class="bill-address">{{priceListDetail.prepareAdd}}<br>
+				{{priceListDetail.prepareCSZ}}</span>
+		</div>
+		<div class="col-md-priceList-6">
+			<span class="bill-phone">{{priceListDetail.preparePh}}</span>
+			<span class="bill-email">{{priceListDetail.prepareEmail}}</span>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-md-priceList-12 margin-top-50">
+			<span class="bill-invoice-title">Invoice</span>
+		</div>
+		<div class="clearfix"></div>
+		<div class="bill-details margin-top-30">
+			<div class="bill-header">
+				<div class="col-md-priceList-4">
+					<span class="bill-title">
+						Bill to
+					</span>
+				</div>
+				<div class="col-md-priceList-4">
+					<span class="bill-title">
+						invoice #
+					</span>
+				</div>
+				<div class="col-md-priceList-2">
+					<span class="bill-title">
+						Date
+					</span>
+				</div>
+				<div class="col-md-priceList-2">
+					<span class="bill-title text-right">
+						Due Date
+					</span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="bill-details-inner margin-top-10">
+				<div class="col-md-priceList-4">
+					<span class="bill-content">
+						{{priceListDetail.PreparerName}}<br>
+						{{priceListDetail.firmStreet1}}<br>
+						{{priceListDetail.firmCSZ}}
+					</span>
+				</div>
+				<div class="col-md-priceList-4">
+					<span class="bill-content">
+						{{priceListDetail.invoiceNumber}}
+					</span>
+				</div>
+				<div class="col-md-priceList-2">
+					<span class="bill-content">
+						{{priceListDetail.date}}
+					</span>
+				</div>
+				<div class="col-md-priceList-2">
+					<span class="bill-content text-right">
+						{{priceListDetail.duedate}}
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="margin-top-50">
+			<div class="bill-footer-title">
+				<div class="col-md-priceList-6">
+					<span>DESCRIPTION</span>
+				</div>
+				<div class="col-md-priceList-6 text-right">
+					<span>AMOUNT</span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="bill-footer-body" data-ng-repeat="pricedata in priceListDetail.summerizePriceListData">
+				<div class="col-md-priceList-12">
+					<div class="col-md-priceList-6 margin-top-15">
+						<span style="margin-left: 5px;">{{pricedata.description}}</span>
+					</div>
+					<div class="col-md-priceList-6 margin-top-15 text-right">
+						<span style="margin-right: 8px;">$ {{pricedata.total}}</span>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-priceList-12">
+					<hr class="border-bottom-gray margin-top-5">
+				</div>
+				<!-- <div class="col-md-priceList-12">
+					<div class="col-md-priceList-6 margin-top-15">
+						<span style="margin-left: 5px;">Discount</span>
+					</div>
+					<div class="col-md-priceList-6 margin-top-15 text-right">
+						<span style="margin-right: 8px;">-$ 25.00</span>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-priceList-12">
+					<hr class="border-bottom-gray margin-top-5">
+				</div> -->
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-md-priceList-12">
+			<div class="vertical-align-middle">
+				<div class="col-md-priceList-7">
+					<div class="col-md-priceList-10">
+						<span class="gray-text font-14">Thank you for allowing us to serve your tax filing needs
+							this year. The services performed for this tax return
+						and their respective fees are indicated above.</span>
+					</div>
+				</div>
+				<div class="col-md-priceList-5 text-right">
+					<div class="col-md-priceList-12">
+						<hr class="border-bottom-black margin-top-5">
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-priceList-12 margin-top-15">
+						<div class="col-md-priceList-7">
+							<span class="text-left gray-text">SUB TOTAL</span>
+						</div>
+						<div class="col-md-priceList-5">
+							<span>$ {{priceListDetail.totalwithDiscount}}</span>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-priceList-12 margin-top-15">
+						<div class="col-md-priceList-7">
+							<span class="text-left gray-text">TAX</span>
+						</div>
+						<div class="col-md-priceList-5">
+							<span>$ {{priceListDetail.TotalPercentChargeAmttax}}</span>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-priceList-12 margin-top-15">
+						<div class="col-md-priceList-7">
+							<span class="text-left gray-text">TOTAL AMOUNT</span>
+						</div>
+						<div class="col-md-priceList-5">
+							<span>$ {{priceListDetail.TotalPayment}}</span>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-priceList-12 margin-top-15">
+						<div class="col-md-priceList-7">
+							<span class="text-left gray-text">SERVICE CHARGES</span>
+						</div>
+						<div class="col-md-priceList-5">
+							<span>$ {{priceListDetail.ServicesCharges}}</span>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-priceList-12 margin-top-15">
+						<div class="col-md-priceList-7">
+							<span class="text-left gray-text">OTHER CHARGES</span>
+						</div>
+						<div class="col-md-priceList-5">
+							<span>$ {{priceListDetail.TotalOtherCharge}}</span>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-priceList-12 margin-top-15">
+						<div class="col-md-priceList-7">
+							<span class="text-left gray-text">BALANCE DUE</span>
+						</div>
+						<div class="col-md-priceList-5">
+							<span >$ {{priceListDetail.TotalCharges}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+	</div>
+</div>

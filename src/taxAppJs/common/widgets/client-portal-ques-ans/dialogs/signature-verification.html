@@ -1,0 +1,358 @@
+<style>
+    .green {
+        border-color: green !important;
+    }
+
+    .green:after {
+        color: green !important;
+    }
+
+    .red {
+        border-color: red;
+    }
+
+    .red:after {
+        color: red !important;
+    }
+
+    button.custom_input_dark.red {border-color: red !important;}
+.custom_input_dark.red:after{color: red !important;}
+.custom_input_dark.green:after{color: green !important;}
+.custom_input_dark.green.red{border-color: green !important;}
+.custom_input_dark.green{border-color: green !important;}
+
+    .verificationqanda .checkbox-container button {
+        vertical-align: middle;
+    }
+
+    .verificationqanda .que-area {
+        font-weight: bold;
+        color: #858585;
+    }
+
+    .vertically-align-middle {
+        display: flex;
+        align-items: center;
+        vertical-align: middle;
+    }
+
+    .signature-image {
+        width: 150px;
+        height: auto;
+        border: 1px solid #ececec;
+    }
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857146;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <span class="modal-title" style="font-size: 18px">
+            Signature Approval
+        </span>
+        <i class="fa fa-times mt-2 cursor_pointer" ng-click="close()" aria-hidden="true"></i>
+    </div>
+    <div class="modal-body pl-0 pr-0">
+        <div class="quicksetup-container clearfix static_form_wrap allowScrollSync" ng-style="{height:headerNav.screenHeight-220}"
+            style="overflow-y:auto;overflow-x:hidden">
+            <div class="clearfix" id="tax_estimator_tab">
+                <tabset justified="true">
+                    <div class="custom-line-tab"> 
+                        <tab heading="Taxpayer" active="activeTab.taxpayer">
+                            <div class="col-24 col-md-24 col-sm-24 col-lg-24 col-xl-24">
+                                <!-- PDF DETAILS START -->
+                                <div class="margin_top_15 " ng-if="allSignatureRelatedDetails.returnPdf.fileName">
+                                    <div class="row">
+                                        <div class="col-lg-24">
+                                            <div class="section-title">
+                                                <div class="col-lg-24">
+                                                    <span>Return Information</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-24 margin_top_5">
+                                            <div class="col-lg-24">
+                                                Return sent for signature: <a data-ng-click="download(allSignatureRelatedDetails.returnPdf.pdfLink)" class="text-primary">{{allSignatureRelatedDetails.returnPdf.fileName}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- PDF DETAILS END -->
+
+                                <!-- Verification Information Start -->
+                                <div ng-if="allSignatureRelatedDetails.returnDetails.taxpayer">
+                                    <div class="margin_top_30">
+                                        <div class="row">
+                                            <div class="col-lg-24">
+                                                <div class="section-title">
+                                                    <div class="col-lg-24">
+                                                        <span>Verification Information</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-24 margin_top_5">
+                                                <div class="col-lg-24">
+                                                    The following information was used to verify the Taxpayer's identity.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                        <label class="font_bold">Name & Address:</label>
+                                    </div>
+                                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                        <label>{{allSignatureRelatedDetails.returnDetails.taxpayer.firstName + ' ' +
+                                            allSignatureRelatedDetails.returnDetails.taxpayer.lastName}}</label>
+                                    </div>
+                                    <div class="margin_top_1 col-lg-24 padding_l_r_0" ng-if="allSignatureRelatedDetails.returnDetails.taxpayer.usAddress">
+                                        <div class="details-field text-left">
+                                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                                <!-- <label class="font_bold">Name & Address:</label> -->
+                                            </div>
+                                            <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                                <div>
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.taxpayer.usAddress.street
+                                                        }}</span><br>
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.taxpayer.usAddress.city}}</span>,
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.taxpayer.usAddress.state}}</span>
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.taxpayer.usAddress.zipCode}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="margin_top_10 col-lg-24 padding_l_r_0 details-field text-left" ng-if="allSignatureRelatedDetails.returnDetails.taxpayer.ssn">
+                                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                            <label class="font_bold">SSN:</label>
+                                        </div>
+                                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                            <span>{{allSignatureRelatedDetails.returnDetails.taxpayer.ssn}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Verification Information End -->
+
+                                <!-- Question & Answer Start -->
+                                <div ng-if="allSignatureRelatedDetails.evsDetails.taxpayer && allSignatureRelatedDetails.evsDetails.taxpayer.length > 0">
+                                    <div class="margin_top_30 col-lg-24 row">
+                                        <div class="row">
+                                            <div class="col-lg-24">
+                                                <div class="section-title">
+                                                    <div class="col-lg-24">
+                                                        <span>Question & Answer</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-24 margin_top_5">
+                                                <div class="col-lg-24">
+                                                    The Taxpayer was asked the following questions. The correct answers are
+                                                    shown in red below. For each wrong answers, the correct
+                                                    answer is shown is green as well for your reference.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="verificationqanda margin_top_15 col-lg-24 padding_l_r_0" data-ng-repeat="evs in allSignatureRelatedDetails.evsDetails.taxpayer">
+                                        <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 que-area">{{evs.text}}</div>
+                                        <div class="answer-area col-lg-24 col-sm-24 col-md-24 col-xs-24 clearfix margin_top_5 row">
+                                            <span class="col-lg-5 col-md-8 col-sm-12 col-xs-12 margin_top_10"
+                                                data-ng-repeat="options in evs.Answer">
+                                                <div class="form-group checkbox-container old-checkbox padding_l_0">
+                                                    <button type="button" class="custom_input_dark margin_right_5" ng-class="{'active': (options.$t === evs.givenAnswer.$t || options.$t === evs.correctAnswer.$t), 'green':options.$t === evs.correctAnswer.$t, 'red':options.$t === evs.givenAnswer.$t}"></button>
+                                                    <span class="checkbox-label">{{options.$t}}</span>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="allSignatureRelatedDetails.evsDetails.taxpayer.length == 0"> 
+                                        <div class="margin_top_30 col-lg-24 row">
+                                                <div class="row">
+                                                    <div class="col-lg-24">
+                                                        <div class="section-title">
+                                                            <div class="col-lg-24">
+                                                                <span>Question & Answer</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-24 margin_top_5">
+                                                        <div class="col-lg-24">
+                                                                <span style="color: red">Online Verification was not possible</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                </div>
+                                <!-- Question & Answer End-->
+
+                                <!-- Signature Start -->
+                                <div class="col-lg-24 padding_l_r_0 margin_top_10" ng-if="allSignatureRelatedDetails.signatureData.taxpayer.base64Data">
+                                    <div class="margin_top_30">
+                                        <div class="row">
+                                            <div class="col-lg-24">
+                                                <div class="section-title">
+                                                    <div class="col-lg-24">
+                                                        <span>Signature</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-24 vertically-align-middle">
+                                        <div class="col-lg-3 font_bold pl-0">
+                                            Taxpayer
+                                        </div>
+                                        <div class="col-lg-19">
+                                            <img src="{{allSignatureRelatedDetails.signatureData.taxpayer.base64Data}}" title="{{allSignatureRelatedDetails.signatureData.taxpayer.fileName}}"
+                                                alt="{{allSignatureRelatedDetails.signatureData.taxpayer.fileName}}" class="signature-image" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Signature End-->
+                            </div>    
+                        </tab>
+
+                        <tab heading="Spouse" active="activeTab.spouse" ng-if="signatureData.isSpouseSignatureNeeded">
+                            <div class="col-24 col-md-24 col-sm-24 col-lg-24 col-xl-24">  
+                                <!-- PDF DETAILS START -->
+                                <div class="margin_top_15" ng-if="allSignatureRelatedDetails.returnPdf.fileName">
+                                    <div class="row">
+                                        <div class="col-lg-24">
+                                            <div class="section-title">
+                                                <div class="col-lg-24">
+                                                    <span>Return Information</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-24 margin_top_5">
+                                            <div class="col-lg-24">
+                                                Return sent for signature: <a data-ng-click="download(allSignatureRelatedDetails.returnPdf.pdfLink)" class="text-primary">{{allSignatureRelatedDetails.returnPdf.fileName}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- PDF DETAILS END -->
+
+                                <!-- Verification Information Start -->
+                                <div ng-if="allSignatureRelatedDetails.returnDetails.spouse">
+                                    <div class="margin_top_30">
+                                        <div class="row">
+                                            <div class="col-lg-24">
+                                                <div class="section-title">
+                                                    <div class="col-lg-24">
+                                                        <span>Verification Information</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-24 margin_top_5">
+                                                <div class="col-lg-24">
+                                                    The following information was used to verify the Spouse's identity.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                        <label class="font_bold">Name & Address:</label>
+                                    </div>
+                                    <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                        <label>{{allSignatureRelatedDetails.returnDetails.spouse.firstName + ' ' +
+                                            allSignatureRelatedDetails.returnDetails.spouse.lastName}}</label>
+                                    </div>
+                                    <div class="margin_top_1 col-lg-24 padding_l_r_0" ng-if="allSignatureRelatedDetails.returnDetails.spouse.usAddress">
+                                        <div class="details-field text-left">
+                                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                            </div>
+                                            <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                                <div>
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.spouse.usAddress.street }}</span><br>
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.spouse.usAddress.city}}</span>,
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.spouse.usAddress.state}}</span>
+                                                    <span>{{allSignatureRelatedDetails.returnDetails.spouse.usAddress.zipCode}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="margin_top_10 col-lg-24 padding_l_r_0 details-field text-left" ng-if="allSignatureRelatedDetails.returnDetails.spouse.ssn">
+                                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-24">
+                                            <label class="font_bold">SSN</label>
+                                        </div>
+                                        <div class="col-lg-18 col-md-18 col-sm-16 col-xs-24">
+                                            <span>{{allSignatureRelatedDetails.returnDetails.spouse.ssn}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Verification Information End -->
+
+                                <!-- Question & Answer Start -->
+                                <div ng-if="allSignatureRelatedDetails.evsDetails.spouse">
+                                    <div class="margin_top_30 col-lg-24 row">
+                                        <div class="row">
+                                            <div class="col-lg-24">
+                                                <div class="section-title">
+                                                    <div class="col-lg-24">
+                                                        <span>Question & Answer</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-24 margin_top_5">
+                                                <div class="col-lg-24">
+                                                    The Spouse was asked the following questions. The correct answers are shown
+                                                    in red below. For each wrong answers, the correct
+                                                    answer is shown is green as well for your reference.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="verificationqanda margin_top_15 col-lg-24 padding_l_r_0" data-ng-repeat="evs in allSignatureRelatedDetails.evsDetails.spouse">
+                                        <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 que-area">{{evs.text}}</div>
+                                        <div class="answer-area col-lg-24 col-sm-24 col-md-24 col-xs-24 clearfix margin_top_5 row">
+                                            <span class="col-lg-5 col-md-8 col-sm-12 col-xs-12 margin_top_10"
+                                                data-ng-repeat="options in evs.Answer">
+                                                <div class="form-group checkbox-container old-checkbox padding_l_0">
+                                                    <button type="button" class="custom_input_dark margin_right_5" ng-class="{'active': (options.$t === evs.givenAnswer.$t || options.$t === evs.correctAnswer.$t), 'green':options.$t === evs.correctAnswer.$t, 'red':options.$t === evs.givenAnswer.$t}"></button>
+                                                    <span class="checkbox-label">{{options.$t}}</span>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Question & Answer End-->
+
+                                <!-- Signature Start -->
+                                <div class="col-lg-24 padding_l_r_0 margin_top_10" ng-if="allSignatureRelatedDetails.signatureData.spouse.base64Data">
+                                    <div class="margin_top_30">
+                                        <div class="row">
+                                            <div class="col-lg-24">
+                                                <div class="section-title">
+                                                    <div class="col-lg-24">
+                                                        <span>Signature</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-24 vertically-align-middle">
+                                        <div class="col-lg-3 font_bold pl-0">
+                                            Spouse
+                                        </div>
+                                        <div class="col-lg-19">
+                                            <img src="{{allSignatureRelatedDetails.signatureData.spouse.base64Data}}" title="{{allSignatureRelatedDetails.signatureData.spouse.fileName}}"
+                                                alt="{{allSignatureRelatedDetails.signatureData.spouse.fileName}}" class="signature-image" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Signature End-->
+                            </div>
+                        </tab>
+                    </div>   
+                </tabset>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="getCaptureAuthorization(true)"
+            data-ng-disabled="addClientForm.$invalid"><span translate="OK_SPAN" translate-default="Approve"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="getCaptureAuthorization(false)"><span
+                translate="RETURNSUBSCRIPTION_OK_SPAN" translate-default="Reject"></span></button>
+    </div>
+</div>

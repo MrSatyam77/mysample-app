@@ -1,0 +1,22 @@
+<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+        <!-- Mark As Default -->
+        <span translate="SCHEDULEIMPORTDIALOG_ADDTODEFAULT_LBL" translate-default="Add To Default" class="ng-scope"></span>
+    </h4>
+</div>
+<form name="makeDefualtReturnform" data-ng-submit="markDefaultReturn()">
+	<div class="modal-body clearfix">
+		<div class="row col-lg-24 col-sm-24 col-md-24 clearfix">
+			<div class='col-sm-4 col-md-4 col-lg-4'>
+				<span translate='RETURNWORKSPACE_RETURNTITLE_LBL' translate-default='Title'></span>
+			</div>
+			<div class='col-sm-12 col-md-12 col-lg-12 margin_bottom_13'>
+				<input type='text' data-ng-required='!returnTitle' class='form-control ' data-ng-model='returnTitle' />
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer margin_top_10">
+		<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="SCHEDULEIMPORTDIALOG_CANCEL_BUTTON" translate-default="Cancel"></span></button>
+		<button type="submit" class="btn btn-outline-primary" data-ng-disabled="makeDefualtReturnform.$invalid"><span translate="SCHEDULEWARNINGDIALOG_PROCEED_BUTTON" translate-default="Proceed"></span></button>
+	</div>
+</form>

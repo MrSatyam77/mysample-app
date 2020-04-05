@@ -1,0 +1,46 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+	<div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+                <span translate="REGISTERNOW_ACCOUNTINFORMATION_LABEL" translate-default="Account Information"></span>
+        </h4>
+	</div>
+	<div class="modal-body clearfix">
+		<ng-form name="nameDialog" role="form">
+	      	<div class="form-group input-group-lg row_height_30">
+	        	<div data-ng-show="!isEmailAccountInfo">
+	               <div translate="REGISTERNOW_SPAN" translate-default="Before you continue please make a note of your account information"></div>
+	               <div>
+                       <span translate="REGISTERNOW_UNM_SPAN" translate-default="Username = "></span>
+                       <span class="font_bold">{{accountInfo.userName}}</span>
+	               </div>
+	               <div>
+                       <span translate="REGISTERNOW_PWD_SPAN" translate-default="Password = "></span>
+                       <span class="font_bold">{{accountInfo.password}}</span>
+	               </div>
+	            </div>
+	               	
+	            <div data-ng-show="isEmailAccountInfo">                        
+	               	<div class="clearfix">
+	                      <div class="float-left col-lg-6 padding_l_0">
+	                      	<label translate="REGISTERNOW_EMAIL_LABEL" translate-default="Email Address :" class="padding_top_3"></label>
+	                      </div>
+	                      <div class="float-left col-lg-10">
+	                      	<input type="email" class="form-control" data-ng-model='email'>
+	                    </div>
+	            	</div>
+	            </div>
+	      	</div>
+		</ng-form>
+	</div>
+	<div class="modal-footer">
+		<div data-ng-show="!isEmailAccountInfo">
+	        <button type="button" class="btn btn-outline-primary" data-ng-click="isEmailAccountInfo = true"><span translate="REGISTERNOW_EMAILINFO_BUTTON" translate-default="Email my account info"></span></button>
+	        <button type="button" class="btn btn-outline-primary" data-ng-click="continueSession()"><span translate="REGISTERNOW_CONTINUE_BUTTON" translate-default="Continue"></span></button>
+        </div>
+        
+        <div data-ng-show="isEmailAccountInfo">
+	        <button type="button" class="btn btn-outline-primary" data-ng-disabled="!email" data-ng-click="emailAccountInformation();"><span translate="REGISTERNOW_SENDEMAIL_BUTTON" translate-default="Send Email"></span></button>
+	        <button type="button" class="btn btn-outline-primary" data-ng-click="continueSession()"><span translate="REGISTERNOW_SKIP_BUTTON" translate-default="Skip"></span></button>
+        </div>    
+	</div>
+</div>

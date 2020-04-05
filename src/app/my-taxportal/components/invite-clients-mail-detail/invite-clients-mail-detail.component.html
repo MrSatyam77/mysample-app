@@ -1,0 +1,40 @@
+<div class="clearfix border-bottom pb-3 mb-3">
+  <div class="row">
+    <div class="col">
+      <label class="font-weight-bold mb-3">Compose Email</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24">
+      <div class="form-group row">
+        <div class="col col-sm-4 pt-2">
+          <label>To</label>
+        </div>
+        <div class="col col-sm-12">
+          <input type="text" name="to" class="form-control" [(ngModel)]="settings.invEmailTo"
+            [required]="!settings.invEmailTo" disabled />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col col-sm-4 pt-2">
+          <label>Subject</label>
+        </div>
+        <div class="col col-sm-12">
+          <input type="text" name="invEmailSub" class="form-control" [(ngModel)]="settings.invEmailSub"
+            [required]="!settings.invEmailSub" [disabled]="!permission.canSaveClientSettings" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col col-sm-4 pt-2">
+          <label>Message</label>
+        </div>
+        <div class="col col-sm-12">
+          <quill-editor name="message" [(ngModel)]="settings.invEmailBody"
+            [disabled]="!permission.canSaveClientSettings" [required]="!settings.invEmailBody" class="clarfix editor">
+          </quill-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

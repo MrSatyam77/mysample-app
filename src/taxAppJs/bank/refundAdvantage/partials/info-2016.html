@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <link href="taxAppJs/bank/eps/css/eps.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="inner_col_second clearfix"
+		data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+		<section class="page_title_wrap title_height_40 clearfix">
+			<span class="page_title_lg ng-binding title_height_40"> <span
+				class="page_title_lg ng-binding"
+				translate="REFUNDADVANTAGEBANK_ADD_HEADER"
+				translate-default="Refund Advantage"></span>
+			</span>
+		</section>
+         
+
+        <div class="clearfix">
+           <div class="padding_l_r_0">
+                <div data-ng-if="taxYear=='2016'" class="text-danger margin_bottom_20 margin_top_20 margin_left_20"><span>Bank enrollment for tax year 2016 is closed.</span></div> 
+                <!-- <div data-ng-if="taxYear == '2016' && betaOnly() == false" class = "text-danger margin_bottom_20">
+                  <span>Bank enrollment for tax year 2016 will be available soon.</span>
+                  </div> -->
+            </div>
+            <div  class="col-lg-24 col-md-24 col-sm-24">
+                <div class="clearfix padding_left_5">
+					
+					<div class="clearfix row_height_30" data-ng-if="displayMessage != undefined">
+						<div class="float-left margin_right_5 font_size_14" data-ng-class="{'text-danger': displayMessage.type == 'error','text-success': displayMessage.type == 'success'}"
+                              data-ng-bind-html="displayMessage.message"></div>
+					</div>
+						
+
+                    <div class="clearfix margin_bottom_15 margin_top_5 font_size_14 row_height_30" data-ng-if="messageOfEfinVerified.code == '101'">
+                        <div class="clearfix float-left">
+                            <div class="clearfix">
+                                <span class="font_bold">Enrollment Details</span>
+                            </div>
+                            <div class="clearfix font_size_14">
+                                <span>EFIN : {{refundAdv.efin}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix margin_bottom_15 margin_top_5 font_size_14 row_height_30" data-ng-if="messageOfEfinVerified.code != undefined || messageOfEfinVerified.message != undefined">
+                        <div class="clearfix float-left">
+                            <div class="clearfix">
+                                <span class="font_bold">Response from Refund Advantage</span>
+                            </div>
+                            <div class="clearfix font_size_14" data-ng-if="messageOfEfinVerified.code != undefined">
+                                <span>Code : {{messageOfEfinVerified.code}}</span>
+                            </div>
+                            <div class="clearfix font_size_14" data-ng-if="messageOfEfinVerified.message != undefined">
+                                <span>Message : {{messageOfEfinVerified.message}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="clearfix font_size_14 row_height_30" data-ng-if="displayMessage == undefined || displayMessage.type == 'error'">
+                        <span class="float-left margin_right_5"
+                              translate="REFUNDADVANTAGEBANK_PARTICIPATENOTE_SPAN"
+                              translate-default="To participate in the Refund Advantage financial tax refund program you must enroll via their website "></span>
+                        <a class="cursor_pointer col-xs-margin_top_10"
+                           href="https://www.refund-advantage.com/EasyEnrollment.aspx?mt=5"
+                           target="_blank">www.refund-advantage.com</a>.
+                    </div>
+
+                    <div class="clearfix row_height_30 padding_top_5 col-xs-margin_top_10" data-ng-if="displayMessage == undefined || displayMessage.type == 'error'">
+                        <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 padding_l_r_0">
+                            <button class="custom_input float-left"
+                                    data-ng-class="{'active':refundAdv.proceedFurther == true}"
+                                    data-ng-model="refundAdv.proceedFurther"
+                                    data-ng-click="refundAdv.proceedFurther=!refundAdv.proceedFurther;"></button>
+                            <span class="float-left margin_left_5  font_size_14"
+                                  translate="REFUNDADVANTAGEBANK_COMPLETEDPROCESSNOTE_SPAN"
+                                  translate-default="If you completed the enrollment process, please verify your EFIN by entering it below and clicking on the Verify button."></span>
+                        </div>
+                    </div>
+
+                    <div class="clearfix row margin_bottom_15 font_size_14" data-ng-show="refundAdv.proceedFurther==true" data-ng-if="displayMessage == undefined || displayMessage.type == 'error'">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-24 padding_l_0">
+                            <label translate="REFUNDADVANTAGEBANK_ENTEREFIN_LBL" translate-default="Enter Your EFIN" class="float-left padding_top_5"></label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-24">
+                            <input type="text" name="refundAdvantageEfin" class="form-control font_size_14" data-ng-model="refundAdv.efin" ng-required="!refundAdv.efin" tax-mask="999999" tax-mask-use-view-value="true" value="{{refundAdv.efin}}" />
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-24 col-xs-margin_top_10 font_size_14">
+                            <button class="btn btn-outline-primary ng-scope"
+                                    data-ng-disabled="refundAdv.efin == undefined || refundAdv.efin == null"
+                                    data-ng-click="verifyEfin()">
+                                <span translate="REFUNDADVANTAGEBANK_VERIFY_SPAN"
+                                      translate-default="Verify"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class = "clearfix">
+                      <div class = "clearfix font_size_14 text-danger" data-ng-if = "checkForSpeacialState('addOnTransmitterFee')">
+                        <span>Additional Transmission Fee can not be charged for ERO in {{stateName.toUpperCase()}} state.</span>
+                      </div>             
+                      <div class = "clearfix font_size_14 text-danger" data-ng-if = "checkForSpeacialState('serviceBureauFee')">
+                        <span>Service Bureau Fee can not be charged for ERO in {{stateName.toUpperCase()}} state.</span>
+                      </div> 
+                   </div>
+                    <div class="clearfix font_bold" data-ng-if="(messageOfEfinVerified.code == 101 || messageOfEfinVerified.code == 102) && taxYear == '2016'">Additional Details
+                    </div>
+                   <form name="form.refundAdvantageTabForm">
+                     <div class = "clearfix" data-ng-if="(messageOfEfinVerified.code == 101 || messageOfEfinVerified.code == 102) && taxYear == '2016'">
+                    <div class="clearfix row margin_bottom_15 font_size_14 " data-ng-if="messageOfEfinVerified.message.charAt(10) == 'Y'">
+                      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-24 padding_l_0">
+                                 <label translate="EPSBANK_SERVICEBUREAUFEE_LBL" translate-default="Service Bureau Fee" class="float-left"></label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-24 popover_wrap">
+                            <input type="number"
+                                                   name="raBankServiceBureauFee"
+                                                   class="newusertextbox form-control float-right ml-auto"
+                                                   data-ng-model="refundAdv.SBFee" 
+                                                   data-ng-class="{'patternerror':form.refundAdvantageTabForm.raBankServiceBureauFee.$error.pattern}" ng-pattern="/^([0-9]{1,2}|[0-9]{1,2}(\.[0-9]{1,2}))$/"
+                                                   ng-required="form.refundAdvantageTabForm.raBankServiceBureauFee.$error.pattern"
+                                                   popover-placement="right" popover-trigger="focus" popover="{{(form.refundAdvantageTabForm.raBankServiceBureauFee.$error.pattern && form.refundAdvantageTabForm.raBankServiceBureauFee.$invalid) ? 'Service Bureau Fee must be value between $0 and $99.99' : ''}}"
+                                                   value="{{refundAdv.SBFee}}"/>
+                        </div>
+                    </div>
+                    <div class="clearfix row margin_bottom_15 font_size_14 ">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-24 padding_l_0">
+                                <label translate="BANK_ADDONFEE_LBL"
+                                       translate-default="Additional Transmission Fee" class="float-left"></label>  
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-24 popover_wrap">
+                            <input type="number"
+                                       name="raBankAddOnFee" step="0.01"
+                                       class="newusertextbox form-control float-right ml-auto"
+                                       data-ng-model="refundAdv.addOnTransmitterFee" ng-required="form.refundAdvantageTabForm.raBankAddOnFee.$error.pattern"
+                                       value="{{refundAdv.addOnTransmitterFee}}" ng-change= "refundAdv.addOnTransmitterFeeAgreement = ((refundAdv.addOnTransmitterFee == 0 || refundAdv.addOnTransmitterFee == undefined) ?  false : false )" ng-pattern="/^([0-7]?[0-9]|[0-7]?[0-9](\.[0-9]?[0-9])|8[0-4]|8[4](\.[0]?[0])|8[0-3](\.[0-9]?[0-9]))$/"
+                                                   popover-placement="right" popover-trigger="focus" popover="{{(form.refundAdvantageTabForm.raBankAddOnFee.$error.pattern && form.refundAdvantageTabForm.raBankAddOnFee.$invalid) ? 'Additional Transmission Fee must be value between $0 and $84.' : ''}}"/>
+                        </div>
+                    </div>
+                    <div class="clearfix margin_bottom_15 font_size_14" data-ng-if="hasFeature('AddOnTransmitterFeeConsent')==true && refundAdv.addOnTransmitterFee != undefined && refundAdv.addOnTransmitterFee > 0">
+                      <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':refundAdv.addOnTransmitterFeeAgreement == true}" data-ng-model="refundAdv.addOnTransmitterFeeAgreement" ng-required="refundAdv.addOnTransmitterFeeAgreement == false" data-ng-click="refundAdv.addOnTransmitterFeeAgreement=!refundAdv.addOnTransmitterFeeAgreement;addAddOnTransmitterFeeAgreementTS()"></button>
+                                            <span class="float-left margin_right_5" translate="YPGBANK_IAGREETOTHE_LBL" translate-default="By checking this box you agree to pay 15% of the Additional Transmission Fee to {{::resellerConfig.appName}}"></span>
+                    </div>
+
+                    <div class="clearfix margin_bottom_15 font_size_14">
+                      <button class="btn btn-outline-primary ng-scope" ng-click="saveBankRefundAdvantage()" data-ng-class="{'no-clicking': true || checkConsent() || form.refundAdvantageTabForm.$invalid || refundAdv.SBFee == undefined ||refundAdv.addOnTransmitterFee == undefined || checkForSpeacialState('addOnTransmitterFee') || checkForSpeacialState('serviceBureauFee') }"><span translate="BANK_SAVE_SPAN" translate-default="Save"></span></button>
+                    </div>
+                    </div>
+                   </form>
+                </div>
+            </div>
+        </div>
+
+	</div>
+
+	<!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+</html>

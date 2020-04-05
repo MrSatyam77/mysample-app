@@ -1,0 +1,111 @@
+<style>
+  .modal-lg{
+    max-width: 1056px;
+  }
+</style>
+
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span>Upload EFIN Letter</span>
+    </h4>
+  </div>
+
+  <div class="modal-body clearfix">
+    <div class="form-wrapper clearfix" style="overflow-y:auto; height:700px;">
+      <div class="float-left width_full_45 padding_right_15">
+        <div class="clearfix">
+          <div class="form-title">
+            <div class="clearfix">
+              <label class="font_bold col-lg-6 col-md-6 col-sm-6 col-xs-6 padding_l_r_0">Firm Name</label>
+              <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{userInfo.firmName}}</span></div>
+            <div class="clearfix margin_top_10">
+              <label class="font_bold col-lg-6 col-md-6 col-sm-6 col-xs-6 padding_l_r_0">EFIN</label>
+              <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{userInfo.efin}}</span>
+              <span>(Example Of Application Summary)</span>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix padding_top_10 padding_bottom_10">
+          <img src="taxAppJs/images/efin_verification.png" class="img-fluid width_full" />
+        </div>
+        <div class="clearfix">
+          <div class="clearfix">
+            <div class="drop-box upload_main d-flex align-items-center justify-content-center pt-0" [ngClass]="{'file-over-blue': !isDocUploadLabelShow}">
+              <div ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                [ngClass]="{'file-over': true}">
+              </div>
+
+              <label class="pos_abs pt-0 m-0 text-16" *ngIf="isDocUploadLabelShow">
+                <i class="fa fa-cloud-upload-alt d-block mb-3" style="font-size: 60px;"></i>  
+                <input #uploader type="file" [disabled]="disableUpload" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                  [uploadInput]="uploadInput" class="hide_btn"> Drop or
+                
+                <span class="font-weight-bold" [ngClass]="{'text-primary': !disableUpload}">click</span> to upload
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-content float-left width_full_55 padding_left_15 padding_top_48">
+        <div class="font_bold"><span>Why do I need to verify my EFIN?</span></div>
+
+        <div class="margin_top_10">Protecting your EFIN account and your taxpayer data is as important to us as it is
+          to you. As such, we require that all ERO &apos;s (Electronic Return Originators) provide verification of
+          their EFIN (E-File Identification Number) before e-filing. It&apos;s an important first step in preventing
+          tax-related identify theft and fraud.</div>
+
+        <div class="font_bold margin_top_10">Requirements for EFIN Verification with the IRS:</div>
+        <div class="margin_top_10">
+          <div>1. One EFIN Per Firm Physical Location (as defined in IRS Pub. 3112).</div>
+          <div>2. If more than one Firm shares a single Physical Location, Each Firm must have a separate Software
+            License and a separate EFIN.</div>
+          <div>3. Firm Name (DBA Name), Firm Physical Address, EFIN, and ERO Contact on the EFIN Application must match
+            Software Licensed Firm Name and Physical Address, EFIN, and Contact Name.</div>
+        </div>
+        <div class="font_bold margin_top_10">What to Submit for EFIN Verification:</div>
+        <div class="margin_top_10">
+          <div><i class="fa fa-check color_green font_size_20" aria-hidden="true"></i><span class="font_bold padding_left_5">Submit
+              the 'Application Summary' from the IRS e-Services website.</span></div>
+          <span>On the left you can see an example of the Application Summary. <a href='https://static.mytaxprepoffice.com/2018/download/Application_Summary_IRS.pdf'
+              id='applicationSummary' target='applicationSummary'>Click here </a>for instructions on how to access and
+            print the Application Summary on the IRS e-Services site.</span>
+        </div>
+        <div class="font_bold margin_top_10">Caution: EFIN letters older than 12 months from the date they were
+          generated will be rejected.</div>
+        <div class="margin_top_10">
+          <span class="font_bold">What NOT to Submit.</span>
+          <span>We</span>
+          <span class="font_bold">do not </span>
+          <span>accept any of the following forms as EFIN verification:</span>
+        </div>
+        <div class="margin_top_10">
+
+          <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span class="ml-1">Your PTIN Registration</span></div>
+          <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span class="ml-1">Your original Form 8633
+              Application</span></div>
+          <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span class="ml-1">Your EFIN Activity Report</span></div>
+          <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span class="ml-1">Your EIN Tax ID number</span></div>
+          <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span class="ml-1">Your e-Services Account
+              Registration
+              Information</span></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="clearfix">
+      <div class="float-left width_full_43 margin_top_5">
+        <div *ngIf="errorType.fileSize"><span class="text-danger_normal">Your selected file is more than 5MB in
+            size.</span></div>
+        <div *ngIf="invalidType"><span class="text-danger_normal">Please upload one of valid scanned document.</span></div>
+        <div *ngIf="progressPercentage > 0">
+          <ngb-progressbar showValue="true" type="success" [value]="progressPercentage"></ngb-progressbar>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="close(true)" [disabled]="isDisabled==true"><span>Close</span></button>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<address>
+  <div class="row mb-3" *ngIf="serviceBeureauDetail.name">
+    <div class="col-2 text-center"><span><i class="fa fa-city text-primary"></i></span></div>
+    <div class="col-auto"><span class="d-block">{{serviceBeureauDetail.name}}</span></div>
+  </div>
+  <div class="row mb-3" *ngIf="serviceBeureauDetail.address">
+    <div class="col-2 text-center"><span><i class="fa fa-map-marker-alt text-primary"></i></span></div>
+    <div class="col-auto">
+      <span class="d-block">
+        <span *ngIf="serviceBeureauDetail.address.street">{{serviceBeureauDetail.address.street}}</span>
+        <span *ngIf="serviceBeureauDetail.address.city">, {{serviceBeureauDetail.address.city}}</span>
+        <span *ngIf="serviceBeureauDetail.address.state">, {{serviceBeureauDetail.address.state}}</span>
+        <span *ngIf="serviceBeureauDetail.address.zipCode">, {{serviceBeureauDetail.address.zipCode}}</span>
+      </span>
+    </div>
+  </div>
+  <div class="row mb-3" *ngIf="serviceBeureauDetail.phoneNo">
+    <div class="col-2 text-center"><span><i class="fa fa-phone-alt text-primary"></i></span></div>
+    <div class="col-auto"><span class="d-block">{{serviceBeureauDetail.phoneNo | mask: '(000) 000-0000'}}</span></div>
+  </div>
+  <div class="row mb-3" *ngIf="serviceBeureauDetail.efin">
+    <div class="col-2 text-center"><i class="mtpo mtpo-efin-icon text-primary font-weight-bold " style="font-size: 10px;"></i></div>
+    <div class="col-auto"><span class="d-block">{{serviceBeureauDetail.efin}}</span></div>
+  </div>
+</address>

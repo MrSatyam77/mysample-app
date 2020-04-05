@@ -1,0 +1,70 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+      <span>Custom Return Status</span>
+    </h4>
+  </div>
+  <div class="modal-body clearfix">
+    <form name="newReturnStatusForm" #f="ngForm" >
+      <div class="col-lg-24 col-sm-24 col-md-24">
+        <div class="row">
+          <div class="col-sm-20 col-md-20 col-lg-20 col-xs-17 padding_l_r_0  clearfix">
+            <input type="text" name="status" class="form-control cus-forminput" placeholder="Add New Status"
+              [(ngModel)]="newTitle"  [maxlength]="27">
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xs-7 padding_l_r_0  clearfix">
+            <button type="button" class="btn btn-outline-primary padding_bottom_small float-right"
+              [disabled]="!newTitle" type="button" (click)="addStatus()">Add</button>
+          </div>
+          <div *ngIf="newTitle.length > 27">
+            <span class="color_red"><i class="fa fa-exclamation-circle"></i> Title's length can not be greater then
+              27.</span>
+          </div>
+        </div>
+
+        <div class="row margin_top_15 padding_l_r_0 ">
+          <div class="col-lg-24 col-sm-24 col-md-24 padding_l_r_0 clearfix">
+            <div class="table-responsive">
+              <table class="table table-bordered ">
+                <thead>
+                  <tr>
+                    <th>STATUS DESCRIPTION</th>
+                    <th>DELETE</th>
+                  </tr>
+                </thead>
+
+                <tr *ngFor="let status of customReturnStatus;let i = index;">
+                  <td><input type="text" [name]="status.id" class="form-control vertical_align_none" [id]="status.id" [(ngModel)]="status.title" [ngModelOptions]="{standalone: true}"></td>
+                  <td><button class="custom_input vertical_align_none" [name]="i" [id]="i" 
+                      [ngClass]="{'active':status.isDeleted}"
+                      (click)="status.isChanged = false; status.isDeleted = !status.isDeleted"></button></td>
+                </tr>
+              </table>
+            </div>
+
+            <div *ngIf="isStatusDelete() === true">
+              <i class="fa fa-exclamation-circle color-yellow"></i>
+              Are you sure you want to delete this return status? Any returns using this status will be set back to the
+              default return status.
+            </div>
+
+            <div *ngIf="isError">
+              <span class="color_red"><i class="fa fa-exclamation-circle"></i> Something went wrong. Please try
+                again.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" *ngIf="isProcessing==false"
+      (click)="saveCustomReturnStatus()"><span>Ok</span></button>
+    <button type="button" class="btn btn-outline-primary no-clicking"
+      *ngIf="isProcessing==true"><span>Processing...</span></button>
+    <button type="button" class="btn btn-outline-primary" [ngClass]="{'no-clicking' : isProcessing}"
+      (click)="close()"><span>Cancel</span></button>
+  </div>
+</div>

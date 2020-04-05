@@ -1,0 +1,79 @@
+<style>
+    .modal-lg{width:80vw;}
+    .releaseStateDetailsWithStimatedDate table thead tr th { padding: 2px 0px;}
+    .releaseStateDetailsWithStimatedDate table tbody tr td { padding: 3px 4px; text-align: left;}  
+
+    .table-container { max-height: 500px; overflow: auto;}
+    .table-padding-right { padding-right: 15px; background: #eaeaea;}    
+
+    @media(max-width:1150px)
+    {
+        .modal-body .row_height_30 { overflow: auto; }
+        .table-container, .table-padding-right { width: 1105px !important; }
+        .modal-lg{width:95vw;}
+    }
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span class="text-left">Forms Approval / Paper Filing</span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="row_height_30 clearfix">
+            <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 row">
+                <div class="status_icon_wrap">
+                    <div class="col-lg-6 col-sm-2 col-md-3 col-xs-0"><span ><span class="font_bold">Release Date </span> : Released</span></div>
+                    <div class="status_name col-lg-6 col-sm-7 col-xs-8 text-center"><i style="color:graytext;" class="fa fa-print padding_right_5"></i>Forms Approved </div>
+                    <div class="status_name col-lg-6 col-sm-7 col-xs-8 text-center"><i style="color:graytext;" class="fa fa-exclamation-triangle padding_right_5"></i>In Testing </div>
+                    <div class="status_name col-lg-6 col-sm-7 col-xs-8 text-center"><img data-ng-src="taxAppJs/return/workspace/images/notapplicable.png" class="margin_right_5">Not Available For PaperFiling</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row_height_30 preferences-header clearfix releaseStateDetailsWithStimatedDate">
+            <div class="table-padding-right">
+              <table style="width: 100%" class="table-fixed">
+                <thead>
+                    <tr class="table-header-custom">
+                        <th style="width: 100px">&nbsp;</th>
+                        <th ng-repeat="packageName in packageNameList">
+                            <table style="width: 100%">
+                                <tr>
+                                    <th class="font_bold" style="width: 50px">{{packageName.packageName}}</th>
+                                    <th class="font_bold" style="width: 100px">{{packageName.dateDisplayText}}</th>            
+                                </tr>
+                            </table>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            </div>
+            <div class="table-container">
+                <table style="width: 100%" class="table-fixed">
+                    <tbody>
+                        <tr ng-repeat="state in stateWisePackageList" class="table-body-row-custom">
+                            <td style="width: 100px">{{state.stateName}}</td>
+                            <td ng-repeat="package in state.packageList">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td style="width: 50px">
+                                            <i ng-if="package.isState==true && package.printingStatus == 'Approved'" style="color:graytext;" class="fa" ng-class="{'fa-print':package.printingStatus=='Approved'}"></i>
+                                            <i ng-if="package.isState==true && package.printingStatus =='In Testing'" style="color:graytext;" class="fa" ng-class="{'fa-exclamation-triangle':package.printingStatus=='In Testing'}"></i>
+                                            <img ng-if="package.isState==true && package.printingStatus =='NAPaperFiling'" data-ng-src="taxAppJs/return/workspace/images/notapplicable.png">
+                                            <img ng-if="package.isState==false" data-ng-src="taxAppJs/return/workspace/images/closeicon.png">
+                                        </td>
+                                        <td ng-if="package.isState == true" style="width: 100px">{{package.printingReleaseDate}}</td>            
+                                        <td ng-if="package.isState==false" style="width: 100px">Not Supported</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary margin_top_10" data-ng-click="close()">Close</button>
+    </div>
+</div>

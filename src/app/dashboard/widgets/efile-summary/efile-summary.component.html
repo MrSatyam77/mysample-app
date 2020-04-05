@@ -1,0 +1,22 @@
+<div class="dashboard-content">
+  <perfect-scrollbar>
+    <div class="dashboard-data-wrap scroll-y">
+      <div class="list-ui-with-round-count row">
+        <ng-container *ngFor="let columns of eFileSummaryDisplayData">
+          <div
+            [ngClass]="{'col-md-24':columnConfig.columnNumber == 'one','col-md-8':columnConfig.columnNumber == 'two'}">
+            <div class="list-ui-raw-with-round" *ngFor="let item of columns" (click)="gotoList(item.filter, item.link)">
+              <div class="raw-with-round-lbl">{{item.displayText}}</div>
+              <div class="round-count-ui">
+                {{item.value}}
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-md-24 mt-4" [hidden]="columnConfig.columnNumber !== 'two'">
+        <bar-chart #eFileSummaryChart [options]="chartOptions"></bar-chart>
+      </div>
+    </div>
+  </perfect-scrollbar>
+</div>

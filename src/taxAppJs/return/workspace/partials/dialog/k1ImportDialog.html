@@ -1,0 +1,34 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span translate="CUSTOMRETURNSTATUS_DLG_TEXT0" translate-default="Multiple K-1 data exists, please select from below which you want to import?"></span>
+        </h4>
+    </div>
+
+    <div class="modal-body clearfix">
+        <ng-form name="autoAddStateReturn" role="form">
+            <div class="input-group-lg row_height_30">
+                <div class="height_20">
+                    <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                        <div class="clearfix">
+                            <div class="float-left margin_bottom_5 width_full" data-ng-repeat="obj in k1List">
+                                <div class="float-left">
+                                    <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active': obj.isSelected == true}"
+                                        data-ng-click="obj.isSelected = !obj.isSelected"></button>
+                                </div>
+                                <div class="float-left width_full_100" translate="AUTOADDSTATE_DIALOG_MSG_LBL_1" translate-default="SSN: {{obj.ssn}},  Return Type: {{obj.packageName}}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="importK1Data()"><span translate="RENEWALNOTIFICATION_DLG_BTN_OK"
+                translate-default="Import"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="RENEWALNOTIFICATION_DLG_BTN_CANCEL"
+                translate-default="Cancel"></span></button>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		Unlock Return
+	</h4>
+</div>
+<div class="modal-body clearfix">
+	<ng-form name="nameDialog" role="form">
+	<div class="form-group input-group-lg row_height_30">
+		<div data-ng-bind-html="unlock.message.defaultText"></div>		
+	</div>
+	</ng-form>
+</div>
+<div class="modal-footer">
+	<div data-ng-if="betaOnly() == true">
+			<button type="button" class="btn btn-outline-primary" data-ng-click="unlockReturn()" data-ng-if="unlock.canUnlock"><span translate="UNLOCKMESSAGES_UNLOCK_BUTTON" translate-default="Unlock"></span></button>	
+			<button type="button" class="btn btn-outline-primary" data-ng-click="copyReturn()"><span translate="UNLOCKMESSAGES_COPYRETURN_BUTTON" translate-default="Create Copy"></span></button>
+			<button type="button" data-ng-if="unlock.showCopyAmendedOption == true" class="btn btn-outline-primary" data-ng-click="amendedReturn()"><span translate="UNLOCKMESSAGES_COPYRETURN_BUTTON" translate-default="Create Amended"></span></button>
+			<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="UNLOCKMESSAGES_CANCEL_BUTTON" translate-default="Cancel"></span></button>
+	</div>
+	<div data-ng-if="betaOnly() == false">
+			<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="UNLOCKMESSAGES_CANCEL_BUTTON" translate-default="Cancel"></span></button>
+			<button type="button" class="btn btn-outline-primary" data-ng-click="unlockReturn()" data-ng-if="unlock.canUnlock"><span translate="UNLOCKMESSAGES_UNLOCK_BUTTON" translate-default="Unlock"></span></button>	
+	</div>
+</div>

@@ -1,0 +1,448 @@
+<div class="p-sm-0 clr-body">
+
+  <div class="clearfix margin_bottom_10 col">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding title_height_40">
+        <span class="page_title_lg ng-binding ng-scope">Firm Setup</span>
+        <div class="row float-right mt-2">
+          <button class="btn btn-outline-primary pl-2 mr-3" (click)="backToHomeScreen()">Back To Dashboard</button>
+        </div>
+      </span>
+    </section>
+  </div>
+  <div class="col">
+    <!-- Service beureau section start -->
+    <div class="row" *ngIf="officeOverviewDetails.associatedWithServiceBureau === true">
+      <div class="col col-lg-8">
+        <!-- service bureau detail start -->
+        <div class="card  ease-in-out">
+          <div class="card-title p-3 m-0">
+            <div class="d-flex">
+              <h5 class="c-title flex-grow-1">
+                <i class="fa fa-city text-primary"></i> Service Bureau</h5>
+              <span class="align-self-center mtpo-action" *ngIf="!inlineEditing.serviceBureau">
+                <button (click)="inlineEditing.serviceBureau = true" class="btn btn-sm btn-clean">
+                  <i class="fa fa-pencil-alt"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="card-body">
+            <app-service-beureau-detail *ngIf="!inlineEditing.serviceBureau" [serviceBeureauDetail]="officeOverviewDetails.serviceBureau"></app-service-beureau-detail>
+            <app-service-beureau-editing *ngIf="inlineEditing.serviceBureau === true" [serviceBeureauDetail]="officeOverviewDetails.serviceBureau"
+              (close)="onServiceBeureauClose($event)">
+            </app-service-beureau-editing>
+          </div>
+        </div>
+        <!-- service bureau detail end -->
+      </div>
+    </div>
+    <!-- Service beureau section ends -->
+
+    <div class="row address_wrap custom_h">
+      <!-- License section start -->
+      <div class="col-lg-8">
+        <div class="card  ease-in-out address-min-h">
+          <div class="card-title p-3 m-0">
+            <div class="d-flex">
+              <h5 class="c-title flex-grow-1">
+                <i class="fa fa-city text-primary"></i>Firm & License</h5>
+              <span class="align-self-center mtpo-action" *ngIf="!inlineEditing.licenseOwner">
+                <button (click)="inlineEditing.licenseOwner = true" class="btn btn-sm btn-clean">
+                  <i class="fa fa-pencil-alt"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <app-license-owner-detail *ngIf="!inlineEditing.licenseOwner" [ownerDetail]="officeOverviewDetails.licenseOwner" [licenseDetail]="officeOverviewDetails.licenseDetail">
+            </app-license-owner-detail>
+            <app-license-owner-editing *ngIf="inlineEditing.licenseOwner === true" [licenseOwnerDetail]="officeOverviewDetails.licenseOwner"
+              (close)="onLicenseOwnerClose($event)">
+            </app-license-owner-editing>
+          </div>
+        </div>
+      </div>
+      <!-- License section ends -->
+
+      <!-- Contract contact section start -->
+      <div class="col-sm-12 col-lg-8">
+        <div class="card  ease-in-out address-min-h">
+          <div class="card-title p-3 m-0">
+            <div class="d-flex">
+              <h5 class="c-title flex-grow-1">
+                <i class="fas fa-address-card text-primary"></i>License Contact<span *ngIf="officeOverviewDetails.contractContacts.length > 1">s</span>
+              </h5>
+              <!-- <span class="align-self-center mtpo-action" *ngIf="!inlineEditing.contractContact">
+                  <button (click)="inlineEditing.contractContact = true" class="btn btn-sm btn-clean">
+                    <i class="fa fa-pencil-alt"></i>
+                  </button>
+                </span> -->
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <app-contract-contact-detail [contractContacts]="officeOverviewDetails.contractContacts">
+            </app-contract-contact-detail>
+            <!-- <app-contract-contact-editing *ngIf="inlineEditing.contractContact === true" [contractContactDetail]="officeOverviewDetails.contractContact"
+                (close)="onContractClose($event)">
+              </app-contract-contact-editing> -->
+          </div>
+        </div>
+      </div>
+      <!-- Contract contact section end -->
+
+      <!-- Adminstrator section start -->
+      <div class="col-sm-12 col-lg-8">
+        <div class="card  ease-in-out address-min-h">
+          <div class="card-title p-3 m-0">
+            <div class="d-flex">
+              <h5 class="c-title flex-grow-1">
+                <i class="fa fa-user-shield text-primary"></i> Administrator<span *ngIf="officeOverviewDetails.adminUserList.length > 1">s</span>
+              </h5>
+              <!-- <span class="align-self-center  mtpo-action" *ngIf="!inlineEditing.administrator"><button (click)="inlineEditing.administrator = true"
+                      class="btn btn-sm btn-clean"><i class="fa fa-pencil-alt"></i></button></span> -->
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <app-office-administrator-detail [adminUsers]="officeOverviewDetails.adminUserList">
+            </app-office-administrator-detail>
+            <!-- <app-office-administrator-editing *ngIf="inlineEditing.administrator === true" [adminDetail]="officeOverviewDetails.administartor"
+                  (close)="onAdministratorClose($event)"></app-office-administrator-editing> -->
+          </div>
+        </div>
+      </div>
+      <!-- Administrator section ends -->
+    </div>
+
+    <!-- EFIN section start -->
+    <div class="row" *ngIf="loggedInUserDetail.isAdministrator === true || loggedInUserDetail.isERO === true || loggedInUserDetail.isContractContact === true">
+      <div class="col-24">
+        <div class="row">
+          <div class="col-8">
+            <h3 class="main-title float-left">EFIN<span *ngIf="officeOverviewDetails.efinList.length > 1">s</span>
+            </h3>
+          </div>
+          <div class="col-16" *ngIf="officeOverviewDetails.efinList.length > 0">
+            <div class="float-right">
+              <button class="btn btn-primary" (click)="addEFIN()">
+                Add EFIN
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="col-24" *ngIf="!officeOverviewDetails.efinList || officeOverviewDetails.efinList.length <= 0">
+        <div class="row">
+          <div class="col">
+            <div class="card  ease-in-out">
+              <div class="card-body pt-2 pb-1">
+                <div class="form-group row">
+                  <div class="col-24">
+                    <span class="font-weight-bold">If you are planning to e-file this season and have your EFIN, please enter
+                      your EFIN information
+                      <a class="text-primary" style="text-decoration: underline" (click)="addEFIN()">here</a>.</span>
+                  </div>
+                  <div class="col-24">
+                    <div class="mtpo-custom-checkbox col">
+                      <button class="mtpo-checkbox" id="Waiting_EFIN" (click)="officeOverviewDetails.efinEfilingStatus = 1;updateCustomerDetail('efinEfilingStatus')"
+                        [disabled]="officeOverviewDetails.efinEfilingStatus === 1" [ngClass]="{'active': officeOverviewDetails.efinEfilingStatus === 1}"></button>
+                      <label class="d-inline" for="Waiting_EFIN">I am planning to e-file this season, but I am waiting for
+                        my EFIN.
+                      </label>
+                      <label class="d-inline text-primary font-weight-bold" style="cursor: pointer; text-decoration: underline" *ngIf="officeOverviewDetails.efinEfilingStatus === 1"
+                        (click)="addEFIN()">Enter EFIN data
+                      </label>
+                    </div>
+                    <div class="mtpo-custom-checkbox col mt-3">
+                      <button class="mtpo-checkbox" id="notPlanning" (click)="officeOverviewDetails.efinEfilingStatus = 2;updateCustomerDetail('efinEfilingStatus')"
+                        [disabled]="officeOverviewDetails.efinEfilingStatus === 2" [ngClass]="{'active': officeOverviewDetails.efinEfilingStatus === 2}"></button>
+                      <label class="d-inline" for="notPlanning">I am not planning to e-file this season.</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-24" *ngIf="officeOverviewDetails.efinList.length > 0">
+        <div class="row mb-4 address_wrap">
+          <div class="col-24" *ngFor="let efin of officeOverviewDetails.efinList" [ngClass]="{'col-16': efin.id === inlineEditing.efin, 'col-24': efin.id !== inlineEditing.efin}">
+            <div class="card ease-in-out" [id]="efin.id">
+              <div class="card-title pl-3 pt-3 m-0">
+                <div class="d-flex">
+                  <h5 class="c-title flex-grow-1">
+                    <div class="row">
+                      <div class="col-24" *ngIf="efin.efinStatus === 2">
+                        <div class="row">
+                          <div class="col-auto pr-0">
+                            <i class="fa fa-check-circle text-success mr-2"></i>
+                          </div>
+                          <div class="col pl-0">
+                            Ready for E-Filing
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-24" *ngIf="!efin.efinStatus || efin.efinStatus !== 2">
+                        <div class="row">
+                          <div class="col-auto pr-0">
+                            <i class="fa fa-exclamation-circle text-danger mr-2" placement="right" ngbTooltip="This EFIN cannot be used for E-Filing as it is not verified yet. Click on the Pencil icon to complete verification."
+                              container="body" tooltipClass="error" style="font-size:inherit;"></i>
+                          </div>
+                          <div class="col pl-0">
+                            <div class="row">
+                              <div class="col-24">
+                                Not Ready for E-Filing!
+                              </div>
+                              <div class="col-24 mt-1" *ngIf="efin.efinStatus === 1" style="font-size: 15px;">
+                                Your EFIN letter is under review
+                              </div>
+                              <div class="col-24 mt-1" *ngIf="efin.efinStatus === 4" style="font-size: 15px;">
+                                We could not verify your identity. We will get back to you as soon as possible for further assistance.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </h5>
+                </div>
+              </div>
+              <div class="card-body pt-0 pb-0">
+                <app-efin-detail [efinDetail]="efin" [locationLookupData]="lookupData.locations" [userList]="officeOverviewDetails.userList"
+                  [loggedInUserDetail]="loggedInUserDetail" *ngIf="inlineEditing.efin !== efin.id" (edit)="inlineEditing.efin = $event"
+                  (close)="onEFINClose($event)"></app-efin-detail>
+                <app-efin-editing [efinDetail]="efin" [locationLookupData]="lookupData.locations" [licenseOwnerDetail]="officeOverviewDetails.licenseOwner"
+                  [userList]="officeOverviewDetails.userList" [loggedInUserDetail]="loggedInUserDetail" *ngIf="inlineEditing.efin === efin.id"
+                  (close)="onEFINClose($event)" (goToUser)="goToUser($event)">
+                </app-efin-editing>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- EFIN section ends -->
+
+    <!-- office section start -->
+    <div class="row">
+      <div class="col-24">
+        <div class="row">
+          <div class="col-8">
+            <h3 class="main-title float-left">Location<span *ngIf="officeOverviewDetails.officeList.length > 1">s</span></h3>
+            <div class="float-lg-right float-md-left" *ngIf="officeOverviewDetails.officeList.length > 6">
+              <input type="text" class="form-control" id="officeSerach" placeholder="Search Location" [(ngModel)]="filterCriteria.officeSearch"
+                (ngModelChange)="filterOffice()">
+            </div>
+          </div>
+          <div class="col-16">
+            <div class="float-right">
+              <span class="text-primary mr-3" *ngIf="!officeOverviewDetails.licenseDetail.noOfOffices">{{officeOverviewDetails.officeList.length}}
+                of {{officeOverviewDetails.officeList.length}} Location License<span *ngIf="officeOverviewDetails.officeList.length > 1">s</span>
+                Used
+              </span>
+
+              <span class="text-primary mr-3" *ngIf="officeOverviewDetails.licenseDetail.noOfOffices">{{officeOverviewDetails.officeList.length}}
+                of {{officeOverviewDetails.licenseDetail.noOfOffices}} Location License<span *ngIf="officeOverviewDetails.officeList.length > 1">s</span>
+                Used
+              </span>
+
+              <button class="btn btn-primary" *ngIf="officeOverviewDetails.licenseDetail.noOfOffices && officeOverviewDetails.officeList.length < officeOverviewDetails.licenseDetail.noOfOffices && userCan.saveOffice === true"
+                (click)="addOffice()">
+                Add Location
+              </button>
+
+              <button class="btn btn-primary" (click)="showBuyOfficeDialog()" *ngIf="!officeOverviewDetails.licenseDetail.noOfOffices || officeOverviewDetails.officeList.length >= officeOverviewDetails.licenseDetail.noOfOffices">
+                Buy Additional Location
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-24">
+        <div class="row mb-4 address_wrap">
+          <div class="col-sm-12 col-lg-8 ease-in-out" *ngFor="let office of filteredData.officeList">
+            <!-- office details starts -->
+            <div class="card ease-in-out" [id]="office.key">
+              <div class="card-title pl-3 pt-3 m-0">
+                <div class="d-flex">
+                  <h5 class="c-title flex-grow-1">
+                    <i class="fa fa-building text-primary"></i>
+                    <span *ngIf="office.key !== 'newOffice'">{{office.name}}</span>
+                    <span *ngIf="office.key === 'newOffice'">New Location</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="clearfix">
+                <div class="col-24 pl-3" *ngIf="!office.efinStatus || office.efinStatus !== 2">
+                  <div class="row">
+                    <div class="col-2 text-center">
+                      <i class="fa fa-exclamation-circle text-danger" placement="right" ngbTooltip="This EFIN cannot be used for E-Filing as it is not verified yet. Click on the Pencil icon of EFIN section to complete verification."
+                        container="body" tooltipClass="error"></i>
+                    </div>
+                    <div class="col-auto">
+                      <span class="text-sm"> Not Ready for E-Filing!</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-24 pl-3" *ngIf="office.efinStatus === 2">
+                  <div class="row">
+                    <div class="col-2 text-center">
+                      <i class="fa fa-check-circle text-success"></i>
+                    </div>
+                    <div class="col-auto">
+                      <span class="text-sm"> Ready for E-Filing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="ease-in-out" *ngIf="inlineEditing.office !== office.key">
+                  <app-office-detail [officeDetail]="office" (edit)="inlineEditing.office = $event" (refreshOfficeList)="onOfficeClose(true)"></app-office-detail>
+                </div>
+                <div class="ease-in-out" *ngIf="inlineEditing.office === office.key">
+                  <app-office-editing [officeDetail]="office" (close)="onOfficeClose($event)"></app-office-editing>
+                </div>
+              </div>
+            </div>
+            <!-- office details ends -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- office section ends -->
+
+    <!-- people section start -->
+    <div class="row">
+      <div class="col-24">
+        <div class="row">
+          <div class="col-8">
+            <h3 class="main-title float-left">User<span *ngIf="officeOverviewDetails.userList.length > 1">s</span></h3>
+            <div class="float-lg-right float-md-left">
+              <input type="text" class="form-control" id="userSearch" placeholder="Search User" [(ngModel)]="filterCriteria.userSearch"
+                (ngModelChange)="filterUser()">
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="float-left mr-5">
+              <div class="float-left mtpo-custom-checkbox d-inline mr-3">
+                <button class="mtpo-checkbox" id="filterActiveUser" (click)="filterCriteria.activeUser = !filterCriteria.activeUser;filterUser()"
+                  [ngClass]="{'active': filterCriteria.activeUser === true}"></button>
+                <label class="d-inline" for="filterActiveUser">Login Activated</label>
+              </div>
+              <div class="mtpo-custom-checkbox d-inline">
+                <button class="mtpo-checkbox" id="filterInactiveUser" (click)="filterCriteria.inActiveUser = !filterCriteria.inActiveUser;filterUser()"
+                  [ngClass]="{'active': filterCriteria.inActiveUser === true}"></button>
+                <label class="d-inline" for="filterInactiveUser">Login Deactivated</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="float-right">
+              <span class="text-primary mr-3">{{activeUserCount}}
+                <span *ngIf="officeOverviewDetails.licenseDetail && officeOverviewDetails.licenseDetail.latestLicenseDetail && officeOverviewDetails.licenseDetail.latestLicenseDetail.licenseName.toLowerCase() !== 'unlimited'">
+                  of {{officeOverviewDetails.licenseDetail.noOfUsers}} User License<span *ngIf="activeUserCount > 1">s</span>
+                  Used
+                </span>
+                <span *ngIf="!officeOverviewDetails.licenseDetail || !officeOverviewDetails.licenseDetail.latestLicenseDetail || officeOverviewDetails.licenseDetail.latestLicenseDetail.licenseName.toLowerCase() === 'unlimited'">
+                  User<span *ngIf="activeUserCount > 1">s</span> created
+                </span>
+              </span>
+              <button class="btn btn-primary" (click)="addUser()" *ngIf="activeUserCount < officeOverviewDetails.licenseDetail.noOfUsers && userCan.saveUser === true">
+                Add User</button>
+              <button class="btn btn-primary" *ngIf="activeUserCount >= officeOverviewDetails.licenseDetail.noOfUsers" (click)="redirectToSubscription()">
+                Buy Additional User</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New setup screen info -->
+      <div class="col-24" *ngIf="migrationMessages && migrationMessages.length > 0">
+        <div class="alert alert-light alert-dismissible fade show clearfix address w-100 pb-0 col-white position-relative" role="alert">
+          <p class="d-block"><span class="text-danger font-weight-bold">Important Information: </span>Since we are dedicated
+            to complete and up-to-date IRS compliance and fraud prevention measures, we have changed the Firm Setup so that
+            user accounts are now connected with preparer and ERO records. To finalize the connection, please press the <span
+              class="font-weight-bold">OK</span> button in the yellow box(es) below. If you do not approve of the connection,
+            you can make changes by finding the user account under the <span class="font-weight-bold">Users</span>
+            section below and pressing the <span class="font-weight-bold">Pencil</span> icon.
+          </p>
+        </div>
+      </div>
+      <!-- New setup screen info ends -->
+
+      <div class="col-24" *ngIf="migrationMessages && migrationMessages.length > 0">
+        <div class="w-100 float-left" *ngFor="let message of migrationMessages">
+          <div class="alert alert-warning alert-dismissible fade show clearfix col-black address position-relative" role="alert">
+            <div class="row">
+              <div class="col-22">
+                <div class="info" [innerHTML]="message.html"></div>
+              </div>
+              <div class="info-ok">
+                <button class="float-right btn btn-outline-primary" type="button" (click)="markAsReadMessage(message.id)">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-24">
+        <div class="row">
+          <div class="col col-sm-12 col-lg-8 ease-in-out " *ngFor="let user of officeOverviewDetails.userList" [ngClass]="{'col-sm-12 col-lg-8': inlineEditing.user !== user.key, 'col-sm-24 col-lg-16': inlineEditing.user === user.key}">
+            <!-- User detail section start -->
+            <div class="card  ease-in-out" [id]="user.key">
+              <div class="card-title p-3 m-0 pb-0">
+                <div class="d-flex justify-content-end">
+                  <h5 class="c-title flex-grow-1">
+                    <i class="fa fa-user text-primary"></i>
+                    <span *ngIf="user.key !== 'newUser'">{{user.firstName}} {{user.lastName}}</span>
+                    <span *ngIf="user.key === 'newUser'">New User</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="card-body ease-in-out pt-0">
+                <div class="" *ngIf="inlineEditing.user !== user.key">
+                  <app-user-detail [userDetail]="user" (edit)="inlineEditing.user = $event" (refreshUserList)="getUserList()"></app-user-detail>
+                </div>
+                <div *ngIf="inlineEditing.user === user.key">
+                  <app-user-editing [userDetail]="user" [lookupData]="lookupData" [efinEfilingStatus]="officeOverviewDetails.efinEfilingStatus"
+                    [loggedInUserDetail]="loggedInUserDetail" (close)="onUserClose($event)"></app-user-editing>
+                </div>
+              </div>
+            </div>
+            <!-- User detail section end -->
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!officeOverviewDetails.userList ||  officeOverviewDetails.userList.length <= 0">
+          <div class="col">
+            <div class="card d-table w-100">
+              <div class="d-table-cell text-center align-middle no-data">
+                <i class="mtpo mtpo-user_research d-block"></i>
+                <p><span class="font-weight-bold">There are no Inactive Users.</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- people section ends -->
+  </div>
+
+
+  <!-- Loading bar section start-->
+  <div *ngIf="enableLoading === true">
+    <div class="loading_background"></div>
+    <div class="preloader">
+      <div class="preloader-container">
+        <span class="animated-preloader"></span>
+      </div>
+    </div>
+  </div>
+  <!-- Loading bar section ends -->

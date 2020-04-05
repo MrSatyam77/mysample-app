@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">	
+    <link href="taxAppJs/common/css/Styles.css" rel="stylesheet" />
+    <style>
+        .newusertextbox {
+    max-width: 170px;
+    padding: 6px 12px;
+    width: 100%;
+}
+        @media (min-width:300px) and (max-width:767px)
+        {
+    .newusertextbox {
+    max-width: 100% !important;
+    padding: 6px 12px;
+    width: 100%;
+}
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+     
+   <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="MANAGEEINEDIT_ADD_HEADER" translate-default="Add EIN" ng-show="mode=='create'"></span>
+            <span class="page_title_lg ng-binding" translate="MANAGEEINEDIT_EDIT_HEADER" translate-default="Edit EIN" ng-show="mode=='update'"></span>
+
+        </section>
+       <div class="inner_padding_15 static_form_wrap clearfix allowScrollSync"    ng-style="{height:headerNav.screenHeight-106}"  style="overflow-y:auto;" >
+           <form name="EINform">
+               <div ng-cloak>
+                   <div class="row" style="position:relative">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGEEINEDIT_EINNUMBER_LBL" translate-default="EIN Number"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18">
+                           <input type="text" class="newusertextbox form-control" data-ng-model="EIN.ein" data-ng-required="!EIN.ein" tax-mask="99-9999999" tax-mask-placeholder-on-focus="true" tax-mask-use-view-value="true" ng-disabled="mode=='update'" value="{{EIN.ein}}" />
+                           <!--popover start-->
+                           <div name="formPopover" ng-show="isEINExistErr">
+                               <div class="popover right" style="display:block !important;position:absolute;left:180px;top:-10px;">
+                                   <div class="arrow"></div>
+                                   <div class="popover-inner">
+                                       <div class="popover-content text-danger">
+                                           <label translate="MANAGEEINEDIT_EINALREADYEXIST_LBL" translate-default="The EIN already exists"></label>
+                                           <span class="float-right margin_left_5"><a ng-click="isEINExistErr=false"><i class="fas fa-times text-danger cursor_pointer"></i></a></span>
+                                       </div>
+
+                                   </div>
+                               </div>
+                           </div>
+                           <!--popover end-->
+                       </div>
+                   
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_EMPNAME_LBL" translate-default="Name"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" name="EIN_name" class="newusertextbox form-control float-left" data-ng-model="EIN.employersName" data-ng-required="!EIN.employersName" ng-pattern="/^([A-Za-z0-9\-] ?)*[A-Za-z0-9\-]$/" value="{{EIN.employersName}}" /> <span ng-show="EINform.EIN_name.$error.pattern" class="color_red float-left  margin_left_5 margin_top_5" translate="MANAGEEINEDIT_EINNAME_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z , 0-9, hyphen, single space"></span></div>
+                       
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_USADD_LBL" translate-default="US Address" class="font_bold"></label></div>
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_STREET_LBL" translate-default="Street"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" name="EIN_UsStreet" class="newusertextbox form-control float-left" data-ng-model="EIN.usAddress.street" ng-pattern="/^[A-Za-z0-9]( ?[A-Za-z0-9\-/])*$/" value="{{EIN.usAddress.street}}" ng-required="EINform.EIN_UsStreet.$error.pattern" /><span ng-show="EINform.EIN_UsStreet.$error.pattern" class="color_red float-left margin_left_5 margin_top_5" translate="MANAGEEINEDIT_EINUSSTREET_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space"></span></div>
+                      
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_ZIPCODE_LBL" translate-default="Zip-Code"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" class="newusertextbox form-control" data-ng-model="EIN.usAddress.zipCode" tax-mask="99999" cmn-zip-lookup cmn-zip-lookup-city="'EIN.usAddress.city'" cmn-zip-lookup-state="'EIN.usAddress.state'" value="{{EIN.usAddress.zipCode}}" /></div>
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_CITY_LBL" translate-default="City"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" name="EIN_UsCity" class="newusertextbox form-control float-left" data-ng-model="EIN.usAddress.city" ng-pattern="/^([A-Za-z] ?)*[A-Za-z]$/" value="{{EIN.usAddress.city}}" ng-required="EINform.EIN_UsCity.$error.pattern" /><span ng-show="EINform.EIN_UsCity.$error.pattern" class="color_red float-left  margin_left_5 margin_top_5" translate="MANAGEEINEDIT_EINUSCITY_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, single space"></span></div>
+                       
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_STATE_LBL" translate-default="State"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" class="newusertextbox form-control" tax-mask="AA" data-ng-model="EIN.usAddress.state" value="{{EIN.usAddress.state}}" /></div>
+                   </div>
+                   <!--foreign address bolck start-->
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_FRADD_LBL" translate-default="Foreign Address" class="font_bold"></label></div>
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_STREET_LBL" translate-default="Street"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" name="EIN_ForStreet" class="newusertextbox form-control float-left" data-ng-model="EIN.foreignAddress.street" ng-pattern="/^[A-Za-z0-9]( ?[A-Za-z0-9\-/])*$/" value="{{EIN.foreignAddress.street}}" ng-required="EINform.EIN_ForStreet.$error.pattern" /><span ng-show="EINform.EIN_ForStreet.$error.pattern" class="color_red float-left  margin_left_5 margin_top_5" translate="MANAGEEINEDIT_EINFOREIGNSTREET_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space"></span></div>
+                       
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_COUNTRY_LBL" translate-default="Country"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" class="newusertextbox form-control" data-ng-model="EIN.foreignAddress.country" value="{{EIN.foreignAddress.country}}" /></div>
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_POSTALCODE_LBL" translate-default="Postal-Code"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" class="newusertextbox form-control" data-ng-model="EIN.foreignAddress.postalCode" value="{{EIN.foreignAddress.postalCode}}" /></div>
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_CITY_LBL" translate-default="City"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" class="newusertextbox form-control" data-ng-model="EIN.foreignAddress.city" value="{{EIN.foreignAddress.city}}" /></div>
+                   </div>
+                   <div class="row">
+                       <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGE_PROVINCE_LBL" translate-default="Province/State"></label></div>
+                       <div class="col-lg-20 col-md-18 col-sm-18"><input type="text" class="newusertextbox form-control" data-ng-model="EIN.foreignAddress.state" value="{{EIN.foreignAddress.state}}" /></div>
+                   </div>
+           </form>
+           <!---foreign address block end-->
+           <div class="row col-lg-8 col-md-13 col-sm-17">
+               <hr class="light_line">
+               <div class="float-right ml-auto">
+                   <button class="btn btn-outline-primary" translate="MANAGE_SAVE_BTN" translate-default="Save" data-ng-click="saveEIN()" data-ng-disabled="EINform.$invalid || !userCan('CAN_SAVE_EIN')"></button>
+                   <button class="btn btn-outline-primary" translate="MANAGE_CANCEL_BTN" translate-default="Cancel" data-ng-click="cancel()"></button>
+                   <button class="btn btn-outline-primary" translate="MANAGE_DELETE_BTN" translate-default="Delete" data-ng-click="removeEIN()" data-ng-disabled="mode=='create' || !userCan('CAN_REMOVE_EIN')"></button>
+               </div>
+           </div>
+       </div>
+
+    </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+</html>

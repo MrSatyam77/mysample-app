@@ -1,0 +1,367 @@
+/*demo css start*/
+#tax_estimator_tabnew { margin-bottom:20px; margin-top:5px;}
+#tax_estimator_tabnew ul{min-height:30px;}
+#tax_estimator_tabnew .nav-tabs{border-bottom:0px;}
+#tax_estimator_tabnew ul.nav.nav-tabs > li {padding:0px 0px;float:left;display:block;margin-right:5px;width:auto;}
+
+/*#tax_estimator_tab .nav.nav-tabs li.active:before {background:#F0514A; border-radius:0px; content: ""; height: 8px;  margin-top: -2px; position: absolute; bottom:-20px; width:100%; z-index: -1; }*/
+#tax_estimator_tabnew .nav.nav-tabs li div a{border-radius:0%; background:#f5f5f5; font-size:14px; margin:0 auto; border:none; color:#666;display:block;float:left; padding: 10px 15px;}    
+#tax_estimator_tabnew .dropdown-tab li ul{top:40px;}
+#tax_estimator_tabnew .dropdown-tab li ul li a{background:transparent !important;width:100%;margin:5px auto !important;}
+#tax_estimator_tabnew .dropdown-tab li ul li a:hover{background:#f5f5f5 !important }
+#tax_estimator_tabnew .nav.nav-tabs li {margin: 5px 5px 0px 0px;}
+#tax_estimator_tabnew .nav.nav-tabs li a {border-radius:0%; background:#f5f5f5; font-size:14px; margin:0 auto; border:none; color:#666; display:block; float:left; padding: 10px 15px; }    
+#tax_estimator_tabnew .nav.nav-tabs li.active a {background:#ddd; color:#444; border:none;font-weight: bolder;}
+#tax_estimator_tabnew .tab-content {border-top:5px solid #ddd; margin-top:0px; padding-top:8px;}
+#tax_estimator_tabnew .nav.nav-tabs li .alert{padding:0px!important;margin-bottom:0px !important;border-radius:0px !important;}
+
+#tax_estimator_tabnew .nav.nav-tabs .alert.alert-danger a{
+  background-color: #f2dede !important;
+  border-color: #ebccd1 !important;
+  color: #a94442 !important;
+  border-radius:0px !important;
+  
+}
+#tax_estimator_tabnew .nav.nav-tabs .alert.alert-success a{
+  background-color: #dff0d8 !important;
+  border-color: #d6e9c6 !important;
+  color: #3c763d !important;
+  border-radius:0px !important;
+  
+}
+
+#tax_estimator_tabnew .nav.nav-tabs .highlight.alert.alert-danger a{
+  background-color: #e0bfbf !important;
+  border-color: #ebccd1 !important;
+  color: #a94442 !important;
+  border-radius:0px !important;
+  font-weight:bold;
+}
+#tax_estimator_tabnew .nav.nav-tabs .highlight.alert.alert-success a{
+  background-color: #bedeb1 !important;
+  border-color: #d6e9c6 !important;
+  color: #3c763d !important;
+  border-radius:0px !important;
+  font-weight:bold;
+}
+
+#tax_estimator_tabnew .success {
+	border-color:#bedeb1 !important;
+}
+#tax_estimator_tabnew .danger {
+	border-color:#e0bfbf !important;
+}
+.message.alert{border-radius:0px !important;padding: 5px !important;
+  margin-bottom: 0px !important;
+  border: 1px solid transparent;
+  border:none;
+  background:none!important;
+  }
+  .alert{border-radius:0px !important;border:0px solid transparent !important;}
+  #tax_estimator_tabnew .dropdown-tab li ul li.active a{background:#ddd !important;}
+  #tax_estimator_tabnew ul.nav.nav-tabs > li div.dropdown ul li .alert.alert-success {
+  background-color: #dff0d8 !important;
+  border-color: #d6e9c6 !important;
+  color: #3c763d !important;
+  border-radius:0px !important;
+  font-weight:normal !important;
+  padding: 10px 15px !important;}	
+  #tax_estimator_tabnew ul.nav.nav-tabs > li div.dropdown ul li .alert.alert-danger {
+  background-color: #f2dede !important;
+  border-color: #ebccd1 !important;
+  color: #a94442 !important;
+  border-radius:0px !important;
+  font-weight:normal !important;
+  padding: 10px 15px !important;
+  }
+  #tax_estimator_tabnew ul.nav.nav-tabs > li div.dropdown ul li .highlight.alert.alert-danger {
+  background-color: #e0bfbf !important;
+  border-color: #ebccd1 !important;
+  color: #a94442 !important;
+  border-radius:0px !important;
+  font-weight:bold !important;
+}
+#tax_estimator_tabnew ul.nav.nav-tabs > li div.dropdown ul li  .highlight.alert.alert-success {
+  background-color: #bedeb1 !important;
+  border-color: #d6e9c6 !important;
+  color: #3c763d !important;
+  border-radius:0px !important;
+  font-weight:bold !important;
+}
+#tax_estimator_tabnew .interview_tab_main#tabHeading li {margin-top:5px;}
+  .incomeDeduction button{vertical-align:0px;}
+  .incomeDeduction tax-lineno label{margin-top:0px !important;margin-bottom:15px;}
+  .incomeDeduction label{margin-bottom:15px;}	
+  .personaltab button{vertical-align:0px;}
+  .personaltab select{vertical-align:0px !important;}
+  .w2form button{vertical-align:0px;}
+  .w2form select{vertical-align:0px !important;}
+  .w2form .line_no_w2 label{margin-top:0px !important;}
+  .padding_large_left_0{padding-left:0px !important;}
+  /*daycare tab css start*/
+  .daycaretab{clear:both}
+  .daycaretab button{vertical-align:0px;}
+  .daycaretab select{float:left;padding:4px 6px;}
+  /*.daycaretab select.custom_input_ddl[required], select.custom_input_ddl[required]{float:left;padding:4px 6px;}*/
+  /*.daycaretab select.custom_input_ddl[required]:hover, select.custom_input_ddl[required]:focus{float:left;padding:4px 6px;}*/
+  /*daycare tab css end*/
+  .form1099 label{margin-top:0px !important;}
+  .form1099 select{float:inherit !important;padding:3px 6px !important;max-width:100%;}
+  .form1099 select.custom_input_ddl[readonly]{vertical-align:0px !important;}
+  .form1099identificationlookup select{max-width:100%;}
+  .taxPayer label{margin-top:0px !important;margin-bottom:15px;}
+  /*.form1099identificationlookup input[type="text"]{max-width:158px;}*/
+  .form1099staterow{margin-left:30px;float:left}
+  /*8962 start*/
+ .interview8962 button{vertical-align:0px;}
+ .interview8962 tax-lineno label{margin-top:0px !important;}
+  /*8962 end*/
+  /*EICtaxpayer start*/
+ .EICtaxpayer button{vertical-align:0px;}
+ /*8965 start*/
+ .interview8965 select{vertical-align:0px !important;}
+ .interview8965 select:hover;.interview8965 select:focus{vertical-align:0px !important;}
+ .interview8965 tax-lineno label{margin-top:0px !important;}
+ .interview8965 button{vertical-align:0px;}
+ /*8965 end*/
+ .interview8965Wkt tax-lineno label{margin-top:0px !important;}
+ .interview8965Wkt button{vertical-align:0px;}
+  
+  .interview1095A tax-lineno label{margin-top:0px !important;}
+  .interview1095A{clear:both}
+  
+  .interview1099M tax-lineno label{margin-top:0px !important;}
+  .interview1099M button{vertical-align:0px;}
+  
+  
+  .ACA button{vertical-align:0px;}
+  @media (min-width:320px) and (max-width:1279px){
+  .padding_large_left_0{padding-left:15px !important;}
+  }
+
+  @media (min-width:1280px) and (max-width:1400px){
+ .form1099identificationlookup select{max-width:100%;}
+  .form1099identificationlookup input[type="text"]{max-width:100%;}
+  .form1099staterow{margin-left:30px;float:left}
+  }
+
+@-webkit-keyframes slidein {
+  from {
+    margin-top:100%;
+    width:100%
+  }
+  
+  to {
+   margin-rop:0%;
+   width:100%;
+ }
+}
+
+@keyframes slidein {
+  from {
+    margin-top:100%;
+    width:100%
+  }
+  
+  to {
+   margin-top:0%;
+   width:100%;
+ }
+}
+.slidenew{ -moz-animation-delay: 3s;
+  -webkit-animation-delay: 3s;
+  animation-delay: 3s;}
+.slidein {
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+  animation-name: slidein;
+  -moz-animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -moz-animation-direction: alternate;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
+  
+  
+/*demo css end*/
+
+.full_width_ddl > select{max-width:100%;}
+
+.table_max_height_140{
+	max-height:140px;
+}
+.table_max_height_full{
+	max-height:660px;
+}
+
+
+#scroll {width: 100%;  border-spacing: 0;}
+#scroll th,#scroll td,#scroll tr,#scroll thead { display: block; }
+#scroll tbody { display: block; }
+#scroll thead tr {width:100%;}
+.vertical_center_formload{position:absolute; left:0px; right:0px; top:100px; bottom:0px; margin:auto; height:29px; width:240px;}
+#scroll tr:after {content: ' '; display: block; visibility: hidden; clear: both;}
+#scroll tbody {max-height:110px; overflow-y: auto; overflow-x: auto;}
+#scroll tbody tr {border-bottom:1px solid #dddddd;    }
+#scroll tbody td{ min-height:52px; float:left; border-bottom:none !important;}
+#scroll thead th {float: left;}
+
+/*main form scrol start*/
+
+.margin_top_custom_1{
+	margin-top:-2px !important;
+}
+.display_block{display:block;}
+
+.p_header {
+  font-size: 20px;
+  background: #fbfbfb;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+  padding: 7px 0px 10px 15px;
+}
+
+#scrollPerformReview {width: 100%;  border-spacing: 0;}
+#scrollPerformReview th,#scrollPerformReview td,#scrollPerformReview tr,#scrollPerformReview thead { display: block; }
+#scrollPerformReview tbody { display: block; }
+#scrollPerformReview thead tr {width:100%;}
+.vertical_center_formload{position:absolute; left:0px; right:0px; top:100px; bottom:0px; margin:auto; height:29px; width:240px;}
+#scrollPerformReview tr:after {content: ' '; display: block; visibility: hidden; clear: both;}
+#scrollPerformReview tbody {overflow-y: auto; overflow-x: auto;}
+#scrollPerformReview tbody tr {border-bottom:1px solid #dddddd;    }
+#scrollPerformReview tbody td{ min-height:52px; float:left; border-bottom:none !important;}
+#scrollPerformReview thead th {float: left;}
+
+#errorBlock div div div a{color: #C95A58 !important;}
+#errorBlock div div div a:hover{color: #9F1D1B !important;}
+
+.loading_background{background:#fff;opacity:0.3;position:absolute;height:100%;width:100%;z-index:5}
+.loading_text{position:absolute;z-index:7;top:0;bottom:0;left:0;right:0;color:#fff;font-size:24px;height:30px;width:150px;margin:auto;font-weight:bolder;}
+#fountainTextG{
+	width:260px;
+	font-size:26px;}
+
+.fountainTextG{
+	color:#fff;
+	font-family:Arial;
+	font-size:26px;
+	text-decoration:none;
+	font-weight:normal;
+	font-style:normal;
+	float:left;
+	-moz-animation-name:bounce_fountainTextG;
+	-moz-animation-duration:1.12s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-direction:linear;
+	-moz-transform:scale(1);
+	-webkit-animation-name:bounce_fountainTextG;
+	-webkit-animation-duration:1.12s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:linear;
+	-webkit-transform:scale(1);
+	-ms-animation-name:bounce_fountainTextG;
+	-ms-animation-duration:1.12s;
+	-ms-animation-iteration-count:infinite;
+	-ms-animation-direction:linear;
+	-ms-transform:scale(1);
+	-o-animation-name:bounce_fountainTextG;
+	-o-animation-duration:1.12s;
+	-o-animation-iteration-count:infinite;
+	-o-animation-direction:linear;
+	-o-transform:scale(1);
+	animation-name:bounce_fountainTextG;
+	animation-duration:1.12s;
+	animation-iteration-count:infinite;
+	animation-direction:linear;
+	transform:scale(1);
+}
+
+.errBorder{
+	border:1px solid #C95A58 !important;
+}
+/*quick return summary panel css start*/
+.info_tile_wrap {padding:10px; margin-bottom:10px; padding-bottom:8px; border:1px solid #dfdfdf; border-bottom:3px solid #dfdfdf;margin-left:10px;}/*margin-left is for return workspace  */
+.info_tile_wrap:hover{background:#F5F5F5;}
+.info_tile_title {color:#555555; font-weight: bold; padding-bottom:7px;font-size:20px;border-bottom:1px solid #dddedf;}
+.info_tile_content{color:#666;word-wrap:break-word;}
+.quick_search{height:31px;border:1px solid #000;width:150px;padding:5px;margin-top:15px;margin-left:12px;margin-bottom:5px;font-size:14px; }
+.quick_width_full {width:100% !important;padding:5px;}
+.estimator_block{border:1px solid #dddedf;margin-bottom:20px;}
+.estimator_block h3{margin-top:0px;background:#ddd;color:#000;padding:5px;font-size:20px;}
+#tax_estimator_tab { margin-bottom:20px; margin-top:5px;}
+#tax_estimator_tab .nav.nav-tabs li {padding:0px 0px;float:left;display:block;margin-right:10px;width:auto;}
+/*#tax_estimator_tab .nav.nav-tabs li.active:before {background:#F0514A; border-radius:0px; content: ""; height: 8px;  margin-top: -2px; position: absolute; bottom:-20px; width:100%; z-index: -1; }*/
+#tax_estimator_tab .nav.nav-tabs li a {border-radius:0%; background:#f5f5f5; font-size:20px; margin:0 auto; border:none; color:#666;display:block;float:left;}    
+#tax_estimator_tab .nav.nav-tabs li.active a {background:#ddd; color:#444; border:none;}
+#tax_estimator_tab .tab-content {border-top:5px solid #ddd; margin-top:0px; margin-top:1px;}
+h3.estimater_title { width: 100%; margin-top:10px;} 
+.returnrightpanelrotateicon{margin-top: 0px !important;}
+@media (min-width:320px) and (max-width:800px) { 
+/*#tax_estimator_tab .nav.nav-tabs.nav-justified li {float:left !important; border:1px solid #1de033;}*/
+.nav-tabs.nav-justified > li,.nav-justified > li {cursor: pointer; float: left; margin-bottom:20px; bottom:-15px;}/*remove float left important for properly display in tablet */
+#tax_estimator_tab .nav.nav-tabs li a {font-size:22px;}
+#tax_estimator_tab .nav.nav-tabs li.active:before {bottom:-15px;}
+}
+/*quick return summary panel css end*/
+/*general css start*/
+.notes_area {overflow-y:auto;height:auto;padding:7px;}
+.notes_wrap { padding:10px;padding-bottom:8px; border:1px solid #dfdfdf; border-bottom:3px solid #dfdfdf;margin-top:10px;float:left;width:100%;position:relative}
+.notes_wrap_footer { padding:10px 10px 0px 10px;padding-bottom:8px; border:1px solid #dfdfdf; border-bottom:3px solid #dfdfdf;margin-top:10px;float:left;height:90px;position:relative;bottom:0;}
+.notes_wrap_footer textarea{min-height:70px;float:left;}
+.notes_wrap .note_icon_right{display:none;}
+.notes_wrap .note_icon_document_right{display:none;}
+.notes_wrap .note_icon_menu {position: absolute;right: 28px;color: #555555;width:3px;}
+.notes_wrap .note_icon_menu{display:none;} 
+.notes_wrap:hover .note_icon_menu{display:block;}
+.notes_wrap:hover .note_icon_right{display:block;}
+.notes_wrap:hover .note_icon_document_right{display:block;}
+.notes_wrap:hover{background:#F5F5F5;}
+.notes_body{overflow-y:auto;height:auto; }
+.note_icon_right{position:relative;right:-6px;float:right;cursor:pointer;color:#666;display:none;top:-1px !important;}
+.note_icon_document_right{position:absolute !important;right:7px !important;float:right;cursor:pointer;color:#666;display:none;top:12px !important;}
+.document_user_name{width:55%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.notes_title {color:#555555; font-weight: bold;width:160px;word-wrap:break-word;float:left; /*padding:2px 10px;*/}
+.notes_date{color:#444;font-size:12px;float:right;padding-top:2px;margin-right:5px;}
+.notes_txt_info {color:#8f8f8f;word-wrap:break-word;}
+.right_panel_refresh_icon{color:#666;cursor:pointer;font-size:16px; margin-right: 2%;margin-top:1.5%;}
+ .tab_border{border:1px solid #ddd;border-top:none;}
+/*general css end*/
+
+/* rejected tab css start*/
+.smily_text_wrap {position: absolute; z-index: 7;top: 0; bottom: 0; left: 0;right: 0;color: #666;font-size: 20px;height: 30px;width: 100%;margin: auto;text-align: center;}
+.smily_icon {position: absolute;top: -18px;font-size: 64px;}
+.smily_text { padding-left: 70px;}
+/* rejected tab css end */
+/*interview select start*/
+.interview_tab_main select{max-width:100%;}
+.refundadvantageinterview button{vertical-align:0px !important}
+.refundadvantageinterview card-envelope-number-without-api .row{margin-top:10px;}
+.refundadvantageinterview t0002 label{margin-top:12px;}
+.row_fixed_height_30{height:30px;}
+.row_fixed_height_33{height:33px;}
+/*eps interview css start*/
+.epsinterviewwrapper{clear:both}
+.epsinterviewwrapper button{vertical-align:0px !important}
+.epsinterviewwrapper card-envelope-number-without-api .row{margin-top:10px;}
+.epsinterviewwrapper t0002 label{margin-top:12px;}
+/*eps interview css end*/
+/*tpg interview css start*/
+.tpginterviewwrapper{clear:both}
+.tpginterviewwrapper button{vertical-align:0px !important}
+.tpginterviewwrapper card-envelope-number-without-api .row{margin-top:10px;}
+.tpginterviewwrapper t0002 label{margin-top:12px;}
+/*eps interview css end*/
+/*interview select end*/
+.btn.btn-default.break_txt{white-space: pre-wrap; word-break: break-all;} 
+
+
+/*Right and left sidebar css*/
+.right-sidebar-wrap{flex:inherit;}
+.col_second {margin-left: 300px;margin-right: 400px;}
+.col_second.strech_right {margin-right: 0px;}
+.col_second.strech_left {margin-left: 0px;}
+/*Right and left sidebar css end*/

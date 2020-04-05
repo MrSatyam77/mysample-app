@@ -1,0 +1,29 @@
+.estimator_block{border:1px solid #dddedf;margin-bottom:20px;}
+.estimator_block h3{margin-top:0px;background:#ddd;color:#000;padding:5px;font-size:20px;}
+#tax_estimator_tab { margin-bottom:20px; margin-top:5px;}
+#tax_estimator_tab ul{min-height:30px;}
+#tax_estimator_tab .nav.nav-tabs li {padding:0px 0px;float:left;display:block;margin-right:10px;width:auto;}
+/*#tax_estimator_tab .nav.nav-tabs li.active:before {background:#F0514A; border-radius:0px; content: ""; height: 8px;  margin-top: -2px; position: absolute; bottom:-20px; width:100%; z-index: -1; }*/
+#tax_estimator_tab .nav.nav-tabs li a {border-radius:0%; background:#f5f5f5; font-size:20px; margin:0 auto; border:none; color:#666;display:block;float:left;}    
+#tax_estimator_tab .nav.nav-tabs li.active a {background:#ddd; color:#444; border:none;}
+#tax_estimator_tab .tab-content {border-top:5px solid #ddd; margin-top:0px; margin-top:1px;padding-top:8px;}
+@media (max-width:768px){
+    .static_form_wrap label{height:auto !important}
+}
+/*change preferences colors start*/
+.color_reject{color:#a94442}
+.color_warning{color:#8a6d3b}
+.color_info{color:#3c763d}
+
+.color_required{color:#ff0000}
+.color_calculated{color:#ffd800;}
+.color_overriden{color:#c0c0c0}
+.color_estimated{color:#3c763d;}
+
+.color_preferences{clear:both}
+.color_preferences .table>thead>tr>th{background:transparent;border-bottom:none}
+.color_preferences .table > tbody > tr > td {border-bottom:none}
+
+.height_52{height:52px;}
+.outline_none{outline:none}
+.padding_top_13 {padding-top: 13px !important;}

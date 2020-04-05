@@ -1,0 +1,68 @@
+<div class="clearfix">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">New Signature Device
+    </h4>
+    <button type="button" class="close" (click)="close()">&times;</button>
+  </div>
+  <div class="modal-body padding_l_r_0 clearfix">
+    <div class="clearfix">
+      <div class="clearfix" *ngIf="isError==undefined || isError==false">
+        <div class="clearfix" *ngIf="authorizationStatus===0">
+          <div class="col-lg-24 col-md-24 col-sm-24">
+            <div class="clearfix qr_code_info_txt">
+              "Open the Signature Pad App on your mobile device and press <br> ‘Activate Signature Pad’ to
+              scan the QR code below."
+            </div>
+            <div class="qr_code_wrap row justify-content-center">
+                <ngx-qrcode 
+                qrc-element-type="url" 
+                [qrc-value] = "signatureData"></ngx-qrcode>
+            </div>
+            <div class="clearfix qr_code_info_txt">
+              Don’t have the Signature Pad App?
+            </div>
+            <div class="clearfix app-download-icon-wrap">
+              <div class="float-left" *ngIf="signaturePadAppDownloadURLAndroid">
+                <a target="_blank" [href]="signaturePadAppDownloadURLAndroid"><img alt='Get it on Google Play'
+                    src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'
+                    style="width:193px;height:75px;background-size:contain;"></a>
+              </div>
+              <div class="float-left" *ngIf="signaturePadAppDownloadURLIOS">
+                <a target="_blank" [href]="signaturePadAppDownloadURLIOS"
+                  style="display:inline-block;overflow:hidden;background:url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg) no-repeat;width:173px;height:50px;background-size:contain;margin-top:12px;"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix padding_left_5 padding_right_5" *ngIf="authorizationStatus===1">
+          <div class="clearfix padding_bottom_10">
+            <div class="col-lg-24 col-md-24 col-sm-24">Click Authorize to allow <span
+                class="font_bold">{{deviceInfo.model}}</span> to capture signature from mobile app.
+            </div>
+          </div>
+          <div class="clearfix">
+            <div class="col-lg-6 col-md-12 col-sm-12"><label>Name of Device (optional)</label>
+            </div>
+            <div class="col-lg-10 col-md-12 col-sm-12"><textarea type="text" class="form-control" maxlength="250"
+                [(ngModel)]="devicesObject.note"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix" *ngIf="isError==true">
+      <div class="col-lg-24 col-md-24 col-sm-24">
+          <div class="clearfix padding_left_15 padding_right_15">
+           An error is currently being encountered. Please try again later.
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="clearfix qr_waiting_ui_wrap" *ngIf="authorizationStatus===0 && (isError==undefined || isError==false)">
+		  <div class="qr-waiting-loader">Waiting for QR code scan...</div>
+    </div>
+    <button type="button" class="btn btn-outline-primary" *ngIf="authorizationStatus===1" (click)="authorize()"><span>Authorize</span></button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="authorizationStatus===1" (click)="close()"><span>Close</span></button>
+  </div> 
+</div>

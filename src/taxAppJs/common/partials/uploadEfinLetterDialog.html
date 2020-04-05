@@ -1,0 +1,124 @@
+<style type="text/css">
+.upload_main{width:100%;margin:0 auto;margin-top:5px;}
+.drop-box {background: none repeat scroll 0 0 #f8f8f8;border: 5px dashed #ddd;height: 150px;padding:5px;padding-top:30px;text-align: center;color:#ccc;float:left}
+.btn_conversion {position:relative; z-index:3;}
+.btn_conversion input[type=file] {cursor:pointer;text-align: right;filter: alpha(opacity=0);opacity: 0;outline: none;background: white;cursor: inherit;display: block;position:relative;top:-27px;left:-14px;height:35px;width:120px; position:absolute; top:-1px; left:1px;  z-index:5;}
+.selectbutton{height:35px;width:120px;}
+.color_gray{color:#808080!important;}
+.description_wrap { padding:5px;padding-bottom:5px; border:1px solid #dfdfdf; border-bottom:3px solid #dfdfdf;margin-top:10px;float:left;width:100%;position:relative;bottom:0;overflow-x:hidden;}
+.progress{margin-bottom:0px !important;}
+.select_width_full{max-width:100%!important;}
+.doc_line{width:85%;float:left;word-wrap:break-word;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+.form-content .efin-points li{list-style-type:none;}
+.padding_top_65{padding-top:65px;}
+.form-img{max-height:500px;height:auto}
+.form-content p{margin:0px 0px 3px !important;}
+.modal-dialog{width:55vw !important;}
+@media (max-width:480px) {
+.modal-dialog{width:90vw !important;}
+.width_full_50{width:100%;}
+.padding_top_60{padding-top:10px;}
+}
+@media (min-width:1280px) and (max-width:1400px) {
+.panel-title span.font_size_14{font-size:11px}
+.modal-dialog{width:75vw !important;}
+ }
+@media (min-width:768px) and (max-width:1279px) {
+.width_full_50{width:100%;}
+.modal-dialog{width:75vw !important;}
+.padding_top_60{padding-top:20px;}
+.form-img{margin:auto;}
+ }
+
+</style>
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title"><span translate="UPLOADEFINLETTER_LBL" translate-default="Upload EFIN Letter"></span>
+        </h4>
+    </div>
+   
+    <div class="modal-body clearfix">
+        <div class="form-wrapper clearfix " ng-style="{height:headerNav.screenHeight-240}" style="overflow-y:auto;">
+            <div class="float-left width_full_45 padding_right_15">
+            <div class="clearfix">
+                <div class="form-title">
+                    <div class="clearfix">
+                        <label class="font_bold col-lg-6 col-md-6 col-sm-6 col-xs-6 padding_l_r_0" translate="FIRMNAME_LBL" translate-default="Firm Name"></label>
+                        <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{locationInfo.firmName}}</span></div>
+                    <div class="clearfix margin_top_10">
+                        <label class="font_bold col-lg-6 col-md-6 col-sm-6 col-xs-6 padding_l_r_0" translate="EFIN_LBL" translate-default="EFIN"></label>
+                        <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{locationInfo.efin}}</span>
+                         <span  class="float-left" translate="EFINSUMMARY_EXAMPLE_LBL" translate-default="(Example Of Application Summary)"></span>
+                        </div>
+                </div>
+                </div>
+                <div class="clearfix padding_top_10 padding_bottom_10">
+                    <img src="taxAppJs/images/efin_verification.png" class="img-fluid" />
+                </div>
+                
+                <div class="clearfix">
+                     <div class="drop-box upload_main" ngf-drag-over-delay="100" ngf-drag-over-class="" ngf-drop-available="dropSupported=true" ngf-drop ngf-change="onFileSelect($files)" ng-show="dropSupported">
+                        <div class="clearfix">
+                            <span class="text-center font_size_24">Drag here</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+                                <div class="text-center height_10"><div data-ng-show="fileName"><span>{{fileName}} <span class="cursor_pointer"><!-- <a data-ng-click="removeFile()"><i class="fa fa-times color_gray"></i></a> --></span></span></div></div>
+                                <div class="btn btn-outline-primary btn_conversion selectbutton margin_top_10  margin_bottom_10">
+                                    <i class="fa fa-folder-open margin_right_3"></i>
+                                    Select file
+                                    <input type="file" ngf-select="onFileSelect($files)" data-max-size="100" accept="{{acceptFileType}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-content float-left width_full_55 padding_left_15 padding_top_48">
+               <div class="font_bold"><span translate="EFIN_INSTRUCTION" translate-default="Why do I need to verify my EFIN?"></span></div>
+
+               <div class="margin_top_10" translate="EFIN_INSTRUCTION" translate-default="Protecting your EFIN account and your taxpayer data is as important to us as it is to you.  As such, we require that all ERO &apos;s (Electronic Return Originators) provide verification of their EFIN (E-File Identification Number) before e-filing.  It&apos;s an important first step in preventing tax-related identify theft and fraud."></div>
+
+               <div class="font_bold margin_top_10" translate="EFIN_INSTRUCTION" translate-default="Requirements for EFIN Verification with the IRS:"></div>
+               <div class="margin_top_10">
+                    <div translate="EFIN_INSTRUCTION" translate-default="1. One EFIN Per Firm Physical Location (as defined in IRS Pub. 3112)."></div>
+                    <div translate="EFIN_INSTRUCTION" translate-default="2. If more than one Firm shares a single Physical Location, Each Firm must have a separate Software License and a separate EFIN."></div>
+                    <div translate="EFIN_INSTRUCTION" translate-default="3. Firm Name (DBA Name), Firm Physical Address, EFIN, and ERO Contact on the EFIN Application must match Software Licensed Firm Name and Physical Address, EFIN, and Contact Name."></div>
+                </div>
+                <div class="font_bold margin_top_10" translate="EFIN_INSTRUCTION" translate-default="What to Submit for EFIN Verification:"></div>
+                <div class="margin_top_10">
+                    <div><i class="fa fa-check color_green font_size_20" aria-hidden="true"></i><span translate="EFIN_INSTRUCTION" translate-default="Submit the 'Application Summary' from the IRS e-Services website." class="font_bold padding_left_5"></span></div>
+                    <span translate="EFIN_INSTRUCTION" translate-default="On the left you can see an example of the Application Summary. <a href='https://static.mytaxprepoffice.com/2016/download/Application_Summary_IRS.pdf' id='applicationSummary' target='applicationSummary'>Click here </a>for instructions on how to access and print the Application Summary on the IRS e-Services site."></span>
+                </div>
+                <div class="font_bold margin_top_10" translate="EFIN_INSTRUCTION" translate-default="Caution:  EFIN letters older than 12 months from the date they were generated will be rejected."></div>
+                <div class="margin_top_10">
+                    <span translate="EFIN_INSTRUCTION" translate-default="What NOT to Submit. " class="font_bold"></span>
+                    <span translate="EFIN_INSTRUCTION" translate-default="We "></span>
+                    <span translate="EFIN_INSTRUCTION" translate-default="do not " class="font_bold"></span>
+                    <span translate="EFIN_INSTRUCTION" translate-default="accept any of the following forms as EFIN verification:"></span>
+                </div>
+                 <div class="margin_top_10">
+                  
+                     <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span translate="EFIN_INSTRUCTION" translate-default="Your PTIN Registration"></span></div>
+                     <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span translate="EFIN_INSTRUCTION" translate-default="Your original Form 8633 Application"></span></div>
+                     <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span translate="EFIN_INSTRUCTION" translate-default="Your EFIN Activity Report"></span></div>
+                     <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span translate="EFIN_INSTRUCTION" translate-default="Your EIN Tax ID number"></span></div>
+                     <div><i class="fa fa-times color_red" aria-hidden="true"></i> <span translate="EFIN_INSTRUCTION" translate-default="Your e-Services Account Registration Information"></span></div>
+
+                     </div>
+            </div>
+        </div>
+        
+    <div class="clearfix">
+        <div class="float-left width_full_43 margin_top_5">
+            <progressbar data-ng-show="uploadProgress" animate="true" class="progress-striped active" value="uploadProgress" type="success"><b>{{uploadProgress}}%</b></progressbar>
+            <div data-ng-show="fileSizeMessage"><span class="text-danger_normal">Your selected file is more than 5MB in size.</span></div>
+            <div data-ng-show="uploadErrMessage"><span class="text-danger_normal">Error occurred. Please try again later.</span></div>
+            <div data-ng-show="invalidType"><span class="text-danger_normal">Please upload one of valid scanned document.</span></div>
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" ng-click="close()" data-ng-disabled="isDisabled==true"><span translate="OK_BUTTON" translate-default="Close"></span></button>
+    </div>
+</div>

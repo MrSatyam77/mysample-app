@@ -1,0 +1,15 @@
+<!-- <div [ngStyle]="{height: chartOptions.height + 50 +'px'}" style="background-color: #fff;"> -->
+<div #chartContainer style="overflow: hidden;">
+</div>
+<!-- <div style="width: 100%;" *ngIf="settings?.location && settings?.location.length > 0">
+    <ul class="legend">
+      <li *ngFor="let legend of settings?.location">
+        <span class="superawesome" [ngStyle]="{'background-color':legend.legendValue.legendColor }"></span>
+        {{legend.legendValue.legendName}}
+      </li>
+    </ul>
+  </div> -->
+<!-- </div> -->
+<div *ngIf="IsNoDataFound" class="no-data-found-msg">
+  <b>{{chartOptions?.noDataMessage}}</b>
+</div>

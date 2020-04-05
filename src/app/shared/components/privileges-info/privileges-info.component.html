@@ -1,0 +1,28 @@
+<div class="privileges-info-dialog-main">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+      <span>Required Privileges</span>
+    </h4>
+  </div>
+  <div class="modal-body clearfix">
+    <div class="form-group input-group-lg row_height_30">
+      <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+        <span>The user role</span>
+        <span class="font_bold">&nbsp;{{userLocationData.role.name}}&nbsp;</span>
+        <span>does not have the rights to perform this action. The privileges below are necessary to complete the desired
+          action.</span>
+      </div>
+      <div *ngFor="let category of requirePrivilegesKeys; trackBy: trackByFn" class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 pull-left margin_top_10">
+          <label class="font_bold">{{category}}</label>
+          <ul>
+            <li *ngFor="let privilege of requiredPrivileges[category].privileges; trackBy: trackByFn" class="padding_top_5 col-lg-8 col-sm-8 col-md-8 col-xs-8 pull-left">{{privilege.displayText}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="close()"><span>Close</span></button>
+  </div>
+</div>

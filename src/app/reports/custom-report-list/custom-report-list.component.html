@@ -1,0 +1,45 @@
+<div class="inner_col_second clearfix">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding">Custom Reports</span>
+      <div class="row float-right d-none d-md-block">
+        <button class="btn btn-outline-primary pl-2" (click)="backToHomeScreen()">Back To Dashboard</button>
+        <i class="m-2 refresh-loader fas fa-redo float-right color_gray font_size_14 cursor_pointer" [ngClass]="{'rotate':refreshStart}"
+          (click)="manuallyRefresh()"></i>
+      </div>
+    </section>
+  </div>
+
+  <div class="inner_padding_15 clearfix allowScrollSync" style="overflow-y:auto;">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-6  height_31">
+        <!-- This will filter $data in ng-repeat instead of in Grid. -->
+        <div class="input-group">
+          <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value" (ngModelChange)="quickSearch(filter.searchField)"
+            [(ngModel)]="filter.searchField" />
+          <div class="input-group-append" *ngIf="filter.searchField && filter.searchField.length > 0">
+            <span class="input-group-text cursor_pointer" (click)="filter.searchField = ''; quickSearch(filter.searchField);">
+              <i class="fa fa-times"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 col-md-10 col-sm-10 col-xs-margin_top_10">
+        <button class="btn btn-outline-primary" (click)="createNewReport()" *ngIf="userCan('IS_ADMINISTRATOR')">Create
+          Custom Report</button>
+      </div>
+      <div class="col-lg-15 col-md-15 col-xl-15 col-sm-15 padding_l_0">
+        <button class="btn btn-outline-primary float-right" (click)="resetGridSettings()">Reset Grid Setting</button>
+        <button class="btn btn-outline-primary mx-2 float-right" (click)="saveGridSettings()">Save Grid Setting</button>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24">
+        <app-standard-ag-grid #customReportListComponent name="customReportList" [gridOptions]="gridOptions" [result]="rowData"
+          [(filter)]="filter" (onStandardGridReady)="onGridReady($event)" (action)="onActionClicked($event)"
+          [defaultFilter]="defaultFilter">
+        </app-standard-ag-grid>
+      </div>
+    </div>
+  </div>
+
+</div>

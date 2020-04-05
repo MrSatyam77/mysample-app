@@ -1,0 +1,29 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857146;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <span class="modal-title" style="font-size: 18px;">
+      Select Manager
+    </span>
+    <button type="button" class="close" (click)="close()">×</button>
+  </div>
+  <div class="modal-body clearfix">
+    <div class="input-group-lg row_height_30">
+      <div class="col-lg-24 col-md-24 col-xs-24 m-2 padding_l_r_0" *ngFor="let questionSet of data.questionSets">
+        <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1 margin_top_0">
+            <button class="custom_input_dark margin_right_5"
+              [class.active]="data.selectedQuestionSet === questionSet.id"
+              (click)="data.selectedQuestionSet = questionSet.id"></button>
+          </div>
+          <div class="col-lg-23 col-md-23 col-sm-23 pl-3">
+            {{questionSet.title}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="saveManager()">Save</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Close</button>
+  </div>
+</div>

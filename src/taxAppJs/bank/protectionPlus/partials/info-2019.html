@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="taxAppJs/bank/protectionPlus/css/protectionPlus.css" rel="stylesheet" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        .progress {
+            height: 5px !important;
+            margin-bottom: 0px !important;
+            margin-top: 5px;
+            background: none repeat scroll 0 0 transparent !important;
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            position: absolute;
+        }
+
+        .popover-content {
+            padding: 6px 16px !important;
+        }
+
+        .margin-top_minus_10 {
+            margin-top: -10px;
+        }
+
+        .line_height_20 {
+            line-height: 20px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding title_height_40">
+                <span class="page_title_lg ng-binding" translate="PROTECTIONPLUS_ADD_HEADER" translate-default="PROTECTION PLUS"></span>
+            </span>
+        </section>
+        <div class="clearfix static_form_wrap allowScrollSync"  ng-style="{height:headerNav.screenHeight-106}" style="overflow-y: auto;">
+            <div class="clearifix">
+                <!-- This is temporary message to educate users that bank enrollment is not available -->
+                <div class="p-3" data-ng-if="responseMessage != undefined" data-ng-class="{'text-success': responseMessage.type == 'success','text-danger': responseMessage.type == 'warning' || responseMessage.type == 'Not Enrolled-Errors'}">
+                    <span>{{responseMessage.message}}</span>
+                </div>
+                <!-- Rejections -->
+                <div class="p-3" data-ng-if="acknowledgementData.errors.length > 0 ">
+                    <div class="clearfix font_size_14" data-ng-repeat="err in acknowledgementData.errors">
+                        <span class="fas fa-times"></span>
+                        <span>{{err.error}}</span>
+                    </div>
+                </div>
+            </div>
+            <!--tax estimator tab start-->
+            <div class="clearfix" id="tax_estimator_tab">
+                <tabset justified="true">
+                    <div class="custom-line-tab ">
+                        <!--protectionPlus start-->
+                        <tab heading="Protection Plus Program" active="activeTab.protectionPlusProgramTab" data-ng-click="tabChangeView('protectionPlusProgramTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.protectionPlusProgramTabForm" novalidate>
+                                    <div class="clearfix">
+                                        <div class="col-lg-24 col-md-24 col-sm-24 clearfix row row_height_30">
+                                            <div class="col-lg-4 col-md-6 col-sm-24 col-xs-24">
+                                                <label translate="BANK_EFIN_LBL" translate-default="EFIN" class="float-left"></label>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-24 col-xs-24 float-left">
+                                                <input type="text" name="protectionPlusProgramFormEfin" class="newusertextbox form-control float-right ml-auto" data-ng-model="protectionPlusProgram.efin"
+                                                    ng-required="!protectionPlusProgram.efin" tax-mask="999999" tax-mask-use-view-value="true"
+                                                    value="{{protectionPlusProgram.efin}}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!--protectionPlus program end-->
+                        <!-- Office Tab - Start -->
+                        <tab heading="Office" active="activeTab.officeTab" data-ng-click="tabChangeView('officeTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.officeTabForm" novalidate>
+                                    <div class="col-24">
+                                        <div class="clearfix row">
+                                        <div class="col-lg-11 col-md-24 col-sm-24 clearfix">
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="ERO_FULLNAME_LBL" translate-default="Full Name" class="float-left"></label>
+                                                <input type="text" name="protectionPlusEROFullName" class="newusertextbox form-control float-right ml-auto" data-ng-model="office.fullName"
+                                                    ng-required="!office.fullName" value="{{office.fullName}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="ERO_COMPANY_LBL" translate-default="Company" class="float-left"></label>
+                                                <input type="text" name="protectionPlusEROCompany" class="newusertextbox form-control float-right ml-auto" data-ng-model="office.company"
+                                                    ng-required="!office.company" value="{{office.company}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="ERO_CONTACTNAME_LBL" translate-default="Contact Name" class="float-left"></label>
+                                                <input name="protectionPlusEROContactName" type="text" class="newusertextbox form-control float-right ml-auto" data-ng-model="office.contactName"
+                                                    ng-required="!office.contactName" popover-placement="right" popover-trigger="focus"
+                                                    popover="ERO’s name or the name of contact if other than ERO" />
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ERO_PHONENUMBER_LBL" translate-default="Phone number" class="float-left"></label>
+                                                <input name="protectionPlusEROPhoneNumber" type="text" class="newusertextbox form-control float-right ml-auto" data-ng-model="office.phoneNumber"
+                                                    ng-required="!office.phoneNumber" tax-mask="999-999-9999" tax-mask-use-view-value="true"
+                                                    value="{{office.phoneNumber}}" />
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="ERO_OFFICEEMAIL_LBL" translate-default="Office Email" class="float-left"></label>
+                                                <input type="email" name="protectionPlusOfficeOfficeEmail" class="newusertextbox form-control float-right ml-auto" data-ng-model="office.officeEmail"
+                                                    ng-required="!office.officeEmail || form.officeTabForm.protectionPlusOfficeOfficeEmail.$error.email"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.protectionPlusOfficeOfficeEmail.$error.email && form.officeTabForm.protectionPlusOfficeOfficeEmail.$invalid) ? 'Please enter valid E-mail address.' : ''}}"
+                                                    value="{{office.officeEmail}}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                        <!--second block start-->
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                            <div class="row popover_wrap address_wrap">
+                                                <label translate="ERO_ADDRESS_LBL" translate-default="Address" class="clearfix address_lbl ng-scope pl-2">Address</label>
+                                                <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24 clearfix">
+                                                    <input type="text" name="officeAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                        data-ng-class="{'patternerror':form.officeTabForm.officeAddress.$error.taxpattern}"
+                                                        data-ng-focus="isOfficeAddress=false;" data-ng-blur='isOfficeAddress=true;'
+                                                        data-ng-required="!office.address.address || form.officeTabForm.officeAddress.$error.pattern"
+                                                        data-ng-model="office.address.address" ng-pattern="/^[A-Za-z0-9 \-\'\.\,\#]{3,35}$/"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.officeAddress.$error.pattern && form.officeTabForm.officeAddress.$invalid) ? 'This field can contain Alphabets, Number, Spaces or Special characters like - . \' , #.Address cannot be a PO Box.Text-limit is up to 3 to 35 characters.' : ''}}"
+                                                        value="{{office.address.address}}">
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="clearfix row margin_top_10">
+                                                    <label translate="ERO_ZIPCODE_LBL" translate-default="ZIP Code" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="ERO_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="ERO_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix row row_height_30">
+                                                    <div class="float-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control"
+                                                            data-ng-model="office.address.zip" ng-required="!office.address.zip"
+                                                            tax-mask="99999" tax-mask-use-view-value="true" cmn-zip-lookup cmn-zip-lookup-city="'office.address.city'"
+                                                            cmn-zip-lookup-state="'office.address.state'" value="{{office.address.zip}}"
+                                                        />
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 popover_wrap">
+                                                        <input type="text" name="officeCity" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="office.address.city" ng-required="!office.address.city || form.officeTabForm.officeCity.$error.pattern"
+                                                            ng-pattern="/^[A-Za-z \'\.\-]{2,22}$/" popover-placement="right" popover-trigger="focus"
+                                                            popover="{{(form.officeTabForm.officeCity.$error.pattern && form.officeTabForm.officeCity.$invalid) ? 'This field can contain Alphabets, Spaces or Special characters like - . \'. Text-limit is up to 2 to 22 characters.' : ''}}"
+                                                            value="{{office.address.city}}" />
+                                                    </div>
+                                                    <div class="float-right ml-auto  col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <select class="custom_input_ddl float-right ml-auto" name="protectionPlusOfficeState" data-ng-model="office.address.state" ng-required="!office.address.state">
+                                                            <option value="AA">AA</option>
+                                                            <option value="AE">AE</option>
+                                                            <option value="AK">AK</option>
+                                                            <option value="AL">AL</option>
+                                                            <option value="AP">AP</option>
+                                                            <option value="AR">AR</option>
+                                                            <option value="AZ">AZ</option>
+                                                            <option value="CA">CA</option>
+                                                            <option value="CO">CO</option>
+                                                            <option value="CT">CT</option>
+                                                            <option value="DC">DC</option>
+                                                            <option value="DE">DE</option>
+                                                            <option value="FL">FL</option>
+                                                            <option value="GA">GA</option>
+                                                            <option value="HI">HI</option>
+                                                            <option value="IA">IA</option>
+                                                            <option value="ID">ID</option>
+                                                            <option value="IL">IL</option>
+                                                            <option value="IN">IN</option>
+                                                            <option value="KS">KS</option>
+                                                            <option value="KY">KY</option>
+                                                            <option value="LA">LA</option>
+                                                            <option value="MA">MA</option>
+                                                            <option value="MD">MD</option>
+                                                            <option value="ME">ME</option>
+                                                            <option value="MI">MI</option>
+                                                            <option value="MN">MN</option>
+                                                            <option value="MO">MO</option>
+                                                            <option value="MP">MP</option>
+                                                            <option value="MS">MS</option>
+                                                            <option value="MT">MT</option>
+                                                            <option value="NC">NC</option>
+                                                            <option value="ND">ND</option>
+                                                            <option value="NE">NE</option>
+                                                            <option value="NH">NH</option>
+                                                            <option value="NJ">NJ</option>
+                                                            <option value="NM">NM</option>
+                                                            <option value="NV">NV</option>
+                                                            <option value="NY">NY</option>
+                                                            <option value="OH">OH</option>
+                                                            <option value="OK">OK</option>
+                                                            <option value="OR">OR</option>
+                                                            <option value="PA">PA</option>
+                                                            <option value="PR">PR</option>
+                                                            <option value="RI">RI</option>
+                                                            <option value="SC">SC</option>
+                                                            <option value="SD">SD</option>
+                                                            <option value="TN">TN</option>
+                                                            <option value="TX">TX</option>
+                                                            <option value="UT">UT</option>
+                                                            <option value="VA">VA</option>
+                                                            <option value="VI">VI</option>
+                                                            <option value="VT">VT</option>
+                                                            <option value="WA">WA</option>
+                                                            <option value="WI">WI</option>
+                                                            <option value="WV">WV</option>
+                                                            <option value="WY">WY</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!-- Office Tab - End -->
+                        <!-- Bank - Start -->
+                        <!-- Consent Tab - Start -->
+                        <tab heading="Consent" active="activeTab.consentTab" data-ng-click="tabChangeView('consentTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.consentTabForm">
+
+                                    <div class="col-24">
+                                        <div class="row">
+                                            <div class=" col-lg-22 col-md-24 col-sm-24">
+                                                <div class="clearfix padding_left_5 padding_top_5">
+                                                    <div class="row">
+                                                        <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':consent.protectionPlusProgramAgreement == true}"
+                                                            data-ng-model="consent.protectionPlusProgramAgreement" ng-required="!consent.protectionPlusProgramAgreement==true"
+                                                            data-ng-click="consent.protectionPlusProgramAgreement=!consent.protectionPlusProgramAgreement"></button>
+                                                        <span class="float-left margin_right_5" translate="PROTECTIONPLUS_IAGREETOTHE_LBL" translate-default="I agree to the"></span>
+                                                        <a class="cursor_pointer" translate='PROTECTIONPLUS_PROGRAMAGREEMENT_LBL' translate-default='Protection Plus Program Agreement'
+                                                            href="{{getURLToDownloadPDF('ERO-AGREEMENT')}}" target="_self" download></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                    </div>
+                    <!-- Consent Tab - End -->
+                </tabset>
+                <div class="col-24">
+                  
+                        <form name="form.commonAction">
+                            <hr class="light_line">
+                            <div class="float-right ml-auto">
+                                <button class="btn btn-outline-primary ng-scope" data-ng-disabled="activeTab.protectionPlusProgramTab==true" data-ng-click="changeView('previuos')">
+                                    <span translate="BANK_PREVIUOS_SPAN" translate-default="Previous"></span>
+                                </button>
+                                <button class="btn btn-outline-primary ng-scope" data-ng-disabled="form[formName].$invalid" data-ng-hide="activeTab.consentTab==true"
+                                    data-ng-click="changeView('next')">
+                                    <span translate="BANK_NEXT_SPAN" translate-default="Next"></span>
+                                </button>
+                                <!-- Temporary this button is readonly (no-clicking) class is applied -->
+                                <button class="btn btn-outline-primary ng-scope" data-ng-disabled="protectionPlusList.status == 'Enrolled'" data-ng-show="activeTab.consentTab==true"
+                                    data-ng-class="{'no-clicking': !userCan('CAN_SAVE_BANK') || protectionPlusList.status=='In Process'}"
+                                    data-ng-click="validateFormToSave(form)">
+                                    <span translate="BANK_SAVE_SPAN" translate-default="Save"></span>
+                                </button>
+                            </div>
+                        </form>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

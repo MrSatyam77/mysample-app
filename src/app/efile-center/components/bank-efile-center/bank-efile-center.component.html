@@ -1,0 +1,44 @@
+<div class="clearfix p-3" style="padding-bottom: 0.25rem !important;">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-xl-6 col-sm-6">
+      <div class="input-group">
+        <input type="text" class="form-control normal-height" placeholder="Filter by Any Value"
+          [(ngModel)]="filter.searchText" (ngModelChange)="quickSearch(filter.searchText)" />
+        <div class="input-group-append" *ngIf="filter.searchText && filter.searchText.length > 0">
+          <span class="input-group-text cursor_pointer"
+            (click)="filter.searchText = ''; quickSearch(filter.searchText);">
+            <i class="fa fa-times"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-10 col-md-10 col-xl-10 col-sm-10">
+      <div class="row">
+        <select class="col-lg-10 col-md-10 col-xl-10 col-sm-10 form-control py-0 normal-height" id="typeFilter"
+          [(ngModel)]="filter.status" (ngModelChange)="externalFilter()">
+          <option *ngFor="let type of bankRejectionType" [value]="type.id">{{type.title}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-8 col-xl-8 col-sm-8">
+      <button class="btn btn-outline-primary float-right" (click)="resetGridSettings()">Reset Grid Setting</button>
+      <button class="btn btn-outline-primary mx-2 float-right" (click)="saveGridSettings()">Save Grid Setting</button>
+      <div class="dropdown pl-3 float-right">
+        <button type="button" class="btn btn-outline-primary dropdown-toggle" id="exportList" data-toggle="dropdown">
+          Export
+        </button>
+        <div class="dropdown-menu" style="cursor: pointer;">
+          <a class="dropdown-item" (click)="exportList('csv')"><i class="fas fa-file-excel"></i> CSV</a>
+          <a class="dropdown-item" (click)="exportList('pdf')"><i class="fas fa-file-pdf"></i> PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24">
+      <app-standard-ag-grid #efileBankAgGridComponent name="bankSummary" [gridOptions]="gridOptions" [result]="rowData"
+        [(filter)]="filter" (onStandardGridReady)="onGridReady($event)" (action)="onActionClicked($event)"
+        [defaultFilter]="defaultFilter">
+      </app-standard-ag-grid>
+    </div>
+  </div>
+</div>

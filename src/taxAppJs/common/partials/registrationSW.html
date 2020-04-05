@@ -1,0 +1,17 @@
+﻿<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+            <span class="text-left" data-ng-if="isRegister">Activating {{resellerConfig.appName}} Offline</span>
+            <span class="text-left" data-ng-if="!isRegister">Deactivating {{resellerConfig.appName}} Offline</span>
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="font_size_16 color_gray">
+            <span data-ng-if="isRegister">
+                The {{resellerConfig.appName}} Offline Mode feature may take a moment to be enabled on your computer.
+                <span>This feature will only be available to use when you receive the [success] note displayed next to the Federal and/or state(s) checkbox.</span>
+            </span>
+            <span data-ng-if="!isRegister">Please note that it may take a moment to deactivate {{resellerConfig.appName}} Offline Mode from your computer.</span>
+        </div>
+    </div>
+</div>

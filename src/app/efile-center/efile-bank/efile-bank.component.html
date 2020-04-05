@@ -1,0 +1,38 @@
+<div class="bg-white border">
+  <section class="page_title_wrap title_height_40 clearfix">
+    <span class="page_title_lg title_height_40">
+      <span class="page_title_lg">
+        E-File
+      </span>
+      <div class="row float-right d-none d-md-block">
+        <button class="btn btn-outline-primary margin_left_5 pl-2" (click)="gotoHome()">Back
+          To Dashboard</button>
+        <i class="m-2 refresh-loader fas fa-redo float-right color_gray font_size_14  cursor_pointer"
+          [class.rotate]="refreshStart" (click)="refreshEfileCenter()"></i>
+      </div>
+    </span>
+  </section>
+
+  <div class="clearfix">
+    <ul class="nav custom-line-tab bg-primary-light">
+      <li class="nav-item" [class.tab-current]="option === 'eFile'">
+        <a class="nav-link" [class.active]="option === 'eFile'" (click)="option = 'eFile'" data-toggle="tab">E-File
+          List</a>
+      </li>
+      <li class="nav-item" [class.tab-current]="option === 'bank'">
+        <a class="nav-link" [class.active]="option === 'bank'" (click)="option = 'bank'" data-toggle="tab">Bank
+          Application List</a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content border-0">
+      <div class="tab-pane" [class.active]="option === 'eFile'" *ngIf="option === 'eFile'">
+        <app-efile #eFileCenter></app-efile>
+      </div>
+      <div class="tab-pane" [class.active]="option === 'bank'" *ngIf="option === 'bank'">
+        <app-bank-efile-center #eFileBankCenter></app-bank-efile-center>
+      </div>
+    </div>
+  </div>
+</div>

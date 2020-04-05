@@ -1,0 +1,169 @@
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- Header -->
+<style>
+	#scroll_main tbody {
+		overflow: hidden !important;
+	}
+
+	.sort-indicator {
+		line-height: normal;
+	}
+
+	.k-loading-image {
+		display: none;
+	}
+
+	.invoice.dropdown-menu {
+		transform: translate3d(0px, 0px, 0px) !important;
+		left: auto !important;
+		top: 100% !important;
+	}
+
+	.custom-table .table thead th {
+		border: 0px;
+	}
+
+	.middle-wrap {
+		overflow: hidden;
+	}
+
+	.k-grid table {
+		border: 1px solid #dee2e6 !important;
+	}
+
+	.k-pager-wrap {
+		line-height: 1.286em;
+		padding: .429em !important;
+		margin-top: 1rem !important;
+	}
+</style>
+<link rel="stylesheet" href="taxAppJs/report/css/report.css" />
+<div class="inner_col_second clearfix"
+	data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+	<div class="clearfix allowScrollSync" ng-style="{height:headerNav.screenHeight-106}">
+
+		<div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+			<section class="page_title_wrap title_height_40 clearfix">
+				<span class="page_title_lg ng-binding" translate-default="Reports">Reports</span>
+				<div class="row float-right mt-2">
+					<button class="btn btn-outline-primary pl-2 mr-3" data-ng-click="backToHomeScreen()">Back
+						To Dashboard</button>
+				</div>
+			</section>
+		</div>
+		<!-- <div class="text-center" data-ng-if="abcd === true" ><i class="fas fa-circle-notch fa-spin text-primary"></i></div> -->
+		<div data-ng-if="enableLoading === true">
+			<div class="loading_background"></div>
+			<div class="preloader">
+				<div class="preloader-container">
+					<span class="animated-preloader"></span>
+				</div>
+			</div>
+		</div>
+		<!-- <i class="fas fa-redo float-right color_gray font_size_20  margin_top_12 cursor_pointer"  data-ng-class="{'rotate':vm.refreshStart}" data-ng-click="manuallyRefresh();vm.refreshStart=true;"></i> -->
+
+		<div class="clearfix">
+			<tabset justified="true" class="custom-line-tab" style="border-bottom: 0 none;">
+				<tab data-ng-repeat="report in reportListGrid.data" heading="{{report.title}}" active="openTab[$index]"
+					data-ng-click="loadReport(report)">
+				</tab>
+			</tabset>
+		</div>
+		<div class="clearfix p-3">
+			<div class="row">
+				<div class="col-4" id="step2">
+					<!-- This will filter $data in ng-repeat instead of in Grid. -->
+					<div class="input-group">
+						<input type="text" class="form-control cus-forminput normal-height"
+							placeholder="Filter by Any Value" ng-model="searchField" value="{{searchField}}" />
+						<div class="input-group-append" data-ng-if="searchField.length">
+							<span class="input-group-text cursor_pointer" data-ng-click="clearSearch()"> <i
+									class="fa fa-times"></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-20">
+					<div class="dropdown float-right">
+						<button type="button" class="btn btn-outline-primary dropdown-toggle" id="typeFilter"
+							data-toggle="dropdown">
+							Export
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;">
+							<a class="dropdown-item" data-ng-click="exportList('csv')">
+								<i class="fas fa-file-excel"></i> EXCEL</a>
+							<a class="dropdown-item" data-ng-if="selectedReport.type != 'vita'"
+								data-ng-click="exportList('pdf')">
+								<i class="fas fa-file-pdf"></i>PDF</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col k-grid-border" id="reportGrid" kendo-grid="reportGrid" k-options="gridConfiguration"
+					k-ng-delay="currentReportDefinition" k-rebind="currentReportDefinition"
+					k-columns="currentReportDefinition" k-data-source="reportData"
+					k-on-column-reorder="columnReorder(kendoEvent)" k-on-column-hide="columnHide(kendoEvent)"
+					k-on-column-show="columnShow(kendoEvent)" ng-style="{height:headerNav.screenHeight-235}"
+					style="overflow:auto">
+					<!-- <div id="reportTable" style="overflow:auto;"></div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section class="title_height_40 clearfix">
+	<span class="dropdown float-right">
+		<div class="btn-group">
+			<div class="btn-group dropdown" is-open="reportListToogle.isOpen">
+				<div class="invoice dropdown-menu">
+					<div class="form_outer_spacing">
+						<div class="selectReport">
+							<form ng-click="$event.stopPropagation()">
+								<div class="custom-table table-responsive">
+									<table ng-table="reportListGrid" class="table" id="scroll_main">
+										<thead>
+											<tr class="">
+												<th class="sortable col-xl-1 col-md-1 col-lg-1 cursor_pointer"
+													height="37"></th>
+												<th class="sortable col-xl-8 col-md-8 col-lg-8 cursor_pointer"
+													ng-class="{'sort-asc': reportListGrid.isSortBy('title', 'asc'),'sort-desc': reportListGrid.isSortBy('title', 'desc')}"
+													ng-click="reportListGrid.sorting({'title' : reportListGrid.isSortBy('title', 'asc') ? 'desc' : 'asc'})">
+													<div class="sort-indicator">Report Name</div>
+												</th>
+												<th class="sortable col-xl-15 col-md-15 col-lg-15 cursor_pointer"
+													ng-class="{'sort-asc': reportListGrid.isSortBy('description', 'asc'),'sort-desc': reportListGrid.isSortBy('description', 'desc')}"
+													ng-click="reportListGrid.sorting({'description' : reportListGrid.isSortBy('description', 'asc') ? 'desc' : 'asc'})">
+													<div class="sort-indicator">Description</div>
+												</th>
+											</tr>
+										</thead>
+										<tbody class="allowScrollSync">
+											<tr data-ng-repeat="report in $data" class="row">
+												<td class="cursor_pointer col-xl-1 col-md-1 col-lg-1">
+													<i class="fas fa-check color_green"
+														data-ng-show="report.type == selectedReport.type"></i>
+												</td>
+												<td data-title="'Report Name'" sortable="'reportName'"
+													class="col-xl-8 col-md-8 col-lg-8 cursor_pointer"
+													data-ng-click="reportListToogle.isOpen=false;loadReport(report)">
+													{{::report.title}}</td>
+												<td data-title="'Description'" sortable="'description'"
+													class="col-xl-15 col-lg-15 col-md-15 cursor_pointer"
+													data-ng-click="reportListToogle.isOpen=false;loadReport(report)">
+													<span
+														class="padding_add_form_left_7">{{::report.description}}</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</span>
+</section>
+
+<!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->

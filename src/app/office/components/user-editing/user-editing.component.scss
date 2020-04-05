@@ -1,0 +1,46 @@
+input[type="email"]{
+    padding-right: 25px;
+}
+
+.user-details-thumb{
+    .img-thumbnail{
+        width: 130px;
+        height: 130px;
+        
+    }
+    .user-edit{
+        top: 0;
+        right: 0;
+    }
+}
+
+.user-img-wrap{
+    width: 135px;
+    height: 135px;
+    display: inline-block;
+    background: #ccc;
+    border-radius: 100%;
+    position: relative;
+    border: 2px solid #f5f5f5;
+    overflow: hidden;
+    cursor: pointer;
+
+    .user-edit-wrap{
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        background-color: rgba(0,0,0,0.75);
+        bottom: -73px;
+        z-index: 1;
+        color: #fff;
+        transition: all 0.3s ease-in-out;
+    }
+
+    &:hover{
+        .user-edit-wrap{
+            bottom: 0;
+        }
+    }
+}
+

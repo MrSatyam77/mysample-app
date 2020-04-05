@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="taxAppJs/manage/priceList/css/priceList.css" rel="stylesheet" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+
+    <div class="inner_col_second clearfix"
+        data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="PRICELISTADD_HEADER" translate-default="Add Price List"
+                data-ng-if="mode=='create'"></span>
+            <span class="page_title_lg ng-binding" translate="PRICELISTEDIT_HEADER" translate-default="Edit Price List"
+                data-ng-if="mode=='edit'"></span>
+        </section>
+
+        <div class="width_full clearfix inner_padding_15 allowScrollSync" ng-style="{height:headerNav.screenHeight-106}"
+            style="overflow-y:auto;">
+            <form name="priceListform">
+                <div class="row col-lg-24 col-sm-24 col-md-24">
+                    <div class=" clearfix col-lg-20 col-sm-24 col-md-24">
+                        <div class="row_height_30 row">
+                            <div class="float-left col-lg-3 col-sm-8">
+                                <label translate="PRICELIST_NAME_LBL" translate-default="Name"></label>
+                            </div>
+                            <div class="col-lg-5 col-sm-14">
+                                <input type="text" data-ng-model="priceList.name" class="form-control float-left "
+                                    data-ng-required="!priceList.name" value="{{priceList.name}}" />
+                            </div>
+                        </div>
+                        <div class="row row_height_70 margin_top_10">
+                            <div class="float-left col-lg-3 col-sm-8">
+                                <label translate="PRICELIST_DESCRIPTION_LBL" translate-default="Description"></label>
+                            </div>
+                            <div class="col-lg-5 col-sm-14 row_height_70">
+                                <textarea class="form-control allowScrollSync" data-ng-model="priceList.description"
+                                    value="{{priceList.description}}"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row col-lg-24 col-md-24 col-sm-24">
+                    <hr class="light_line">
+                </div>
+                <div class="row">
+                    <div class=" col-lg-11 col-sm-24">
+                        <div class="clearfix">
+                            <h4 class="font_bold">Form Rates</h4>
+                        </div>
+                        <div style="padding:10px;border:1px solid #dddedf">
+                            <div class="row">
+                                <div class="clearfix margin_bottom_10 col-lg-7 col-md-5 col-sm-8 row_height_30">
+                                    <!-- This will filter $data in ng-repeat instead of in Grid. -->
+                                    <div class="row_height_31">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control searchfilter"
+                                                placeholder="Filter by Any Value" data-ng-model="searchField"
+                                                value="{{searchField}}" />
+                                            <div class="input-group-append" data-ng-if="searchField.length">
+                                                <span class="input-group-text cursor_pointer"
+                                                    data-ng-click="clearSearch()"> <i class="fa fa-times"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-auto clearfix margin_bottom_10 margin_right_10">
+                                    <select data-ng-model="selectedState" class="form-control float-right"
+                                        data-ng-change="initForms()"
+                                        data-ng-options="package.states group by package.packages for package in packageList"></select>
+                                </div>
+                            </div>
+                            <div class="custom-table padding_l_r_0">
+                                <table ng-table="formPriceListGrid" class="table " id="scroll">
+
+                                    <tr data-ng-repeat="form in $data | addFormFilter:searchField">
+                                        <td data-title="'Name'" sortable="'displayName'" header-class="'custom-header'"
+                                            class="width_full_60">
+                                            <div class="float-left">
+                                                {{form.displayName}}
+                                            </div>
+                                        </td>
+
+                                        <td data-title="'State'" sortable="'state'" header-class="'custom-header'"
+                                            class="width_full_20">
+                                            <div class="float-left">
+                                                {{form.state}}
+                                            </div>
+                                        </td>
+
+                                        <td data-title="'Amount'" sortable="'amount'" header-class="'custom-header'"
+                                            class="width_full_20">
+                                            <div class="float-left">
+                                                <input type="text" tax-blur-key-pricelist data-ng-model="form.amount"
+                                                    class="form-control text-right searchfilter"
+                                                    value="{{form.amount}}">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-1 col-sm-1"></div>
+                    <div class="col-lg-10 col-sm-24 col-md-24 col-xs-24 clearfix">
+                        <div class="row">
+                            <h4 class="font_bold">Other Services</h4>
+                        </div>
+                        <div class="otherservice allowScrollSync">
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2"></div>
+                                <label class="col-lg-17 col-sm-17 font_bold col-md-17 col-xs-17">Description</label>
+                                <label class="col-lg-5 col-sm-5 font_bold col-md-5 col-xs-5">Amount</label>
+                            </div>
+                            <div class="clearfix">
+                                <button type="button" tax-blur-key-pricelist class="btn-gray fas fa-plus"
+                                    data-ng-click="addLine()"></button>
+                            </div>
+                            <div class="clearfix">
+                                <div data-ng-repeat="service in priceList.priceListData.services" class="row">
+                                    <div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+                                        <button type="button" tax-blur-key-pricelist
+                                            class="margin_top_7 btn-gray fas fa-times ng-scope"
+                                            data-ng-click="removeLine($index)"></button>
+                                    </div>
+                                    <div class="col-lg-17 col-sm-17 col-md-17 col-xs-17">
+                                        <input type="text" tax-blur-key-pricelist class="form-control"
+                                            data-ng-model="service.description" value="{{service.description}}">
+                                    </div>
+                                    <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                        <input type="text" tax-blur-key-pricelist class="form-control text-right"
+                                            data-ng-model="service.amount" value="{{service.amount}}">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-lg-22 col-sm-24 col-md-24 col-xs-24">
+                    <hr class="light_line">
+                    <div class="row_height_30 float-right ml-auto">
+                        <button type="button" class="btn btn-outline-primary" translate="PRICELIST_SAVE_BTN"
+                            translate-default="Save" data-ng-click="save()"
+                            data-ng-disabled="priceListform.$invalid || !userCan('CAN_SAVE_PRICELIST')"></button>
+                        <button type="button" class="btn btn-outline-primary" translate="PRICELIST_CANCEL_BTN"
+                            translate-default="Cancel" data-ng-click="cancel()"></button>
+                        <button type="button" class="btn btn-outline-primary" translate="PRICELIST_DELETE_BTN"
+                            translate-default="Delete" data-ng-click="deletePriceList()"
+                            data-ng-disabled="mode=='create' || !userCan('CAN_REMOVE_PRICELIST')"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+
+</html>

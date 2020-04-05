@@ -1,0 +1,60 @@
+<!-- <div class="card border-0">
+  <div class="card-header bg-white">
+    <h5 class="my-1 text-primary"><i class="fa fa-info-circle text-silver-light mr-1"></i> Training ({{trainingDataLength}})
+      <span class="rightpanegeneralall" (click)="manuallyRefreshTraining()" [ngClass]="{'rotate':firstRefreshStart}"> <i
+          class="fas fa-redo float-right right_panel_refresh_icon color_gray"></i></span>
+    </h5>
+  </div>
+  <div class="card-body p-2">
+    <app-training #trainingComponent [(trainingDataLength)]='trainingDataLength'></app-training>
+  </div>
+</div> -->
+<div>
+  <div>
+    <div id="accordion" class="my-accordion">
+      <!--training start-->
+      <div class="card border-0">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse" data-target="#training">
+            <i class="fa fa-info-circle text-silver-light mr-1"></i> Training ({{trainingDataLength}})
+            <span class="rightpanegeneralall" (click)="$event.preventDefault();$event.stopPropagation();manuallyRefreshTraining()"
+              [ngClass]="{'rotate':firstRefreshStart}"> <i
+                class="fas fa-redo float-right right_panel_refresh_icon color_gray"></i></span>
+          </a>
+        </div>
+        <div id="training" class="collapse show"
+          [ngClass]="{'collapse show': !lineHelpData && (lineHelpDataKeysArray && lineHelpDataKeysArray.length === 0) , 'collapse': lineHelpData && (lineHelpDataKeysArray && lineHelpDataKeysArray.length > 0) }"
+          data-parent="#accordion">
+          <div [ngClass]="{'card-body': showLineHelp , 'card-rightbar': !showLineHelp}" style="overflow:auto;">
+            <app-training #trainingComponent [(trainingDataLength)]='trainingDataLength'></app-training>
+          </div>
+        </div>
+      </div>
+      <!--training end-->
+
+      <!--Line Help start-->
+      <div class="card" *ngIf="showLineHelp">
+        <div class="card-header">
+          <a class="collapsed card-link" data-toggle="collapse" data-target="#lineHelp">
+            <span>Line Help</span>
+            <!-- <span></span> -->
+            <!-- <span class="accordion-right-icon-wrap accordion-refresh">
+            </span> -->
+          </a>
+        </div>
+        <div id="lineHelp"
+          [ngClass]="{'collapse show': lineHelpData && (lineHelpDataKeysArray && lineHelpDataKeysArray.length > 0), 'collapse': !lineHelpData && (lineHelpDataKeysArray && lineHelpDataKeysArray.length === 0)}"
+          data-parent="#accordion" *ngIf="lineHelpData">
+          <label class="font-weight-bold p-2">{{lineHelpData.title}}</label>
+          <div class="card-body" style="overflow:auto;">
+            <div [innerHtml]="lineHelpData.body"></div>
+            <img [src]="lineHelpData.image" class="card-img-top" alt="Image" *ngIf="lineHelpData.image">
+          </div>
+        </div>
+      </div>
+      <!--Line Help end-->
+
+
+    </div>
+  </div>
+</div>

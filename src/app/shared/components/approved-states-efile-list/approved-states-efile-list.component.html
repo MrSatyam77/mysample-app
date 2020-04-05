@@ -1,0 +1,503 @@
+<!-- Open Dialog div Start-->
+<div class="modal-header p-0" *ngIf="mode !== false">
+  <h5 class="page_title_wrap title_height_40 clearfix w-100 mb-0">
+    <span *ngIf="taxYear >= 2018">Approved E-File and Print List</span>
+    <span *ngIf="taxYear < 2017">Approved E-File States </span>
+    <span *ngIf="taxYear == 2017">Approved E-File States </span>
+  </h5>
+</div>
+<div class="modal-body clearfix modal-tbl-scroll pt-1" *ngIf="mode !== false">
+  <!-- <div class="clearfix margin_top_15 table-responsive custom-table"> -->
+  <div class="row mb-1">
+    <div class="col-24 py-1" *ngIf="taxYear >= 2018">
+      <div class="status_name float-left p-2">
+        <div class="float-left"><img src="../../../../taxAppJs/return/workspace/images/approved.png"
+            class="margin_right_5"></div>
+        <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">E-File Approved</span>
+      </div>
+      <div class="status_name float-left p-2">
+        <div class="margin_right_5 float-left"><i style="color:graytext;"
+            class="fa fa-exclamation-triangle padding_right_5"></i></div>
+        <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">In Testing</span>
+      </div>
+
+      <div class="status_name float-left p-2">
+        <div class="margin_right_5 float-left"><i style="color:graytext;" class="fa fa-print padding_right_5"></i>
+        </div>
+        <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">Forms Approved For Paper Filing</span>
+      </div>
+      <div class="status_name float-left p-2">
+        <div class="float-left"><img src="../../../../taxAppJs/return/workspace/images/notapplicable.png"
+            class="margin_right_5"></div>
+        <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">Not Available</span>
+      </div>
+      <!-- <div class="status_name col-lg-3 col-sm-3 col-xs-3 text-left">
+                                    <img data-ng-src="taxAppJs/return/workspace/images/closeicon.png" class="margin_right_5">
+                                    Not Supported
+                                </div> -->
+      <div class="status_name float-left p-2">
+        <div class="margin_right_5 float-left"> <i style="color:graytext;" class="fa fa-unlink padding_right_5"></i>
+        </div>
+        <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">State Form Can Be E-Filed Unlinked</span>
+      </div>
+      <div class="status_name float-left p-2">
+        <div class="margin_right_5 float-left"><i style="color:graytext;" class="fa fa-link padding_right_5"></i>
+        </div>
+        <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">State Form Must Be E-Filed Linked</span>
+      </div>
+    </div>
+
+    <div class="col-24  py-1" *ngIf="taxYear < 2017">
+
+      <div class="status_name float-left p-2"><img src="../../../../taxAppJs/return/workspace/images/approved.png"
+          class="margin_right_5">E-File Approved
+      </div>
+      <div class="status_name float-left p-2"><i style="color:graytext;"
+          class="fa fa-exclamation-triangle padding_right_5"></i>In E-File Testing </div>
+      <div class="status_name float-left p-2"><i style="color:graytext;"
+          class="fa fa-print padding_right_5"></i>{{taxYear}} Paper Only </div>
+    </div>
+
+    <div class="row col-24 py-1" *ngIf="taxYear == 2017">
+      <div class="col-lg-6 col-sm-2 col-md-3 col-xs-0"><span><span class="font_bold">E-File Release Date
+          </span> : Released</span></div>
+      <div class="status_name float-left p-2">
+        <img src="../../../../taxAppJs/return/workspace/images/approved.png" class="margin_right_5">E-File Approved
+      </div>
+      <div class="status_name float-left p-2">
+        <i style="color:graytext;" class="fa fa-exclamation-triangle padding_right_5"></i>In E-File Testing
+      </div>
+      <div class="status_name float-left p-2">
+        <i style="color:graytext;" class="fa fa-print padding_right_5"></i>{{taxYear}} Paper Only
+      </div>
+    </div>
+  </div>
+
+  <div class="preferences-header clearfix releaseStateDetailsWithStimatedDate">
+    <div>
+      <table *ngIf="taxYear >= 2018" style="width: 100%" class="table-fixed">
+        <thead>
+          <!-- style="border-bottom: 1px solid #ddd !important;" -->
+          <tr class="table-header-custom">
+            <th style="width: 100px; border-right: 1px solid #fff;border-bottom: 1px solid #ddd !important;">&nbsp;</th>
+            <th *ngFor="let packageName of packageNameList"
+              style="border-bottom: 1px solid #ddd !important;padding:0px !important;">
+              <table style="width: 100%">
+                <tr>
+                  <th class="font_bold"
+                    style="width: 100px;border-bottom: 1px solid #ddd !important; text-align: center; padding:2px 0px; font-size: 16px; border-right: 1px solid #fff;"
+                    *ngIf="packageName.packageName !== '1040'">{{packageName.packageName}}</th>
+                  <th class="font_bold"
+                    style="width: 160px;border-bottom: 1px solid #ddd !important; text-align: center; padding:2px 0px; font-size: 16px; border-right: 1px solid #fff;"
+                    *ngIf="packageName.packageName === '1040'">{{packageName.packageName}}</th>
+                  <!-- <th class="font_bold" style="width: 50px; font-size: 16px; border-right: 1px solid #fff;"></th>
+                                      <th class="font_bold" style="width: 50px; font-size: 16px; border-right: 1px solid #fff;" data-ng-if="packageName.packageName == '1040'"></th> -->
+                </tr>
+              </table>
+            </th>
+            <th style="width: 17px;background: #fff !important; border-right: 0px solid #fff;">&nbsp;</th>
+          </tr>
+        </thead>
+      </table>
+
+      <table class="row col-lg-24" *ngIf="taxYear == 2017" style="width: 100%" class="table-fixed">
+        <thead>
+          <tr class="table-header-custom">
+            <th style="width: 100px">&nbsp;</th>
+            <th *ngFor="let packageName of packageNameList">
+              <table style="width: 100%">
+                <tr>
+                  <th class="font_bold" style="width: 50px">{{packageName.packageName}}</th>
+                  <th class="font_bold" style="width: 100px">{{packageName.dateDisplayText}}</th>
+                </tr>
+              </table>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div class="row" *ngIf="taxYear < 2017">
+      <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 table-header-custom">
+        <div class="row">
+          <div class="col-lg-5 col-sm-3 col-md-3 col-xs-5 font_bold"></div>
+          <div *ngFor="let packageName of packageNameList" class="col-lg-3 col-sm-3 col-md-3 col-xs-3 font_bold">
+            {{packageName.packageName}} </div>
+        </div>
+      </div>
+      <div style="width:20px;float:left;"></div>
+    </div>
+
+
+
+    <div *ngIf="taxYear >= 2018" class="table-padding-right" style="background: transparent;">
+      <table style="width: 100%;" class="table-fixed">
+        <thead>
+          <tr class="table-body-row-custom" style="background: transparent; border-color:#a5a5a5 !important;">
+            <th style="width: 100px; border-right: 1px solid #cacaca;background-color: white">States</th>
+            <th *ngFor="let packageName of packageNameList" style="border-right: 1px solid #cacaca;">
+              <table style="width: 100%;">
+                <tr>
+                  <th class="font_bold" style="width: 50px; text-align: center;background-color: white">E-File
+                  </th>
+                  <th class="font_bold" style="width: 50px; text-align: center;background-color: white">Print</th>
+                  <th class="font_bold" style="width: 61px; text-align: center;background-color: white"
+                    *ngIf="packageName.packageName === '1040'">E-File
+                    Method</th>
+                </tr>
+              </table>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div *ngIf="taxYear >= 2018" class="table-container scrollbar" id="style-1">
+      <table style="width: 100%" class="table-fixed">
+        <tbody>
+          <tr *ngFor="let state of stateWisePackageList" class="table-body-row-custom">
+            <td style="width: 100px; border-right: 1px solid #cacaca;">{{state.stateName}}</td>
+            <td *ngFor="let package of state.packageList"
+              style="border-right: 1px solid #cacaca; padding:3px 0px!important;">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 50px; text-align: center; padding:8px 0px !important;">
+                    <img *ngIf="package.isState===true && package.eFileStatus.value==='approved'"
+                      src="../../../../taxAppJs/return/workspace/images/approved.png">
+                    <img *ngIf="package.isState===true && package.eFileStatus.value==='NAForefile'"
+                      src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                    <i *ngIf="package.isState===true && package.eFileStatus.value==='ats'" style="color:graytext;"
+                      class="fa fa-exclamation-triangle"></i>
+                    <img *ngIf="package.isState===false"
+                      src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                  </td>
+                  <td style="width: 50px; text-align: center; padding:8px 0px !important;">
+                    <i *ngIf="package.isState===true && package.printingStatus === 'Approved'" style="color:graytext;"
+                      class="fa" [ngClass]="{'fa-print':package.printingStatus==='Approved'}"></i>
+                    <i *ngIf="package.isState===true && package.printingStatus ==='In Testing'" style="color:graytext;"
+                      class="fa" [ngClass]="{'fa-exclamation-triangle':package.printingStatus==='In Testing'}"></i>
+                    <img *ngIf="package.isState===true && package.printingStatus ==='NAPaperFiling'"
+                      src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                    <img *ngIf="package.isState===false"
+                      src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                    <!-- <img ng-if="package.isState==false" data-ng-src="taxAppJs/return/workspace/images/closeicon.png"> -->
+                  </td>
+                  <td style="width: 60px; text-align: center; padding:8px 0px !important;"
+                    *ngIf="package.packageName === '1040'">
+                    <i *ngIf="package.stateOnly === true" style="color:graytext;" class="fa fa-unlink"></i>
+                    <i *ngIf="!package.stateOnly || package.stateOnly === false" style="color:graytext;"
+                      class="fa fa-link"></i>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div *ngIf="taxYear == 2017" class="table-container scrollbar">
+      <table style="width: 100%" class="table-fixed">
+        <tbody>
+          <tr *ngFor="let state of stateWisePackageList" class="table-body-row-custom">
+            <td style="width: 100px">{{state.stateName}}</td>
+            <td *ngFor="let package of state.packageList">
+              <table style="width: 100%">
+                <tr>
+                  <td style="width: 50px">
+                    <img
+                      *ngIf="package.isState == true && package.eFileStatus && package.eFileStatus.value =='approved'"
+                      src="../../../../taxAppJs/return/workspace/images/approved.png">
+                    <i *ngIf="package.isState ==true && package.eFileStatus && package.eFileStatus.value !=='approved'"
+                      style="color:graytext;" class="fa"
+                      [ngClass]="{'fa-print':package.eFileStatus.value=='paperOnly','fa-exclamation-triangle':package.eFileStatus.value=='ats'}"></i>
+                    <span *ngIf="package.isState==false" style="color:graytext;">N/A</span>
+                  </td>
+                  <td style="width: 100px">{{package.estimatedDate}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="taxYear < 2017">
+      <div class="row state-list-dashboard-body-overflow" style="overflow-x: hidden">
+        <div *ngFor="let state of stateWisePackageList"
+          class="col-lg-24 col-sm-24 col-md-24 col-xs-24 table-body-row-custom">
+          <div class="row">
+            <div class="col-lg-5 col-sm-3 col-md-3 col-xs-5">{{state.stateName}}</div>
+            <div *ngFor="let package of state.packageList" class="col-lg-3 col-sm-3 col-md-3 col-xs-3 margin_top_5">
+              <img *ngIf="package.isState==true && package.eFileStatus && package.eFileStatus.value=='approved'"
+                src="../../../../taxAppJs/return/workspace/images/approved.png">
+              <i *ngIf="package.isState==true  && package.eFileStatus && package.eFileStatus.value!='approved'"
+                style="color:graytext;" class="fa"
+                [ngClass]="{'fa-print':package.eFileStatus.value=='paperOnly','fa-exclamation-triangle':package.eFileStatus.value=='ats'}"></i>
+              <span *ngIf="package.isState==false" style="color:graytext;">N/A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Open Dialog div End-->
+
+
+<!-- page redirect div start-->
+<div class="clearfix" *ngIf="mode === false">
+  <!-- <div class="inner_col_second clearfix"> -->
+  <section class="page_title_wrap title_height_40 clearfix">
+    <span class="page_title_lg ng-binding" *ngIf="taxYear >= 2018">Approved E-File and Print List</span>
+    <span class="page_title_lg ng-binding" *ngIf="taxYear < 2017">Approved E-File States </span>
+    <span class="page_title_lg ng-binding" *ngIf="taxYear == 2017">Approved E-File States </span>
+    <div class="float-right">
+      <button class="btn btn-outline-primary pl-2" (click)="backToHomeScreen()">Back
+        To Dashboard</button>
+    </div>
+  </section>
+
+  <div class="clearfix p-3" style="padding-top: 0 !important;">
+    <!-- <div class="clearfix margin_top_15 table-responsive custom-table"> -->
+    <div class="row">
+      <div class="col-24 py-2" *ngIf="taxYear >= 2018">
+        <div class="status_name float-left p-2">
+          <div class="float-left"><img src="../../../../taxAppJs/return/workspace/images/approved.png"
+              class="margin_right_5"></div>
+          <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">E-File Approved</span>
+        </div>
+        <div class="status_name float-left p-2">
+          <div class="margin_right_5 float-left"><i style="color:graytext;"
+              class="fa fa-exclamation-triangle padding_right_5"></i></div>
+          <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">In Testing</span>
+        </div>
+
+        <div class="status_name float-left p-2">
+          <div class="margin_right_5 float-left"><i style="color:graytext;" class="fa fa-print padding_right_5"></i>
+          </div>
+          <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">Forms Approved For Paper Filing</span>
+        </div>
+        <div class="status_name float-left p-2">
+          <div class="float-left"><img src="../../../../taxAppJs/return/workspace/images/notapplicable.png"
+              class="margin_right_5"></div>
+          <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">Not Available</span>
+        </div>
+        <!-- <div class="status_name col-lg-3 col-sm-3 col-xs-3 text-left">
+                                <img data-ng-src="taxAppJs/return/workspace/images/closeicon.png" class="margin_right_5">
+                                Not Supported
+                            </div> -->
+        <div class="status_name float-left p-2">
+          <div class="margin_right_5 float-left"> <i style="color:graytext;" class="fa fa-unlink padding_right_5"></i>
+          </div>
+          <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">State Form Can Be E-Filed Unlinked</span>
+        </div>
+        <div class="status_name float-left p-2">
+          <div class="margin_right_5 float-left"><i style="color:graytext;" class="fa fa-link padding_right_5"></i>
+          </div>
+          <span class="col-lg-24 col-sm-20 col-xs-20 padding_l_r_0">State Form Must Be E-Filed Linked</span>
+        </div>
+      </div>
+
+      <div class="col-24  py-1" *ngIf="taxYear < 2017">
+
+        <div class="status_name float-left p-2"><img src="../../../../taxAppJs/return/workspace/images/approved.png"
+            class="margin_right_5">E-File Approved
+        </div>
+        <div class="status_name float-left p-2"><i style="color:graytext;"
+            class="fa fa-exclamation-triangle padding_right_5"></i>In E-File Testing </div>
+        <div class="status_name float-left p-2"><i style="color:graytext;"
+            class="fa fa-print padding_right_5"></i>{{taxYear}} Paper Only </div>
+      </div>
+
+      <div class="row col-24 py-1" *ngIf="taxYear == 2017">
+        <div class="col-lg-6 col-sm-2 col-md-3 col-xs-0"><span><span class="font_bold">E-File Release Date
+            </span> : Released</span></div>
+        <div class="status_name float-left p-2">
+          <img src="../../../../taxAppJs/return/workspace/images/approved.png" class="margin_right_5">E-File Approved
+        </div>
+        <div class="status_name float-left p-2">
+          <i style="color:graytext;" class="fa fa-exclamation-triangle padding_right_5"></i>In E-File Testing
+        </div>
+        <div class="status_name float-left p-2">
+          <i style="color:graytext;" class="fa fa-print padding_right_5"></i>{{taxYear}} Paper Only
+        </div>
+      </div>
+    </div>
+
+    <div class="preferences-header clearfix releaseStateDetailsWithStimatedDate">
+      <div>
+        <table *ngIf="taxYear >= 2018" style="width: 100%" class="table-fixed">
+          <thead>
+            <!-- style="border-bottom: 1px solid #ddd !important;" -->
+            <tr class="table-header-custom">
+              <th style="width: 100px;border-bottom: 1px solid #ddd !important; border-right: 1px solid #fff;">&nbsp;
+              </th>
+              <th *ngFor="let packageName of packageNameList"
+                style="border-bottom: 1px solid #ddd !important;padding:0px !important;">
+                <table style="width: 100%">
+                  <tr>
+                    <th class="font_bold"
+                      style="width: 100px;border-bottom: 1px solid #ddd !important; text-align: center; padding:2px 0px; font-size: 16px; border-right: 1px solid #fff;"
+                      *ngIf="packageName.packageName !== '1040'">{{packageName.packageName}}</th>
+                    <th class="font_bold"
+                      style="width: 160px;border-bottom: 1px solid #ddd !important; text-align: center; padding:2px 0px; font-size: 16px; border-right: 1px solid #fff;"
+                      *ngIf="packageName.packageName === '1040'">{{packageName.packageName}}</th>
+
+                    <!-- <th class="font_bold" style="width: 50px; font-size: 16px; border-right: 1px solid #fff;"></th>
+                                        <th class="font_bold" style="width: 50px; font-size: 16px; border-right: 1px solid #fff;" data-ng-if="packageName.packageName == '1040'"></th> -->
+                  </tr>
+                </table>
+              </th>
+              <th style="width: 17px;background: #fff !important; border-right: 0px solid #fff;">&nbsp;</th>
+            </tr>
+          </thead>
+        </table>
+
+        <table class="row col-lg-24" *ngIf="taxYear == 2017" style="width: 100%" class="table-fixed">
+          <thead>
+            <tr class="table-header-custom">
+              <th style="width: 100px">&nbsp;</th>
+              <th *ngFor="let packageName of packageNameList">
+                <table style="width: 100%">
+                  <tr>
+                    <th class="font_bold" style="width: 50px">{{packageName.packageName}}</th>
+                    <th class="font_bold" style="width: 100px">{{packageName.dateDisplayText}}</th>
+                  </tr>
+                </table>
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="row" *ngIf="taxYear < 2017">
+        <div class="col-lg-24 col-sm-24 col-md-24 col-xs-24 table-header-custom">
+          <div class="row">
+            <div class="col-lg-5 col-sm-3 col-md-3 col-xs-5 font_bold"></div>
+            <div *ngFor="let packageName of packageNameList" class="col-lg-3 col-sm-3 col-md-3 col-xs-3 font_bold">
+              {{packageName.packageName}} </div>
+          </div>
+        </div>
+        <div style="width:20px;float:left;"></div>
+      </div>
+
+
+
+      <div *ngIf="taxYear >= 2018" class="table-padding-right" style="background: transparent;">
+        <table style="width: 100%;" class="table-fixed">
+          <thead>
+            <tr class="table-body-row-custom" style="background: transparent; border-color:#a5a5a5 !important;">
+              <th style="width: 100px; border-right: 1px solid #cacaca;background-color: white">States</th>
+              <th *ngFor="let packageName of packageNameList" style="border-right: 1px solid #cacaca;">
+                <table style="width: 100%;">
+                  <tr>
+                    <th class="font_bold" style="width: 50px; text-align: center;background-color: white">E-File
+                    </th>
+                    <th class="font_bold" style="width: 50px; text-align: center;background-color: white">Print</th>
+                    <th class="font_bold" style="width: 61px; text-align: center;background-color: white"
+                      *ngIf="packageName.packageName === '1040'">E-File
+                      Method</th>
+                  </tr>
+                </table>
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div *ngIf="taxYear >= 2018" class="table-container scrollbar" id="style-1">
+        <table style="width: 100%" class="table-fixed">
+          <tbody>
+            <tr *ngFor="let state of stateWisePackageList" class="table-body-row-custom">
+              <td style="width: 100px; border-right: 1px solid #cacaca;">{{state.stateName}}</td>
+              <td *ngFor="let package of state.packageList"
+                style="border-right: 1px solid #cacaca; padding:3px 0px!important;">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 50px; text-align: center; padding:8px 0px !important;">
+                      <img *ngIf="package.isState===true && package.eFileStatus.value==='approved'"
+                        src="../../../../taxAppJs/return/workspace/images/approved.png">
+                      <img *ngIf="package.isState===true && package.eFileStatus.value==='NAForefile'"
+                        src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                      <i *ngIf="package.isState===true && package.eFileStatus.value==='ats'" style="color:graytext;"
+                        class="fa fa-exclamation-triangle"></i>
+                      <img *ngIf="package.isState===false"
+                        src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                    </td>
+                    <td style="width: 50px; text-align: center; padding:8px 0px !important;">
+                      <i *ngIf="package.isState===true && package.printingStatus === 'Approved'" style="color:graytext;"
+                        class="fa" [ngClass]="{'fa-print':package.printingStatus==='Approved'}"></i>
+                      <i *ngIf="package.isState===true && package.printingStatus ==='In Testing'"
+                        style="color:graytext;" class="fa"
+                        [ngClass]="{'fa-exclamation-triangle':package.printingStatus==='In Testing'}"></i>
+                      <img *ngIf="package.isState===true && package.printingStatus ==='NAPaperFiling'"
+                        src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                      <img *ngIf="package.isState===false"
+                        src="../../../../taxAppJs/return/workspace/images/notapplicable.png">
+                      <!-- <img ng-if="package.isState==false" data-ng-src="taxAppJs/return/workspace/images/closeicon.png"> -->
+                    </td>
+                    <td style="width: 60px; text-align: center; padding:8px 0px !important;"
+                      *ngIf="package.packageName === '1040'">
+                      <i *ngIf="package.stateOnly === true" style="color:graytext;" class="fa fa-unlink"></i>
+                      <i *ngIf="!package.stateOnly || package.stateOnly === false" style="color:graytext;"
+                        class="fa fa-link"></i>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div *ngIf="taxYear == 2017" class="table-container scrollbar">
+        <table style="width: 100%" class="table-fixed">
+          <tbody>
+            <tr *ngFor="let state of stateWisePackageList" class="table-body-row-custom">
+              <td style="width: 100px">{{state.stateName}}</td>
+              <td *ngFor="let package of state.packageList">
+                <table style="width: 100%">
+                  <tr>
+                    <td style="width: 50px">
+                      <img *ngIf="package.isState === false"
+                        src="../../../../taxAppJs/return/workspace/images/approved.png">
+                      <i *ngIf="package.isState==false" style="color:graytext;" class="fa"></i>
+                      <span *ngIf="package.isState==true" style="color:graytext;">N/A</span>
+                    </td>
+                    <td style="width: 100px">{{package.estimatedDate}}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="taxYear < 2017">
+        <div class="row state-list-dashboard-body-overflow" style="overflow-x: hidden">
+          <div *ngFor="let state of stateWisePackageList"
+            class="col-lg-24 col-sm-24 col-md-24 col-xs-24 table-body-row-custom">
+            <div class="row">
+              <div class="col-lg-5 col-sm-3 col-md-3 col-xs-5">{{state.stateName}}</div>
+              <div *ngFor="let package of state.packageList" class="col-lg-3 col-sm-3 col-md-3 col-xs-3 margin_top_5">
+                <img *ngIf="package.isState==true && package.eFileStatus.value=='approved'"
+                  src="../../../../taxAppJs/return/workspace/images/approved.png">
+                <i *ngIf="package.isState==true && package.eFileStatus.value!='approved'" style="color:graytext;"
+                  class="fa"
+                  [ngClass]="{'fa-print':package.eFileStatus.value=='paperOnly','fa-exclamation-triangle':package.eFileStatus.value=='ats'}"></i>
+                <span *ngIf="package.isState==false" style="color:graytext;">N/A</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- </div> -->
+</div>
+<!-- page redirect div end-->

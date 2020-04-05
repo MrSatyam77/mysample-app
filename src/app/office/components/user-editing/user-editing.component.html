@@ -1,0 +1,681 @@
+<div class="mtpo-action float-right">
+  <button type="submit" class="btn btn-outline-primary ml-2 float-left" (click)="save()" [disabled]="!userEditFrom.valid">Save</button>
+  <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">Cancel</button>
+</div>
+
+<div class="row">
+  <div class="col position-relative user-details-thumb mb-4 p-0">
+    <div class="user-img-wrap" (click)="browseImage()">
+      <img class="img-thumbnail rounded-circle" [src]="userDetail.userImageSrc">
+      <div class="user-edit-wrap text-center">
+        <i class="d-block fa fa-camera text-white mb-2"></i>
+        <span class="d-block">Change</span>
+      </div>
+      <input type="file" #userImage name="profilePic" hidden (change)="updateUserImage($event)" accept="image/x-png,image/gif,image/jpeg">
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="userEditFrom">
+  <!-- User type section starts -->
+  <div class="form-group row">
+    <label for="userType" class="col-sm-6 col-form-label">User Type</label>
+    <div class="col-sm-8">
+      <div class="d-inline">
+        <div class="mtpo-custom-checkbox d-inline mr-4">
+          <button class="mtpo-checkbox" id="preparer" (click)="userDetail.isPreparer = !userDetail.isPreparer;setConditionalValidators()"
+            [disabled]="userDetail.isERO === true" [ngClass]="{'active': userDetail.isPreparer === true || userDetail.isERO === true}"></button>
+          <label class="d-inline" for="preparer">Preparer</label>
+        </div>
+      </div>
+      <div class="d-inline">
+        <div class="mtpo-custom-checkbox d-inline">
+          <button class="mtpo-checkbox active" id="ero" (click)="userDetail.isERO = !userDetail.isERO;onSelectionOfERO();setConditionalValidators()"
+            [ngClass]="{'active': userDetail.isERO === true}"></button>
+          <label class="d-inline" for="ero">ERO</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- User type section ends -->
+
+  <div class="form-group row">
+    <label for="activeUser" class="col-sm-6 col-form-label">Enable Login</label>
+    <div class="col-sm-8">
+      <div class="mtpo-custom-checkbox d-inline mr-5 mb-3">
+        <button class="mtpo-checkbox" id="activeUser" (click)="userDetail.isActiveUser = !userDetail.isActiveUser" [ngClass]="{'active': userDetail.isActiveUser === true}"></button>
+        <!-- <label class="d-inline" for="activeUser">Active</label> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="firstName" class="col-sm-6 col-form-label">First Name</label>
+    <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+      <input type="text" class="form-control" id="firstName" formControlName="firstName">
+    </div>
+    <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+      <input type="text" class="form-control" id="firstName" formControlName="firstName" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+        container="body" tooltipClass="default default-400" placement="right">
+      <span class="icon-span">
+        <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+          placement="right"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="lastName" class="col-sm-6 col-form-label">Last Name</label>
+    <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+      <input type="text" class="form-control" id="lastName" formControlName="lastName">
+    </div>
+    <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+      <input type="text" class="form-control" id="lastName" formControlName="lastName" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+        container="body" tooltipClass="default default-400" placement="right">
+      <span class="icon-span">
+        <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+          placement="right"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="email" class="col-sm-6 col-form-label">Email</label>
+    <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+      <input type="email" class="form-control" id="email" formControlName="email">
+      <span class="info-msg" *ngIf="!userDetail.isEmailVerified"><i class="fa fa-exclamation-circle text-danger" placement="right"
+          ngbTooltip="Email is not verified!" container="body" tooltipClass="error"></i></span>
+      <span class="info-msg" *ngIf="userDetail.isEmailVerified === true"><i class="fa fa-check-circle text-success" placement="right"
+          ngbTooltip="Email verified." container="body" tooltipClass="success"></i></span>
+    </div>
+    <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+      <input type="email" class="form-control" id="email" formControlName="email" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+        container="body" tooltipClass="default default-400" placement="right">
+      <span class="info-msg" *ngIf="!userDetail.isEmailVerified"><i class="fa fa-exclamation-circle text-danger" placement="right"
+          ngbTooltip="Email is not verified!" container="body" tooltipClass="error"></i></span>
+      <span class="info-msg" *ngIf="userDetail.isEmailVerified === true"><i class="fa fa-check-circle text-success" placement="right"
+          ngbTooltip="Email verified." container="body" tooltipClass="success"></i></span>
+      <span class="icon-span">
+        <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+          placement="right"></i>
+      </span>
+    </div>
+    <div class="col-sm-8 pl-4">
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="verifyEmail(true)" [disabled]="!userEditFrom.controls.email.value">Verify</button>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="secondaryEmail" class="col-sm-6 col-form-label">Recovery Email</label>
+    <div class="col-sm-8">
+      <div class="mtpo-custom-checkbox d-inline">
+        <button class="mtpo-checkbox" id="secondaryEmail" (click)="userDetail.secondaryEmail = !userDetail.secondaryEmail;setConditionalValidators()"
+          [ngClass]="{'active': !userDetail.secondaryEmail}"></button>
+        <label class="d-inline" for="secondaryEmail">I dont have secondary email</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row" *ngIf="userDetail.secondaryEmail === true">
+    <label for="recoveryEmail" class="col-sm-6 col-form-label"></label>
+    <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+      <input type="email" class="form-control" id="recoveryEmail" formControlName="recoveryEmail">
+      <span class="info-msg" *ngIf="!userDetail.isSecondaryEmailVerified"><i class="fa fa-exclamation-circle text-danger"
+          placement="right" ngbTooltip="Recovery Email not verified!" container="body" tooltipClass="error"></i></span>
+      <span class="info-msg" *ngIf="userDetail.isSecondaryEmailVerified === true"><i class="fa fa-check-circle text-success"
+          placement="right" ngbTooltip="Recovery Email verified," container="body" tooltipClass="success"></i></span>
+    </div>
+    <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+      <input type="email" class="form-control" id="recoveryEmail" formControlName="recoveryEmail" [ngbTooltip]="unlockUserMessage"
+        triggers="click:blur" container="body" tooltipClass="default default-400" placement="right">
+      <span class="info-msg" *ngIf="!userDetail.isSecondaryEmailVerified"><i class="fa fa-exclamation-circle text-danger"
+          placement="right" ngbTooltip="Recovery Email not verified!" container="body" tooltipClass="error"></i></span>
+      <span class="info-msg" *ngIf="userDetail.isSecondaryEmailVerified === true"><i class="fa fa-check-circle text-success"
+          placement="right" ngbTooltip="Recovery Email verified," container="body" tooltipClass="success"></i></span>
+      <span class="icon-span">
+        <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+          placement="right"></i>
+      </span>
+    </div>
+    <div class="col-sm-8 pl-4">
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="verifyEmail(false)" [disabled]="!userEditFrom.controls.recoveryEmail.value">Verify</button>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="cellPhone" class="col-sm-6 col-form-label">Cell Phone</label>
+    <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+      <input type="text" class="form-control" id="cellPhone" formControlName="phoneNo" mask="(000) 000-0000">
+      <span class="info-msg" *ngIf="!userDetail.isPhoneVerified"><i class="fa fa-exclamation-circle text-danger" placement="right"
+          ngbTooltip="Cell Phone not verified!" container="body" tooltipClass="error"></i></span>
+      <span class="info-msg" *ngIf="userDetail.isPhoneVerified === true"><i class="fa fa-check-circle text-success" placement="right"
+          ngbTooltip="Cellphone Verified." container="body" tooltipClass="success"></i></span>
+    </div>
+    <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+      <input type="text" class="form-control" id="cellPhone" formControlName="phoneNo" mask="(000) 000-0000" [ngbTooltip]="unlockUserMessage"
+        triggers="click:blur" container="body" tooltipClass="default default-400" placement="right">
+      <span class="info-msg" *ngIf="!userDetail.isPhoneVerified"><i class="fa fa-exclamation-circle text-danger" placement="right"
+          ngbTooltip="Cell Phone not verified!" container="body" tooltipClass="error"></i></span>
+      <span class="info-msg" *ngIf="userDetail.isPhoneVerified === true"><i class="fa fa-check-circle text-success" placement="right"
+          ngbTooltip="Cellphone Verified." container="body" tooltipClass="success"></i></span>
+      <span class="icon-span">
+        <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+          placement="right"></i>
+      </span>
+    </div>
+    <div class="col-sm-8 pl-4">
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="verifyPhone()" [disabled]="!userEditFrom.controls.phoneNo.value">Verify</button>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="twoFactorAuthentication" class="col-sm-6 col-form-label">Two Factor Authentication</label>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="mtpo-custom-checkbox d-inline">
+            <button class="mtpo-checkbox" id="viaEmail" (click)="userDetail.twoFactorAuthentication.isEmailEnabled = !userDetail.twoFactorAuthentication.isEmailEnabled"
+              [ngClass]="{'active': userDetail.twoFactorAuthentication.isEmailEnabled === true}"></button>
+            <label class="d-inline" for="viaEmail">Via Email</label>
+          </div>
+        </div>
+        <!-- <div class="col-sm-12">
+          <div class="mtpo-custom-checkbox d-inline mr-5">
+            <button class="mtpo-checkbox active" id="viaToken"></button>
+            <label class="d-inline" for="viaToken">Via Token</label>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- office selection section start -->
+  <div class="pt-3 p-0">
+    <div class="form-group row">
+      <div class="col">
+        <h5 class="c-title font-weight-bold" style="font-size: 1.1rem">Role and Location Selection</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="adminUser" class="col-sm-6 col-form-label">Firm Administrator</label>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="mtpo-custom-checkbox d-inline">
+            <button class="mtpo-checkbox" id="adminUserYes" (click)="userDetail.isAdministrator = !userDetail.isAdministrator" [ngClass]="{'active': userDetail.isAdministrator === true}"></button>
+            <label class="d-inline" for="adminUserYes">Yes</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="contractContact" class="col-sm-6 col-form-label">License Contact</label>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="mtpo-custom-checkbox d-inline">
+            <button class="mtpo-checkbox" id="contractContact" (click)="userDetail.isContractContact = !userDetail.isContractContact;checkIfNoContractContact()"
+              [ngClass]="{'active': userDetail.isContractContact === true}"></button>
+            <label class="d-inline" for="contractContact">Yes</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="showReturn" class="col-sm-6 col-form-label">Display Returns Prepared By</label>
+    <div class="col-sm-8">
+      <select id="showReturn" class="form-control" formControlName="showReturn">
+        <option [ngValue]="1">All</option>
+        <option [ngValue]="2">User Only</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row p-0">
+    <label for="office" class="col-sm-6 col-form-label">Location</label>
+    <div class="col-sm-16">
+      <div class="row mb-2" *ngFor="let location of lookupData.locations">
+        <div class="col-sm-12">
+          <div class="mtpo-custom-checkbox d-inline">
+            <button class="mtpo-checkbox" (click)="location.isSelected = !location.isSelected; location.roleId = ''" [ngClass]="{'active': location.isSelected === true}"></button>
+            <label class="d-inline">{{location.locationName}}</label>
+          </div>
+        </div>
+        <div class="col-sm-12" *ngIf="location.isSelected === true">
+          <select id="coutry" class="form-control" [(ngModel)]="location.roleId" [ngModelOptions]="{standalone: true}" [required]="location.isSelected === true"
+            [disabled]="!location.isSelected">
+            <option *ngFor="let role of lookupData.roles" [value]="role.roleId">{{role.roleName}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- office selection section end -->
+
+  <!-- When user type is not ero give user an option to choose
+  <div *ngIf="!userDetail.isERO">
+    <div class="form-group row">
+      <label for="chooseEFIN" class="col-sm-6 col-form-label">Choose EFIN</label>
+      <div class="col-sm-8">
+        <select id="efinToUse" class="form-control" formControlName="efinToUse">
+          <option *ngFor="let ero of efinToUseLookupData" [value]="ero.id">{{ero.displayText}}</option>
+        </select>
+      </div>
+    </div>
+  </div> -->
+
+  <div *ngIf="userDetail.isPreparer === true" class="pt-3 p-0">
+    <div class="form-group row">
+      <div class="col">
+        <h5 class="c-title font-weight-bold">Additional Preparer Fields</h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preparer specific fields start -->
+  <div *ngIf="userDetail.isPreparer === true" class="pt-3 border-top p-0">
+    <!-- Preparer Id -->
+    <div class="form-group row">
+      <label for="preparerID" class="col-sm-6 col-form-label">Preparer ID</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="preparerID" formControlName="preparerId">
+      </div>
+    </div>
+
+    <!-- Preparer Email -->
+    <div class="form-group row">
+      <label for="preparerEmail" class="col-sm-6 col-form-label">Preparer Email</label>
+      <div class="col-sm-8">
+        <div class="mtpo-custom-checkbox d-inline mr-5">
+          <button class="mtpo-checkbox" id="sameAsLoginEmail" (click)="userDetail.isPreparerEmailSameAsLogin = !userDetail.isPreparerEmailSameAsLogin;setConditionalValidators()"
+            [ngClass]="{'active': userDetail.isPreparerEmailSameAsLogin}"></button>
+          <label class="d-inline" for="sameAsLoginEmail">Same as Email</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="!userDetail.isPreparerEmailSameAsLogin">
+      <label for="preparerEmail" class="col-sm-6 col-form-label"></label>
+      <div class="col-sm-8">
+        <input type="email" class="form-control" id="preparerEmail" formControlName="preparerEmail">
+      </div>
+    </div>
+
+    <!-- Preparer Phone -->
+    <div class="form-group row">
+      <label for="preparerPhone" class="col-sm-6 col-form-label">Preparer Phone</label>
+      <div class="col-sm-8">
+        <div class="mtpo-custom-checkbox d-inline mr-5">
+          <button class="mtpo-checkbox" id="sameAsLoginPhone" (click)="userDetail.isPreparerPhoneSameAsLogin = !userDetail.isPreparerPhoneSameAsLogin;setConditionalValidators()"
+            [ngClass]="{'active': userDetail.isPreparerPhoneSameAsLogin}"></button>
+          <label class="d-inline" for="sameAsLoginPhone">Same as Cell Phone</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="!userDetail.isPreparerPhoneSameAsLogin">
+      <label for="preparerPhone" class="col-sm-6 col-form-label"></label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="preparerPhone" formControlName="preparerPhone" mask="(000) 000-0000">
+      </div>
+    </div>
+
+    <!-- PTIN -->
+    <div class="form-group row">
+      <label for="ptin" class="col-sm-6 col-form-label">
+        PTIN
+        <span class="d-inline"><i class="fa fa-info-circle text-silver-light" placement="right" ngbTooltip="Preparer Tax Identification Number"
+            container="body" tooltipClass="info"></i></span>
+      </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="ptin" formControlName="ptin" prefix="P" mask="00000000">
+      </div>
+    </div>
+
+    <!-- STIN -->
+    <div class="form-group row">
+      <label for="stin" class="col-sm-6 col-form-label">
+        STIN
+        <span class="d-inline"><i class="fa fa-info-circle text-silver-light" placement="right" ngbTooltip="Preparer STIN"
+            container="body" tooltipClass="info"></i></span>
+      </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="stin" formControlName="stin" prefix="S" mask="00000000">
+      </div>
+    </div>
+
+    <!-- PPIN -->
+    <div class="form-group row">
+      <label for="ppin" class="col-sm-6 col-form-label">Practitioner PIN</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="ppin" formControlName="ppin" mask="00000">
+      </div>
+    </div>
+
+    <!-- EIN start -->
+    <div class="form-group row">
+      <label for="ein" class="col-sm-6 col-form-label">
+        EIN
+        <span class="d-inline"><i class="fa fa-info-circle text-silver-light" placement="right" ngbTooltip="Employer Identification Number"
+            container="body" tooltipClass="info"></i></span>
+      </label>
+      <div class="col-sm-8" *ngIf="!userDetail.isSelfEmployed">
+        <input type="text" class="form-control" id="ein" formControlName="ein" mask="00-0000000">
+      </div>
+      <div class="col-sm-8">
+        <div class="mtpo-custom-checkbox d-inline">
+          <button class="mtpo-checkbox" id="selfEmployed" (click)="userDetail.isSelfEmployed = !userDetail.isSelfEmployed;setConditionalValidators()"
+            [ngClass]="{'active': userDetail.isSelfEmployed === true}"></button>
+          <label class="d-inline" for="selfEmployed">Click this if you're Self Employed</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- third party designee -->
+    <div class="form-group row">
+      <label for="thirdPartyDesignee" class="col-sm-6 col-form-label">Third Party Designee</label>
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="mtpo-custom-checkbox d-inline">
+              <button class="mtpo-checkbox" id="thirdPartyDesigneeYes" (click)="userDetail.thirdPartyDesignee = !userDetail.thirdPartyDesignee"
+                [ngClass]="{'active': userDetail.thirdPartyDesignee === true}"></button>
+              <label class="d-inline" for="thirdPartyDesigneeYes">Yes</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-8 col-form-label font-weight-bold">State Dependent Fields</label>
+    </div>
+
+    <!-- efiling states -->
+    <div class="form-group row">
+      <label for="thirdPartyDesignee" class="col-sm-6 col-form-label">Do you E-File in any of these states?</label>
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="mtpo-custom-checkbox d-inline">
+              <button class="mtpo-checkbox" id="nmState" (click)="userDetail.isNMEfileState = !userDetail.isNMEfileState" [ngClass]="{'active': userDetail.isNMEfileState === true}"></button>
+              <label class="d-inline" for="nmState">NM</label>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="mtpo-custom-checkbox d-inline">
+              <button class="mtpo-checkbox" id="nyState" (click)="userDetail.isNYEfileState = !userDetail.isNYEfileState" [ngClass]="{'active': userDetail.isNYEfileState === true}"></button>
+              <label class="d-inline" for="nyState">NY</label>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="mtpo-custom-checkbox d-inline">
+              <button class="mtpo-checkbox" id="orState" (click)="userDetail.isOREfileState = !userDetail.isOREfileState" [ngClass]="{'active': userDetail.isOREfileState === true}"></button>
+              <label class="d-inline" for="orState">OR</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NM State fields -->
+    <div *ngIf="userDetail.isNMEfileState === true">
+      <div class="form-group row">
+        <label class="col-sm-8 col-form-label font-weight-bold">For NM State:</label>
+      </div>
+      <div class="form-group row">
+        <label for="crsin" class="col-sm-6 col-form-label">CRS Identification Number</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="crsin" formControlName="nmCRS">
+        </div>
+      </div>
+    </div>
+
+    <!-- NY state fields -->
+    <div *ngIf="userDetail.isNYEfileState === true">
+      <div class="form-group row">
+        <label class="col-sm-8 col-form-label font-weight-bold">For NY State:</label>
+      </div>
+      <div class="form-group row">
+        <label for="NYTPRIN" class="col-sm-6 col-form-label">
+          NYTPRIN
+          <span class="d-inline"><i class="fa fa-info-circle text-silver-light" placement="right" ngbTooltip="Tax Preparer Registration Identification Number"
+              container="body" tooltipClass="info"></i></span>
+        </label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="NYTPRIN" formControlName="nytprin">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="exemptCode" class="col-sm-6 col-form-label">Exempt Code</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="exemptCode" formControlName="nyExemptCode">
+        </div>
+      </div>
+    </div>
+
+    <!-- OR state fields -->
+    <div *ngIf="userDetail.isOREfileState === true">
+      <div class="form-group row">
+        <label class="col-sm-8 col-form-label font-weight-bold">For OR State:</label>
+      </div>
+      <div class="form-group row">
+        <label for="licenseNumber" class="col-sm-6 col-form-label">License Number</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="licenseNumber" formControlName="orLicenseNumber">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Preparer specific field end -->
+  <div *ngIf="userDetail.isERO === true|| userDetail.isPreparer === true">
+    <div class="form-group row">
+      <label class="col-sm-8 col-form-label font-weight-bold">Personal Address</label>
+    </div>
+    <div class="form-group row">
+      <label for="addressType" class="col-sm-6 col-form-label">Address Type</label>
+      <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+        <select id="addressType" class="form-control" formControlName="addressType">
+          <option [ngValue]="1">US Address</option>
+          <option [ngValue]="2">Foreign Address</option>
+        </select>
+      </div>
+      <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+        <select id="addressType" class="form-control" formControlName="addressType" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+          container="body" tooltipClass="default default-400" placement="right">
+          <option [ngValue]="1">US Address</option>
+          <option [ngValue]="2">Foreign Address</option>
+        </select>
+        <span class="icon-span">
+          <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+            placement="right"></i>
+        </span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="street" class="col-sm-6 col-form-label">Street</label>
+      <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+        <input type="text" class="form-control" id="street" formControlName="street" pattern="[A-Za-z0-9]( ?[A-Za-z0-9\-/])*">
+      </div>
+      <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+        <input type="text" class="form-control" id="street" formControlName="street" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+          container="body" tooltipClass="default default-400" placement="right" pattern="[A-Za-z0-9]( ?[A-Za-z0-9\-/])*">
+        <span class="icon-span">
+          <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+            placement="right"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="userEditFrom.controls.street.errors && userEditFrom.controls.street.errors.pattern">
+      <label class="col-sm-6"></label>
+      <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space.</label>
+    </div>
+
+    <div class="form-group row">
+      <label for="zipCode" class="col-sm-6 col-form-label">Zip Code</label>
+      <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+        <input type="text" class="form-control" id="zipCode" formControlName="postalCode" mask="00000" (blur)="setDataBasedOnZipCode()">
+      </div>
+      <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+        <input type="text" class="form-control" id="zipCode" formControlName="postalCode" mask="00000" (blur)="setDataBasedOnZipCode()"
+          [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400" placement="right">
+        <span class="icon-span">
+          <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+            placement="right"></i>
+        </span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="city" class="col-sm-6 col-form-label">City</label>
+      <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+        <input type="text" class="form-control" id="city" formControlName="city" pattern="([A-Za-z] ?)*[A-Za-z]">
+      </div>
+      <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+        <input type="text" class="form-control" id="city" formControlName="city" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+          container="body" tooltipClass="default default-400" placement="right" pattern="([A-Za-z] ?)*[A-Za-z]">
+        <span class="icon-span">
+          <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+            placement="right"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="userEditFrom.controls.city.errors && userEditFrom.controls.city.errors.pattern">
+      <label class="col-sm-6"></label>
+      <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, single space.</label>
+    </div>
+
+    <div class="form-group row">
+      <label for="State" class="col-sm-6 col-form-label">State</label>
+      <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+        <input type="text" class="form-control" id="State" formControlName="state" pattern="([A-Za-z] ?)*[A-Za-z]">
+      </div>
+      <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+        <input type="text" class="form-control" id="State" formControlName="state" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+          container="body" tooltipClass="default default-400" placement="right" pattern="([A-Za-z] ?)*[A-Za-z]">
+        <span class="icon-span">
+          <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+            placement="right"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="userEditFrom.controls.state.errors && userEditFrom.controls.state.errors.pattern">
+      <label class="col-sm-6"></label>
+      <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, single space.</label>
+    </div>
+
+    <div class="form-group row" *ngIf="userEditFrom.controls.addressType.value === 2">
+      <label for="country" class="col-sm-6 col-form-label">Country</label>
+      <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+        <input type="text" class="form-control" id="country" formControlName="country" pattern="([A-Za-z] ?)*[A-Za-z]">
+      </div>
+      <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+        <input type="text" class="form-control" id="country" formControlName="country" [ngbTooltip]="unlockUserMessage" triggers="click:blur"
+          container="body" tooltipClass="default default-400" placement="right" pattern="([A-Za-z] ?)*[A-Za-z]">
+        <span class="icon-span">
+          <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+            placement="right"></i>
+        </span>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="userEditFrom.controls.country.errors && userEditFrom.controls.country.errors.pattern">
+      <label class="col-sm-6"></label>
+      <label class="col-sm-8 text-danger">Invalid character found. Legal Characters: A-Z, a-z, single space.</label>
+    </div>
+  </div>
+
+  <div *ngIf="userDetail.isERO === true" class="pt-3 p-0">
+    <div class="form-group row">
+      <div class="col">
+        <h5 class="c-title font-weight-bold">Additional ERO Fields</h5>
+      </div>
+    </div>
+  </div>
+  <!-- ERO specific field start -->
+  <div *ngIf="userDetail.isERO === true" class="pt-3 border-top p-0">
+    <div class="form-group row">
+      <label for="ssn" class="col-sm-6 col-form-label">
+        SSN
+        <span class="d-inline"><i class="fa fa-info-circle text-silver-light" placement="right" ngbTooltip="Social Security Number"
+            container="body" tooltipClass="info"></i></span>
+      </label>
+      <div class="col-sm-8" *ngIf="!userDetail.userVerified">
+        <input type="text" class="form-control" id="ssn" formControlName="ssn" mask="000-00-0000">
+      </div>
+      <div class="col-sm-8 field-icon" *ngIf="userDetail.userVerified === true">
+        <input type="text" class="form-control" id="ssn" formControlName="ssn" mask="000-00-0000" [ngbTooltip]="unlockUserMessage"
+          triggers="click:blur" container="body" tooltipClass="default default-400" placement="right">
+        <span class="icon-span">
+          <i class="fas fa-lock" [ngbTooltip]="unlockUserMessage" triggers="click:blur" container="body" tooltipClass="default default-400"
+            placement="right"></i>
+        </span>
+      </div>
+    </div>
+    <!-- SSN ends -->
+  </div>
+
+
+  <!-- <div class="form-group row">
+      <label class="col-sm-8 col-form-label font-weight-bold">Address:</label>
+    </div>
+    <div class="form-group row">
+      <label for="addressType" class="col-sm-8 col-form-label">Same as Office Address?</label>
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="mtpo-custom-checkbox d-inline mr-5">
+              <button class="mtpo-checkbox active" (click)="userDetail.sameAsOfficeAddress = true" [ngClass]="{'active': userDetail.sameAsOfficeAddress === true}"></button>
+              <label class="d-inline">Yes</label>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="mtpo-custom-checkbox d-inline mr-5">
+              <button class="mtpo-checkbox active" (click)="userDetail.sameAsOfficeAddress = false" [ngClass]="{'active': userDetail.sameAsOfficeAddress === false}"></button>
+              <label class="d-inline">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+  <div *ngIf="userDetail.isPreparer === true || userDetail.isERO === true" class="pt-3 p-0">
+    <div class="form-group row">
+      <div class="col">
+        <h5 class="c-title font-weight-bold">Signature</h5>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="userDetail.isPreparer === true || userDetail.isERO === true" class="pt-3 border-top p-0">
+    <div class="form-group row">
+      <label for="signature" class="col-sm-6 col-form-label">Signature</label>
+      <div class="col-sm-8">
+        <div class="signature_img_ui d-block mb-2" *ngIf="userDetail.signatureImage">
+          <img [src]="userDetail.signatureImage" />
+          <button class="btn btn-sm btn-clean delete_sign_img" [disabled]="!userCan.removeSignature" (click)="removeSignature(2)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="d-block">
+          <label for="signature" class="text-primary col-form-label" (click)="captureSignature()" style="cursor: pointer;">Capture</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col pt-3 border-top p-0">
+    <div class="float-right">
+      <button type="submit" class="btn btn-outline-primary ml-2" (click)="save()" [disabled]="!userEditFrom.valid">Save</button>
+      <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</form>

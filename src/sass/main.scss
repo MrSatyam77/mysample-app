@@ -1,0 +1,48 @@
+$primary:#005074;
+$primary-light:#ecf9ff;
+$body-bg:#ffffff;
+$silver-light: #508da9;
+$body: #f4f4f4;
+$grey:#999;
+
+$small-phone: "only screen and (max-width : 360px)";
+$portrait-phone: "only screen and (max-width: 575.98px)";
+$landscape-phone: "only screen and (min-width: 576px) and (max-width: 767.98px)";
+$phone: "only screen and (max-width: 767.98px)";
+$tablets: "only screen and (min-width: 768px) and (max-width: 991.98px)";
+$desktops: "only screen and (min-width: 992px) and (max-width: 1199.98px)";
+$large-desktops: "only screen and (min-width: 1200px)";
+$extralarge-desktop: "only screen and (max-width: 1440px)";
+
+
+// BOOTSTRAP
+@import "./vendors/bootstrap";
+
+// PERFECT SCROLL BAR FOR DASHBOARD
+@import './vendors/perfect-scrollbar';
+
+// FONT AWESOME
+@import "./vendors/fontawesome";
+
+// GRID STACK
+@import "./vendors/gridstack";
+
+//Ag-Grid
+@import "./vendors/ag-grid-community";
+
+// Quill Editor
+@import "./components/quill/quill.snow.css";
+
+// MTPO ICON FONT
+@import "./base/_mtpo-fonts-icon.css";
+
+// CUSTOM STYLESHEET
+@import "./mtpo-style.scss";
+
+// Ng - Select
+@import "./vendors/ng-select";
+
+// full-calendar
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";

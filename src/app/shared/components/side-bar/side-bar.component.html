@@ -1,0 +1,91 @@
+<div id="sidebaraccordion" class="sidebar-custom-5">
+  <!-- <div class="col-2 collapse d-md-flex bg-light pt-2" id="sidebar"> -->
+  <div class="nav flex-column flex-nowrap mtb-3 sidebar-box border-bottom" *ngIf="!showDashboardSettings">
+    <div class="input-group my-1">
+      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText">
+      <div class="input-group-append" *ngIf="searchText.length">
+        <span class="input-group-text cursor_pointer" (click)="clearSearch()"> <i class="fa fa-times"></i></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-wrap">
+    <perfect-scrollbar>
+      <ul class="nav flex-column flex-nowrap" *ngIf="!showDashboardSettings">
+        <li class="nav-item" *ngFor="let sidebarModule of sidebarDetails | filter : searchText : 'parent'"
+          [ngClass]="{'active': activeClass.module === sidebarModule.id}" (click)="updateModuleData(sidebarModule)">
+          <a class="nav-link" [routerLink]="sidebarModule.link" *ngIf="sidebarModule.subModule.length <= 0">
+            <i class="mtpo_navlink_icon {{sidebarModule.icon}}"></i>
+            <p class="mtpo-navText m-0">
+              <span>{{sidebarModule.name}}</span>
+              <small *ngIf="sidebarModule.competitorName != ''"> ({{sidebarModule.competitorName}})</small>
+            </p>
+
+          </a>
+
+          <a class="nav-link collapsed" data-toggle="collapse" [attr.data-target]="'#' + sidebarModule.id"
+            *ngIf="sidebarModule.subModule.length > 0" id="step_{{sidebarModule.id}}">
+            <i class="mtpo_navlink_icon {{sidebarModule.icon}}"></i>
+            <p class="mtpo-navText m-0">
+              <span>{{sidebarModule.name}}</span>
+              <small *ngIf="sidebarModule.competitorName != ''">({{sidebarModule.competitorName}})</small>
+            </p>
+            <i class="mtpo_navarrow fa fa-angle-right"></i>
+          </a>
+
+          <div class="collapse sub-nav" [id]="sidebarModule.id" aria-expanded="false"
+            *ngIf="sidebarModule.subModule.length > 0">
+            <ul class="flex-column nav">
+              <ng-template ngFor let-subModule [ngForOf]="sidebarModule.subModule | filter : searchText" let-i=index>
+                <li class="nav-item" *ngIf="subModule.visible" (click)="redirectSubModule(subModule)">
+                  <a class="nav-link" [ngClass]="{'active': activeClass.subModule === subModule.id}">
+                    <p class="mtpo-navText mb-0">
+                      <span>{{subModule.name}}</span>
+                      <small *ngIf="subModule.competitorName != ''" class="ml-0">({{subModule.competitorName}})</small>
+                    </p>
+                  </a>
+                </li>
+              </ng-template>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <!-- </div> -->
+
+
+
+      <div class="border-top pt-3 mb-5" *ngIf="showDashboardSettings">
+
+        <div class="sidebar-title pl-3 mb-3 d-block">Dashboard Settings Information: </div>
+        <ul class=" edit-dashboard  mb-3 d-block">
+          <li class="mb-2 pr-3">Click on the pencil <i class="title-action-icon fas fa-pencil-alt mt-1"
+              style="font-size: 12px;"></i> in the top right corner of each widget to select the color, hide the
+            widget, or choose your widget ratio.</li>
+          <li class="mb-2 pr-3">To rearrange the location of your widgets, place your cursor at the top of each widget
+            until you see the four arrows and then drag and drop the widget into the desired location.</li>
+          <li class="mb-2 pr-3">In the Hidden Widgets widget, simply click on a hidden widget to restore it to the
+            dashboard.</li>
+          <li class="mb-2 pr-3">Click "Save" to save your settings.</li>
+          <li class="mb-2 pr-3">To see the detailed instruction <a [href]="static_url + '/2018/download/dashboard.docx'"
+              class="text-primary d-inline-block" style="padding: 0; min-height: auto;"><u>Click here</u></a></li>
+        </ul>
+
+        <div class="sidebar-title pl-3 mb-3 d-block">Dashboard Settings
+          <span _ngcontent-nyc-c26="" class="cursor_pointer">
+            <i _ngcontent-nyc-c26="" class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+              title="Click on the pencil in the top right corner of each widget to select the color, hide the widget, or choose your widget ratio. To rearrange the location of your widgets, place your cursor at the top of each widget until you see the four arrows and then drag and drop the widget into the desired location. In the Hidden Widgets widget, simply click on a hidden widget to restore it to the dashboard. Click 'Save' to save your settings.">
+            </i>
+          </span>
+        </div>
+        <div class="col-lg-24 pl-3">
+          <button class="btn btn-outline-primary px-3 mr-3"
+            (click)="sendTransmittedData('MTPO-Dashboard','saveSettings')">Save</button>
+          <button class="btn btn-outline-primary px-3"
+            (click)="sendTransmittedData('MTPO-Dashboard','restoreSettings')">Restore Default</button>
+          <button class="btn btn-outline-primary px-5 mt-3" (click)="goto(['preferences','user','dashboard'])">Exit
+            Customization</button>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title" translate="ACCEPTED_FILETYPES_HEADER" translate-default="Supported File Types"></h4>
+</div>
+<div class="modal-body clearfix">
+    <ng-form name="nameDialog" role="form">
+        <div class="row">
+            <div class="col">
+                <span class="bg-primary-light p-3 w-100 d-inline-block text-primary font-weight-bold">Document Type</span>
+            </div>
+            <div class="col">
+                <span class="bg-primary-light p-3 w-100 d-inline-block text-primary font-weight-bold">
+                    Supported Types</span>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <span class="font-weight-bold p-3 clearfix d-inline-block">PDF</span>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <span class="mr-2 d-inline-block" data-ng-repeat="type in pdftypeArray track by $index">{{type}}<span ng-if="$index!=pdftypeArray.length-1">,</span></span>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <span class="font-weight-bold p-3 clearfix d-inline-block">Image</span>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <span class="mr-2 d-inline-block" data-ng-repeat="type in imagetypeArray track by $index">{{type}}<span ng-if="$index!=imagetypeArray.length-1">,</span></span>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <span class="font-weight-bold p-3 clearfix d-inline-block">Doc</span>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <span class="mr-2 d-inline-block" data-ng-repeat="type in doctypeArray track by $index">{{type}}<span ng-if="$index!=doctypeArray.length-1">,</span></span>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <span class="font-weight-bold p-3 clearfix d-inline-block">Excel</span>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <span class="mr-2 d-inline-block" data-ng-repeat="type in exceltypeArray track by $index">{{type}}<span ng-if="$index!=exceltypeArray.length-1">,</span></span>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <span class="font-weight-bold p-3 clearfix d-inline-block">Tiff</span>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <span class="mr-2 d-inline-block" data-ng-repeat="type in tiffMimeTypeArray track by $index">{{type}}<span ng-if="$index!=tiffMimeTypeArray.length-1">,</span></span>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <span class="font-weight-bold p-3 clearfix d-inline-block">Text</span>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <span class="mr-2 d-inline-block" data-ng-repeat="type in texttypeArray track by $index">{{type}}<span ng-if="$index!=texttypeArray.length-1">,</span></span>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </ng-form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="OK_BUTTON"
+            translate-default="Ok"></span></button>
+</div>

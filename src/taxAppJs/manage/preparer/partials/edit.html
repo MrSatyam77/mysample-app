@@ -1,0 +1,640 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link href="taxAppJs/common/css/Styles.css" rel="stylesheet" />
+    <link href="taxAppJs/manage/preparer/css/preparer.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header -->
+     
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding" translate="MANAGEPREAPAREREDIT_ADD_HEADER" translate-default="Add Preparer" ng-show="mode=='create'"></span>
+            <span class="page_title_lg ng-binding" translate="MANAGEPREAPAREREDIT_EDIT_HEADER" translate-default="Edit Preparer" ng-show="mode=='update'"></span>
+        </section>
+        <div class="inner_padding_15 static_form_wrap clearfix allowScrollSync"    ng-style="{height:headerNav.screenHeight-106}"  style="overflow-y:auto;" >
+            <form name="preparerform" class="addoffice">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERID_LBL" translate-default="Preparer ID">
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.preparerId" data-ng-required="!preparer.preparerId" ng-disabled="mode=='update'"
+                            value="{{preparer.preparerId}}" />
+                        <div name="formPopover" ng-show="isPreparerExistErr">
+                            <div class="popover right" style="display:block !important;position:absolute;left:165px;">
+                                <div class="arrow"></div>
+                                <div class="popover-inner">
+                                    <div class="popover-content text-danger">
+                                        <label translate="MANAGEPREPAREREDIT_PREPARERALREADYEXIST_LBL" translate-default="Preparer already exists"></label>
+                                        <span class="float-right margin_left_5  popover_close">
+                                            <a ng-click="isPreparerExistErr=false">
+                                                <i class="fas fa-times text-danger cursor_pointer"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--   <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6"><label translate="MANAGEPREAPAREREDIT_PREAPARERNAME_LBL" translate-default="Preparer Name"></label></div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_name" class="form-control float-left" data-ng-model="preparer.preparerName" data-ng-required="!preparer.preparerName" ng-pattern="/^([A-Za-z0-9'-] ?)*[A-Za-z0-9'-]$/" tax-capitalize value="{{preparer.preparerName}}" />
+                        <span ng-show="preparerform.preparer_name.$error.pattern" class="float-left margin_left_5 color_red margin_top_5" translate="MANAGEPREAPAREREDIT_PREAPARERNAME_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, hyphen, single space"></span>
+                    </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERNAME_LBL" translate-default="Preparer Name" class="font_bold"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_FN_LBL" translate-default="First Name"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_fname" class="form-control float-left" data-ng-model="preparer.preparerFname"
+                            ng-required="!preparer.preparerFname" ng-pattern="/^([A-Za-z\-] ?)*[A-Za-z\-]$/" value="{{preparer.preparerFname}}"
+                            ng-required="preparerform.preparer_fname.$error.pattern" />
+                        <span ng-show="preparerform.preparer_fname.$error.pattern" class="color_red float-left margin_left_5 margin_top_5"
+                            translate="MANAGEPREPAREREDIT_FIRSTNAME_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, hyphen, single space"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_LN_LBL" translate-default="Last Name"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_lname" class="form-control float-left" data-ng-model="preparer.preparerLname"
+                            ng-required="!preparer.preparerLname" ng-pattern="/^([A-Za-z\-] ?)*[A-Za-z\-]$/" value="{{preparer.preparerLname}}"
+                            ng-required="preparerform.preparer_lname.$error.pattern" />
+                        <span ng-show="preparerform.preparer_lname.$error.pattern" class="color_red float-left margin_left_5 margin_top_5"
+                            translate="MANAGEPREPAREREDIT_LASTNAME_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, hyphen, single space"></span>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERTIN_LBL" translate-default="PTIN (Preparer TIN)">
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                            tax-mask="P99999999" data-ng-model="preparer.preparerTin" value="{{preparer.preparerTin}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERSTIN_LBL" translate-default="STIN (Preparer STIN)">
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                            tax-mask="S99999999" data-ng-model="preparer.preparerStin" value="{{preparer.preparerStin}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERSSN_LBL" translate-default="Preparer SSN"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                            tax-mask="999-99-9999" data-ng-model="preparer.preparerSsn" value="{{preparer.preparerSsn}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERTIN_LBL" translate-default="Practitioner Pin">
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                            tax-mask="99999" data-ng-model="preparer.practitionerPin" value="{{preparer.practitionerPin}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERFIRMNAME_LBL" translate-default="Firm Name"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control float-left" name="preparer_firmName" data-ng-model="preparer.firmName" ng-pattern="/^(([A-Za-z0-9#\-\(\)]|&#x26;|&#x27;) ?)*([A-Za-z0-9#\-\(\)]|&#x26;|&#x27;)$/"
+                            value="{{preparer.firmName}}" data-ng-required="preparerform.preparer_firmName.$error.pattern" />
+                        <span ng-show="preparerform.preparer_firmName.$error.pattern" class="float-left margin_left_5 color_red margin_top_5" translate="MANAGEPREAPAREREDIT_PREAPARERFIRMNAME_ERRORMSG"
+                            translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, #, hyphen, single space"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPAREREMAIL_LBL" translate-default="Email Address"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="email" class="form-control" data-ng-model="preparer.email" value="{{preparer.email}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGEPREAPAREREDIT_PREAPARERSELFEMP_LBL" translate-default="Self Employed?"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':preparer.selfEmployed==true}"
+                            data-ng-model="preparer.selfEmployed" data-ng-click="preparer.selfEmployed=true"></button>
+                        <span class="float-left" translate="PREPAREREDIT_YES_LBL" translate-default="Yes"></span>
+                        <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':preparer.selfEmployed==false}"
+                            data-ng-model="preparer.selfEmployed" data-ng-click="preparer.selfEmployed=false"></button>
+                        <span class="float-left" translate="PREPAREREDIT_NO_LBL" translate-default="No"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_EIN_LBL" translate-default="EIN"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                            tax-mask="99-9999999" data-ng-model="preparer.EIN" value="{{preparer.EIN}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_TELEPHONE_LBL" translate-default="Telephone"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                            tax-mask="(999)999-9999" data-ng-model="preparer.telephone" value="{{preparer.telephone}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_FAX_LBL" translate-default="Fax"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true"
+                            tax-mask="(999)999-9999" data-ng-model="preparer.fax" value="{{preparer.fax}}" />
+                    </div>
+                </div>
+                <div class="row" data-ng-if="hasLicense('enableSignaturePad') && hasFeature('SIGNATURE') && userCan('CAN_OPEN_SIGNATURE')">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_PREPARER_SIGNATURE" translate-default="Signature"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="clearfix">
+                            <div class="signature_img_ui">
+                                <img data-ng-if="preparer.signatureImage" ng-src="{{preparer.signatureImage}}" />
+                                <span class="delete_sign_img" data-ng-if="preparer.signatureImage" data-ng-class="{'no-clicking':(!userCan('CAN_REMOVE_SIGNATURE'))}"
+                                    data-ng-click="removeSignature(2)">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <a ng-click="capturePreparer();" data-ng-class="{'no-clicking':!userCan('CAN_SAVE_SIGNATURE') ||  mode=='create'}" class="cursor_pointer capture_move_top">
+                                <span translate="MANAGE_PREPARER_CAPTUREPREPARER" translate-default="Capture"></span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" ng-if="userList != undefined">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="clearfix">
+                                <span translate="MANAGEUSEREDIT_ASSOCIATEUSER_LBL" translate-default="User's Name"></span>
+                        </div>
+                        <div class="clearfix">
+                                <span translate="MANAGEUSEREDIT_ASSOCIATEUSER_LBL" translate-default="Offices with Multiple Preparers"></span>
+                        </div>                        
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <select class="form-control custom_input_ddl margin_right_10 float-left" ng-options="userObj.key as userObj.firstName + ' '+ userObj.lastName  for userObj in userList"
+                            data-ng-model="preparer.associatedUser"></select>
+                    </div>
+                </div>
+                <!--<div ng-cloak>
+            <div class="first_block clearfix">-->
+                <!--<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPARERID_LBL" translate-default="Preparer ID">
+            </div>
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPARERNAME_LBL" translate-default="Preparer Name"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPARERSSN_LBL" translate-default="Preparer SSN"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPARERTIN_LBL" translate-default="PTIN (Preparer TIN)">
+            </div>
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPARERTIN_LBL" translate-default="Practitioner Pin">
+            </div>
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPARERFIRMNAME_LBL" translate-default="Firm Name"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPAREREMAIL_LBL" translate-default="Email Address"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGEPREAPAREREDIT_PREAPARERSELFEMP_LBL" translate-default="Self Employed?"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_EIN_LBL" translate-default="EIN"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_TELEPHONE_LBL" translate-default="Telephone"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_FAX_LBL" translate-default="Fax"></label>
+            </div>
+
+            <div>
+
+            </div>
+        </div>-->
+                <!--<div class="col-lg-16 col-md-12 col-sm-12 col-xs-10">-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" data-ng-model="preparer.preparerId" data-ng-required="!preparer.preparerId" ng-disabled="mode=='update'" value="{{preparer.preparerId}}" />
+        </div>-->
+                <!--popover start-->
+                <!--<div name="formPopover" ng-show="isPreparerExistErr">
+            <div class="popover right" style="display:block !important;position:absolute;left:165px;">
+                <div class="arrow"></div>
+                <div class="popover-inner">
+                    <div class="popover-content text-danger">
+                        <label translate="MANAGEPREPAREREDIT_PREPARERALREADYEXIST_LBL" translate-default="Preparer already exists"></label>
+                        <span class="float-right margin_left_5  popover_close"><a ng-click="isPreparerExistErr=false"><i class="fas fa-times text-danger cursor_pointer"></i></a></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>-->
+                <!--popover end-->
+                <!--<div class="row">
+            <input type="text" name="preparer_name" class="newusertextbox form-control float-left" data-ng-model="preparer.preparerName" data-ng-required="!preparer.preparerName" ng-pattern="/^([A-Za-z0-9'-] ?)*[A-Za-z0-9'-]$/" tax-capitalize value="{{preparer.preparerName}}" />
+            <span ng-show="preparerform.preparer_name.$error.pattern" class="float-left margin_left_10 color_red" translate="MANAGEPREAPAREREDIT_PREAPARERNAME_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, hyphen, single space"></span>
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="999-99-9999" data-ng-model="preparer.preparerSsn" value="{{preparer.preparerSsn}}" />
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="P99999999" data-ng-model="preparer.preparerTin" value="{{preparer.preparerTin}}" />
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="99999" data-ng-model="preparer.practitionerPin" value="{{preparer.practitionerPin}}" />
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control float-left" name="preparer_firmName" data-ng-model="preparer.firmName" ng-pattern="/^(([A-Za-z0-9#\-\(\)]|&#x26;|&#x27;) ?)*([A-Za-z0-9#\-\(\)]|&#x26;|&#x27;)$/" value="{{preparer.firmName}}" data-ng-required="preparerform.preparer_firmName.$error.pattern" />
+            <span ng-show="preparerform.preparer_firmName.$error.pattern" class="float-left margin_left_10 color_red" translate="MANAGEPREAPAREREDIT_PREAPARERFIRMNAME_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, #, hyphen, single space"></span>
+        </div>-->
+                <!--<div class="row">
+            <input type="email" class="newusertextbox form-control" data-ng-model="preparer.email" value="{{preparer.email}}" />
+        </div>-->
+                <!--<div class="row_height_30">
+            <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 checkbox-xs">-->
+                <!--<button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':preparer.selfEmployed==true}" data-ng-model="preparer.selfEmployed" data-ng-click="preparer.selfEmployed=true"></button><span class="float-left" translate="PREPAREREDIT_YES_LBL" translate-default="Yes"></span>
+        <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':preparer.selfEmployed==false}" data-ng-model="preparer.selfEmployed" data-ng-click="preparer.selfEmployed=false"></button><span class="float-left" translate="PREPAREREDIT_NO_LBL" translate-default="No"></span>-->
+                <!-- <label class="checkbox-inline">
+            <input type="checkbox" ng-checked="preparer.selfEmployed" data-ng-click="preparer.selfEmployed=true" />
+            <span class="margin_right_10">Yes</span>
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" ng-checked="!preparer.selfEmployed" data-ng-click="preparer.selfEmployed=false" />
+            <span class="clearfix">No</span>
+        </label> -->
+                <!--</div>-->
+                <!--  <input type="radio" name="selfEmployed" value="true" data-ng-model="preparer.selfEmployed" >Yes &nbsp;<input type="radio" name="selfEmployed" value="false" data-ng-model="preparer.selfEmployed">No-->
+                <!--</div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="99-9999999" data-ng-model="preparer.EIN" value="{{preparer.EIN}}" />
+        </div>
+        <div class="row">
+            <input type="text" class="newusertextbox form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="(999)999-9999" data-ng-model="preparer.telephone" value="{{preparer.telephone}}" />
+        </div>
+        <div class="row">
+            <input type="text" class="newusertextbox form-control" tax-mask-use-view-value="true" tax-mask-placeholder-on-focus="true" tax-mask="(999)999-9999" data-ng-model="preparer.fax" value="{{preparer.fax}}" />
+        </div>-->
+                <!--</div>
+            </div>
+        </div>-->
+                <!--for ny state start-->
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="FORNYSTATE_LBL" translate-default="For NY State" class="font_bold"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_NYTPRIN_LBL" translate-default="Tax Preparer Registration Identification Number (NYTPRIN)"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.nytprin" tax-mask="99999999" value="{{preparer.nytprin}}"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label style="margin-left:50px;" translate="MANAGE_OR_LBL" translate-default="or"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_NYTPRIN_LBL" translate-default="Select exempt code"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <select class="form-control ng-pristine ng-untouched ng-valid" data-ng-model="preparer.nyExemptCode" data-ng-options="code.value as code.text for code in exemptCodeList"></select>
+                    </div>
+                </div>
+                <!--for ny state end-->
+                <!--<div class="clearfix">
+            <div>
+                <label translate="FORNYSTATE_LBL" translate-default="For NY State" class="font_bold"></label>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="row">
+                    <label translate="MANAGE_NYTPRIN_LBL" translate-default="Tax Preparer Registration Identification Number (NYTPRIN)"></label>
+                </div>
+                <div class="row text-left">
+                    <label style="margin-left:50px;" translate="MANAGE_OR_LBL" translate-default="or"></label>
+                </div>
+                <div class="row">
+                    <label translate="MANAGE_NYTPRIN_LBL" translate-default="Select exempt code"></label>
+                </div>
+
+            </div>
+            <div class="col-lg-20 col-md-18 col-sm-18">
+                <div class="row">
+                    <div class=" row_height_30"></div>
+                    <div class=" row_height_30"><input type="text" class="newusertextbox form-control" data-ng-model="preparer.nytprin" tax-mask="99999999" value="{{preparer.nytprin}}" /></div>
+                </div>
+                <div class="row row_height_30"></div>
+                <div class="row row_height_30">
+                    <select class="newusertextbox form-control ng-pristine ng-untouched ng-valid" data-ng-model="preparer.nyExemptCode"
+                            data-ng-options="code.value as code.text for code in exemptCodeList"></select>
+                </div>
+            </div>
+        </div>-->
+                <!--or state start-->
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="FORNYSTATE_LBL" translate-default="For OR State" class="font_bold ng-scope"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_LICENCENUMBER_LBL" translate-default="Preparer license number" class="ng-scope"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_orLicenceNumber" class="form-control ng-pristine ng-untouched ng-valid float-left" data-ng-model="preparer.orLicenceNumber"
+                            value="{{preparer.orLicenceNumber}}" ng-maxlength="10" data-ng-required="preparerform.preparer_orLicenceNumber.$error.maxlength"
+                        />
+                        <span ng-show="preparerform.preparer_orLicenceNumber.$error.maxlength" class="float-left margin_left_5 color_red margin_top_5"
+                            translate="MANAGEPREAPAREREDIT_PREAPARERORLICENCENUMBER_ERRORMSG" translate-default="Maximum allowed 10 character limit."></span>
+                    </div>
+                </div>
+                <!--or state end-->
+                <!--<div class="clearfix">
+            <div>
+                <label translate="FORNYSTATE_LBL" translate-default="For OR State" class="font_bold ng-scope"></label>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <label translate="MANAGE_LICENCENUMBER_LBL" translate-default="Preparer licence number" class="ng-scope"></label>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-10">
+                <div class="row row_height_30">
+                    <input type="text" name="preparer_orLicenceNumber" class="newusertextbox form-control ng-pristine ng-untouched ng-valid" data-ng-model="preparer.orLicenceNumber" value="{{preparer.orLicenceNumber}}" ng-maxlength="10" data-ng-required="preparerform.preparer_orLicenceNumber.$error.maxlength" />
+                    <span ng-show="preparerform.preparer_orLicenceNumber.$error.maxlength" class="float-left margin_left_10 color_red" translate="MANAGEPREAPAREREDIT_PREAPARERORLICENCENUMBER_ERRORMSG" translate-default="Maximum allowed 10 character limit."></span>
+                </div>
+            </div>
+        </div>-->
+                <!--us adress start-->
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="FORNMSTATE_LBL" translate-default="For NM State" class="font_bold ng-scope"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAG_CRSIDNUMBER_LBL" translate-default="CRS Identification Number" class="ng-scope"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_nmIdNumber" class="form-control ng-pristine ng-untouched ng-valid float-left" data-ng-model="preparer.nmCRSidentificationNumber"
+                            value="{{preparer.nmCRSidentificationNumber}}" ng-maxlength="11" ng-pattern="/^[0-9]*$/" data-ng-required="preparerform.preparer_nmIdNumber.$error.maxlength || preparerform.preparer_nmIdNumber.$error.pattern"/>
+                            <span ng-show="preparerform.preparer_nmIdNumber.$error.maxlength" class="float-left margin_left_5 color_red margin_top_5"
+                            translate="MANAGEPREAPAREREDIT_PREAPARERORNMIDNUMBER_ERRORMSG" translate-default="Maximum allowed 11 character limit."></span>
+                            <span ng-show="preparerform.preparer_nmIdNumber.$error.pattern" class="float-left margin_left_5 color_red margin_top_5"
+                            translate="MANAGEPREAPAREREDIT_PREAPARERORNMIDNUMBER_ERRORMSG" translate-default="Only Numbers are allowed."></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_USADD_LBL" translate-default="US Address" class="font_bold"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_STREET_LBL" translate-default="Street"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_UsStreet" class="form-control float-left" data-ng-model="preparer.usAddress.street" ng-pattern="/^[A-Za-z0-9]( ?[A-Za-z0-9\-/])*$/"
+                            value="{{preparer.usAddress.street}}" data-ng-required="preparerform.preparer_UsStreet.$error.pattern"
+                        />
+                        <span ng-show="preparerform.preparer_UsStreet.$error.pattern" class="float-left margin_left_5 color_red margin_top_5" translate="MANAGEPREAPAREREDIT_PREAPARERUSADDRESS_ERRORMSG"
+                            translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_ZIPCODE_LBL" translate-default="Zip-Code"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.usAddress.zipCode" tax-mask="99999" cmn-zip-lookup cmn-zip-lookup-city="'preparer.usAddress.city'"
+                            cmn-zip-lookup-state="'preparer.usAddress.state'" value="{{preparer.usAddress.zipCode}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_CITY_LBL" translate-default="City"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_UsCity" class="form-control float-left" data-ng-model="preparer.usAddress.city" ng-pattern="/^([A-Za-z] ?)*[A-Za-z]$/"
+                            value="{{preparer.usAddress.city}}" data-ng-required="preparerform.preparer_UsCity.$error.pattern"
+                        />
+                        <span ng-show="preparerform.preparer_UsCity.$error.pattern" class="float-left margin_left_5 color_red margin_top_5" translate="MANAGEPREAPAREREDIT_PREAPARERUSCITY_ERRORMSG"
+                            translate-default="Invalid character found. Legal Characters: A-Z, a-z, single space"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_STATE_LBL" translate-default="State"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.usAddress.state" tax-mask="AA" value="{{preparer.usAddress.state}}"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_FRADD_LBL" translate-default="Foreign Address" class="font_bold"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_STREET_LBL" translate-default="Street"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" name="preparer_ForStreet" class="form-control float-left" data-ng-model="preparer.foreignAddress.street"
+                            ng-pattern="/^[A-Za-z0-9]( ?[A-Za-z0-9\-/])*$/" value="{{preparer.foreignAddress.street}}" data-ng-required="preparerform.preparer_ForStreet.$error.pattern"
+                        />
+                        <span ng-show="preparerform.preparer_ForStreet.$error.pattern" class="float-left margin_left_5 color_red margin_top_5" translate="MANAGEPREAPAREREDIT_PREAPARERFOREIGNSTREET_ERRORMSG"
+                            translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_POSTALCODE_LBL" translate-default="Postal-Code"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.postalCode" value="{{preparer.foreignAddress.postalCode}}"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_CITY_LBL" translate-default="City"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.city" value="{{preparer.foreignAddress.city}}"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_PROVINCE_LBL" translate-default="Province/State"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.state" value="{{preparer.foreignAddress.state}}"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <label translate="MANAGE_COUNTRY_LBL" translate-default="Country"></label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="preparer.foreignAddress.country" value="{{preparer.foreignAddress.country}}"
+                        />
+                    </div>
+                </div>
+                <!--us adress end-->
+                <!--<div class="second_block clearfix">-->
+                <!--<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <div class="row_height_30 row">
+               <label translate="MANAGEPREAPAREREDIT_PREAPARERUSADD_LBL" translate-default="US Address" class="font_bold"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_USADD_LBL" translate-default="US Address" class="font_bold"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_STREET_LBL" translate-default="Street"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_ZIPCODE_LBL" translate-default="Zip-Code"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_CITY_LBL" translate-default="City"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_STATE_LBL" translate-default="State"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_FRADD_LBL" translate-default="Foreign Address" class="font_bold"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_STREET_LBL" translate-default="Street"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_POSTALCODE_LBL" translate-default="Postal-Code"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_CITY_LBL" translate-default="City"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_PROVINCE_LBL" translate-default="Province/State"></label>
+            </div>
+            <div class="row">
+                <label translate="MANAGE_COUNTRY_LBL" translate-default="Country"></label>
+            </div>
+        </div>-->
+                <!--<div class="col-lg-16 col-md-12 col-sm-12 col-xs-10">-->
+                <!--<div class="row row_height_30">
+
+        </div>-->
+                <!--<div class="row">
+            <input type="text" name="preparer_UsStreet" class="newusertextbox form-control float-left" data-ng-model="preparer.usAddress.street" ng-pattern="/^[A-Za-z0-9]( ?[A-Za-z0-9\-/])*$/" value="{{preparer.usAddress.street}}" data-ng-required="preparerform.preparer_UsStreet.$error.pattern" />
+            <span ng-show="preparerform.preparer_UsStreet.$error.pattern" class="float-left margin_left_10 color_red" translate="MANAGEPREAPAREREDIT_PREAPARERUSADDRESS_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space"></span>
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" data-ng-model="preparer.usAddress.zipCode" tax-mask="99999" cmn-zip-lookup cmn-zip-lookup-city="'preparer.usAddress.city'" cmn-zip-lookup-state="'preparer.usAddress.state'" value="{{preparer.usAddress.zipCode}}" />
+        </div>-->
+                <!--<div class="row">
+            <input type="text" name="preparer_UsCity" class="newusertextbox form-control float-left" data-ng-model="preparer.usAddress.city" ng-pattern="/^([A-Za-z] ?)*[A-Za-z]$/" value="{{preparer.usAddress.city}}" data-ng-required="preparerform.preparer_UsCity.$error.pattern" />
+            <span ng-show="preparerform.preparer_UsCity.$error.pattern" class="float-left margin_left_10 color_red" translate="MANAGEPREAPAREREDIT_PREAPARERUSCITY_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, single space"></span>
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" data-ng-model="preparer.usAddress.state" tax-mask="AA" value="{{preparer.usAddress.state}}" />
+        </div>-->
+                <!--<div class="row row_height_30">
+
+        </div>-->
+                <!--<div class="row row_height_30">
+            <input type="text" name="preparer_ForStreet" class="newusertextbox form-control float-left" data-ng-model="preparer.foreignAddress.street" ng-pattern="/^[A-Za-z0-9]( ?[A-Za-z0-9\-/])*$/" value="{{preparer.foreignAddress.street}}" data-ng-required="preparerform.preparer_ForStreet.$error.pattern" />
+            <span ng-show="preparerform.preparer_ForStreet.$error.pattern" class="float-left margin_left_10 color_red" translate="MANAGEPREAPAREREDIT_PREAPARERFOREIGNSTREET_ERRORMSG" translate-default="Invalid character found. Legal Characters: A-Z, a-z, 0-9, /, hyphen, single space"></span>
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" data-ng-model="preparer.foreignAddress.postalCode" value="{{preparer.foreignAddress.postalCode}}" />
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" data-ng-model="preparer.foreignAddress.city" value="{{preparer.foreignAddress.city}}" />
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" data-ng-model="preparer.foreignAddress.state" value="{{preparer.foreignAddress.state}}" />
+        </div>-->
+                <!--<div class="row">
+            <input type="text" class="newusertextbox form-control" data-ng-model="preparer.foreignAddress.country" value="{{preparer.foreignAddress.country}}" />
+        </div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+            </form>
+
+
+
+            <div class="row col-lg-10 col-md-24 col-sm-24 col-xs-24">
+                <hr class="light_line">
+                <div class="float-right">
+                    <button class="btn btn-outline-primary" translate="MANAGE_SAVE_BTN" translate-default="Save" data-ng-click="savePreparer()" data-ng-disabled="preparerform.$invalid || !userCan('CAN_SAVE_PREPARER')"></button>
+                    <button class="btn btn-outline-primary" translate="MANAGE_CANCEL_BTN" translate-default="Cancel" data-ng-click="cancel()"></button>
+                    <button class="btn btn-outline-primary" translate="MANAGE_DELETE_BTN" translate-default="Delete" data-ng-click="removePreparer()"
+                        data-ng-disabled="mode=='create' || !userCan('CAN_REMOVE_PREPARER')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+
+</html>

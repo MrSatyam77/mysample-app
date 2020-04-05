@@ -1,0 +1,42 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+      <span>Display Returns</span>
+    </h4>
+  </div>
+  <div class="modal-body clearfix">
+    <div class="form-group input-group-lg row_height_30">
+      <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 clearfix mb-2">
+        <div class="row">
+          <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_bottom_10 font_bold">Returns Prepared By</div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor="let returnFilter of returnFilterList let i = index">
+            <div class="mtpo-custom-checkbox d-inline">
+              <button type="button" class="mtpo-checkbox" (click)="returnType.modal = returnFilter.id"
+                [ngClass]="{'active':returnFilter.id === returnType.modal}"></button>
+              <label class="d-inline text-primary">{{returnFilter.title}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 clearfix">
+        <div class="row">
+          <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_bottom_10 font_bold">System</div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor="let pkgFilter of pkgFilterList let i = index">
+              <div class="mtpo-custom-checkbox d-inline">
+                  <button type="button" class="mtpo-checkbox" (click)="pkgType.modal = pkgFilter.id"
+                    [ngClass]="{'active':pkgFilter.id === pkgType.modal}"></button>
+                  <label class="d-inline text-primary">{{pkgFilter.title}}</label>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="filterReturnList()"><span>Ok</span></button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Cancel</button>
+  </div>
+</div>

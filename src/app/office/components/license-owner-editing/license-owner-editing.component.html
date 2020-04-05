@@ -1,0 +1,102 @@
+<form [formGroup]="licenseOwnerForm">
+
+  <div class="form-group row">
+    <label for="firmName" class="col-sm-12 col-form-label">Firm Name</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="firmName" formControlName="firmName" pattern="(([A-Za-z0-9-\#\(\)]|&|') ?)*([A-Za-z0-9-\#\(\)]|&|')">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="licenseOwnerForm.controls.firmName.errors && licenseOwnerForm.controls.firmName.errors.pattern">
+    <label class="col-sm-12"></label>
+    <label class="col-sm-12 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, 0-9, #, hyphen, single space.
+    </label>
+  </div>
+  <div class="form-group row">
+    <label for="addressType" class="col-sm-12 col-form-label">Address Type</label>
+    <div class="col-sm-12">
+      <select id="addressType" class="form-control" formControlName="addressType">
+        <option [ngValue]="1">US Address</option>
+        <option [ngValue]="2">Foreign Address</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="street" class="col-sm-12 col-form-label">Street</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="street" formControlName="street" pattern="[A-Za-z0-9]( ?[A-Za-z0-9\-/])*">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="licenseOwnerForm.controls.street.errors && licenseOwnerForm.controls.street.errors.pattern">
+    <label class="col-sm-12"></label>
+    <label class="col-sm-12 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, 0-9, hyphen, single space.
+    </label>
+  </div>
+
+  <div class="form-group row">
+    <label for="zipCode" class="col-sm-12 col-form-label">Zip Code</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="zipCode" formControlName="zipCode" mask="00000">
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="city" class="col-sm-12 col-form-label">City</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="city" formControlName="city" pattern="([A-Za-z] ?)*[A-Za-z]">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="licenseOwnerForm.controls.city.errors && licenseOwnerForm.controls.city.errors.pattern">
+    <label class="col-sm-12"></label>
+    <label class="col-sm-12 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, single space.
+    </label>
+  </div>
+
+  <div class="form-group row">
+    <label for="state" class="col-sm-12 col-form-label">State</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="state" formControlName="state" pattern="([A-Za-z] ?)*[A-Za-z]">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="licenseOwnerForm.controls.state.errors && licenseOwnerForm.controls.state.errors.pattern">
+    <label class="col-sm-12"></label>
+    <label class="col-sm-12 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, single space.
+    </label>
+  </div>
+
+  <div class="form-group row" *ngIf="licenseOwnerForm.controls.addressType.value === 2">
+    <label for="country" class="col-sm-12 col-form-label">Country</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="country" formControlName="country" pattern="([A-Za-z] ?)*[A-Za-z]">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="licenseOwnerForm.controls.country.errors && licenseOwnerForm.controls.country.errors.pattern">
+    <label class="col-sm-12"></label>
+    <label class="col-sm-12 text-danger">
+      Invalid character found. Legal Characters: A-Z, a-z, single space.
+    </label>
+  </div>
+
+  <div class="form-group row">
+    <label for="phoneNo" class="col-sm-12 col-form-label">Telephone</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="phoneNo" formControlName="phoneNo" mask="(000) 000-0000">
+    </div>
+  </div>
+  <!-- <div class="form-group row">
+    <label for="EIN" class="col-sm-12 col-form-label">EIN</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="EIN" formControlName="ein" mask="00-0000000">
+    </div>
+  </div> -->
+  <div class="col float-right border-top pt-3 p-0">
+    <div class="float-right">
+      <button type="submit" class="btn btn-outline-primary" (click)="save()" [disabled]="!licenseOwnerForm.valid">Save</button>
+      <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</form>

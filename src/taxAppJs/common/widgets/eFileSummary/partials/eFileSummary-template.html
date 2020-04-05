@@ -1,0 +1,32 @@
+﻿<h3 class="tile-e-file-summary-header" style="margin-left: 2%;">
+    <span translate="E_FILE_SUMMARY_HEADER" translate-default="E-File Summary"></span>
+    <span class="tile-e-file-summary-homerotate"><i class="refresh-loader fas fa-redo float-right font_size_14 cursor_pointer" ng-click="manualRefreshListeFileSummary();refreshStart=true;" data-ng-class="{'rotate':refreshStart,'no-clicking':!userCan('CAN_GET_EFILE_LIST')}"></i></span>
+</h3>
+
+<span class="tile-e-file-summary-bigicon">
+    <i class="fa fa-dashboard"></i>
+</span>
+<span class="tile-e-file-summary-grid-row" ng-click="goToList('Transmitted')">
+    <span class="tile-e-file-summary-grid-row-text" translate="E_FILE_SUMMARY_TRANSMITTED_LBL" translate-default="Transmitted"></span>
+    <span class="tile-e-file-summary-notification-round">{{eFileSummaryList.transmitted}}</span>
+</span>
+<span class="tile-e-file-summary-grid-row" ng-click="goToList('At IRS')">
+    <span class="tile-e-file-summary-grid-row-text" translate="E_FILE_SUMMARY_ATIRS_LBL" translate-default="At IRS"></span>
+    <span class="tile-e-file-summary-notification-round">{{eFileSummaryList.atIrs}}</span>
+</span>
+<span class="tile-e-file-summary-grid-row" ng-click="goToList('At State')">
+    <span class="tile-e-file-summary-grid-row-text" style="text-align: left; width: 80%;" translate="E_FILE_SUMMARY_ATSTATE_LBL" translate-default="At State"></span>
+    <span class="tile-e-file-summary-notification-round">{{eFileSummaryList.atState}}</span>
+</span>
+<span class="tile-e-file-summary-grid-row" ng-click="goToList('Accepted')">
+    <span class="tile-e-file-summary-grid-row-text" translate="E_FILE_SUMMARY_ACCEPTED_LBL" translate-default="Accepted"></span>
+    <span class="tile-e-file-summary-notification-round">{{eFileSummaryList.accpeted}}</span>
+</span>
+<span class="tile-e-file-summary-grid-row" ng-click="goToList('Rejected')">
+    <span class="tile-e-file-summary-grid-row-text" translate="E_FILE_SUMMARY_REJECTED_LBL" translate-default="Rejected"></span>
+    <span class="tile-e-file-summary-notification-round">{{eFileSummaryList.rejected}}</span>
+</span>
+<span class="tile-e-file-summary-grid-row" ng-click="goToList('IRS Alerts / Messages')">
+    <span class="tile-e-file-summary-grid-row-text" translate="E_FILE_SUMMARY_ALERTS_LBL" translate-default="IRS Alerts / Messages"></span>
+    <span class="tile-e-file-summary-notification-round">{{eFileSummaryList.alerts}}</span>
+</span>

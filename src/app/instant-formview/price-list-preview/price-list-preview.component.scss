@@ -1,0 +1,49 @@
+/* * { margin: 0; padding: 0; }
+	body { text-align: center; font-family: 'helvetica'; } */
+	.price-list-container .clearfix { clear: both; }
+	.price-list-container .margin-top-5 { margin-top: 5px; }
+	.price-list-container .margin-top-10 { margin-top: 10px; }
+	.price-list-container .margin-top-15 { margin-top: 15px; }
+	.price-list-container .margin-top-30 { margin-top: 30px; }
+	.price-list-container .margin-top-50 { margin-top: 50px; }
+	.price-list-container .margin-bottom-10 { margin-bottom: 10px; }
+	.price-list-container .margin-bottom-15 { margin-bottom: 15px; }
+	.price-list-container .margin-bottom-30 { margin-bottom: 30px; }
+	.price-list-container .margin-bottom-50 { margin-bottom: 50px; }
+	
+	.price-list-container .col-md-priceList-12{ float:left; width:100%; }
+	.price-list-container .col-md-priceList-11{ float:left; width:91.66666667%; }
+	.price-list-container .col-md-priceList-10{ float:left; width:83.33333333%; }
+	.price-list-container .col-md-priceList-9{ float:left; width:75%; }
+	.price-list-container .col-md-priceList-8{ float:left; width:66.66666667%; }
+	.price-list-container .col-md-priceList-7{ float:left; width:58.33333333%; }
+	.price-list-container .col-md-priceList-6{ float:left; width:50%; }
+	.price-list-container .col-md-priceList-5{ float:left; width:41.66666667%; }
+	.price-list-container .col-md-priceList-4{ float:left; width:33.33333333%; }
+	.price-list-container .col-md-priceList-3{ float:left; width:25%; }
+	.price-list-container .col-md-priceList-2{ float:left; width:16.66666667%; }
+	.price-list-container .col-md-priceList-1{ float:left; width:8.33333333%; }
+
+	.price-list-container .text-left { text-align: left; }
+	.price-list-container .text-right { text-align: right; }
+	.price-list-container .text-center { text-align: center; }
+	.price-list-container .pdf-container { width: 800px; display: inline-block; text-align: left; }
+	.price-list-container span { font-weight:normal; font-size:14px; line-height:20px; font-family: 'helvetica'; display: block; }
+	.price-list-container .bill-username { color:#000000; font-weight:normal; font-size:18px; line-height:22px; font-family: 'helvetica'; }
+	.price-list-container .bill-firmName { color:#000000; font-weight:normal; font-size:14px; line-height:22px; font-family: 'helvetica'; }
+	.price-list-container .bill-address { color:#808080; font-weight:normal; font-size:14px; line-height:20px; }
+	.price-list-container .bill-phone { display: block; color:#808080; font-weight:normal; font-size:14px; line-height:20px; }
+	.price-list-container .bill-email { display: block; color:#808080; font-weight:normal; font-size:14px; line-height:20px; }
+	.price-list-container .bill-invoice-title { color:#000000; font-weight:normal; font-size:24px; line-height:28px; font-family: 'helvetica'; color:#000000; }
+	.price-list-container .bill-title { color:#808080; text-transform: uppercase; }
+	.price-list-container .bill-content { color:#000000;display: inline-block; }
+	.price-list-container .bill-footer-title { background-color: #c0c0c0; display: block; overflow: hidden; }
+	.price-list-container .bill-footer-title span { display: inline-block; padding: 8px 8px; }
+	.price-list-container .bill-footer-body { display: block; overflow: hidden; }
+	.price-list-container .border-bottom-gray { border-top-color: transparent; border-bottom: 1px solid #cacaca; }
+	.price-list-container .border-bottom-black { border-top-color: transparent; border-bottom: 2px solid #000000; }
+	.price-list-container .vertical-align-middle { display: flex; vertical-align: middle; align-items: center; }
+	.price-list-container .gray-text { color: #808080; }
+	.price-list-container .font-14 { font-size: 14px; }
+    .price-list-container .font-20 { font-size: 20px; }
+    .stmt_box {width: 100%;margin: 0px auto;height: 1198px;position: relative;display: block;max-width: 918px; box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.12);padding: 35px;}

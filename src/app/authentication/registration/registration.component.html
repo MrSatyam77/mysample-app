@@ -1,0 +1,463 @@
+<div class="mtpo-main-wrap" style.backgroundImage="url({{imagePath}})">
+  <div class="login-box-wraper">
+    <nav class="navbar navbar-expand-lg navbar-light py-3 pr-5">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <img class="navbar-brand" *ngIf="resellerConfig.shortCode === 'mtpo'" src="assets/images/logo-orange-white.png"
+          alt="logo">
+        <img class="navbar-brand reseller-logos" *ngIf="resellerConfig.shortCode !== 'mtpo'"
+          src="assets/images/reseller-logos/logo_login_{{resellerConfig.shortCode}}.png" alt="logo">
+        <div class="navbar-nav ml-auto pt-2" *ngIf="resellerConfig.shortCode === 'mtpo'">
+          <a class="nav-item link-hover nav-link text-white active"
+            href="https://mytaxprepoffice.com/support/contact-support" target="_blank">Support
+            <span class="sr-only">(current)</span></a>
+          <a class="nav-item link-hover nav-link text-white" href="https://mytaxprepoffice.com/training"
+            target="_blank"> Training</a>
+          <a class="nav-item link-hover nav-link text-white"
+            href="https://mytaxprepoffice.com/support/frequently-asked-questions" target="_blank"> FAQs</a>
+          <a class="nav-item link-hover nav-link text-white" href="https://mytaxprepoffice.com" target="_blank">
+            MyTAXPrepOffice Homepage</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="mtpo-wrap">
+        <div class="flex-wrap">
+          <div class="reg-info px-3 p-lg-0 offset-lg-4" [ngClass]="{'offset-lg-4': resellerConfig.shortCode === 'mtpo', 'offset-lg-6': resellerConfig.shortCode !== 'mtpo'}">
+            <p class="text-white" [ngClass]="{'pl-1': resellerConfig.shortCode !== 'mtpo'}" *ngIf="regStep === 'step1'">By completing the registration, you are creating a free complimentary license.
+               If you need to add an additional New User linked to your existing license 
+               simply click "Firm Setup" on the Dashboard Your Firm widget. </p>
+          </div>
+          <div class="d-flex">
+            <div class="login-box-wrapper">
+              <!-- Registration-form starts -->
+              <form [formGroup]="regFormStep1" *ngIf="regStep === 'step1'" (ngSubmit)="register()">
+                <h4 class="text-primary">Create your account</h4>
+
+                <div class="form-group margin_top_15 clearfix">
+                  <label class="padding_left_5 text-primary">Email Address</label>
+                  <input type="email" name="email" id="email" class="form-control-lg form-control"
+                    placeholder="Enter email address" formControlName="email" style="position:relative;">
+                </div>
+
+                <div class="form-group clearfix">
+                  <label class="padding_left_5 text-primary">First Name</label>
+                  <input type="text" name="PreparerFirstname" id="PreparerFirstname"
+                    class="form-control form-control-lg" placeholder="Enter your first name"
+                    formControlName="firstName">
+                </div>
+
+                <div class="form-group clearisRegisterationfix">
+                  <label class="padding_left_5 text-primary">Last Name</label>
+                  <input type="text" name="PreparerLastname" id="PreparerLastname" class="form-control form-control-lg"
+                    placeholder="Enter your last name" formControlName="lastName">
+                </div>
+
+                <div class="col-lg-24 padding_l_r_0">
+                  <div class="form-group">
+                    <label class="padding_left_5 text-primary">Phone No</label>
+                    <!-- <ng-select [items]="countryDetails" (selected)="selected($event)" (data)="refreshValue($event)"
+              [active]="selectedCountry">
+            </ng-select> -->
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <div class="dropdown">
+                          <button type="button" class="btn btn-outline-primary dropdown-toggle ng-binding"
+                            data-toggle="dropdown"><span [class]="'flag-icon flag-icon-' + countryName"
+                              style="padding-left:25px;"></span></button>
+                          <div class="dropdown-menu" style="cursor: pointer; height: 250px; overflow-y:auto">
+                            <a class="dropdown-item" *ngFor="let country of countryDetails" (click)="selected(country)">
+                              <span [innerHtml]="country.name"></span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <input type="text" name="phoneNo" class="form-control form-control-lg input_text"
+                        formControlName="phoneNo" placeholder="Enter your phone no" [mask]="phoneMask">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-24 padding_l_r_0">
+                  <div class="form-group">
+                    <label class="padding_left_5 text-primary">Firm Name</label>
+                    <input type="text" name="Firmname" id="Firmname" class="form-control form-control-lg"
+                      placeholder="Enter your firm name" formControlName="firmName">
+                  </div>
+
+                </div>
+
+                <!-- <div class="row margin_left_10 padding_left_5">
+                  <div class="float-left margin_left_8 margin_top_15 float-left">
+                    <button type="submit" style="background-color:#FF8C00" class="btn btn-lg btn-success float-left"
+                      [disabled]="!regFormStep1.valid || isActiveApiCall === true || showLoading">Register
+                    </button>
+                    <a href="/login" class="btn btn-lg btn-primary float-left margin_left_5"><span>Back to
+                        login</span></a>
+                  </div>
+                  <div class="float-right">
+                  </div>
+                </div> -->
+                <div class="row mt-3">
+                  <div class="col">
+                    <button type="submit" class="btn btn-lg btn-orange text-white w-100"
+                      [disabled]="!regFormStep1.valid || isActiveApiCall === true || showLoading">Register
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button (click)="goToLogin()" class="btn btn-lg btn-primary w-100">Back to login
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+
+              <!-- Registration-form ends -->
+
+              <!--Registration related messages starts -->
+              <div class="row margin_left_8" *ngIf="showConfirmErrMessage">
+                <h4>Complete Registration</h4>
+                <div class="float-left margin_top_20" *ngIf="regAlreadyVerifyMsg === true"><span>You have already
+                    completed
+                    your registration. Please </span>
+                  <a (click)="goToLogin()" class="cursor_pointer"><span><u>login</u></span> </a><span>to continue.
+                  </span>
+                </div>
+                <div class="float-left margin_top_20" *ngIf="regSuccNotLoginError === true"><span>Registered
+                    Successfully.
+                  </span>
+                  <span class='clearfix'><span>Please</span> <a class="cursor_pointer black_link"
+                      (click)="goTo('login',regFormStep1.controls.email.value)"><span><u>
+                          Login.</u></span></a></span>
+                </div>
+                <div class="float-left margin_top_20" *ngIf="deactiveUser === true">
+                  <span>Your registration is successful.<br> However, you can not login as your account is inactive. You
+                    may contact administrator account holder of your office or</span><a (click)="goToLogin()"
+                    class="cursor_pointer">
+                    <span><u> login</u></span> </a>
+                  <span>with different user.</span>
+                </div>
+              </div>
+              <!--Registration related messages ends -->
+
+              <!--second form start (Complete Registration) -->
+              <form [formGroup]="regFormStep2" *ngIf="regStep === 'step2'" (ngSubmit)="confirmRegistration()">
+                <h4>Complete Registration</h4>
+                <div class="form-group margin_top_15 clearfix">
+                  <input type="email" name="email" id="email" formControlName="email"
+                    class="form-control-lg form-control" placeholder="Enter email address">
+                </div>
+                <div class="form-group clearfix position-relative input-password">
+                  <div class="position-relative">
+                    <input [type]="inputType.password" name="password" id="password"
+                      class="form-control form-control-lg pr-5" placeholder="Enter password" formControlName="password"
+                      (input)="checkPasswordStrength('regFormStep2')" (focus)="showPasswordHelp = true"
+                      (blur)="showPasswordHelp = false"
+                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.,():_-])[A-Za-z\d$@#$!%*?&.,():_-]{8,}">
+
+                    <!-- {{(f.password.errors) ? 'The password must be at least eight characters long and it must include one uppercase and one lowercase letter (A-Z, a-z), one numeric character (0-9), and one special character from the following list: (&!%*.,$:#@-_?). ' : ''}} -->
+                    <span class="show-password" (click)="togglePasswordView('password')">
+                      <i class="fas fa-eye" style="cursor: pointer" *ngIf="inputType.password === 'password'"></i>
+                      <i class="fas fa-eye-slash" style="cursor: pointer" *ngIf="inputType.password === 'text'"></i>
+                    </span>
+                  </div>
+                  
+
+                  <div class="passwordhint-right" *ngIf="showPasswordHelp">
+                    <div class="arrow"></div>
+                    <ul class="password-info clearfix list-unstyled m-0 p-0">
+                      <li class="text-dark mb-2">Password must</li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Be a minimum of 8 characters</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least one lowercase latter (a-z)</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least one uppercase latter (A-Z)</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least one number (0-9)</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least special character (&!%*.,$:#@-_?)</span>
+                      </li>
+                    </ul>
+
+                    <div class="w-100 mt-3 clearfix d-inline" *ngIf="passwordStrength.score > 0">
+                      <ngb-progressbar *ngIf="passwordStrength.type === 'strong'" type="success"
+                        [value]="passwordStrength.score">Strong</ngb-progressbar>
+                      <ngb-progressbar *ngIf="passwordStrength.type === 'ok'" type="warning"
+                        [value]="passwordStrength.score">OK</ngb-progressbar>
+                      <ngb-progressbar *ngIf="passwordStrength.type === 'weak'" type="danger"
+                        [value]="passwordStrength.score">Weak</ngb-progressbar>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group clearfix">
+                  <div class="position-relative">
+                    <input [type]="inputType.confirmPassword" name="confirmPassword" id="confirmPassword"
+                      formControlName="confirmPassword" class="form-control form-control-lg"
+                      placeholder="Enter confirm password" (blur)="MustMatch($event)" (focus)="MustMatch($event)"
+                      triggers="blur" placement="right"
+                      ngbPopover="{{(f.confirmPassword.errors && !f.confirmPassword.valid) ? 'Password does not match' : ''}}"
+                      autocomplete="off">
+
+                    <span class="show-password" (click)="togglePasswordView('confirmPassword')">
+                      <i class="fas fa-eye" style="cursor: pointer"
+                        *ngIf="inputType.confirmPassword === 'password'"></i>
+                      <i class="fas fa-eye-slash" style="cursor: pointer"
+                        *ngIf="inputType.confirmPassword === 'text'"></i>
+                    </span>
+                  </div>
+
+                </div>
+                <div class="form-group clearfix">
+                  <select class="form-control custom_input_ddl padding_left_8" id="securityQuestion"
+                    formControlName="securityQuestion" name="securityQuestion">
+                    <option value="">Security Question</option>
+                    <option value="Childhood Hero?">Childhood Hero?</option>
+                    <option value="Favorite Vacation Spot?">Favorite Vacation Spot?</option>
+                    <option value="Name Of Your First Boss?">Name Of Your First Boss?</option>
+                    <option value="Name Of Your Favorite School?">Name Of Your Favorite School?</option>
+                  </select>
+                </div>
+                <div class="form-group clearfix">
+                  <input type="text" name="Answer" id="secAnswer"
+                    class="form-control form-control-lg input_registration" placeholder="Answer"
+                    formControlName="securityAnswer">
+
+                </div>
+                <div class="clearfix row mb-3">
+                  <div class="col-auto">
+                    <input type="checkbox" name="isAgreeToTerms" formControlName="isAgreeToTerms">
+                  </div>
+                  <div class="col pl-0">
+                    <span>
+                      By checking this box, you agree to be bound by the {{resellerConfig.appName}} <a
+                        class="pointer text-primary" (click)="TermsAndPolicyAction('termOfUse')">Terms of Use</a>
+                      and <a class="pointer text-primary" (click)="TermsAndPolicyAction('privacyPolicy')">Privacy Policy
+                      </a> and your continued use of this site constitutes agreement to the terms of these two policies.
+                    </span>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="ml-2">
+                    <button type="submit" class="btn btn-lg btn-primary"
+                      [disabled]="!regFormStep2.valid || isActiveApiCall === true || showLoading">
+                      Confirm</button>
+                  </div>
+                </div>
+              </form>
+              <!--second form end (Complete Registration)-->
+
+              <!--RESET PASSWORD FORM start-->
+              <div class="row margin_left_8" *ngIf="showResetErrMessage === true">
+                <h4>Reset Password</h4>
+                <div class="float-left  margin_top_20" *ngIf="passResetLinkSentMsg === true"><span>Password reset link
+                    has
+                    been expired.
+                  </span></div>
+
+                <div class="float-left  margin_top_20" *ngIf="passResetLinkSentMsg === true">
+                  Please
+                  <a class="cursor_pointer" (click)="goTo('login','','')"><u>
+                      <span><u> Login</u></span></u></a>
+                  <span>, if you remember your credential or make new request to</span>
+
+                  <a class="cursor_pointer" (click)="goTo('login','','reset')"><u>
+                      <span><u> Reset </u></span></u></a>
+                  <span>your password?</span>
+                </div>
+
+                <div class="float-left  margin_top_20" *ngIf="passChangeSuccNotLoginError === true">
+                  <span>Password Changed Successfully.</span>
+                  <span class='clearfix'>
+                    <span>Please</span>
+                    <a class="cursor_pointer black_link" (click)="goTo('login',regForm.email,'')">
+                      <span><u> Login </u></span></a>
+                    <span>with new password.</span></span>
+                </div>
+                <div class="float-left  margin_top_20" *ngIf="passChangeIncompletDataMsg === true">
+                  <span class='text-danger_normal'>Incomplete Data. Check your inputs</span></div>
+              </div>
+
+
+              <form [formGroup]="resetPasswordForm" *ngIf="isResetPassword === true" (ngSubmit)="resetPassword()">
+
+                <h4>Reset Password</h4>
+                <div class="form-group margin_top_15 clearfix">
+                  <input type="email" name="email" id="email" class="form-control-lg form-control"
+                    placeholder="Enter email address" formControlName="email" autocomplete="off">
+                </div>
+                <div class="form-group clearfix">
+                  <div class="position-relative">
+                    <input type="password" name="password" id="password" class="form-control form-control-lg pr-5"
+                      placeholder="Enter password" formControlName="password"
+                      (keypress)="checkPasswordStrength('resetPasswordForm')"
+                      (change)="checkPasswordStrength('resetPasswordForm')"
+                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.,():_-])[A-Za-z\d$@#$!%*?&.,():_-]{8,}"
+                      [ngClass]="{'text-danger_normal':f1.password.errors}" triggers="blur" placement="right"
+                      ngbPopover="{{(f1.password.errors) ? 'The password must be at least eight characters long and it must include one uppercase and one lowercase letter (A-Z, a-z), one numeric character (0-9), and one special character from the following list: (&!%*.,$:@#-_?). ' : ''}}">
+
+                    <!-- <span class="show-password">
+                      <i class="fas fa-eye" style="cursor: pointer"></i>
+                      <i class="fas fa-eye-slash" style="cursor: pointer"></i>
+                    </span> -->
+                  </div>
+
+                  <div class="passwordhint">
+                    <div class="arrow"></div>
+                    <ul class="password-info clearfix list-unstyled m-0 p-0">
+                      <li class="text-dark">Password must</li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Be a minimum of 8 characters</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least one lowercase latter (a-z)</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least one uppercase latter (A-Z)</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least one number (0-9)</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-circle d-inline-block mr-2"></i>
+                        <span class="d-inline">Include at least special character (&!%*.,$:#@-_?)</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div *ngIf="passwordStrength.score > 0">
+                    <ngb-progressbar *ngIf="passwordStrength.type === 'strong'" type="success"
+                      [value]="passwordStrength.score"></ngb-progressbar>
+                    <ngb-progressbar *ngIf="passwordStrength.type === 'ok'" type="warning"
+                      [value]="passwordStrength.score"></ngb-progressbar>
+                    <ngb-progressbar *ngIf="passwordStrength.type === 'weak'" type="danger"
+                      [value]="passwordStrength.score"></ngb-progressbar>
+                  </div>
+
+                </div>
+                <div class="form-group clearfix">
+                  <input type="password" name="confirmPassword" id="confirmPassword" formControlName="confirmPassword"
+                    class="form-control form-control-lg" placeholder="Enter confirm password" (blur)="MustMatch($event)"
+                    (focus)="MustMatch($event)" triggers="blur" placement="right"
+                    ngbPopover="{{(f1.confirmPassword.errors && !f1.confirmPassword.valid) ? 'Password does not match' : ''}}"
+                    autocomplete="off">
+                </div>
+                <div class="row">
+                  <div class="float-left margin_left_8 margin_top_10">
+                    <button type="submit" class="btn btn-lg btn-primary float-left"
+                      [disabled]="!resetPasswordForm.valid || isActiveApiCall === true || showLoading">
+                      Reset</button>
+                  </div>
+                </div>
+
+                <!--reset password - popover start-->
+
+                <div class="float-left margin_left_8 margin_top_15" name="formRPPopover"
+                  *ngIf="resetPassPopOver === true">
+                  <div class="popover right" style="display:block !important;position:relative;">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                      <div class="popover-content">
+                        <div class="popover-content" *ngIf="passNotReset === true">
+                          <span class='text-danger_normal'>Something goes wrong.</span>
+                        </div>
+                        <div class="popover-content" *ngIf="passUnfortuNotReset === true">
+                          <span class='text-danger_normal'>Unfortunately we were not able to reset your password, please
+                            try again later.</span>
+                        </div>
+                        <span class='popover_close'><a (click)='resetPassPopOver=false'><i
+                              class='fas fa-times text-danger_normal'></i></a></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--reset password - popover end-->
+              </form>
+              <!--RESET PASSWORD FORM start-->
+
+              <!-- <div class="col-xs-24 col-sm-10 col-md-10 col-lg-10 img_registration_back regi_right_logo_wrap"> -->
+              <div name="formPopover" *ngIf="alreadyRegisteredUser === true">
+                <div class="popover register_email_popover">
+                  <div class="arrow"></div>
+                  <div class="popover-inner">
+                    <div class="popover-content" *ngIf="alreadyRegisteredUser === true">
+                      <span class='popover_close'><a (click)='alreadyRegisteredUser=false;'><i
+                            class='fas fa-times text-danger'></i></a></span>
+                      <span class='text-danger_normal'>A user with this email address is already registered and requires
+                        confirmation. Would you like us to</span>
+                      <a class="cursor_pointer red_link"
+                        (click)="goTo('login',regFormStep1.controls.email.value,'resend')"><span><u>
+                            Resend your confirmation </u></span></a>
+                      <span class='text-danger_normal'>email? <br> If you do not receive the confirmation email, please
+                        check
+                        your spam folder.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--popover start-->
+              <div class="float-right margin_left_8 margin_top_15" name="formPopover2" *ngIf="isRegPopOver === true">
+                <div class="popover" style="display:block !important;">
+                  <div class="arrow"></div>
+                  <div class="popover-inner">
+                    <div class="popover-content">
+
+                      <div class="popover-content">
+                        <span class='text-danger_normal'>A user with this email address is already registered. Would you
+                          like to
+                        </span>
+                        <a class="cursor_pointer red_link" (click)="goTo('login',regForm.email,'')"><span><u> Login</u>
+                          </span></a>
+                        <span class='text-danger_normal'>, or</span>
+                        <a class="cursor_pointer red_link"
+                          (click)="goTo('login',regFormStep1.controls.email.value,'reset')">
+                          <span> <u> Reset </u></span></a>
+                        <span class='text-danger_normal'> your password?</span>
+
+                      </div>
+                      <span class='popover_close'><a (click)='isRegPopOver=false'><i
+                            class='fas fa-times text-danger_normal'></i></a></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--popover end-->
+
+              <div class="text-center mt-3" *ngIf="regStep === 'step2' || regStep === 'step1'">
+                <small id="ius-captcha-terms-of-use-text">
+                  Invisible reCAPTCHA by Google
+                  <a href="https://www.google.com/intl/en/policies/privacy/" target="_blank">Privacy Policy</a>
+                  <span>&nbsp;and&nbsp;</span>
+                  <a href="https://www.google.com/intl/en/policies/terms/" target="_blank">Terms of Use.</a>
+                </small>
+              </div>
+            </div>
+            <div class="info-wrap">
+              <div class="shadow-sm info-box-wrap box-news" *ngIf="hasFeature('TIPS')">
+                <app-quicktips></app-quicktips>
+              </div>
+              <div class="shadow-sm info-box-wrap box-tips" *ngIf="hasFeature('NEWS')">
+                <app-news></app-news>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

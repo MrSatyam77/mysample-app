@@ -1,0 +1,35 @@
+<div class="dashboard-content">
+    <div class="dashboard-data-wrap">
+        <div class="returns-table" *ngIf="recentRejectedReturnsList.length!==0">
+            <div class="returns-table-row no-pointer" [ngStyle]="{'background-color':rowColor}">
+                <div [class]="columnListData.className" *ngFor="let columnListData of columnData[column.columnNumber]"
+                    [title]="columnListData.displayText">
+                    {{columnListData.displayText}}</div>
+            </div>
+            <perfect-scrollbar>
+                <div class="return-table-content">
+                    <div class="returns-table-row"
+                        [ngStyle]="{'background-color':rowColor}"
+                        [ngClass]="{'box-shadow-outset':rejectedReturns.isCheckedOut==false,'no-clicking':!permission.canGetEfileList}"
+                        *ngFor=" let rejectedReturns of recentRejectedReturnsList | slice:0:column.count"
+                        (click)="openRejectedReturn(rejectedReturns)">
+                        <div [class]="columnListData.className"
+                            *ngFor="let columnListData of columnData[column.columnNumber] let i=index"
+                            [title]="rejectedReturns[columnListData.fieldName]">
+                            <i [class]="rejectedReturns.className" *ngIf="i===0"></i>
+                            {{rejectedReturns[columnListData.fieldName]}}
+                        </div>
+                    </div>
+                </div>
+            </perfect-scrollbar>
+        </div>
+
+        <div class="dashboard-center-data-wrap" *ngIf="recentRejectedReturnsList.length === 0">
+            Great News! You do not have any rejections at the moment.
+        </div>
+    </div>
+
+    <div class="dashboard-footer-wrap" *ngIf="recentRejectedReturnsList.length!==0">
+        <a class="footer-btn" (click)="goToRejectedList('Rejected')">More</a>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<style>
+    .note_text_wrapper {
+        line-height: 1.4;
+    }
+
+    .note_text_wrapper span {
+        color: red;
+        font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+        .xs_margin_top_10 {
+            margin-top: 10px;
+        }
+    }
+</style>
+
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <div class="modal-title">
+            <label class="font_black">Verify Email</label>
+        </div>
+    </div>
+    <div class="modal-body clearfix">
+        <ng-form name="nameDialog" role="form">
+            <div class="input-group-lg row_height_30">
+                <div ng-show="!IsCodeSend">
+                    <div> <span translate="EMAIL_VERIFICATION_DIALOG_DESCRIPTION1" translate-default="A code will be sent to your email addresss for verification and security purposes."></span></div>
+                </div>
+                <div ng-show="IsCodeSend" class="height_20">
+                    <div> <span translate="EMAIL_VERIFICATION_DIALOG_DESCRIPTION2" translate-default="Please enter the 6-digit code that was emailed to you to complete the verification process."></span></div>
+                </div>
+
+                <div ng-show="IsCodeSend">
+                    <div class="row_height_30 margin_top_10 float-left" style="width: 100%;">
+                        <div class="col-lg-4 col-sm-24 col-xs-24 float-left padding_l_0">
+                            <input type="text" data-ng-model="verificationCode" ng-required="!verificationCode" tax-mask="999999" tax-mask-use-view-value="true"
+                                class="form-control" />
+                        </div>
+
+                        <div ng-show="InValidcode" class="text-danger_normal float-left">
+                            <div class="padding_top_5"> <span translate="EMAIL_VERIFICATION_DIALOG_ERRORMESSAGE" translate-default="The code you entered is invalid."></span></div>
+                        </div>
+                        <div ng-show="ErrorCode" class="text-danger_normal float-left">
+                            <div class="padding_top_5"> <span translate="EMAIL_VERIFICATION_DIALOG_ERRORMESSAGE" translate-default="The code you entered is expired."></span></div>
+                        </div>
+
+                        <div ng-show="showResendMsg" class="color_green float-left">
+                            <div class="padding_top_5"> <span translate="EMAIL_VERIFICATION_DIALOG_RETRYMESSAGE" translate-default="A new code was sent to your registered email address."></span></div>
+                        </div>
+                    </div>
+                    <div class="row_height_30 margin_top_10 float-left">
+                        <div>
+                            <div class="float-left margin_right_5">
+                                <button type="button" class="btn custom-btn" ng-disabled="!verificationCode" data-ng-click="ValidateCode()"><span
+                                        translate="RETURNSUBSCRIPTION_VALIDATE_SPAN" translate-default="Validate Code"></span></button>
+                            </div>
+                            <div class="float-left margin_right_5">
+                                <button type="button" class="btn custom-btn" data-ng-click="ResendCode()"><span translate="RETURNSUBSCRIPTION_VALIDATE_SPAN"
+                                        translate-default="Didn't receive a code"></span>
+                                </button>
+                            </div>
+                            <div class="col-lg-12 col-sm-24 col-xs-24 note_text_wrapper xs_margin_top_10">
+                                <span class="float-left" translate="EMAIL_VERIFICATION_DIALOG_DESCRIPTION2" translate-default="Note: The code will expire in 5 minutes."></span>
+                                <span class="float-left" style="padding-left: 33px;" translate="EMAIL_VERIFICATION_DIALOG_DESCRIPTION2" translate-default="Please check your spam folder as well."></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+    <div class="modal-footer">
+        <!-- Temporary -->
+        <div class="float-left mr-auto">
+            <div class="padding_top_5"> <span translate="EMAIL_VERIFICATION_DIALOG_MESSAGE" translate-default="This process is required for e-filing."></span></div>
+        </div>
+        <button type="button" class="btn custom-btn" data-ng-click="close()"><span translate="RETURNSUBSCRIPTION_LATER_SPAN"
+                translate-default="Do it Later"></span></button>
+
+    </div>
+</div>

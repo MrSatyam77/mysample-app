@@ -1,0 +1,76 @@
+<div class="inner_col_second clearfix">
+  <div class="col-lg-24 col-md-24 col-sm-24">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding" *ngIf="templateType == 'returns'">Returns</span>
+      <span class="page_title_lg ng-binding" *ngIf="templateType == 'customReturnTemplates'">Custom
+        Return Templates</span>
+      <div class="row float-right mt-2">
+        <button class="btn btn-outline-primary margin_left_5 pl-2" (click)="backToHomeScreen()">Back
+          To Dashboard</button>
+        <i class="m-2 refresh-loader  fas fa-redo float-right color_gray font_size_14  cursor_pointer"
+          [ngClass]="{'rotate':refreshStart}" (click)="manuallyRefresh()"></i>
+      </div>
+    </section>
+  </div>
+  <div class="inner_padding_15 allowScrollSync" style="overflow-y:auto;">
+    <div>
+      <div class="row ml-0">
+        <div *ngIf="proformaRequestError" class="col-lg-24 col-sm-24 col-md-24">
+          <div class="text-danger margin_bottom_20"><span>The Proforma process was unsuccessful please try again and
+              contact our support department for further instructions "</span>
+          </div>
+        </div>
+        <div class="row col-lg-24 col-sm-24 col-md-24">
+          <div class="col-ml-4 col-lg-4 col-md-4 col-sm-4 col-xl-4 padding_l_r_0" id="step2">
+            <!-- This will filter $data in ng-repeat instead of in Grid. -->
+            <div class="input-group">
+              <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value"
+                [(ngModel)]="filter.searchField" (ngModelChange)="quickSearch(filter.searchField)" />
+              <div class="input-group-append" *ngIf="filter.searchField && filter.searchField.length > 0">
+                <span class="input-group-text cursor_pointer"
+                  (click)="filter.searchField = ''; quickSearch(filter.searchField);"> <i
+                    class="fa fa-times"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-ml-20 col-lg-20 col-md-20 col-sm-20 col-xl-20  pl-4" id="step1">
+            <div class="row">
+              <div class="col-ml-8 col-lg-8 col-md-8 col-sm-8 col-xl-8">
+                <div class="row">
+                  <select class="form-control cus-forminput ml-2" [(ngModel)]="templateType"
+                    (ngModelChange)="externalFilter()">
+                    <option value="returns">Returns</option>
+                    <option value="customReturnTemplates">Custom Return Templates</option>
+                  </select>
+                  <select class="form-control cus-forminput ml-2" id="typeFilter" [(ngModel)]="filter.returnType"
+                    (ngModelChange)="externalFilter()">
+                    <option *ngFor="let returnType of returnTypes" [value]="returnType.id">{{returnType.title}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-ml-16 col-lg-16 col-md-16 col-sm-16 col-xl-16 pr-0">
+                <div class="float-right">
+                  <button class="btn btn-outline-primary margin_right_5" input type="button"
+                    (click)="proformaOnReturn(true)" *ngIf="betaOnly() == true">
+                    <span class="padding_right_3">Full Proforma</span>
+                  </button>
+                  <button class="btn btn-outline-primary mr-2" input type="button" (click)="proformaOnReturn(false)">
+                    <span class="padding_right_3">Proforma</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-24 col-md-24 col-xl-24 col-sm-24">
+          <app-standard-ag-grid #proformaNewAgGridComponent name="proformaEdit" [gridOptions]="gridOptions"
+            [rowSelection]="'multiple'" [result]="rowData" [(filter)]="filter"
+            (onStandardGridReady)="onGridReady($event)">
+          </app-standard-ag-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

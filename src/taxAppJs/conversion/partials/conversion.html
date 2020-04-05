@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link href="taxAppJs/conversion/css/conversion.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header -->
+     
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40  clearfix">
+            <span class="page_title_lg ng-binding" translate="APPOINTMENT_ADD_HEADER" translate-default="Conversion Wizard">
+            </span>
+        </section>
+        <div class="inner_padding_15 static_form_wrap clearfix allowScrollSync"   
+            style="overflow-y:auto;">
+            <div class="col-lg-20 col-sm-24 col-md-24 padding_l_r_0">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="menu in conversionTopMenu track by $index" data-ng-class="{'no-clicking disable-tile':conversionTopMenu.length == 6,'active':$index+1 == conversionTopMenu.length}">
+                        <a ng-show="$index+1 != conversionTopMenu.length" class='cursor_pointer' data-ng-click="goToView(menu.view)">{{menu.title}}</a>
+                        <span ng-show="$index+1 == conversionTopMenu.length">{{menu.title}}</span>
+                    </li>
+                </ol>
+            </div>
+            <div ng-if="taxYear != '2017'">
+                <div class="col-lg-20 col-sm-24 col-md-24 padding_l_r_0 margin_bottom_20 margin_top_1">
+                    <span class="text-danger clearfix">Conversion for
+                        <span ng-repeat="obj in softwareName">
+                            {{obj.displayText}} 
+                            <!-- <sup ng-if="obj.displayText=='ATX'">&trade;</sup><sup ng-if="obj.displayText!='ATX'">&reg;</sup> -->
+                            <span ng-if="(softwareName.length-1) > $index">,</span>
+                        </span>
+                        <span> {{taxYear}} is now available.</span>
+                    </span>
+                </div>
+            </div>
+            <div ng-if="taxYear == '2017'">
+                <div class="col-lg-20 col-sm-24 col-md-24 padding_l_r_0 margin_bottom_20 margin_top_1">
+                    <span class="text-danger clearfix">Conversion for 2017 
+                        <span>ATX<sup>&trade;</sup></span>,
+                        <span>CrossLink<sup>&reg;</sup></span>,
+                        <span>Drake<sup>&reg;</sup></span>,
+                        <span>Lacerte Tax Year 2017<sup>&reg;</sup></span>,
+                        <span>OLT Pro<sup>&reg;</sup></span>,
+                        <span>ProSystem FX<sup>&reg;</sup></span>,
+                        <span>TaxAct<sup>&reg;</sup></span>,
+                        <span>TaxSlayer<sup>&reg;</sup></span>,
+                        <span>TaxWise Tax Year 2017<sup>&reg;</sup></span>,
+                        <span>Turbo Tax<sup>&reg;</sup></span> and
+                        <span>UltraTax<sup>&reg;</sup></span> are now available.
+                    </span>
+                </div>
+            </div>
+            
+            <div class="col-lg-20 col-sm-24 col-md-24 font_bold">
+                <div class="margin_bottom_20"><span translate="CONVERSION_INSTRUCTION"
+                        translate-default="MyTAXPrepOffice supports the ProConnect Tax Online conversion. Before proceeding with the Conversion Wizard, please convert the files to the ProSeries tax program."></span></div>
+            </div>
+            <div class="col-lg-20 col-sm-24 col-md-24 padding_l_r_0">
+                <div ng-if="fileSizeLimitWarning" class="text-danger margin_bottom_20"><span translate="APPOINMENT_MAXIMUMSIZELIMITWARN"
+                        translate-default="Maximum file upload size is 3 GB."></span></div>
+            </div>
+            <div style="border:1px solid #dddedf;" class="col-lg-20 col-sm-24 col-md-24 clearfix">
+                <div data-ng-repeat="visibleView in nextAndPrevViewMap track by $index">
+                    <data-ng-include data-ng-if="visibleView.view == 'first' && visibleView.isVisible == 'true'" src="'taxAppJs/conversion/partials/welcome.html'"></data-ng-include>
+                    <data-ng-include data-ng-if="visibleView.view == 'second' && visibleView.isVisible == 'true'" src="'taxAppJs/conversion/partials/selectSoftware.html'"></data-ng-include>
+                    <data-ng-include data-ng-if="visibleView.view == 'third' && visibleView.isVisible == 'true'" src="'taxAppJs/conversion/partials/instructions.html'"></data-ng-include>
+                    <data-ng-include data-ng-if="visibleView.view == 'fourth' && visibleView.isVisible == 'true'" src="'taxAppJs/conversion/partials/backupInstructions.html'"></data-ng-include>
+                    <data-ng-include data-ng-if="visibleView.view == 'fifth' && visibleView.isVisible == 'true'" src="'taxAppJs/conversion/partials/upload.html'"></data-ng-include>
+                    <data-ng-include data-ng-if="visibleView.view == 'sixth' && visibleView.isVisible == 'true'" src="'taxAppJs/conversion/partials/confirmation.html'"></data-ng-include>
+
+                    <div class="row col-lg-24 col-xs-24 col-sm-24 padding_r_0" data-ng-if="visibleView.isVisible == 'true'">
+                        <hr class="light_line">
+                        <div class="float-right">
+                            <button data-ng-show="visibleView.previous != ''" data-ng-class="{'no-clicking disable-tile':disablePrev,'btn btn-outline-primary':true}"
+                                data-ng-click="changeView(visibleView.view,'back')"><span translate="CONVERSION_BACK"
+                                    translate-default="Previous"></span></button>
+                            <button data-ng-show="visibleView.next != ''" data-ng-disabled="(selectSoftwarePage && !uploadedSoftDetail.selSoftware) || (visibleView.view != 'first' && (uploadedSoftDetail.selSoftware.value=='Crosslink2013'||uploadedSoftDetail.selSoftware.value=='Crosslink2014'||uploadedSoftDetail.selSoftware.value=='Crosslink2015' || uploadedSoftDetail.selSoftware.value=='Crosslink2016') && (userData.userName==undefined || userData.userName=='' || userData.password==undefined || userData.password==''))"
+                                class="btn btn-outline-primary" data-ng-click="changeView(visibleView.view,'next')"><span
+                                    translate="CONVERSION_NEXT" translate-default="Next"></span></button>
+                            <button data-ng-show="visibleView.next == '' && visibleView.previous == ''" class="btn btn-outline-primary"
+                                data-ng-click="goToListView()"><span translate="CONVERSION_DONE" translate-default="Done"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+
+</html>

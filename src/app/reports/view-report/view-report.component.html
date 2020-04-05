@@ -1,0 +1,62 @@
+<div class="bg-white border">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg title_height_40">
+        <span class="page_title_lg">
+          View Reports
+        </span>
+        <div class="row float-right d-none d-md-block">
+          <button class="btn btn-outline-primary margin_left_5 pl-2" (click)="gotoHome()">Back To Dashboard</button>
+          <i class="m-2 fas refresh-loader fa-redo float-right color_gray font_size_14  cursor_pointer" [ngClass]="{'rotate':enableLoading}"
+            (click)="getReportData()"></i>
+        </div>
+      </span>
+    </section>
+  </div>
+
+  <div class="row px-2 mt-3">
+    <div class="col-10">
+      <div class="float-left">
+        <input type="text" class="form-control cus-forminput" [(ngModel)]="searchTerm" id="search" name="search" placeholder="Filter By Any Value"
+          (ngModelChange)="applyQuickSearch()" />
+      </div>
+      <div class="dropdown float-left ml-2">
+        <button type="button" class="btn btn-outline-primary  float-right dropdown-toggle" id="typeFilter" data-toggle="dropdown">
+          {{reportData.name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" *ngFor="let report of reportData.reportList" (click)="viewReport(report)">{{report.reportName}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-14">
+      <div class="dropdown float-right ml-2">
+        <button type="button" class="btn btn-outline-primary  float-right dropdown-toggle" id="typeFilter" data-toggle="dropdown">
+          Export
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" (click)="export('excel')"> <i class="fas fa-file-excel mr-1"></i> EXCEL</a>
+          <a class="dropdown-item" (click)="export('pdf')"> <i class="fas fa-file-pdf mr-1"></i> PDF</a>
+        </div>
+      </div>
+      <button class="btn btn-outline-primary ml-2 float-right">Reset List Setting
+      </button>
+      <button class="btn btn-outline-primary float-right">Save List Setting
+      </button>
+    </div>
+    <div class="col-24 mt-3">
+      <app-reports-grid #reportsGrid [colDefinations]="reportGridConfiguration" [rowData]="reportGridData" [reportName]="reportData.name"></app-reports-grid>
+    </div>
+  </div>
+</div>
+
+<!-- Loading bar section start-->
+<div *ngIf="enableLoading === true">
+  <div class="loading_background"></div>
+  <div class="preloader">
+    <div class="preloader-container">
+      <span class="animated-preloader"></span>
+    </div>
+  </div>
+</div>
+<!-- Loading bar section ends -->

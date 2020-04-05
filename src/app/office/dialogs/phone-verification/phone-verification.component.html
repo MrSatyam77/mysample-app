@@ -1,0 +1,33 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">Verify Telephone Number</h4>
+  </div>
+  <div class="modal-body clearfix">
+    <div class="row mb-3">
+      <div class="col">
+        <span>Please enter 4-digit code that was send to you to verify your phone.</span>
+      </div>
+    </div>
+    <div class="form-group row mb-3">
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="code" [(ngModel)]="verificationCode" mask="0000">
+      </div>
+      <div class="col-sm-12">
+        <span class="d-block text-danger" *ngIf="showMessage === 1">Code you entered is invalid.</span>
+        <span class="d-block text-danger" *ngIf="showMessage === 2">Code you entered is expired.</span>
+        <span class="d-block text-success font-weight-bold" *ngIf="showMessage === 3">A new code was sent to your cell phone.</span>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col text-danger">
+        <span class="d-block">Note: This code will expire in 5 minutes.</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="validate()" [disabled]="!verificationCode || verificationCode.length < 4">Validate
+      Code</button>
+    <button type="button" class="btn btn-outline-primary" (click)="resendCode()">Didn't receive a code</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Do it later</button>
+  </div>
+</div>

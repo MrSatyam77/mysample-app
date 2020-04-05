@@ -1,0 +1,455 @@
+<div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding title_height_40">
+                <span class="page_title_lg ng-binding" translate="MANAGEEINEDIT_ADD_HEADER" translate-default="{{bankName}}"></span>
+            </span>
+        </section>
+        <div class=" clearfix static_form_wrap allowScrollSync"    ng-style="{height:headerNav.screenHeight-106}" style="overflow-y:auto">
+            <div class="clearfix pl-3 pt-3">
+                <!-- For messages -->
+                <div class="">
+                    <!-- This is temporary message to educate users that bank enrollment is not available -->
+                    <div data-ng-if="taxYear=='2014'" class="text-danger margin_bottom_20"><span>Bank enrollment for tax year 2014 is closed.</span></div>
+                    <!-- <div data-ng-if="taxYear=='2015'" class="text-danger margin_bottom_20"><span>Bank enrollment for tax year 2015 will be available soon.</span></div> -->
+                    <!-- <div data-ng-if="taxYear=='2015'" class="text-danger margin_bottom_20"><span>We carried forward your last year enrollment data. Please review it and press save on last tab to enroll for tax year {{taxYear}}.</span></div> -->
+                    <!-- This message educate the people that enrollment for tax year 2015 is closed-->
+                    <div data-ng-if="taxYear=='2015'" class="text-danger margin_bottom_20"><span>As of Friday April 8th 2016, ATLAS Financial Services will no longer be accepting new bank enrollments for tax year 2015.</span></div>
+                </div>
+                <!-- Error List  -->
+                <div data-ng-if="errorList != undefined && errorList.length > 0">
+                    <div data-ng-repeat="error in errorList" class="text-danger_normal">
+                        {{error.errorMessage}}
+                    </div>
+                </div>
+                <div data-ng-if="adminUserName != undefined && adminUserName != '' && adminPassword != undefined && adminPassword != ''">
+                        <div class="col-24">
+                                <div class="row">
+                    <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24">
+                        <span translate="ATLAS_INFO_SUCCESSMESSAGE1_LABEL" translate-default="You are already enrolled with ATLAS. To update your information login to "></span>
+                        <a href="https://atlas.ntslink.com/eaccount/" target="_blank"><span translate="ATLAS_INFO_ATLASEACCOUNT_SPAN" translate-default="ATLAS eAccount"></span></a>
+                    </div>
+                </div>
+                </div>
+                </div>
+            </div>    
+            <!--tax estimator tab start-->
+            <div class="clearfix" id="tax_estimator_tab">
+                <tabset justified="true">
+                    <div class="custom-line-tab"> 
+                        <tab heading="Atlas Program" active="activeTab.programTab" data-ng-click="tabChangeView('programTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.atlasProgramTabForm">
+                                        <div class="col-24">
+                                                <div class="row">
+                                        <div class="col-lg-9 col-md-16 col-sm-16 col-xs-18 clearfix">
+                                            <!--<div class="row">
+                                                <label translate="ATLASBANK_CASEADVANCE_LBL"
+                                                    translate-default="Do you want to offer cash advance ?"></label>
+                                            </div>-->
+                                            <div class="row">
+                                                <label translate="BANK_EFIN_LBL" translate-default="EFIN" class="float-left"></label>
+                                            </div>
+                                            <div class="row">
+                                                <label translate="ATLASBANK_CASHCARD_LBL" translate-default="Do you want to offer Cash Card?"></label>
+                                            </div>
+                                            <div class="row">
+                                                <label translate="ATLASBANK_AUDITSHIELD_LBL" translate-default="Do you want to offer Audit Shield?"></label>
+                                            </div>
+                                            <div class="row" data-ng-if="taxYear=='2014'">
+                                                <label translate="ATLASBANK_LEGALSHIELDLBL" translate-default="Do you want to offer Legal Shield?"></label>
+                                            </div>
+                                            <!--<div class="row">
+                                                <label translate="ATLASBANK_MONYTRANSFER_LBL"
+                                                    translate-default="Do you want to offer money transfer?"></label>
+                                            </div>-->
+                                            <div class="row">
+                                                <label translate="ATLASBANK_CRADITPRODUCT_LBL" translate-default="Do you want to offer Credit Restoration Product?"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-8 col-sm-8 col-xs-6 clearfix">
+                                            <!--<div class="row row_height_30 margin_top_5">
+                                                <button class="custom_input float-left margin_right_5" data-ng-class="{'active':atlasProgram.wantsCashAdvice==true}" data-ng-model="atlasProgram.wantsCashAdvice" data-ng-click="atlasProgram.wantsCashAdvice=true" ng-required="atlasProgram.wantsCashAdvice==undefined"></button><span class="float-left" translate="ATLASBANK_YES_LBL" translate-default="Yes"></span>
+                                                <button class="custom_input float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasProgram.wantsCashAdvice==false}" data-ng-model="atlasProgram.wantsCashAdvice" data-ng-click="atlasProgram.wantsCashAdvice=false" ng-required="atlasProgram.wantsCashAdvice==undefined"></button><span class="float-left" translate="ATLASBANK_NO_LBL" translate-default="No"></span>
+                                            </div>-->
+                                            <div class="row row_height_30">
+                                                <input type="text" name="epsProgramFormEfin" class="newusertextbox form-control float-left" data-ng-model="atlasProgram.efin" data-ng-required="!atlasProgram.efin" tax-mask="999999" value="{{atlasProgram.efin}}" />
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':atlasProgram.wantsCashCard==true}" data-ng-model="atlasProgram.wantsCashCard" data-ng-click="atlasProgram.wantsCashCard=true" ng-required="atlasProgram.wantsCashCard==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasProgram.wantsCashCard==false}" data-ng-model="atlasProgram.wantsCashCard" data-ng-click="atlasProgram.wantsCashCard=false" ng-required="atlasProgram.wantsCashCard==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':atlasProgram.wantsAuditShield==true}" data-ng-model="atlasProgram.wantsAuditShield" data-ng-click="atlasProgram.wantsAuditShield=true" ng-required="atlasProgram.wantsAuditShield==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasProgram.wantsAuditShield==false}" data-ng-model="atlasProgram.wantsAuditShield" data-ng-click="atlasProgram.wantsAuditShield=false" ng-required="atlasProgram.wantsAuditShield==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                            </div>
+                                            <div class="row row_height_30" data-ng-if="taxYear=='2014'">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':atlasProgram.wantsLegalShield==true}" data-ng-model="atlasProgram.wantsLegalShield" data-ng-click="atlasProgram.wantsLegalShield=true" ng-required="atlasProgram.wantsLegalShield==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasProgram.wantsLegalShield==false}" data-ng-model="atlasProgram.wantsLegalShield" data-ng-click="atlasProgram.wantsLegalShield=false" ng-required="atlasProgram.wantsLegalShield==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                            </div>
+                                            <!--<div class="row row_height_30">
+                                                <button class="custom_input float-left margin_right_5" data-ng-class="{'active':atlasProgram.wantsMoneyTransfer==true}" data-ng-model="atlasProgram.wantsMoneyTransfer" data-ng-click="atlasProgram.wantsMoneyTransfer=true" ng-required="atlasProgram.wantsMoneyTransfer==undefined"></button><span class="float-left" translate="ATLASBANK_YES_LBL" translate-default="Yes"></span>
+                                                <button class="custom_input float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasProgram.wantsMoneyTransfer==false}" data-ng-model="atlasProgram.wantsMoneyTransfer" data-ng-click="atlasProgram.wantsMoneyTransfer=false" ng-required="atlasProgram.wantsMoneyTransfer==undefined"></button><span class="float-left" translate="ATLASBANK_NO_LBL" translate-default="No"></span>
+                                            </div>-->
+                                            <div class="row row_height_30">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':atlasProgram.wantsCreditRestorationProduct==true}" data-ng-model="atlasProgram.wantsCreditRestorationProduct" data-ng-click="atlasProgram.wantsCreditRestorationProduct=true" ng-required="atlasProgram.wantsCreditRestorationProduct==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasProgram.wantsCreditRestorationProduct==false}" data-ng-model="atlasProgram.wantsCreditRestorationProduct" data-ng-click="atlasProgram.wantsCreditRestorationProduct=false" ng-required="atlasProgram.wantsCreditRestorationProduct==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <tab heading="Bank Product History" active="activeTab.productHistoryTab" data-ng-click="tabChangeView('productHistoryTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.productHistoryTabForm">
+                                        <div class="col-24">
+                                                <div class="row">
+                                        <div class="col-lg-8 col-md-16 col-sm-16 col-xs-18 clearfix">
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_YEAREFIELONLY_LBL" translate-default="Last years E-File only"></label>
+                                            </div>
+                                            <!--‘Number of QIKS provided last year’ to ‘Number of Bank Products processed last year’ as its refere to "LAST_YEAR_TOTAL_QIKS"-->
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_QIKSPROVIEDLASTYEAR_LBL" translate-default="Number of Bank Products processed last year"></label>
+                                            </div>
+                                            <!--both below field is commented base on mantis issue number 1430 now onwords we passing 0 on api side for both field-->
+                                            <!--<div class="row row_height_30">
+                                                <label translate="ATLASBANK_ASTYEARQIKS_LBL"
+                                                    translate-default="Last years QIKS"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_YEARSRALS_LBL"
+                                                    translate-default="Last years RALS"></label>
+                                            </div>-->
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_PREAPARERFIRMNAME_LBL" translate-default="Cards Issued Last Year"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_ISSUEDLASTYEAR_LBL" translate-default="Checks Issued Last Year"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-8 col-sm-8 col-xs-6 clearfix">
+                                            <div class="row row_height_30">
+                                                <div class="float-left popover_wrap">
+                                                    <input type="text" name="atlasBankProductHistoryLastYearsEfileOnly" class="newusertextbox form-control" data-ng-model="bankProductHistory.lastYearsEFileOnly" ng-required="!bankProductHistory.lastYearsEFileOnly || form.productHistoryTabForm.atlasBankProductHistoryLastYearsEfileOnly.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.productHistoryTabForm.atlasBankProductHistoryLastYearsEfileOnly.$error.pattern && form.productHistoryTabForm.atlasBankProductHistoryLastYearsEfileOnly.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{bankProductHistory.lastYearsEFileOnly}}" />
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <div class="float-left popover_wrap">
+                                                    <input type="text" name="atlasBankProductHistoryNumberOfQIKSProvidedLastYear" class="newusertextbox form-control" data-ng-model="bankProductHistory.numberOfQIKSProvidedLastYear" ng-required="!bankProductHistory.numberOfQIKSProvidedLastYear || form.productHistoryTabForm.atlasBankProductHistoryNumberOfQIKSProvidedLastYear.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.productHistoryTabForm.atlasBankProductHistoryNumberOfQIKSProvidedLastYear.$error.pattern && form.productHistoryTabForm.atlasBankProductHistoryNumberOfQIKSProvidedLastYear.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{bankProductHistory.numberOfQIKSProvidedLastYear}}" />
+                                                </div>
+                                            </div>
+                                            <!--<div class="row row_height_31">
+                                                <input type="text" class="newusertextbox " data-ng-model="bankProductHistory.lastYearsQIKS" ng-required="!bankProductHistory.lastYearsQIKS" />
+                                            </div>
+                                            <div class="row row_height_31">
+                                                <input type="text" class="newusertextbox " data-ng-model="bankProductHistory.lastYearsRALS" ng-required="!bankProductHistory.lastYearsRALS" />
+                                            </div>-->
+                                            <div class="row row_height_30">
+                                                <div class="float-left popover_wrap">
+                                                    <input type="text" name="atlasBankProductHistoryCardsIssuedLastYear" class="newusertextbox form-control" data-ng-model="bankProductHistory.cardsIssuedLastYear" ng-required="!bankProductHistory.cardsIssuedLastYear || form.productHistoryTabForm.atlasBankProductHistoryCardsIssuedLastYear.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.productHistoryTabForm.atlasBankProductHistoryCardsIssuedLastYear.$error.pattern && form.productHistoryTabForm.atlasBankProductHistoryCardsIssuedLastYear.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{bankProductHistory.cardsIssuedLastYear}}" />
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <div class="float-left popover_wrap">
+                                                    <input type="text" name="atlasBankProductHistoryChecksIssuedLastYear" class="newusertextbox form-control" data-ng-model="bankProductHistory.checksIssuedLastYear" ng-required="!bankProductHistory.checksIssuedLastYear || form.productHistoryTabForm.atlasBankProductHistoryChecksIssuedLastYear.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.productHistoryTabForm.atlasBankProductHistoryChecksIssuedLastYear.$error.pattern && form.productHistoryTabForm.atlasBankProductHistoryChecksIssuedLastYear.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{bankProductHistory.checksIssuedLastYear}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <tab heading="Office" active="activeTab.officeTab" data-ng-click="tabChangeView('officeTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.officeTabForm">
+                                        <div class="col-24">
+                                                <div class="row">
+                                    <div class="col-lg-10 col-md-20 col-sm-20">
+                                        <div class="row bank">
+                                            <label translate="BANK_ORGANIZATIONTYPE_LBL" translate-default="Organization Type" class="float-left"></label>
+                                            <select class="float-right ml-auto  custom_input_ddl" id="typeOfBusiness" data-ng-model="office.typeOfBusiness" ng-required="!office.typeOfBusiness">
+                                                <option value="Corporation">Corporation</option>
+                                                <option value="Partnership">Partnership</option>
+                                                <option value="Proprietorship">Proprietorship</option>
+                                            </select>
+                                        </div>
+                                        <div class="row">
+                                            <label translate="BANK_OFFICENAME_LBL" translate-default="Office Name" class="float-left"></label>
+                                            <input type="text" id="businessName" class="newusertextbox form-control float-right ml-auto" data-ng-model="office.businessName" ng-required="!office.businessName" value="{{office.businessName}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="ATLASBANK_ADDRESSLINE1_LBL" translate-default="Address line1" class="float-left"></label>
+                                        </div>
+                                        <div class="row">
+                                            <input type="text" id="address" class="form-control" data-ng-model="office.address.address" ng-required="!office.address.address" value="{{office.address.address}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="BANK_ADDRESSLINE2_LBL" translate-default="Address line2" class="float-left width_full"></label>
+                                            <div  class="width_full">
+                                                <input type="text" id="address2" class="width_full newusertextbox_full form-control float-left" data-ng-model="office.address.address2" value="{{office.address.address2}}" />
+                                            </div>
+                                        </div>
+                                        <!--address city state zip satrt-->
+                                        <div class="popover_wrap address_wrap">
+                                            <div class="row full_width">
+                                                <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left"></label>
+                                                <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left"></label>
+                                                <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center"></label>
+                                            </div>
+                                            <div class="clearfix row row_height_30">
+                                                <div class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                    <input id="zip" type="text" class="newusertextbox form-control" data-ng-model="office.address.zip" ng-required="!office.address.zip" tax-mask="99999" cmn-zip-lookup cmn-zip-lookup-city="'office.address.city'" cmn-zip-lookup-state="'office.address.state'" value="{{office.address.zip}}" />
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                    <input type="text" id="city" class="newusertextbox form-control" data-ng-model="office.address.city" ng-required="!office.address.city" value="{{office.address.city}}" />
+                                                </div>
+                                                <div class="pr-0 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                    <input type="text" id="state" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 form-control" data-ng-model="office.address.state" ng-required="!office.address.state" value="{{office.address.state}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--address city state zip end-->
+                                        <div class="row">
+                                            <label translate="ATLASBANK_OFFICEEMAILADDRESS_LBL" translate-default="Office Email Address" class="float-left"></label>
+                                            <input type="email" id="businessEmailAddress" class="newusertextbox form-control float-right ml-auto" data-ng-model="office.businessEmailAddress" ng-required="!office.businessEmailAddress" value="{{office.businessEmailAddress}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="BANK_OFFICEPHONE_LBL" translate-default="Office Phone" class="float-left"></label>
+                                            <input type="text" id="primaryPhoneNumber" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.primaryPhoneNumber" ng-required="!office.primaryPhoneNumber" tax-mask="(999)999-9999" value="{{office.primaryPhoneNumber}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="ATLASBANK_OFFICEPHONEEXTENSION_LBL" translate-default="Office Phone Extension" class="float-left"></label>
+                                            <input id="primaryPhoneExtension" type="text" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.primaryPhoneExtension" tax-mask="999" value="{{office.primaryPhoneExtension}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="BANK_ALTERNATEPHONE_LBL" translate-default="Alternate Phone" class="float-left"></label>
+                                            <input type="text" id="secondaryPhone" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.secondaryPhone" tax-mask="(999)999-9999" value="{{office.secondaryPhone}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="ATLASBANK_ALTERNATEPHONEEXTENTION_LBL" translate-default="Alternate Phone Extension" class="float-left"></label>
+                                            <input type="text" id="secondaryExtension" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.secondaryExtension" tax-mask="999" value="{{office.secondaryExtension}}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                                    <div class="col-lg-11 col-md-20 col-sm-20">
+                                        <div class="row">
+                                            <label translate="ATLASBANK_SSNOFPRIMARYOWNER_LBL" translate-default="SSN of Primary Business Owner"></label>
+                                            <input type="text" id="ssnNumber" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.ssnNumber" ng-required="!office.ssnNumber" tax-mask="999-99-9999" value="{{office.ssnNumber}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="ATLASBANK_EINBUSINESS_LBL" translate-default="EIN of Business"></label>
+                                            <input type="text" id="einOfBusiness" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.einOfBusiness" ng-required="!office.einOfBusiness && office.typeOfBusiness==='Corporation'" tax-mask="99-9999999" value="{{office.einOfBusiness}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="ATLASBANK_CONTACTFIRSTNAME_LBL" translate-default="Contact First Name"></label>
+                                            <input type="text" id="firstName" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.firstName" ng-required="!office.firstName" value="{{office.firstName}}" />
+                                        </div>
+                                        <div class="row">
+                                            <label translate="ATLASBANK_CONTACTLASTNAME_LBL" translate-default="Contact Last Name"></label>
+                                            <input type="text" id="lastName" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.lastName" value="{{office.lastName}}" />
+                                        </div>
+                                        <div class="row popover_wrap">
+                                            <label translate="ATLASBANK_NUMOFYEARTAXPREPAR_LBL" translate-default="Number of years providing Tax Preparation Services"></label>
+                                            <input type="text" name="atlasOfficeNumberOfYearsProvidingTPS" id="numberOfYearsProvidingTPS" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.numberOfYearsProvidingTPS" ng-required="!office.numberOfYearsProvidingTPS || form.officeTabForm.atlasOfficeNumberOfYearsProvidingTPS.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.atlasOfficeNumberOfYearsProvidingTPS.$error.pattern && form.officeTabForm.atlasOfficeNumberOfYearsProvidingTPS.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{office.numberOfYearsProvidingTPS}}" />
+                                        </div>
+                                        <div class="row popover_wrap">
+                                            <label translate="ATLASBANK_NUMBEROFOFFICE_LBL" translate-default="Number of Offices"></label>
+                                            <input type="text" name="atlasOfficeNumberOfOffices" id="numberOfOffices" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.numberOfOffices" ng-required="!office.numberOfOffices || form.officeTabForm.atlasOfficeNumberOfOffices.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.atlasOfficeNumberOfOffices.$error.pattern && form.officeTabForm.atlasOfficeNumberOfOffices.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{office.numberOfOffices}}" />
+                                        </div>
+                                        <div class="row popover_wrap">
+                                            <label translate="BANK_YEARINBUSINESS_LBL" translate-default="Years in Business"></label>
+                                            <input type="text" name="atlasOfficeNumberOfYearsInBusiness" id="numberOfYearsInBusiness" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.numberOfYearsInBusiness" ng-required="!office.numberOfYearsInBusiness || form.officeTabForm.atlasOfficeNumberOfYearsInBusiness.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.atlasOfficeNumberOfYearsInBusiness.$error.pattern && form.officeTabForm.atlasOfficeNumberOfYearsInBusiness.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{office.numberOfYearsInBusiness}}" />
+                                        </div>
+                                        <div class="row popover_wrap">
+                                            <label translate="BANK_YEARCURRENTADDRESS_LBL" translate-default="Years at Current Address"></label>
+                                            <input type="text" name="atlasOfficeNumberOfYearsAtCurrentAddress" id="numberOfYearsAtCurrentAddress" class="newusertextbox  float-right ml-auto form-control" data-ng-model="office.numberOfYearsAtCurrentAddress" ng-required="!office.numberOfYearsAtCurrentAddress || form.officeTabForm.atlasOfficeNumberOfYearsAtCurrentAddress.$error.pattern" ng-pattern="/^[0-9]*$/" popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.atlasOfficeNumberOfYearsAtCurrentAddress.$error.pattern && form.officeTabForm.atlasOfficeNumberOfYearsAtCurrentAddress.$invalid) ? 'Please enter valid numbers.' : ''}}" value="{{office.numberOfYearsAtCurrentAddress}}" />
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <tab heading="Owner" active="activeTab.ownerTab" data-ng-click="tabChangeView('ownerTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.ownerTabForm">
+                                        <div class="col-24">
+                                                <div class="row">
+                                        <div class="col-lg-19 col-sm-24 col-md-24 clearfix">
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_DOB_LBL" translate-default="Date of Birth" class="float-left"></label>
+                                                <input type="text" id="dateOfBirth" class="newusertextbox float-right ml-auto form-control" data-ng-model="owner.dateOfBirth" ng-required="!owner.dateOfBirth" tax-mask="99/99/9999" tax-mask-use-view-value="true" value="{{owner.dateOfBirth}}" />
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_PREAPARERNAME_LBL" translate-default="Principal Business Owner" class="float-left"></label>
+                                                <input type="text" id="titleOfPrincipalBusinessOwner" class="newusertextbox float-right ml-auto form-control" data-ng-model="owner.titleOfPrincipalBusinessOwner" ng-required="!owner.titleOfPrincipalBusinessOwner" value="{{owner.titleOfPrincipalBusinessOwner}}" />
+                                            </div>
+                                            <div class="row row_height_30 bank">
+                                                <label translate="BANK_IDTYPE_LBL" translate-default="ID Type" class="float-left"></label>
+                                                <select name="epsBankOwnerIdType" class="custom_input_ddl float-right ml-auto form-control" id="typeOfIdentification" data-ng-model="owner.typeOfIdentification" ng-required="!owner.typeOfIdentification">
+                                                    <option value="{{identification.key}}" data-ng-repeat="identification in typeOfIdentification">{{identification.dispalyText}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_IDNUMBER_LBL" translate-default="ID Number" class="float-left"></label>
+                                                <input type="text" id="identificationReferenceNumber" class="newusertextbox float-right ml-auto form-control" data-ng-model="owner.identificationReferenceNumber" ng-required="!owner.identificationReferenceNumber" value="{{owner.identificationReferenceNumber}}" />
+                                            </div>
+                                            <div class="row row_height_30 bank">
+                                                <label translate="BANK_IDISSUELOCATION_LBL" translate-default="ID Issue Location(state)" class="float-left"></label>
+                                                <!-- <input type="text" id="idIssueLocation" class="newusertextbox float-right ml-auto form-control" data-ng-model="owner.idIssueLocation" data-ng-required="!owner.idIssueLocation" tax-mask="AA" /> -->
+                                                <select name="epsBankOwnerIdIssueLocation" class="custom_input_ddl float-right ml-auto form-control" id="idIssueLocation" data-ng-model="owner.idIssueLocation" ng-required="!owner.idIssueLocation">
+                                                    <option value="{{issueLocation.key}}" data-ng-repeat="issueLocation in idIssueLocation">{{issueLocation.dispalyText}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_PTIN_LBL" translate-default="PTIN" class="float-left"></label>
+                                                <input type="text" id="ptin" class="newusertextbox float-right ml-auto form-control" data-ng-model="owner.ptin" ng-required="!owner.ptin" tax-mask="P99999999" tax-mask-use-view-value="true" value="{{owner.ptin}}" />
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_HASASSESSEDPREPARERPENALTIES_LBL" translate-default="Has anyone associated with this firm been assessed preparer penalties?" class="float-left"></label>
+                                                <span class="float-right ml-auto">
+                                                    <button type="button" id="hasAssessedPreparerPenalties" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':owner.hasAssessedPreparerPenalties==true}" data-ng-model="owner.hasAssessedPreparerPenalties" data-ng-click="owner.hasAssessedPreparerPenalties=true" ng-required="owner.hasAssessedPreparerPenalties==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':owner.hasAssessedPreparerPenalties==false}" data-ng-model="owner.hasAssessedPreparerPenalties" data-ng-click="owner.hasAssessedPreparerPenalties=false" ng-required="owner.hasAssessedPreparerPenalties==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                                </span>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_HASASSOCIATEDUSREVENUELAWS_LBL" translate-default="Has anyone associated with this firm been convicted of any offense under US Revenue Laws?" class="float-left"></label>
+                                                <span class="float-right ml-auto">
+                                                    <button type="button" id="hasConvictedOffenseUSRevenueLaws" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':owner.hasConvictedOffenseUSRevenueLaws==true}" data-ng-model="owner.hasConvictedOffenseUSRevenueLaws" data-ng-click="owner.hasConvictedOffenseUSRevenueLaws=true" ng-required="owner.hasConvictedOffenseUSRevenueLaws==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':owner.hasConvictedOffenseUSRevenueLaws==false}" data-ng-model="owner.hasConvictedOffenseUSRevenueLaws" data-ng-click="owner.hasConvictedOffenseUSRevenueLaws=false" ng-required="owner.hasConvictedOffenseUSRevenueLaws==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                                </span>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_HASANYONEWUSTAXCOURT_LBL" translate-default="Has anyone associated with this firm been barred from practice before the IRS or the US Tax Court?" class="float-left"></label>
+                                                <span class="float-right ml-auto">
+                                                    <button type="button" id="isRegisteredMoneyService" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':owner.isRegisteredMoneyService==true}" data-ng-model="owner.isRegisteredMoneyService" data-ng-click="owner.isRegisteredMoneyService=true" ng-required="owner.isRegisteredMoneyService==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':owner.isRegisteredMoneyService==false}" data-ng-model="owner.isRegisteredMoneyService" data-ng-click="owner.isRegisteredMoneyService=false" ng-required="owner.isRegisteredMoneyService==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                                </span>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="ATLASBANK_AREREGISTEREDCASHINGBUSINESS_LBL" translate-default="Are you registered as a money service or check cashing business?" class="float-left"></label>
+                                                <span class="float-right ml-auto">
+                                                    <button type="button" id="hasBarredPractice" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':owner.hasBarredPractice==true}" data-ng-model="owner.hasBarredPractice" data-ng-click="owner.hasBarredPractice=true" ng-required="owner.hasBarredPractice==undefined"></button><span class="float-left" translate="BANK_YES_LBL" translate-default="Yes"></span>
+                                                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':owner.hasBarredPractice==false}" data-ng-model="owner.hasBarredPractice" data-ng-click="owner.hasBarredPractice=false" ng-required="owner.hasBarredPractice==undefined"></button><span class="float-left" translate="BANK_NO_LBL" translate-default="No"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <tab heading="Bank" active="activeTab.bankTab" data-ng-click="tabChangeView('bankTab')">
+                            <div class="tab_border clearfix">
+                                <form name="form.bankTabForm">
+                                        <div class="col-24">
+                                                <div class="row">
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-16 clearfix">
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_ROUTINGNUMBER_LBL" translate-default="Routing Number"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_CONFIROUTINGNUMBER_LBL" translate-default="Confirm Routing Number"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_ACCOUNTNUMBER_LBL" translate-default="Account Number"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_CONFIACCOUNTNUMBER_LBL" translate-default="Confirm Account Number"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_CHEKINGSAVING_LBL" translate-default="Checking or Savings Account ?"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_PERSONALBUSINESS_LBL" translate-default="Personal or Business Account ?"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_NAMEONACCOUNT_LBL" translate-default="Name on account"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 col-md-12 col-sm-12 col-xs-8 clearfix">
+                                            <div class="row row_height_30">
+                                                <input type="text" name="atlasBankRoutingNumber" id="routingNumber" class="newusertextbox form-control" data-ng-model="bank.routingNumber" ng-required="!bank.routingNumber" tax-mask="999999999" value="{{bank.routingNumber}}" />
+                                            </div>
+                                            <!--popover Start-->
+                                            <div class="clearfix">
+                                                <div name="passworedPopover" data-ng-show="confirmRoutingNumberError">
+                                                    <div class="popover popover_block bank_routing_no_left" data-ng-class="{ 'left': headerNav.screenWidth < 801 ,'right':headerNav.screenWidth >= 801 }">
+                                                        <div class="arrow"></div>
+                                                        <div class="popover-inner">
+                                                            <div class="popover-content text-danger">
+                                                                <label translate="BANK_ROUTINGACCOUNTNOTMATCH_LBL" translate-default="Routing Number does not match."></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <input type="text" name="atlasBankConfiRoutingNumber" id="confirmRoutingNumber" class="newusertextbox form-control" data-ng-focus="matchRoutingNumber(form.bankTabForm.atlasBankConfiRoutingNumber,true)" data-ng-blur="matchRoutingNumber(form.bankTabForm.atlasBankConfiRoutingNumber)" data-ng-model="confirmRoutingNumber" i-match="bank.routingNumber" ng-required="form.bankTabForm.atlasBankConfiRoutingNumber.$error.iMatch || !confirmRoutingNumber" tax-mask="999999999" value="{{confirmRoutingNumber}}" />
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <!-- <input type="text" class="newusertextbox " data-ng-model="bank.accountNumber" ng-required="!bank.accountNumber"   /> -->
+                                                <input type="text" name="atlasBankAccountNumber" id="accountNumber" class="newusertextbox form-control" data-ng-model="bank.accountNumber" ng-required="!bank.accountNumber" value="{{bank.accountNumber}}" />
+                                            </div>
+                                            <!--popover Start-->
+                                            <div class="clearfix">
+                                                <div name="passworedPopover" data-ng-show="confirmAccountNumberError">
+                                                    <div class="popover popover_block bank_ac_no_left" data-ng-class="{ 'left': headerNav.screenWidth < 801 ,'right':headerNav.screenWidth >= 801 }">
+                                                        <div class="arrow"></div>
+                                                        <div class="popover-inner">
+                                                            <div class="popover-content text-danger">
+                                                                <label translate="BANK_ACCOUNTNUMBERNOTMATCH_LBL" translate-default="Account Number does not match."></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--popover End-->
+                                            <div class="row row_height_30">
+                                                <input type="text" name="atlasBankConfiAccountNum" class="newusertextbox form-control" data-ng-focus="matchAccountNumber(form.bankTabForm.atlasBankConfiAccountNum,true)" data-ng-blur="matchAccountNumber(form.bankTabForm.atlasBankConfiAccountNum)" data-ng-model="confirmAccouuntNumber" i-match="bank.accountNumber" ng-required="form.bankTabForm.atlasBankConfiAccountNum.$error.iMatch || !confirmAccouuntNumber" value="{{confirmAccouuntNumber}}" />
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <div class="clearfix">
+                                                    <button type="button" class="custom_input_dark float-left margin_right_5" id="csAccountType" data-ng-class="{'active':atlasForm.csAccountType==true}" data-ng-model="atlasForm.csAccountType" data-ng-click="atlasForm.csAccountType=true" ng-required="atlasForm.csAccountType==undefined"></button><span class="float-left" translate="BANK_CHECKING_LBL" translate-default="Checking"></span>
+                                                    <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasForm.csAccountType==false}" data-ng-model="atlasForm.csAccountType" data-ng-click="atlasForm.csAccountType=false" ng-required="atlasForm.csAccountType==undefined"></button><span class="float-left" translate="BANK_SAVING_LBL" translate-default="Savings"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <div class="clearfix">
+                                                    <button type="button" class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':atlasForm.pbAccountType==true}" data-ng-model="atlasForm.pbAccountType" data-ng-click="atlasForm.pbAccountType=true" ng-required="atlasForm.pbAccountType==undefined"></button><span class="float-left" translate="BANK_PERSONAL_LBL" translate-default="Personal"></span>
+                                                    <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5" data-ng-class="{'active':atlasForm.pbAccountType==false}" data-ng-model="atlasForm.pbAccountType" data-ng-click="atlasForm.pbAccountType=false" ng-required="atlasForm.pbAccountType==undefined"></button><span class="float-left" translate="BANK_BUSINESS_LBL" translate-default="Business"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <input type="text" class="newusertextbox form-control" id="nameOnAccount" data-ng-model="bank.nameOnAccount" ng-required="!bank.nameOnAccount" value="{{bank.nameOnAccount}}" />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                    </div>
+                </tabset>
+                <div class="col-24">
+                        <div class="row">
+                <div class="col-lg-24 col-md-24 col-sm-24">
+                    <form name="form.commonAction">
+                        <hr class="light_line">
+                        <div class="float-right ml-auto">
+                            <button class="btn btn-outline-primary ng-scope" data-ng-disabled="activeTab.programTab==true" data-ng-click="changeView('previuos')"><span translate="BANK_PREVIUOS_SPAN" translate-default="Previous"></span>
+                            </button>
+                            <button class="btn btn-outline-primary ng-scope" data-ng-disabled="form[formName].$invalid" data-ng-click="changeView('next')" data-ng-hide="activeTab.bankTab==true"><span translate="BANK_NEXT_SPAN" translate-default="Next"></span></button>
+                            <!-- Temporary this button is readonly (no-clicking) class is applied -->
+                            <button class="btn btn-outline-primary ng-scope" data-ng-disabled="taxYear=='2014' || taxYear=='2015' || bankAtlasList.status == 'Enrolled' || form.atlasProgramTabForm.$invalid || form.productHistoryTabForm.$invalid || form.officeTabForm.$invalid || form.ownerTabForm.$invalid || form.bankTabForm.$invalid " data-ng-show="activeTab.bankTab==true" ng-click="saveBankAtlas()" data-ng-class="{'no-clicking':!userCan('CAN_SAVE_BANK')}"><span translate="BANK_SAVE_SPAN" translate-default="Save"></span></button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>

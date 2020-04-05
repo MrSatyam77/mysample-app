@@ -1,0 +1,18 @@
+
+.training-link{
+    padding: 0 0.5rem;
+    a{
+        min-height: 40px;
+        font-weight: normal;
+        padding: 0.5rem 0.25rem;
+        transition: all 0.3s ease-in-out;
+
+        &:hover{
+            background-color: #ECF9FF;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            color: darken(#005074, 10%);
+        }
+    }
+
+}

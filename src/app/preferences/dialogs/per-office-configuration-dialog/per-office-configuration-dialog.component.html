@@ -1,0 +1,118 @@
+<div
+  style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+      <span>Configure Office Preferences</span>
+    </h4>
+  </div>
+  <div class="modal-body clearfix">
+    <div class="form-group input-group-lg row_height_30">
+      <div class="col-lg-24 col-md-12 col-sm-12 col-xs-24 clearfix mb-2">
+        <div class="row">
+          <ng-template ngFor let-office [ngForOf]="officeList" let-i=index>
+            <div class="col-12 mt-2">
+              <label>{{office.name}}</label>
+              <!-- <span *ngIf="inputType == 'dropdown'">
+              <input type="radio" name="returnType"
+                class="custom_input_dark float-left margin_right_5 margin_bottom_5 clearfix" [checked]="i === 1"
+                [value]="office.id" [(ngModel)]="returnType.modal">
+            </span>
+            <span *ngIf="inputType == 'singleCheckbox'">
+              <button class="custom_input_dark float-left margin_right_5"
+                data-ng-model="preferences.returnWorkspace.doNotAskforConfirmDlg"
+                data-ng-class="{'active':preferences.returnWorkspace.doNotAskforConfirmDlg}"
+                data-ng-click="preferences.returnWorkspace.doNotAskforConfirmDlg =! preferences.returnWorkspace.doNotAskforConfirmDlg"></button><span
+                class="float-left" translate="CONFIRMATION_DONOTASK_LBL" translate-default="Do not ask again"></span>
+            </span>
+            <span *ngIf="inputType == 'multiCheckbox'">
+              <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  data-ng-class="{'active':preferences.returnWorkspace.isPasswordProtectedPDF==true}"
+                  data-ng-model="preferences.returnWorkspace.isPasswordProtectedPDF"
+                  data-ng-click="preferences.returnWorkspace.isPasswordProtectedPDF=true"></button><span
+                  class="float-left" translate="PDFSECURE_YES_LBL" translate-default="Yes"></span>
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_left_5"
+                  data-ng-class="{'active':preferences.returnWorkspace.isPasswordProtectedPDF==false}"
+                  data-ng-model="preferences.returnWorkspace.isPasswordProtectedPDF"
+                  data-ng-click="preferences.returnWorkspace.isPasswordProtectedPDF=false;uncheckForPasswordType(preferences.returnWorkspace.isPasswordProtectedPDF)"></button><span
+                  class="float-left" translate="PDFSECURE_NO_LBL" translate-default="No"></span>
+              </div>
+            </span> -->
+            </div>
+            <div class="col-12 mt-2" *ngIf="content.controlType === 'dropdown'">
+              <div class="dropdown">
+                <button type="button" class="btn btn-outline-primary dropdown-toggle ng-binding"
+                  data-toggle="dropdown">{{office.value | displayText:content.lookup}}</button>
+                <div class="dropdown-menu" style="cursor: pointer;"
+                  [hidden]="!(content.lookup && content.lookup.length > 1)">
+                  <a class="dropdown-item" *ngFor="let lookup of content.lookup"
+                    (click)="office.value = lookup.id;">{{lookup.name}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 mt-2 row" *ngIf="content.controlType === 'radioButton'">
+              <div class="col-6 clearfix margin_top_15" *ngFor="let lookup of content.lookup">
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                  [class.active]="office.value == lookup.id" (click)="office.value = lookup.id"></button>
+                <span class="float-left">{{lookup.name}}</span>
+              </div>
+            </div>
+            <div class="col-12 mt-2" *ngIf="content.controlType === 'route'">
+              <div>
+                <button class="btn btn-outline-primary"
+                  (click)="routeToPage(content.route,1,office.key)">{{content.routeTitle}}</button>
+              </div>
+            </div>
+            <div class="col-12 mt-2" *ngIf="content.controlType === 'passwordProtected'">
+              <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                <div class="clearfix margin_top_15" *ngFor="let lookup of content.lookup">
+                  <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                    [class.active]="office.value == lookup.id" (click)="office.value = lookup.id"></button>
+                  <span class="float-left">{{lookup.name}}</span>
+                </div>
+              </div>
+              <div class="row row_height_30 pb-3" *ngIf="office.value === true">
+                <div class="col-lg-10 col-md-15 col-sm-15 clearfix">
+                  <label class="float-left">Select Password Type</label>
+                </div>
+                <div class="col-lg-14 col-md-9 col-sm-9 clearfix">
+                  <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="office.passwordType === 'default'"
+                      (click)="office.passwordType = 'default'"></button>
+                    <span class="float-left">Default</span>
+                    <div class="margin_top_10 row">
+                      <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_left_15">
+                        <br>
+                        <b>Note:</b> The default password is a combination of the first four letters of the taxpayer’s
+                        first
+                        name or the company name (for business returns) and the last four numbers of the SSN/ITIN or
+                        EIN.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix margin_top_10">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="office.passwordType === 'custom'"
+                      (click)="office.passwordType = 'custom'"></button>
+                    <span class="float-left">Custom</span>
+                    <div class="margin_top_10 row">
+                      <div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 margin_left_15">
+                        <br>
+                        <b>Note:</b> You will be prompted to enter a desired password for each print request.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="saveData()">Ok</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Cancel</button>
+  </div>
+</div>

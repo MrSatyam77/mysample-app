@@ -1,0 +1,32 @@
+
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;" class="verificationqanda">
+      <div class="modal-header dialog-header-confirm quicksetup-modal">
+          <div class="modal-title">
+              <label class="font_black"><img src="taxAppJs/images/danger.png" align="middle" class="modal-header-icon">Verification Failed</label>
+          </div>
+      </div>
+      <div class="modal-body clearfix">
+          <div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_15 padding_l_r_0" >
+              <div class="verificationqanda-container">
+                  <div class="verificationqanda-inner">
+                      <div class="content-title">
+                              <img src="taxAppJs/images/frown-face.png" class="modal-image"> Sorry!
+                      </div>
+                      <div class="text-center">
+                          <span class="font_black margin_top_10">We could not verify your identity.</span>
+                          <div class="margin_top_5">
+                              <p class="color_red font-size-16 float-none">Please upload your</p>
+                              <p class="efin_letter font-size-16 float-none ml-1 mr-1" (click)="close(true)"> EFIN Summary </p>
+                              <p class="color_red font-size-16 float-none" >to complete your identity verification</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <!-- Temporary -->
+          <button type="button" class="btn btn-outline-primary" (click)="dismiss()"><span>Close</span></button>
+      </div>
+  </div>
+  

@@ -1,0 +1,370 @@
+<style type="text/css">
+	.ta-root[required] .ta-scroll-window.form-control {
+		border: 1px solid red !important;
+	}
+
+	.modal-lg {
+		width: 70vw;
+		max-width: 100% !important;
+	}
+
+	.vertical-align-middle-content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.big-smile {
+		font-size: 80px;
+	}
+
+	.smile-text {
+		font-size: 20px;
+		padding-left: 30px;
+	}
+
+	.light_fonts {
+		font-weight: normal;
+	}
+
+	#scroll tbody tr {
+		border-bottom: 1px solid transparent;
+	}
+
+	.table thead th {
+		border-bottom: none;
+		border-top: none;
+	}
+
+	.ta-root[required] .ta-scroll-window.form-control {
+		border: none !important;
+		border-radius: 0 !important;
+	}
+</style>
+<div class="modal-content border-0">
+	<form name="SendReturnToSupportForm">
+		<div class="modal-header">
+			<h4 class="modal-title" translate="RETURNWORKSPACETOOL_SENDRETURNTOSUPPORT_LBL"
+				translate-default="Send Return To Support"></h4>
+			<button type="button" class="close" data-ng-click="close()">×</button>
+		</div>
+		<div class="modal-body clearfix">
+			<div class="clearfix">
+				<div class="form-group row">
+					<div class="col col-sm-5 col-lg-4">
+						<label translate="SUBJECT_LBL" translate-default="Please Select A Subject"></label>
+					</div>
+					<div class="col">
+						<select class="form-control custom_input_ddl margin_right_10 float-left"
+							style="max-width: 175px"
+							ng-options="subject.id as subject.displayText for subject in showSubject"
+							data-ng-model="supportObj.subject" ng-required="!supportObj.subject"
+							data-ng-change="subjectChange()"></select>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col col-sm-5 col-lg-4">
+						<label translate="SUPPORT_MESSAGE" translate-default="Message"></label>
+					</div>
+					<div class="col col-auto">
+						<div text-angular data-ng-model="supportObj.message" class="margin_top_10 retun-editor border"
+							ng-required="!supportObj.message"></div>
+					</div>
+				</div>
+				<!-- </div> -->
+				<!-- <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 padding_l_0">
+						<div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_10">
+							<label translate="Attachment_LBL" translate-default="Attachment"></label>
+						</div>
+						<div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_bottom_10">
+							<div class="drop-box upload_main" ngf-drag-over-delay="100" ngf-drag-over-class="" ngf-drop-available="dropSupported=true"
+							 ngf-drop ngf-change="onFileSelect($files)" ng-show="dropSupported">
+								<div class="clearfix">
+									<span class="text-center font_size_24">Drag here</span>
+								</div>
+								<div class="row">
+									<div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+										<div class="text-center margin_top_10">Or if you prefer</div>
+										<div class="text-center margin_top_10 height_20">
+											<div data-ng-show="uploadedFileDetail.name">
+												<span>{{uploadedFileDetail.name}}</span>
+											</div>
+										</div>
+										<div class="btn btn-outline-primary btn_conversion selectbutton margin_top_10  margin_bottom_10">
+											<i class="fa fa-folder-open margin_right_3"></i> Select file <input type="file" ngf-select="onFileSelect($files)"
+											 data-max-size="100" accept="{{acceptFileType}}">
+										</div>
+									</div>
+
+								</div>
+								<div class="row col-lg-24 col-sm-24 col-md-24 col-xs-24 ">
+									<progressbar data-ng-show="uploadProgress" animate="true" class="progress-striped active" value="uploadProgress" type="success"><b>{{uploadProgress}}%</b></progressbar>
+								</div>
+								<div class="row text-danger" data-ng-show="fileSizeMessage">
+									<span>Your selected file is more than 15MB in size.</span>
+								</div>
+								<div class="row text-danger" data-ng-show="uploadErrMessage">
+									<span>Error occurred while uploading file. Please try again later. If you need assistance or have questions, please
+										<a href="/manage/support/email">contact support.</a></span>
+								</div>
+								<div class="row text-danger padding_10" data-ng-show="invalidFileType">
+									<span>Your browser is trying to upload a file of type</span>
+									{{uploadedFileDetail.type}}
+									<span>Please make sure your browser is uploading a zip file by verifying the extension is .zip.</span>
+								</div>
+							</div>
+						</div>
+					</div> -->
+			</div>
+			<!-- Personel Information Tab Start -->
+			<div class="clearfix"
+				data-ng-if="supportObj.subject == 'Rejected Returns' || supportObj.subject == 'Perform Review'">
+				<div class="row">
+					<div class="col">
+						<h5 class="my-4">Personal Information</h5>
+					</div>
+				</div>
+
+				<div class="form-group row" data-ng-if="supportObj.packageName == '1040'">
+					<div class="col col-sm-5 col-lg-4">
+						<label>First Name and Initial</label>
+					</div>
+					<div class="col col-lg-6">
+						<input class="form-control custom_input_ddl margin_right_10 float-left" type="text"
+							name="firstname" data-ng-model="supportObj.firstName" ng-required="!supportObj.firstName" />
+					</div>
+				</div>
+
+				<div class="form-group row" data-ng-if="supportObj.packageName == '1040'">
+					<div class="col col-sm-5 col-lg-4">
+						<label>Last Name</label>
+					</div>
+					<div class="col col-lg-6">
+						<input class="form-control custom_input_ddl margin_right_10 float-left" type="text"
+							name="lastname" data-ng-model="supportObj.lastName" ng-required="!supportObj.lastName" />
+					</div>
+				</div>
+
+				<div class="form-group row" data-ng-if="supportObj.packageName != '1040'">
+					<div class="col col-sm-5 col-lg-4">
+						<label data-ng-show="supportObj.packageName == '1041'">Estate or Trust Name</label>
+						<label data-ng-show="supportObj.packageName != '1041'">Company Name</label>
+					</div>
+					<div class="col col-lg-6">
+						<input class="form-control custom_input_ddl margin_right_10 float-left" type="text"
+							name="companyname" data-ng-model="supportObj.companyName"
+							ng-required="!supportObj.companyName" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col col-sm-5 col-lg-4">
+						<label>Submission Id</label>
+					</div>
+					<div class="col col-lg-6">
+						<input class="form-control custom_input_ddl margin_right_10 float-left" type="text"
+							name="SubmissionId" data-ng-model="supportObj.submissionId" />
+					</div>
+				</div>
+			</div>
+			<!-- Personel Information Tab End -->
+
+			<!-- Rejection Tab Start -->
+			<div data-ng-if="supportObj.subject == 'Rejected Returns'">
+				<div class="row" data-ng-show="rejectionErrorList.length > 0 && currentEfileStatus == 8">
+					<div class="col-lg-24 padding_l_r_0 margin_top_15">
+						<label class="col-sm-24 col-md-24 col-lg-24 form_title light_fonts">Rejections<span
+								data-ng-show="rejectionErrorList.length > 0 && currentEfileStatus == 8">
+								({{rejectionErrorList.length}})</span></label>
+					</div>
+				</div>
+				<div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_30"
+					style="max-height: 350px; overflow-x: scroll;"
+					data-ng-show="rejectionErrorList.length > 0 && currentEfileStatus == 8">
+					<div class="main_content">
+						<div class="table-responsive">
+							<table ng-table="rejectionGrid" class="table" id="scroll_rejection">
+								<thead>
+									<tr>
+										<th class="sortable col-lg-4 col-md-4 col-sm-4"
+											ng-class="{'sort-asc': rejectionGrid.isSortBy('ruleNumber', 'asc'), 'sort-desc': rejectionGrid.isSortBy('ruleNumber', 'desc')}"
+											ng-click="rejectionGrid.sorting({'ruleNumber' : rejectionGrid.isSortBy('ruleNumber', 'asc') ? 'desc' : 'asc'})">
+											<div class="sort-indicator">Rule Number</div>
+										</th>
+										<th class="sortable col-lg-3 col-md-3 col-sm-3"
+											ng-class="{'sort-asc': rejectionGrid.isSortBy('severity', 'asc'), 'sort-desc': rejectionGrid.isSortBy('severity', 'desc')}"
+											ng-click="rejectionGrid.sorting({'severity' : rejectionGrid.isSortBy('severity', 'asc') ? 'desc' : 'asc'})">
+											<div class="sort-indicator">Severity</div>
+										</th>
+										<th class="sortable col-lg-3 col-md-3 col-sm-3"
+											ng-class="{'sort-asc': rejectionGrid.isSortBy('stateName', 'asc'),'sort-desc': rejectionGrid.isSortBy('stateName', 'desc')}"
+											ng-click="rejectionGrid.sorting({'stateName' : rejectionGrid.isSortBy('stateName', 'asc') ? 'desc' : 'asc'})">
+											<div class="sort-indicator">State</div>
+										</th>
+										<th class="sortable col-lg-4 col-md-4 col-sm-4"
+											ng-class="{'sort-asc': rejectionGrid.isSortBy('errorCategory', 'asc'), 'sort-desc': rejectionGrid.isSortBy('errorCategory', 'desc')}"
+											ng-click="rejectionGrid.sorting({'errorCategory' : rejectionGrid.isSortBy('errorCategory', 'asc') ? 'desc' : 'asc'})">
+											<div class="sort-indicator">Category</div>
+										</th>
+
+										<th class="sortable col-lg-10 col-md-10 col-sm-10"
+											ng-class="{'sort-asc': rejectionGrid.isSortBy('errorMessage', 'asc'), 'sort-desc': rejectionGrid.isSortBy('errorMessage', 'desc')}"
+											ng-click="rejectionGrid.sorting({'errorMessage' : rejectionGrid.isSortBy('errorMessage', 'asc') ? 'desc' : 'asc'})">
+											<div class="sort-indicator">Message</div>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-ng-repeat="rejectionError in $data">
+										<td data-title="'Rule Number'" sortable="'ruleNumber'"
+											class="col-lg-4 col-md-4 col-sm-4">{{rejectionError.ruleNumber}}</td>
+										<td data-title="'Severity'" sortable="'severity'"
+											class="col-lg-3 col-md-3 col-sm-3">{{rejectionError.severity}}</td>
+										<td data-title="'State'" sortable="'stateName'"
+											class="col-lg-3 col-md-3 col-sm-3">{{rejectionError.stateName|uppercase}}
+										</td>
+										<td data-title="'Category'" sortable="'errorCategory'"
+											class="col-lg-4 col-md-4 col-sm-4">{{rejectionError.errorCategory}}</td>
+										<td data-title="'Message'" sortable="'errorMessage'"
+											class="col-lg-9 col-md-9 col-sm-9">
+											{{rejectionError.errorMessage}}<br>
+											<span
+												data-ng-show="rejectionError.dataValue != undefined && rejectionError.dataValue != ''">
+												<span translate="RETURNWORKSPACE_REJECTION_DATAVALUE_LBL"
+													translate-default="Value =">
+												</span>
+												{{rejectionError.dataValue}}
+											</span>
+										</td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row" data-ng-show="bankRejectionErrorList.length > 0 && currentBankEfileStatus == 14 ">
+					<div class="col-lg-24 padding_l_r_0 margin_top_15">
+						<label class="col-sm-24 col-md-24 col-lg-24 form_title light_fonts">Bank Rejections<span
+								data-ng-show="bankRejectionErrorList.length > 0 && currentBankEfileStatus == 14">
+								({{bankRejectionErrorList.length}})</span></label>
+					</div>
+				</div>
+				<div class="clearfix col-lg-24 col-sm-24 col-md-24 col-xs-24 margin_top_30"
+					style="max-height: 350px; overflow-x: scroll;"
+					data-ng-show="bankRejectionErrorList.length > 0 && currentBankEfileStatus == 14 ">
+					<div class="main_content">
+						<div class="table-responsive">
+							<table ng-table="bankRejectionGrid" class="table" id="scroll_rejection">
+								<thead>
+									<tr>
+										<th class="sortable col-lg-24 col-md-24 col-sm-24" ng-class="{
+											'sort-asc': bankRejectionGrid.isSortBy('errorMessage', 'asc'),
+											'sort-desc': bankRejectionGrid.isSortBy('errorMessage', 'desc')
+											}" ng-click="bankRejectionGrid.sorting({'errorMessage' : bankRejectionGrid.isSortBy('errorMessage', 'asc') ? 'desc' : 'asc'})">
+											<div class="sort-indicator">Error Message</div>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-ng-repeat="bankRejectionError in $data">
+										<td data-title="'errorMessage'" sortable="'errorMessage'"
+											class="col-lg-24 col-md-24 col-sm-24">{{bankRejectionError.errorMessage}}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- RejectionTab End -->
+
+			<!-- Perform Review Tab Start -->
+			<div class="clearfix" data-ng-if="supportObj.subject == 'Perform Review'">
+				<div class="row">
+					<div class="col">
+						<h5 class="my-4">Perform Review</h5>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col" style="max-height: 350px; overflow-x: scroll;">
+						<div class="main_content">
+							<div class="table-responsive">
+								<table ng-table="ercGrid" class="table border" id="scroll"
+									data-ng-show="availableERC.length>0">
+									<thead>
+										<tr>
+											<th class="sortable col-lg-5 col-md-5 col-sm-4"
+												ng-class="{'sort-asc': ercGrid.isSortBy('key', 'asc'), 'sort-desc': ercGrid.isSortBy('key', 'desc')}"
+												ng-click="ercGrid.sorting({'key' : ercGrid.isSortBy('key', 'asc') ? 'desc' : 'asc'})">
+												<div class="sort-indicator" translate="TYPE_LBL"
+													translate-default="Type">
+												</div>
+											</th>
+
+											<th class="sortable col-lg-2 col-md-2 col-sm-3"
+												ng-class="{'sort-asc': ercGrid.isSortBy('severity', 'asc'),'sort-desc': ercGrid.isSortBy('severity', 'desc')}"
+												ng-click="ercGrid.sorting({'severity' : ercGrid.isSortBy('severity', 'asc') ? 'desc' : 'asc'})">
+												<div class="sort-indicator" translate="SEVERITY_LBL"
+													translate-default="Severity"></div>
+											</th>
+
+											<th class="sortable col-lg-5 col-md-5 col-sm-6"
+												ng-class="{'sort-asc': ercGrid.isSortBy('docName', 'asc'),'sort-desc': ercGrid.isSortBy('docName', 'desc')}"
+												ng-click="ercGrid.sorting({'docName' : ercGrid.isSortBy('docName', 'asc') ? 'desc' : 'asc'})">
+												<div class="sort-indicator" translate="FORM_NAME_LBL"
+													translate-default="Form Name"></div>
+											</th>
+
+											<th class="sortable col-lg-12 col-md-12 col-sm-11"
+												ng-class="{'sort-asc': ercGrid.isSortBy('message', 'asc'),'sort-desc': ercGrid.isSortBy('message', 'desc')}"
+												ng-click="ercGrid.sorting({'message' : ercGrid.isSortBy('message', 'asc') ? 'desc' : 'asc'})">
+												<div class="sort-indicator" translate="ERROR_MESSAGE_LBL"
+													translate-default="Error Message"></div>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="erc in $data"
+											ng-style="{color: '{{ ::(colorPreference.performReview[erc.severity.toLowerCase()])}}'}">
+											<td data-title="'Type'" sortable="'key'" class="col-lg-5 col-md-5 col-sm-4">
+												<button class="btn btn-outline-primary break_txt"
+													ng-style="{color: '{{ ::(colorPreference.performReview[erc.severity.toLowerCase()])}}'}">{{::erc.key}}</button>
+											</td>
+											<td data-title="'Severity'" sortable="'severity'"
+												class="col-lg-2 col-md-2 col-sm-3">{{::erc.severity}}</td>
+											<td data-title="'Form Name'" sortable="'docName'"
+												class="col-lg-5 col-md-5 col-sm-6">
+												{{::erc.form.extendedProperties.displayName}}</td>
+											<td data-title="'Error Message'" sortable="'message'"
+												class="col-lg-12 col-md-12 col-sm-11">{{::erc.message}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<div ng-show="availableERC.length==0">
+									<div class="loading_background"></div>
+									<div class="smily_text_wrap">
+										<!-- <i class="far fa-smile smily_icon cursor_default"></i> -->
+										<span class="smily_text">Congratulations, there are no errors. The return is now
+											ready to be E-filed.</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Perform Review Tab End -->
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-primary" data-ng-click="sendReturnToSupport()"
+				data-ng-disabled="SendReturnToSupportForm.$invalid || isAPICall == true"><span
+					translate="DIALOG_SEND_BTN" translate-default="Send"></span></button>
+			<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span
+					translate="DIALOG_CLOSE_BTN" translate-default="Close"></span></button>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,14 @@
+<div class="text-black" *ngIf="newsList && newsList.length > 0">
+  <h5 class="text-primary font-weight-bold mb-3">NEWS</h5>
+  <p class="mb-2 w-100 float-left" *ngFor="let news of newsList">
+    <a href="{{news.link}}" target="_blank" class="text-primary card-link">
+      <span class="text-center float-left mr-2" style="width: 16px"><i class="fa fa-caret-right"></i></span>
+      <span class="float-left col-20 col-md-22 p-0">{{news.title}}</span>
+    </a>
+  </p>
+  <!-- <p class="card-text">This could populate with news from the News widget or news just for this area.</p>
+    <p class="card-text">More stuff could go there and link to wherever we have more information and it might
+    get some attention.</p> -->
+  <!-- Links -->
+  <a href="http://faq.mytaxprepoffice.com/news/" target="_blank" class="d-inline-block text-primary card-link text-white py-2">LEARN MORE <i class="fa fa-long-arrow-alt-right pl-2"></i></a>
+</div>

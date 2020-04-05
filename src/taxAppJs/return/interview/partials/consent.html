@@ -1,0 +1,45 @@
+<div class="row margin_top_10" data-ng-if="bankType == 'ATLAS'">
+	<div class="col-sm-1 col-md-1 col-lg-1"></div>
+	<div class="col-sm-18 col-md-18 col-lg-18">
+		<div class="col-sm-3 col-md-3 col-lg-3 padding_l_0 margin_top_7">
+			<label translate="CONSENT_BANKCONSENTS_LBL" translate-default="Bank Consents"></label>
+		</div>
+		<div class="col-sm-4 col-md-4 col-lg-4">
+			<button class="btn btn-outline-primary" data-ng-click="printBankForm()">
+			<i class="margin_right_3 fa fa-print"></i>
+			<span translate="RETURNWORKSPACETOOL_PRINT_LBL" translate-default="Print"></span>
+		</button>
+		</div>
+	</div>
+</div>
+<div class="row margin_top_10"></div>
+<div class="row margin_top_10">
+	<div class="col-sm-1 col-md-1 col-lg-1"></div>
+	<div class="col-sm-22 col-md-22 col-lg-22">
+		<label translate="CONSENT_CLIENTCONSENT_LBL" class="font_bold" translate-default="Check all applicable boxes on client consent received as indicated on paper copies."></label>
+ 	</div>
+</div>
+<div class="row margin_top_10">
+	<div class="col-sm-1 col-md-1 col-lg-1"></div>
+	<div class="col-sm-22 col-md-22 col-lg-22 margin_left_20">
+		<button class="custom_input float-left margin_right_5" data-ng-class="{'active':consent.useTaxReturnType == true}" data-ng-model="consent.useTaxReturnType" data-ng-click="consent.useTaxReturnType =! consent.useTaxReturnType"></button><span class="float-left" translate="CONSENT_CONSENTTOUSE_LBL" translate-default="Consent to use tax return information (7216)"></span>
+	</div>
+</div>
+<div class="row margin_top_10">
+	<div class="col-sm-1 col-md-1 col-lg-1"></div>
+	<div class="col-sm-22 col-md-22 col-lg-22 margin_left_20">
+       	<button class="custom_input float-left margin_right_5" data-ng-class="{'active':consent.taxSettlementType == true}" data-ng-model="consent.taxSettlementType" data-ng-click="consent.taxSettlementType =! consent.taxSettlementType"></button><span class="float-left" translate="CONSENT_TAXSETTLEMENT_LBL" translate-default="Tax settlement products (Refund Transfers)"></span>
+	</div>
+</div>
+<div class="row margin_top_10">
+	<div class="col-sm-1 col-md-1 col-lg-1"></div>
+	<div class="col-sm-22 col-md-22 col-lg-22 margin_left_20">
+       	<button class="custom_input float-left margin_right_5" data-ng-class="{'active':consent.debitCardType == true}" data-ng-model="consent.debitCardType" data-ng-click="consent.debitCardType =! consent.debitCardType"></button><span class="float-left" translate="CONSENT_DEBITCARD_LBL" translate-default="Debit Card"></span>
+	</div>
+</div>
+<div class="row margin_top_10">
+	<div class="col-sm-1 col-md-1 col-lg-1"></div>
+	<div class="col-sm-22 col-md-22 col-lg-22 margin_left_20">
+       	<button class="custom_input float-left margin_right_5" data-ng-class="{'active':consent.researchNonTaxType == true}" data-ng-model="consent.researchNonTaxType" data-ng-click="consent.researchNonTaxType =! consent.researchNonTaxType"></button><span class="float-left" translate="CONSENT_RESEARCH_LBL" translate-default="Research for non-tax related products and services"></span>
+	</div>
+</div>

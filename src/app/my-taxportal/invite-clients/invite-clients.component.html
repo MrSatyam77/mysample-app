@@ -1,0 +1,78 @@
+<div class="bg-white border">
+  <section class="page_title_wrap px-3 py-2 clearfix">
+    <div class="float-left">
+      <h5 class="m-0 mt-2"> Invite Clients</h5>
+    </div>
+    <div class="float-right d-none d-md-block">
+      <button class="btn btn-outline-primary " (click)="gotoHome()">Back To Dashboard</button>
+    </div>
+  </section>
+
+  <div class="col p-3">
+    <div class="row mt-5" *ngIf="isApiCalled === true;">
+      <div class="col-24 text-center mt-5">
+        <div id="squaresWaveG">
+          <div id="squaresWaveG_1" class="squaresWaveG"></div>
+          <div id="squaresWaveG_2" class="squaresWaveG"></div>
+          <div id="squaresWaveG_3" class="squaresWaveG"></div>
+          <div id="squaresWaveG_4" class="squaresWaveG"></div>
+          <div id="squaresWaveG_5" class="squaresWaveG"></div>
+          <div id="squaresWaveG_6" class="squaresWaveG"></div>
+          <div id="squaresWaveG_7" class="squaresWaveG"></div>
+          <div id="squaresWaveG_8" class="squaresWaveG"></div>
+        </div>
+      </div>
+    </div>
+    <ng-template [ngIf]="isApiCalled === false && showManageClientScreenBasedOnTaxYear === true">
+      <ng-template [ngIf]="settings && settings.companyName">
+        <div class="row">
+          <div class="col-24">
+            <app-select-clients [(settings)]="settings" (onClientSelect)="selectClientEmit($event)">
+            </app-select-clients>
+          </div>
+          
+          <div class="col-24">
+            <app-invite-client-question-section [(settings)]="settings"></app-invite-client-question-section>
+          </div>
+          
+          <div class="col-24">
+            <app-invite-clients-mail-detail [(settings)]="settings"></app-invite-clients-mail-detail>
+          </div>
+          
+          <div class="col-24">
+            <div class="float-right">
+              <button type="button" class="btn btn-outline-primary mr-2" (click)="previewMail()">Mail Preview</button>
+              <!-- data-ng-disabled="!settings.invEmailTo || !settings.invEmailSub || !settings.invEmailBody || isApiCalled" -->
+              <button class="btn btn-outline-primary"
+                [disabled]="!settings.invEmailTo || !settings.invEmailSub || !settings.invEmailBody || isSendingInvitation"
+                (click)="sendInviteClientData()" [class.no-clicking]="!permission.canInviteClient">Send</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="!settings || !settings.companyName">
+        <div class="row">
+          <div class="col-24">
+            <h3>Click <span class="font-weight-bold">"Settings"</span> on the MyTAXPortal widget to complete
+              your MyTAXPortal setup.</h3>
+          </div>
+          <div class="col-24 mt-3">
+            <a class="btn btn-outline-primary mr-3" href="/home">Go to Dashboard</a>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+    <ng-template [ngIf]="isApiCalled === false && showManageClientScreenBasedOnTaxYear === false">
+      <div class="row">
+        <div class="col-24">
+          <h3>MyTAXPortal is not available for year {{taxYear}}. Please select year 2018 to get the access.</h3>
+        </div>
+        <div class="col-24 mt-3">
+          <a class="btn btn-outline-primary mr-3" href="/home">Go to Dashboard</a>
+        </div>
+      </div>
+    </ng-template>
+    <div id="render-email-template" [hidden]="true"></div>
+
+  </div>
+</div>

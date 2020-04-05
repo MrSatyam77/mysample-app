@@ -1,0 +1,24 @@
+<form [formGroup]="generateCustomerIdForm">
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Generate Customer ID</h5>
+  </div>
+  <div class="modal-body">
+    <div class="form-group row">
+      <label for="customerId" class="col-sm-8 col-form-label">Customer ID</label>
+      <div class="col-sm-16" *ngIf="isEdit == true">
+        <input type="text" class="form-control" pattern="[a-zA-Z]{3}[0-9]{4}" maxlength="7" id="customerId"
+          formControlName="customerId">
+        <span class="text-danger" *ngIf="!generateCustomerIdForm.valid" style="font-size: 12px;">To generate your unique Customer ID, please enter 3 letters followed by 4 numbers.</span>
+      </div>
+      <div class="col-sm-16 mt-2" *ngIf="isEdit == false">
+        <span>{{customerId}}</span>
+        <span class="ml-2"><i (click) ="isEdit = !isEdit" class="fas fa-edit"></i></span>
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-primary" [disabled]="!generateCustomerIdForm.valid" *ngIf="isEdit == true" (click)="saveCustomerId()">Generate</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Close</button>
+  </div>
+</form>

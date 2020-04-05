@@ -1,0 +1,1228 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding title_height_40">
+                <span class="page_title_lg ng-binding" translate="TPGBANK_ADD_HEADER" translate-default="TPG"></span>
+            </span>
+        </section>
+        <div class="clearfix static_form_wrap allowScrollSync"  ng-style="{height:headerNav.screenHeight-106}" style="overflow-y:auto">
+            <div class="col p-3">
+                <div class="clearfix font_size_14 pl-2 text-danger" data-ng-if="isDemoUser == true">
+                        <span>For Sample Use Only.</span>
+                </div>
+                <div data-ng-if="responseMessage != undefined">
+                    <!-- <div class="clearfix font_size_14 text-danger" data-ng-class="{'text-success': responseMessage.type == 'success','text-danger': responseMessage.type == 'warning'}" >
+                <span>{{responseMessage.message}}</span>
+            </div> -->
+                    <div class="clearfix font_size_14 pl-2 text-danger">
+                        <span>{{responseMessage.message}}</span>
+                    </div>
+                </div>
+                <div class="clearfix font_size_14 pl-2 text-danger" data-ng-if="isDateWrong == true">
+                    <span>Please enter valid date format in MM/DD/YYYY.</span>
+                </div>
+                <div class="clearfix font_size_14 pl-2 text-danger" data-ng-if="isBothEFINSame == true">
+                        <span>Per bank requirements, this fee cannot be charged by Stand-Alone offices and can only be used by Service Bureau companies. The definition of a Service Bureau is a company that has multiple offices/locations using different EFINs.</span>
+                </div>
+                <div class="clearfix font_size_14 pl-2" data-ng-if="tpgResponseMessages.length > 0">
+                    <label data-ng-if="status == 'Enrolled' || status =='In Process'" class="font_bold" translate="EPS_BANK_ENROLLMENTSTATUSMSG_LBL"
+                        translate-default="Your enrollment status as below:"></label>
+                </div>
+                <div class="clearfix font_size_14 pl-2" data-ng-if="tpgResponseMessages.length > 0 && status != 'Pending For Submission'"
+                    data-ng-repeat="message in ::tpgResponseMessages">
+                    <span class="fas fa-check color_green" data-ng-if="status == 'Enrolled' || status == 'In Process'"></span>
+                    <span class="fas fa-times" data-ng-if="status == 'Not Enrolled-Errors'"></span>
+                    <span class="font_bold" data-ng-class="{'text-success': status == 'Enrolled' , 'text-inprocess' : status == 'In Process','text-danger': status == 'Not Enrolled-Errors'}">{{::message}}</span>
+                </div>
+                <div class="clearfix">
+                    <div class="clearfix font_size_14 pl-2 text-danger" data-ng-if="checkForSpeacialState('addOnTransmitterFee')">
+                        <span>Additional Transmission Fee can not be charged for ERO in
+                            {{speacialState.indexOf(office.billingAddress.state.toUpperCase())
+                            > -1 ? office.billingAddress.state.toUpperCase() :
+                            efinOwner.shippingAddress.state.toUpperCase()}}
+                            state.
+                        </span>
+                    </div>
+                    <div class="clearfix font_size_14 pl-2 text-danger" data-ng-if="checkForSpeacialState('serviceBureauFee')">
+                        <span>Service Bureau Fee can not be charged for ERO in
+                            {{speacialState.indexOf(office.billingAddress.state.toUpperCase())
+                            > -1 ? office.billingAddress.state.toUpperCase() :
+                            efinOwner.shippingAddress.state.toUpperCase()}}
+                            state.
+                        </span>
+                    </div>
+                </div>
+                <div data-ng-show="fastCashAdvanceStatus != undefined && fastCashAdvanceStatus != '' && fastCashAdvanceStatus != null">
+                    <div class="clearfix font_size_14 pl-2">
+                        <label class="font_bold" translate="EPS_BANK_FASTCASHADVANCEMSG_LBL" translate-default="Your fast cash advance status as below:"></label>
+                    </div>
+                    <div class="clearfix font_size_14 pl-2">
+                        <span class="fas fa-check color_green"></span>
+                        <span>{{fastCashAdvanceStatus}} - {{fastCashAdvanceStatusMsg}}</span>
+                    </div>
+                </div>
+                <!-- <div data-ng-if="taxYear == '2016'" class = "text-danger margin_bottom_20">
+                    <span>Bank enrollment for tax year 2016 will be available soon.</span>
+                </div> -->
+            </div>
+            <!--tax estimator tab start-->
+            <div class="clearfix" id="tax_estimator_tab">
+                <tabset justified="true">
+                    <div class="custom-line-tab width-auto d-flex">
+                    <!--eps program start-->
+                        <tab heading="TPG Program" active="activeTab.tpgProgramTab" data-ng-click="tabChangeView('tpgProgramTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.tpgprogramTabForm" novalidate>
+                                    <div class="clearfix">
+                                        <div class="col-lg-13 col-md-24 col-sm-24 clearfix">
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_EFIN_LBL" translate-default="EFIN" class="float-left"></label>
+                                                <input type="text" name="epsProgramFormEfin" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="tpgProgram.efin" ng-required="!tpgProgram.efin" tax-mask="999999"
+                                                    tax-mask-use-view-value="true" value="{{tpgProgram.efin}}" />
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="BANK_ADDONFEE_LBL" translate-default="Additional Transmission Fee"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankAddOnFee" step="0.01" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="tpgProgram.addOnTransmitterFee" ng-required="form.tpgprogramTabForm.tpgBankAddOnFee.$error.pattern"
+                                                    value="{{tpgProgram.addOnTransmitterFee}}" ng-change="tpgProgram.addOnTransmitterFeeAgreement = ((tpgProgram.addOnTransmitterFee == 0 || tpgProgram.addOnTransmitterFee == undefined) ?  false : false )"
+                                                    ng-pattern="/^([0-7]?[0-9]|[0-7]?[0-9](\.[0-9]?[0-9])|8[0-4]|8[4](\.[0]?[0])|8[0-3](\.[0-9]?[0-9]))$/"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.tpgprogramTabForm.tpgBankAddOnFee.$error.pattern && form.tpgprogramTabForm.tpgBankAddOnFee.$invalid) ? 'Additional Transmission Fee must be value between $0 and $84.' : ''}}" />
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="BANK_ADDONFEE_LBL" translate-default="Your Protection Plus Add-On Fee (Max $55)"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankAddOnProtectionPlusFee" step="0.01" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="tpgProgram.protectionPlusAddOnFee" ng-required="form.tpgprogramTabForm.tpgBankAddOnProtectionPlusFee.$error.pattern"
+                                                    ng-pattern="/^([0-4]?[0-9]|[0-4]?[0-9](\.[0-9]?[0-9])|5[0-5]|5[5](\.[0]?[0])|5[0-4](\.[0-9]?[0-9]))$/"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.tpgprogramTabForm.tpgBankAddOnProtectionPlusFee.$error.pattern && form.tpgprogramTabForm.tpgBankAddOnProtectionPlusFee.$invalid) ? 'Audit Protection Program Add-On Fee must be value between $0 and $55.' : ''}}"
+                                                    value="{{tpgProgram.protectionPlusAddOnFee}}" />
+                                            </div>
+                                            <div class="row" data-ng-if="hasFeature('AddOnTransmitterFeeConsent')==true && tpgProgram.addOnTransmitterFee != undefined && tpgProgram.addOnTransmitterFee > 0">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':tpgProgram.addOnTransmitterFeeAgreement == true}"
+                                                    data-ng-model="tpgProgram.addOnTransmitterFeeAgreement" ng-required="tpgProgram.addOnTransmitterFeeAgreement == false"
+                                                    data-ng-click="tpgProgram.addOnTransmitterFeeAgreement=!tpgProgram.addOnTransmitterFeeAgreement;addAddOnTransmitterFeeAgreementTS()"></button>
+                                                <span class="float-left margin_right_5" translate="YPGBANK_IAGREETOTHE_LBL"
+                                                    translate-default="By checking this box you agree to pay 15% of the Additional Transmission Fee to {{::resellerConfig.appName}}"></span>
+                                            </div>
+                                            <div class="row row_height_30 bank">
+                                                <label translate="TPGBANK_OFFICETYPE_LBL" translate-default="Office Type"
+                                                    class="float-left"></label>
+                                                <select name="epsProgramFormOfficeType" class="custom_input_ddl  float-right ml-auto"
+                                                    data-ng-model="office.typeOfCustomer" ng-required="!office.typeOfCustomer" data-ng-change="checkBothEFINSame()">
+                                                    <option value="CustomerERO">Stand Alone</option>
+                                                    <option value="ServiceBureau">Service Bureau</option>
+                                                </select>
+                                            </div>
+                                            <div class="row row_height_30" data-ng-hide="office.typeOfCustomer == 'CustomerERO' || office.typeOfCustomer == undefined">
+                                                <label translate="TPGBANK_PARENTEFINORSUBEFIN_LBL" translate-default="Is this the Parent EFIN or Sub EFIN?"
+                                                    class="float-left"></label>
+                                                <span class="float-right ml-auto">
+                                                    <button class="custom_input_dark float-left margin_right_5"
+                                                        data-ng-class="{'active':tpgProgram.parentOrSubEfin==true}"
+                                                        data-ng-model="tpgProgram.parentOrSubEfin" data-ng-click="tpgProgram.parentOrSubEfin=true;tpgProgram.serviceBureauFee=0;tpgProgram.parentEfin='';checkBothEFINSame()"></button>
+                                                    <span class="float-left" translate="BANK_PARENT_LBL" translate-default="Parent"></span>
+                                                    <button class="custom_input_dark float-left margin_right_5 margin_left_5"
+                                                        data-ng-class="{'active':tpgProgram.parentOrSubEfin==false}"
+                                                        data-ng-model="tpgProgram.parentOrSubEfin" data-ng-click="tpgProgram.parentOrSubEfin=false;"></button>
+                                                    <span class="float-left" translate="BANK_CHILD_LBL" translate-default="Child"></span>
+                                                </span>
+                                            </div>
+
+                                            <div class="row popover_wrap" data-ng-show="tpgProgram.parentOrSubEfin == false && office.typeOfCustomer == 'ServiceBureau'">
+                                                <label translate="EPSBANK_SERVICEBUREAUFEE_LBL" translate-default="Service Bureau Fee"
+                                                    class="float-left"></label>
+                                                <input type="number" name="tpgBankServiceBureauFee" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="tpgProgram.serviceBureauFee" data-ng-class="{'patternerror':form.tpgprogramTabForm.tpgBankServiceBureauFee.$error.pattern}"
+                                                    ng-pattern="/^([0-9]{1,2}|[0-9]{1,2}(\.[0-9]{1,2}))$/" ng-required="form.tpgprogramTabForm.tpgBankServiceBureauFee.$error.pattern || tpgProgram.serviceBureauFee == undefined"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.tpgprogramTabForm.tpgBankServiceBureauFee.$error.pattern && form.tpgprogramTabForm.tpgBankServiceBureauFee.$invalid) ? 'Service Bureau Fee must be value between $0 and $99.99' : ''}}"
+                                                    value="{{tpgProgram.serviceBureauFee}}" />
+                                            </div>
+
+                                            <div class="row popover_wrap">
+                                                <label translate="TPGBANK_DOCUMENTPREPARATIONFEE_LBL" translate-default="Document Preparation Fee"
+                                                    class="float-left"></label>
+                                                <input type="number" name="tpgBankDocumentPreparationFee" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="tpgProgram.documentPrepFee" data-ng-class="{'patternerror':form.tpgprogramTabForm.tpgBankDocumentPreparationFee.$error.pattern}"
+                                                    ng-pattern="/^([0-9]{1,2}|[0-9]{1,2}(\.[0-9]{1,2}))$/" ng-required="form.tpgprogramTabForm.tpgBankDocumentPreparationFee.$error.pattern || tpgProgram.documentPrepFee == undefined"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.tpgprogramTabForm.tpgBankDocumentPreparationFee.$error.pattern && form.tpgprogramTabForm.tpgBankDocumentPreparationFee.$invalid) ? 'Document Preparation Fee must be value between $0 and $99.99' : ''}}"
+                                                    value="{{tpgProgram.documentPrepFee}}" />
+                                            </div>
+
+                                            <div class="row row_height_30" data-ng-hide="office.typeOfCustomer == 'CustomerERO' || tpgProgram.parentOrSubEfin == undefined || tpgProgram.parentOrSubEfin == true">
+                                                <label translate="EPSBANK_PARENTEFIN_LBL" translate-default="Parent EFIN"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgProgramFormParentEfin" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="tpgProgram.parentEfin" tax-mask="999999"
+                                                    tax-mask-use-view-value="true" value="{{tpgProgram.parentEfin}}"
+                                                    data-ng-change="checkBothEFINSame()"
+                                                    data-ng-required="office.typeOfCustomer == 'ServiceBureau' && tpgProgram.parentOrSubEfin == false && (tpgProgram.parentEfin == undefined || tpgProgram.parentEfin == '')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!--eps program end-->
+                        <!-- Bank Product History - Start -->
+                        <tab heading="Bank Product History" active="activeTab.proHistoryTab" data-ng-click="tabChangeView('proHistoryTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.bankProductHistoryTabForm">
+                                    <div class="clearfix">
+                                        <div class="col-lg-12 col-md-24 col-sm-24 clearfix">
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_YEARSEFILE_LBL" translate-default="Years doing E-File"
+                                                    class="float-left"></label>
+                                                <input type="number" name="epsBankProductHistoryYearsEFile" class="newusertextbox form-control yearsDoingEFile  float-right ml-auto"
+                                                    data-ng-model="bankProductHistory.yearsDoingEFile" ng-required="bankProductHistory.yearsDoingEFile == undefined || bankProductHistory.yearsDoingEFile == null || form.bankProductHistoryTabForm.epsBankProductHistoryYearsEFile.$error.pattern"
+                                                    ng-pattern="/^([1-9]{1})([0-9]{0,1})$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.bankProductHistoryTabForm.epsBankProductHistoryYearsEFile.$error.pattern && form.bankProductHistoryTabForm.epsBankProductHistoryYearsEFile.$invalid) ? 'Value must be greater than zero and between 1 to 2 digit.' : ''}}"
+                                                    value="{{bankProductHistory.yearsDoingEFile}}" />
+                                            </div>
+                                            <!--   <div class="row row_height_30 bank">
+                                                <label translate="EPSBANK_TRANSMITUSEDLASTYEAR_LBL" translate-default="Transmitter Used Last year" class="float-left"></label>
+                                                <select name="epsBankProductHistoryTransmiUserLastYear" class="custom_input_ddl  float-right ml-auto" data-ng-model="bankProductHistory.transmitterUsedLastyear"
+                                                    ng-required="!bankProductHistory.transmitterUsedLastyear">
+                                                    <option value="{{transmitterData.value}}" data-ng-repeat="transmitterData in dropdownOptions.transmitterUsedLastYear">{{transmitterData.dispalyText}}</option>
+                                                </select>
+                                            </div>-->
+                                            <div class="row row_height_30 bank">
+                                                <label translate="EPSBANK_USEDLASTYEAR_LBL" translate-default="Bank Used Last year"
+                                                    class="float-left"></label>
+                                                <select name="epsBankProductHistoryTransmiUserLastYear" class="custom_input_ddl  float-right ml-auto"
+                                                    data-ng-model="bankProductHistory.bankUsedLastyear" ng-required="!bankProductHistory.bankUsedLastyear">
+                                                    <option value="{{transmitterData.value}}" data-ng-repeat="transmitterData in dropdownOptions.bankUsedLastYear">{{transmitterData.dispalyText}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <!-- <label translate="EPSBANK_ACTUALNUMBERTAXRETURNYEAR_LBL"
+                                                    translate-default="Actual number of Tax Returns Last Year" class="float-left"></label> -->
+                                                <label translate="EPSBANK_ACTUALNUMBERTAXRETURNYEAR_LBL" translate-default="Actual number of Tax Returns Last Year"
+                                                    class="float-left"></label>
+
+                                                <input type="number" name="epsBankProductHistoryActuNumTaxRetLastYear"
+                                                    class="newusertextbox form-control float-right ml-auto" data-ng-model="bankProductHistory.rtCommittedProduct"
+                                                    ng-required="bankProductHistory.rtCommittedProduct == undefined || bankProductHistory.rtCommittedProduct == null || form.bankProductHistoryTabForm.epsBankProductHistoryActuNumTaxRetLastYear.$error.pattern"
+                                                    ng-pattern="/^([1-9]{1})([0-9]{0,5})$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.bankProductHistoryTabForm.epsBankProductHistoryActuNumTaxRetLastYear.$error.pattern && form.bankProductHistoryTabForm.epsBankProductHistoryActuNumTaxRetLastYear.$invalid) ? 'Value must be greater than zero and between 1 to 6 digit.' : ''}}"
+                                                    value="{{bankProductHistory.rtCommittedProduct}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <!-- <label translate="EPSBANK_ACTUALNUMBERTAXRETURNYEAR_LBL"
+                                                    translate-default="Actual number of Tax Returns Last Year" class="float-left"></label> -->
+                                                <label translate="EPSBANK_RTCOMMITTEDFUNDEDPRODUCT_LBL" translate-default="Funded Products Submitted last Year"
+                                                    class="float-left"></label>
+
+                                                <input type="number" name="epsBankProductHistoryRTCommittedFundedProduct"
+                                                    class="newusertextbox form-control float-right ml-auto" data-ng-model="bankProductHistory.rtCommittedFundedProduct"
+                                                    ng-required="bankProductHistory.rtCommittedFundedProduct == undefined || bankProductHistory.rtCommittedFundedProduct == null || form.bankProductHistoryTabForm.epsBankProductHistoryRTCommittedFundedProduct.$error.pattern"
+                                                    ng-pattern="/^([1-9]{1})([0-9]{0,5})$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.bankProductHistoryTabForm.epsBankProductHistoryRTCommittedFundedProduct.$error.pattern && form.bankProductHistoryTabForm.epsBankProductHistoryRTCommittedFundedProduct.$invalid) ? 'Value must be greater than zero and between 1 to 6 digit.' : ''}}"
+                                                    value="{{bankProductHistory.rtCommittedFundedProduct}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_PROJECTNUMBERBANKPRODUCTSTHISYEAR_LBL"
+                                                    translate-default="Projected Number of Bank Products this year" class="float-left"></label>
+                                                <input type="number" name="epsBankProductHistoryProjNumBankProdThisYear"
+                                                    class="newusertextbox form-control  float-right ml-auto" data-ng-model="bankProductHistory.projectedNumofBankProducts"
+                                                    ng-required="bankProductHistory.projectedNumofBankProducts == undefined || bankProductHistory.projectedNumofBankProducts == null || form.bankProductHistoryTabForm.epsBankProductHistoryProjNumBankProdThisYear.$error.pattern"
+                                                    ng-pattern="/^([1-9]{1})([0-9]{0,5})$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.bankProductHistoryTabForm.epsBankProductHistoryProjNumBankProdThisYear.$error.pattern && form.bankProductHistoryTabForm.epsBankProductHistoryProjNumBankProdThisYear.$invalid) ? 'Value must be greater than zero and between 1 to 6 digit.' : ''}}"
+                                                    value="{{bankProductHistory.projectedNumofBankProducts}}" />
+                                            </div>
+
+                                        <div class="row row_height_30 popover_wrap">
+                                            <label translate="TPGBANK_FUNDINGRATIO_LBL" translate-default="Funding Ratio"
+                                                class="float-left"></label>
+                                            <input type="number" name="tpgBankProductHistoryFundingRatio" class="newusertextbox form-control  float-right ml-auto"
+                                            value="{{bankProductHistory.generatedFundingRatio}}"  data-ng-model="bankProductHistory.generatedFundingRatio" data-ng-disabled="true"/>
+                                        </div>
+
+                                        <div class="row row_height_30 popover_wrap">
+                                            <label translate="TPGBANK_NUMBEROFERCSERDSLASTYEAR_LBL" translate-default="Number Of ERCs ERDs LastYear"
+                                                class="float-left"></label>
+                                            <input type="number" name="tpgBankProductHistoryNumberOfERCsERDsLastYear" class="newusertextbox form-control  float-right ml-auto"
+                                            value="{{bankProductHistory.generatedNumberOfERCsERDsLastYear}}"  data-ng-model="bankProductHistory.generatedNumberOfERCsERDsLastYear" data-ng-disabled="true"/>
+                                        </div>
+
+                                        <div class="row row_height_30 popover_wrap">
+                                            <label translate="TPGBANK_NUMBEROFRALSLASTYEAR_LBL" translate-default="Number Of RALs LastYear"
+                                                class="float-left"></label>
+                                            <input type="number" name="tpgBankProductHistoryNumberOfRALsLastYear" class="newusertextbox form-control  float-right ml-auto"
+                                            value="{{bankProductHistory.generatedNumberOfRALsLastYear}}"  data-ng-model="bankProductHistory.generatedNumberOfRALsLastYear" data-ng-disabled="true"/>
+                                        </div>
+
+                                        <div class="row row_height_30 popover_wrap">
+                                            <label translate="TPGBANK_TOTALPRIORYEARPREPFEEAMOUNTPAID_LBL" translate-default="Total PriorYear Prep Fee AmountPaid"
+                                                class="float-left"></label>
+                                            <input type="number" name="tpgBankProductHistoryTotalPriorYearPrepFeeAmountPaid" class="newusertextbox form-control  float-right ml-auto"
+                                            value="{{bankProductHistory.generatedTotalPriorYearPrepFeeAmountPaid}}"  data-ng-model="bankProductHistory.generatedTotalPriorYearPrepFeeAmountPaid" data-ng-disabled="true"/>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!-- Bank Product History - End -->
+                        <!-- Office Tab - Start -->
+                        <tab heading="Office" active="activeTab.officeTab" data-ng-click="tabChangeView('officeTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.officeTabForm" novalidate>
+                                    <div class="col-24">
+                                    <div class="clearfix row">
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="TPGBANK_CUSTOMERNAME_LBL" translate-default="Customer Name"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankOfficeCustomerName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.customerName" ng-required="!office.customerName || form.officeTabForm.tpgBankOfficeCustomerName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z0-9 \-\.\,\&\+\/]{2,35}$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.officeTabForm.tpgBankOfficeCustomerName.$error.pattern && form.officeTabForm.tpgBankOfficeCustomerName.$invalid) ? 'This field can contain Alphabets and numbers or Special characters like spaces - . / + , & .Text-limit is 2 to 22 characters.' : ''}}"
+                                                    value="{{office.customerName}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="TPGBANK_MANAGERFIRSTNAME_LBL" translate-default="Manager First Name"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankOfficeManagerFirstName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.managerFirstName" ng-required="!office.managerFirstName || form.officeTabForm.tpgBankOfficeManagerFirstName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z \-\/]{2,20}$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.officeTabForm.tpgBankOfficeManagerFirstName.$error.pattern && form.officeTabForm.tpgBankOfficeManagerFirstName.$invalid) ? 'This field can contain Alphabets, Spaces or Special characters like spaces  - / .Text limit is 2 to 20 characters.'  : ''}}"
+                                                    value="{{office.managerFirstName}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="TPGBANK_MANAGERLASTNAME_LBL" translate-default="Manager Last Name"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankOfficeManagerLastName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.managerLastName" ng-required="!office.managerLastName  || form.officeTabForm.tpgBankOfficeManagerLastName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z \-\/]{2,20}$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.officeTabForm.tpgBankOfficeManagerLastName.$error.pattern && form.officeTabForm.tpgBankOfficeManagerLastName.$invalid) ? 'This field can contain Alphabets, Spaces or Special characters like spaces  - / .Text limit is 2 to 20 characters.' : ''}}"
+                                                    value="{{office.managerLastName}}" />
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="TPGBANK_CUSTOMEREMAIL_LBL" translate-default="Customer Email"
+                                                    class="float-left"></label>
+                                                <input type="email" name="tpgBankOfficeEmail" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.customerEmailAddress" ng-required="!office.customerEmailAddress || form.officeTabForm.tpgBankOfficeEmail.$error.email"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.tpgBankOfficeEmail.$error.email && form.officeTabForm.tpgBankOfficeEmail.$invalid) ? 'Please enter valid E-mail address.' : ''}}"
+                                                    value="{{office.customerEmailAddress}}" />
+                                            </div>
+
+
+                                            <div class="row popover_wrap address_wrap pt-2">
+                                                <label translate="TPGBANK_ADDRESS_LBL" translate-default="Billing Address"
+                                                    class="col-24 padding_l_r_0 clearfix address_lbl ng-scope font_bold"></label>
+                                                <div class="col-24 padding_l_r_0 clearfix margin_top_10">
+                                                    <label translate="TPGBANK_STREET_LBL" translate-default="Street" class="clearfix address_lbl ng-scope"></label>
+                                                </div>
+                                                <div class="col-24 padding_l_r_0 clearfix width_full">
+                                                    <input type="text" name="tpgBankOfficeAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                        data-ng-model="office.billingAddress.address" data-ng-required="!office.billingAddress.address"
+                                                        value="{{office.billingAddress.address}}" ng-pattern="/^[A-Za-z0-9 \-\.\,\&\/\%]{2,40}$/"
+                                                        ng-required="!office.billingAddress.address || form.officeTabForm.tpgBankOfficeAddress.$error.pattern"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.tpgBankOfficeAddress.$error.pattern && form.officeTabForm.tpgBankOfficeAddress.$invalid) ? 'This field can contain Alphabets and numbers or Special characters like spaces - . / % , & .Text-limit is 2 to 40 characters.' : ''}}">
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="clearfix row margin_top_10">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix row row_height_30">
+                                                    <div class="pl-0 float-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control"
+                                                            data-ng-model="office.billingAddress.zip" ng-required="!office.billingAddress.zip"
+                                                            tax-mask="99999" tax-mask-use-view-value="true" cmn-zip-lookup
+                                                            cmn-zip-lookup-city="'office.billingAddress.city'"
+                                                            cmn-zip-lookup-state="'office.billingAddress.state'" value="{{office.billingAddress.zip}}" />
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="office.billingAddress.city" value="{{office.billingAddress.city}}"
+                                                            ng-pattern="/^[A-Za-z ]{2,22}$/" name="officeBillingAddressCity"
+                                                            ng-required="!office.billingAddress.city || form.officeTabForm.officeBillingAddressCity.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.officeBillingAddressCity.$error.pattern && form.officeTabForm.officeBillingAddressCity.$invalid) ? 'This field can contain Alphabets and spaces.Text-limit is 2 to 22 characters.' : ''}}" />
+                                                    </div>
+                                                    <div class="float-right ml-auto padding_r_0  col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="office.billingAddress.state" value="{{office.billingAddress.state}}"
+                                                            ng-pattern="/^[A-Za-z]{2}$/" name="officebillingAddressstate"
+                                                            ng-required="!office.billingAddress.city || form.officeTabForm.officebillingAddressstate.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.officebillingAddressstate.$error.pattern && form.officeTabForm.officebillingAddressstate.$invalid) ? 'This field can contain Alphabets.Text must be 2 characters.' : ''}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label translate="TPGBANK_IDNUMBER_LBL" translate-default="Office Identification Number"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinofficeIdNumber" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.idNumber" tax-mask="99999" value="{{office.idNumber}}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1"></div>
+                                        <!--second block start-->
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                            <div class="row">
+                                                <label translate="TPGBANK_MANAGERMOBILE_LBL" translate-default="Manager Mobile"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankOfficeManagerPhone" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.managerMobile" ng-required="!office.managerMobile"
+                                                    tax-mask="(999)999-9999" value="{{office.managerMobile}}" />
+                                            </div>
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row">
+                                                <label translate="TPGBANK_PHONENUM_LBL" translate-default="Phone Number"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankOfficePhone" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.phoneNumber" ng-required="!office.phoneNumber"
+                                                    tax-mask="(999)999-9999" value="{{office.phoneNumber}}" />
+                                            </div>
+                                            <div class="row">
+                                                <label translate="BANK_ALTERNATEPHONE_LBL" translate-default="Alternate Phone"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankOfficeOfficeAlternatePhone" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.alternatePhone" tax-mask="(999)999-9999" value="{{office.alternatePhone}}" />
+                                            </div>
+
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row">
+                                                <label translate="EPSBANK_OFFICEFAX_LBL" translate-default="Fax" class="float-left"></label>
+                                                <input type="text" name="tpgBankOfficeFax" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="office.fax" tax-mask="(999)999-9999" value="{{office.fax}}" />
+
+                                            </div>
+                                            <div class="row">
+                                                    <label translate="TPGBANK_SAMEAS_LBL" translate-default="Same as Billing Address"
+                                                    class="float-left margin_top_5"></label>
+                                                <button class="custom_input_dark margin_left_15 margin_top_10" data-ng-class="{'active': office.sameAsBillingAddress == true}"
+                                                    data-ng-model="office.sameAsBillingAddress" data-ng-click="office.sameAsBillingAddress = !office.sameAsBillingAddress;copyToShippingAddress(office)"></button>
+                                                
+
+                                            </div>
+                                            <div class="row popover_wrap address_wrap">
+                                                <label translate="TPGBANK_SHIPPINGADDRESS_LBL" translate-default="Shipping Address"
+                                                    class="col-24 padding_l_r_0 clearfix address_lbl ng-scope font_bold"></label>
+                                                <div class="col-24 padding_l_r_0 clearfix margin_top_10">
+                                                    <label translate="TPGBANK_STREET_LBL" translate-default="Street" class="clearfix address_lbl ng-scope"></label>
+                                                </div>
+                                                <div class="col-24 padding_l_r_0 clearfix width_full">
+                                                    <input type="text" name="tpgBankShippinggAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                        data-ng-model="office.shippingAddress.address" data-ng-required="!office.shippingAddress.address"
+                                                        value="{{office.shippingAddress.address}}" ng-pattern="/^[A-Za-z0-9 \-\.\,\&\/\%]{2,40}$/"
+                                                        ng-required="!office.billingAddress.address || form.officeTabForm.tpgBankShippinggAddress.$error.pattern"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.tpgBankShippinggAddress.$error.pattern && form.officeTabForm.tpgBankShippinggAddress.$invalid) ? 'This field can contain Alphabets and numbers or Special characters like spaces - . / % , & .Text-limit is 2 to 40 characters.' : ''}}">
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="clearfix row margin_top_10">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix row row_height_30">
+                                                    <div class="pl-0 float-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control"
+                                                            data-ng-model="office.shippingAddress.zip" ng-required="!office.shippingAddress.zip"
+                                                            tax-mask="99999" tax-mask-use-view-value="true" cmn-zip-lookup
+                                                            cmn-zip-lookup-city="'office.shippingAddress.city'"
+                                                            cmn-zip-lookup-state="'office.shippingAddress.state'" value="{{office.shippingAddress.zip}}" />
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="office.shippingAddress.city" value="{{office.shippingAddress.city}}"
+                                                            ng-pattern="/^[A-Za-z ]{2,22}$/" name="officeShippingAddressCity"
+                                                            ng-required="!office.shippingAddress.city || form.officeTabForm.officeShippingAddressCity.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.officeShippingAddressCity.$error.pattern && form.officeTabForm.officeShippingAddressCity.$invalid) ? 'This field can contain Alphabets and spaces.Text-limit is 2 to 22 characters.' : ''}}" />
+                                                    </div>
+                                                    <div class="float-right ml-auto padding_r_0 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="office.shippingAddress.state" value="{{office.shippingAddress.state}}"
+                                                            ng-pattern="/^[A-Za-z]{2}$/" name="officeShippingAddressstate"
+                                                            ng-required="!office.shippingAddress.city || form.officeTabForm.officeShippingAddressstate.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.officeTabForm.officeShippingAddressstate.$error.pattern && form.officeTabForm.officeShippingAddressstate.$invalid) ? 'This field can contain Alphabets.Text must be 2 characters.' : ''}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!-- Office Tab - End -->
+                        <!-- EFIN Owner - Start -->
+                        <tab heading="Owner" active="activeTab.ownerTab" data-ng-click="tabChangeView('ownerTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.ownerTabForm" novalidate>
+                                        <div class="col-24">
+                                                <div class="clearfix row">
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                            <div class="row">
+                                                <label translate="EPSBANK_SSN_LBL" translate-default="SSN" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerSSN" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.ssn" ng-required="!owner.ssn" tax-mask="999-99-9999"
+                                                    tax-mask-use-view-value="true" value="{{owner.ssn}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_FIRSTNAME_LBL" translate-default="First Name"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerFirstName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.firstName" ng-required="(!owner.firstName) || form.ownerTabForm.tpgBankEfinOwnerFirstName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z \-\/]{2,20}$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.ownerTabForm.tpgBankEfinOwnerFirstName.$error.pattern && form.ownerTabForm.tpgBankEfinOwnerFirstName.$invalid) ? 'This field can contain Alphabets, Spaces or Special characters like spaces  - / .Text limit is 2 to 20 characters.' : ''}}"
+                                                    value="{{owner.firstName}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_MI_LBL" translate-default="MI" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerMiName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.mi" ng-required="form.ownerTabForm.tpgBankEfinOwnerMiName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z]{1}$/" popover-placement="right" popover-trigger="focus"
+                                                    popover="{{(form.ownerTabForm.tpgBankEfinOwnerMiName.$error.pattern && form.ownerTabForm.tpgBankEfinOwnerMiName.$invalid) ? 'This field can contain Alphabets. Text-limit is 1.' : ''}}"
+                                                    value="{{owner.mi}}" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_LASTNAME_LBL" translate-default="Last Name" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerLastName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.lastName" ng-required="(!owner.lastName) || form.ownerTabForm.tpgBankEfinOwnerLastName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z \-\/]{2,20}$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.ownerTabForm.tpgBankEfinOwnerLastName.$error.pattern && form.ownerTabForm.tpgBankEfinOwnerLastName.$invalid) ? 'This field can contain Alphabets, Spaces or Special characters like spaces  - / .Text limit is 2 to 20 characters.' : ''}}"
+                                                    value="{{owner.lastName}}" />
+                                            </div>
+                                            <div class="row row_height_30 bank">
+                                                <label translate="TPGBANK_SEX_LBL" translate-default="Sex" class="float-left"></label>
+                                                <select name="tpgBankEfinOwnerSex" class="custom_input_ddl float-right ml-auto"
+                                                    data-ng-model="owner.sex" ng-required="!owner.sex" data-ng-options="sex.value as sex.displayText for sex in dropdownOptions.sexList">
+                                                </select>
+                                            </div>
+                                            <div class="row">
+                                                <label translate="BANK_DOB_LBL" translate-default="Date of Birth" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerDOB" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.dateOfBirth" ng-required="!owner.dateOfBirth || form.ownerTabForm.tpgBankEfinOwnerDOB.$error.valid"
+                                                    tax-mask="99/99/9999" tax-mask-use-view-value="true" placeholder="MM/DD/YYYY"
+                                                    value="{{owner.dateOfBirth}}" popover-placement="right" data-ng-change="checkAge(form.ownerTabForm.tpgBankEfinOwnerDOB,owner.dateOfBirth);checkDateValidation(owner.dateOfBirth)"
+                                                    popover-trigger="focus" popover="{{(form.ownerTabForm.tpgBankEfinOwnerDOB.$error.valid) ? 'Age must be 18 years old or over.' : ''}}" />
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="TPGBANK_EMAIL_LBL" translate-default="Email" class="float-left"></label>
+                                                <input type="email" name="tpgBankEfinOwnerEmail" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.email" ng-required="!owner.email || form.ownerTabForm.tpgBankEfinOwnerEmail.$error.email"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.ownerTabForm.tpgBankEfinOwnerEmail.$error.email && form.ownerTabForm.tpgBankEfinOwnerEmail.$invalid) ? 'Please enter valid E-mail address.' : ''}}"
+                                                    value="{{owner.email}}" />
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="TPGBANK_EFINOWNEREIN_LBL" translate-default="EFIN Owner EIN"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankOwnerEfinOwnerEin" class="newusertextbox form-control float-right ml-auto"
+                                                    ng-blur="matchSsnEinNumber()" popover-placement="right" popover-trigger="focus"
+                                                    ng-required="ssnEinMatched == true" popover="{{(ssnEinMatched == true) ? 'SSN and EIN can not be same.' : ''}}"
+                                                    data-ng-model="owner.efinOwnerEin" tax-mask="99-9999999" value="{{owner.efinOwnerEin}}" />
+                                            </div>
+                                            <div class="row popover_wrap address_wrap pt-2">
+                                                <label translate="TPGBANK_ADDRESS_LBL" translate-default="Billing Address"
+                                                    class="col-24 padding_l_r_0 clearfix address_lbl ng-scope font_bold"></label>
+                                                <div class="col-24 padding_l_r_0 clearfix margin_top_10">
+                                                    <label translate="TPGBANK_STREET_LBL" translate-default="Street" class="clearfix address_lbl ng-scope"></label>
+                                                </div>
+                                                <div class="col-24 padding_l_r_0 clearfix width_full">
+                                                    <input type="text" name="tpgBankOfficeAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                        data-ng-model="owner.billingAddress.address" data-ng-required="!owner.billingAddress.address ||  form.ownerTabForm.tpgBankOfficeAddress.$error.pattern"
+                                                        value="{{owner.billingAddress.address}}" ng-pattern="/^[A-Za-z0-9 \-\.\,\&\/\%]{2,40}$/"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.ownerTabForm.tpgBankOfficeAddress.$error.pattern &&
+                                                    form.ownerTabForm.tpgBankOfficeAddress.$invalid) ? 'This field can contain Alphabets and numbers or Special 
+                                                    characters like spaces - . / % , & .Text-limit is 2 to 40 characters.' : ''}}">
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="clearfix row margin_top_10">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix row row_height_30">
+                                                    <div class="pl-0 float-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control"
+                                                            data-ng-model="owner.billingAddress.zip" ng-required="!owner.billingAddress.zip"
+                                                            tax-mask="99999" tax-mask-use-view-value="true" cmn-zip-lookup
+                                                            cmn-zip-lookup-city="'owner.billingAddress.city'"
+                                                            cmn-zip-lookup-state="'owner.billingAddress.state'" value="{{owner.billingAddress.zip}}" />
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="owner.billingAddress.city" value="{{owner.billingAddress.city}}"
+                                                            ng-pattern="/^[A-Za-z ]{2,22}$/" name="ownerBillingAddressCity"
+                                                            ng-required="!owner.billingAddress.city || form.ownerTabForm.ownerBillingAddressCity.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.ownerTabForm.ownerBillingAddressCity.$error.pattern && form.ownerTabForm.ownerBillingAddressCity.$invalid) ? 'This field can contain Alphabets and spaces.Text-limit is 2 to 22 characters.' : ''}}" />
+                                                    </div>
+                                                    <div class="float-right ml-auto padding_r_0  col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="owner.billingAddress.state" value="{{owner.billingAddress.state}}"
+                                                            name="ownerBillingaddressState" ng-pattern="/^[A-Za-z]{2}$/"
+                                                            ng-required="!owner.billingAddress.state || form.ownerTabForm.ownerBillingaddressState.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.ownerTabForm.ownerBillingaddressState.$error.pattern && form.ownerTabForm.ownerBillingaddressState.$invalid) ? 'This field can contain Alphabets.Text must be 2 characters.' : ''}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1"></div>
+                                        <!--second block start-->
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row row_height_30">
+                                                <label translate="TPGBANK_PHONEHOME_LBL" translate-default="Home Phone"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerPhoneHome" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.phoneHome" ng-required="!owner.phoneHome" tax-mask="(999)999-9999"
+                                                    value="{{owner.phoneHome}}" />
+                                            </div>
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row row_height_30">
+                                                <label translate="TPGBANK_PHONEMOBILE_LBL" translate-default="Mobile Phone"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerPhoneMobile" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.phoneMobile" ng-required="!owner.phoneMobile"
+                                                    tax-mask="(999)999-9999" value="{{owner.phoneMobile}}" />
+                                            </div>
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row row_height_30">
+                                                <label translate="TPGBANK_PHONEGENERAL_LBL" translate-default="General Phone"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerPhoneGeneral" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.phoneGeneral" ng-required="!owner.phoneGeneral"
+                                                    tax-mask="(999)999-9999" value="{{owner.phoneGeneral}}" />
+                                            </div>
+                                            <div class="row">
+                                                <label translate="EPSBANK_PTIN_LBL" translate-default="PTIN" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerPTIN" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.ptin" ng-required="!owner.ptin" tax-mask="P99999999"
+                                                    tax-mask-use-view-value="true" value="{{owner.ptin}}" />
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="TPGBANK_OWNERSHIPPERCENT_LBL" translate-default="Ownership Percent (%)"
+                                                    class="float-left"></label>
+                                                <input type="number" min="0" max="100" name="tpgBankOwnershipPercent" class="newusertextbox form-control  float-right ml-auto"
+                                                    data-ng-model="owner.ownershipPercent" ng-required="owner.ownershipPercent == undefined || owner.ownershipPercent == null"
+                                                    value="{{owner.ownershipPercent}}" />
+                                            </div>
+                                            <div class="row bank">
+                                                <label translate="BANK_IDTYPE_LBL" translate-default="ID Type" class="float-left"></label>
+                                                <select name="tpgBankEfinOwnerIdType" class="custom_input_ddl float-right ml-auto"
+                                                    data-ng-model="owner.idType" ng-required="!owner.idType"
+                                                    data-ng-options="idType.value as idType.displayText for idType in dropdownOptions.idTypeList">
+                                                </select>
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="BANK_IDNUMBER_LBL" translate-default="ID Number" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerIdNumber" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="owner.idNumber" ng-required="!owner.idNumber" value="{{owner.idNumber}}" />
+                                            </div>
+                                            <div class="row">
+                                                    <label translate="TPGBANK_SAMEAS_LBL" translate-default="Same as Billing Address"
+                                                    class="float-left margin_top_5"></label>
+                                                <button class="custom_input_dark margin_left_15 margin_top_10" data-ng-class="{'active': owner.sameAsBillingAddress == true}"
+                                                    data-ng-model="owner.sameAsBillingAddress" data-ng-click="owner.sameAsBillingAddress = !owner.sameAsBillingAddress;copyToShippingAddress(owner)"></button>
+                                                
+
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="TPGBANK_SHIPPINGADDRESS_LBL" translate-default="Shipping Address"
+                                                    class="clearfix address_lbl ng-scope font_bold"></label>
+                                                <div class="clearfix margin_top_10 width_full">
+                                                    <label translate="TPGBANK_STREET_LBL" translate-default="Street" class="clearfix address_lbl ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix width_full">
+                                                    <input type="text" name="tpgBankOfficeAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                        data-ng-model="owner.shippingAddress.address" data-ng-required="!owner.shippingAddress.address || form.ownerTabForm.tpgBankOfficeAddress.$error.pattern"
+                                                        value="{{owner.shippingAddress.address}}" ng-pattern="/^[A-Za-z0-9 \-\.\,\&\/\%]{2,40}$/"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.ownerTabForm.tpgBankOfficeAddress.$error.pattern &&
+                                                    form.ownerTabForm.tpgBankOfficeAddress.$invalid) ? 'This field can contain Alphabets and numbers or Special 
+                                                    characters like spaces - . / % , & .Text-limit is 2 to 40 characters.' : ''}}">
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="clearfix row margin_top_10">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix row row_height_30">
+                                                    <div class="pl-0 float-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control"
+                                                            data-ng-model="owner.shippingAddress.zip" ng-required="!owner.shippingAddress.zip"
+                                                            tax-mask="99999" tax-mask-use-view-value="true" cmn-zip-lookup
+                                                            cmn-zip-lookup-city="'owner.shippingAddress.city'"
+                                                            cmn-zip-lookup-state="'owner.shippingAddress.state'" value="{{owner.shippingAddress.zip}}" />
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="owner.shippingAddress.city" value="{{owner.shippingAddress.city}}"
+                                                            ng-pattern="/^[A-Za-z ]{2,22}$/" name="ownerShippingAddressCity"
+                                                            ng-required="!owner.shippingAddress.city || form.ownerTabForm.ownerShippingAddressCity.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.ownerTabForm.ownerShippingAddressCity.$error.pattern && form.ownerTabForm.ownerShippingAddressCity.$invalid) ? 'This field can contain Alphabets and spaces.Text-limit is 2 to 22 characters.' : ''}}" />
+                                                    </div>
+                                                    <div class="float-right ml-auto padding_r_0  col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="owner.shippingAddress.state" value="{{owner.shippingAddress.state}}"
+                                                            name="ownerShippingaddressState" ng-required="!owner.shippingAddress.state || form.ownerTabForm.ownerBillingaddressState.$error.pattern"
+                                                            popover-placement="right" ng-pattern="/^[A-Za-z]{2}$/"
+                                                            popover-trigger="focus" popover="{{(form.ownerTabForm.ownerShippingaddressState.$error.pattern && form.ownerTabForm.ownerShippingaddressState.$invalid) ? 'This field can contain Alphabets.Text must be 2 characters.' : ''}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!-- EFIN Owner - End -->
+                        <!-- Business Owner - Start -->
+                        <tab heading="EFIN Owner" active="activeTab.efinOwnerTab" data-ng-click="tabChangeView('efinOwnerTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.efinOwnerTabForm" novalidate>
+                                    <div class="col-24">
+                                    <div class="clearfix row">
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                            <div class="row row_height_30 bank">
+                                                <label translate="EPSBANK_SAMEASEFINOWNER_LBL" translate-default="Same as EFIN Owner?"
+                                                    class="float-left"></label>
+                                                <span class="float-right ml-auto padding_top_5">
+                                                    <button class="custom_input_dark float-left" data-ng-class="{'active':efinOwner.sameAsEfinOwner == true}"
+                                                        data-ng-model="efinOwner.sameAsEfinOwner" data-ng-click="efinOwner.sameAsEfinOwner=!efinOwner.sameAsEfinOwner;sameAsEfinOwner()"></button>
+                                                </span>
+                                            </div>
+                                            <div class="row">
+                                                <label translate="EPSBANK_SSN_LBL" translate-default="SSN" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerSSN" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.ssn" ng-required="!efinOwner.ssn && efinOwner.sameAsEfinOwner==false"
+                                                    tax-mask="999-99-9999" tax-mask-use-view-value="true" value="{{efinOwner.ssn}}"
+                                                    ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_FIRSTNAME_LBL" translate-default="First Name"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerFirstName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.firstName" ng-required="(!efinOwner.firstName && efinOwner.sameAsEfinOwner==false) || form.efinOwnerTabForm.tpgBankEfinOwnerFirstName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z \-\/]{2,20}$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.efinOwnerTabForm.tpgBankEfinOwnerFirstName.$error.pattern && form.efinOwnerTabForm.tpgBankEfinOwnerFirstName.$invalid) ? 'This field can contain Alphabets, Spaces or Special characters like spaces  - / .Text limit is 2 to 20 characters.' : ''}}"
+                                                    value="{{efinOwner.firstName}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_MI_LBL" translate-default="MI" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerMiName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.mi" ng-required="form.efinOwnerTabForm.tpgBankEfinOwnerMiName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z]{1}$/" popover-placement="right" popover-trigger="focus"
+                                                    popover="{{(form.efinOwnerTabForm.tpgBankEfinOwnerMiName.$error.pattern && form.efinOwnerTabForm.tpgBankEfinOwnerMiName.$invalid) ? 'This field can contain Alphabets. Text-limit is 1.' : ''}}"
+                                                    value="{{efinOwner.mi}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+
+                                            <div class="row row_height_30 popover_wrap">
+                                                <label translate="EPSBANK_LASTNAME_LBL" translate-default="Last Name" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerLastName" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.lastName" ng-required="(!efinOwner.lastName && efinOwner.sameAsEfinOwner==false) || form.efinOwnerTabForm.tpgBankEfinOwnerLastName.$error.pattern"
+                                                    ng-pattern="/^[A-Za-z \-\/]{2,20}$/" popover-placement="right"
+                                                    popover-trigger="focus" popover="{{(form.efinOwnerTabForm.tpgBankEfinOwnerLastName.$error.pattern && form.efinOwnerTabForm.tpgBankEfinOwnerLastName.$invalid) ? 'This field can contain Alphabets, Spaces or Special characters like spaces  - / .Text limit is 2 to 20 characters.' : ''}}"
+                                                    value="{{efinOwner.lastName}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <div class="row row_height_30 bank">
+                                                <label translate="TPGBANK_SEX_LBL" translate-default="Sex" class="float-left"></label>
+                                                <select name="tpgBankEfinOwnerSex" class="custom_input_ddl float-right ml-auto"
+                                                    data-ng-model="efinOwner.sex" ng-required="!efinOwner.sex && efinOwner.sameAsEfinOwner==false"
+                                                    data-ng-options="sex.value as sex.displayText for sex in dropdownOptions.sexList"
+                                                    ng-disabled="efinOwner.sameAsEfinOwner == true">
+                                                </select>
+                                            </div>
+                                            <div class="row">
+                                                <label translate="BANK_DOB_LBL" translate-default="Date of Birth" class="float-left"></label>
+                                                <input type="text" name="tpgBankOwnerDOB" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.dateOfBirth" ng-required="(efinOwner.sameAsEfinOwner==false && (!efinOwner.dateOfBirth || form.efinOwnerTabForm.tpgBankOwnerDOB.$error.valid))"
+                                                    tax-mask="99/99/9999" tax-mask-use-view-value="true" placeholder="MM/DD/YYYY"
+                                                    value="{{efinOwner.dateOfBirth}}" ng-disabled="efinOwner.sameAsEfinOwner == true"
+                                                    popover-placement="right" data-ng-change="checkEfinOwnerDateValidation(form.efinOwnerTabForm.tpgBankOwnerDOB,efinOwner.dateOfBirth)"
+                                                    popover-trigger="focus" popover="{{(form.efinOwnerTabForm.tpgBankOwnerDOB.$error.valid) ? 'Age must be 18 years old or over.' : ''}}" />
+                                            </div>
+                                            <div class="row popover_wrap address_wrap pt-2">
+                                                <label translate="TPGBANK_ADDRESS_LBL" translate-default="Billing Address"
+                                                    class="col-24 padding_l_r_0 clearfix address_lbl ng-scope font_bold"></label>
+                                                <div class="col-24 padding_l_r_0 clearfix margin_top_10">
+                                                    <label translate="TPGBANK_STREET_LBL" translate-default="Street" class="clearfix address_lbl ng-scope"></label>
+                                                </div>
+                                                <div class="col-24 padding_l_r_0 clearfix width_full">
+                                                    <input type="text" name="tpgBankOfficeAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                        data-ng-model="efinOwner.billingAddress.address" data-ng-required="!efinOwner.billingAddress.address && efinOwner.sameAsEfinOwner==false || form.efinOwnerTabForm.tpgBankOfficeAddress.$error.pattern"
+                                                        value="{{efinOwner.billingAddress.address}}" ng-disabled="efinOwner.sameAsEfinOwner == true"
+                                                        ng-pattern="/^[A-Za-z0-9 \-\.\,\&\/\%]{2,40}$/" popover-placement="right"
+                                                        popover-trigger="focus" popover="{{(form.efinOwnerTabForm.tpgBankOfficeAddress.$error.pattern &&
+                                                    form.efinOwnerTabForm.tpgBankOfficeAddress.$invalid) ? 'This field can contain Alphabets and numbers or Special 
+                                                    characters like spaces - . / % , & .Text-limit is 2 to 40 characters.' : ''}}">
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="clearfix row margin_top_10">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix row row_height_30">
+                                                    <div class="pl-0 float-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control"
+                                                            data-ng-model="efinOwner.billingAddress.zip" ng-required="!efinOwner.billingAddress.zip && efinOwner.sameAsEfinOwner==false"
+                                                            tax-mask="99999" tax-mask-use-view-value="true" cmn-zip-lookup
+                                                            cmn-zip-lookup-city="'efinOwner.billingAddress.city'"
+                                                            cmn-zip-lookup-state="'efinOwner.billingAddress.state'" value="{{efinOwner.billingAddress.zip}}"
+                                                            ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="efinOwner.billingAddress.city" value="{{efinOwner.billingAddress.city}}"
+                                                            ng-disabled="efinOwner.sameAsEfinOwner == true" ng-pattern="/^[A-Za-z ]{2,22}$/"
+                                                            name="ownerBillingAddressCity" ng-required="!efinOwner.billingAddress.city &&  efinOwner.sameAsEfinOwner==false || form.efinOwnerTabForm.ownerBillingAddressCity.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.efinOwnerTabForm.ownerBillingAddressCity.$error.pattern && form.efinOwnerTabForm.ownerBillingAddressCity.$invalid) ? 'This field can contain Alphabets and spaces.Text-limit is 2 to 22 characters.' : ''}}" />
+                                                    </div>
+                                                    <div class="float-right ml-auto padding_r_0 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="efinOwner.billingAddress.state" value="{{efinOwner.billingAddress.state}}"
+                                                            ng-disabled="efinOwner.sameAsEfinOwner == true" name="efinownerBillingaddressState"
+                                                            ng-required="!efinOwner.billingAddress.state &&  efinOwner.sameAsEfinOwner==false|| form.efinOwnerTabForm.efinownerBillingaddressState.$error.pattern"
+                                                            popover-placement="right" ng-pattern="/^[A-Za-z]{2}$/"
+                                                            popover-trigger="focus" popover="{{(form.efinOwnerTabForm.efinownerBillingaddressState.$error.pattern && form.efinOwnerTabForm.efinownerBillingaddressState.$invalid) ? 'This field can contain Alphabets.Text must be 2 characters.' : ''}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1"></div>
+                                        <!--second block start-->
+                                        <div class="col-lg-8 col-md-24 col-sm-24 clearfix">
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row row_height_30">
+                                                <label translate="TPGBANK_PHONEHOME_LBL" translate-default="Home Phone"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerPhoneHome" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.phoneHome" ng-required="!efinOwner.phoneHome && efinOwner.sameAsEfinOwner==false"
+                                                    tax-mask="(999)999-9999" value="{{efinOwner.phoneHome}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row row_height_30">
+                                                <label translate="TPGBANK_PHONEMOBILE_LBL" translate-default="Mobile Phone"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerPhoneMobile" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.phoneMobile" ng-required="!efinOwner.phoneMobile && efinOwner.sameAsEfinOwner==false"
+                                                    tax-mask="(999)999-9999" value="{{efinOwner.phoneMobile}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <!-- eps don't use value with masking so no need to use masked value here. -->
+                                            <div class="row row_height_30">
+                                                <label translate="TPGBANK_PHONEGENERAL_LBL" translate-default="General Phone"
+                                                    class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerPhoneGeneral" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.phoneGeneral" ng-required="!efinOwner.phoneGeneral && efinOwner.sameAsEfinOwner==false"
+                                                    tax-mask="(999)999-9999" value="{{efinOwner.phoneGeneral}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="TPGBANK_EMAIL_LBL" translate-default="Email" class="float-left"></label>
+                                                <input type="email" name="tpgBankEfinOwnerEmail" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.email" ng-required="!efinOwner.email && efinOwner.sameAsEfinOwner==false || form.efinOwnerTabForm.tpgBankEfinOwnerEmail.$error.email"
+                                                    popover-placement="right" popover-trigger="focus" popover="{{(form.efinOwnerTabForm.tpgBankEfinOwnerEmail.$error.email && form.efinOwnerTabForm.tpgBankEfinOwnerEmail.$invalid) ? 'Please enter valid E-mail address.' : ''}}"
+                                                    value="{{efinOwner.email}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <div class="row bank">
+                                                <label translate="BANK_IDTYPE_LBL" translate-default="ID Type" class="float-left"></label>
+                                                <select name="tpgBankEfinOwnerIdType" class="custom_input_ddl float-right ml-auto"
+                                                    data-ng-model="efinOwner.idType" ng-required="!efinOwner.idType && efinOwner.sameAsEfinOwner==false"
+                                                    data-ng-options="idType.value as idType.displayText for idType in dropdownOptions.idTypeList"
+                                                    ng-disabled="efinOwner.sameAsEfinOwner == true">
+                                                </select>
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="BANK_IDNUMBER_LBL" translate-default="ID Number" class="float-left"></label>
+                                                <input type="text" name="tpgBankEfinOwnerIdNumber" class="newusertextbox form-control float-right ml-auto"
+                                                    data-ng-model="efinOwner.idNumber" ng-required="!efinOwner.idNumber && efinOwner.sameAsEfinOwner==false"
+                                                    value="{{efinOwner.idNumber}}" ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                            </div>
+                                            <div class="row">
+                                                    <label translate="TPGBANK_SAMEAS_LBL" translate-default="Same as Billing Address"
+                                                    class="float-left margin_top_5"></label>
+                                                <button class="margin_top_10 custom_input_dark margin_left_15" data-ng-class="{'active': efinOwner.sameAsBillingAddress == true}"
+                                                    data-ng-model="efinOwner.sameAsBillingAddress" ng-disabled="efinOwner.sameAsEfinOwner == true"  data-ng-click="efinOwner.sameAsBillingAddress = !efinOwner.sameAsBillingAddress;copyToShippingAddress(efinOwner)"></button>
+                                                
+
+                                            </div>
+                                            <div class="row popover_wrap">
+                                                <label translate="TPGBANK_SHIPPINGADDRESS_LBL" translate-default="Shipping Address"
+                                                    class="clearfix address_lbl ng-scope font_bold"></label>
+                                                <div class="width_full clearfix margin_top_10">
+                                                    <label translate="TPGBANK_STREET_LBL" translate-default="Street" class="clearfix address_lbl ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix width_full">
+                                                    <input type="text" name="tpgBankOfficeShippingAddress" class="width_full newusertextbox_full ng-pristine ng-untouched ng-valid form-control float-left"
+                                                        data-ng-model="efinOwner.shippingAddress.address" data-ng-required="!efinOwner.shippingAddress.address && efinOwner.sameAsEfinOwner==false || form.efinOwnerTabForm.tpgBankOfficeShippingAddress.$error.pattern"
+                                                        value="{{efinOwner.shippingAddress.address}}" ng-disabled="efinOwner.sameAsEfinOwner == true"
+                                                        ng-pattern="/^[A-Za-z0-9 \-\.\,\&\/\%]{2,40}$/" popover-placement="right"
+                                                        popover-trigger="focus" popover="{{(form.efinOwnerTabForm.tpgBankOfficeShippingAddress.$error.pattern &&
+                                                    form.efinOwnerTabForm.tpgBankOfficeShippingAddress.$invalid) ? 'This field can contain Alphabets and numbers or Special 
+                                                    characters like spaces - . / % , & .Text-limit is 2 to 40 characters.' : ''}}">
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="clearfix row margin_top_10">
+                                                    <label translate="BANK_ZIPCODE_LBL" translate-default="ZIP Code" class="pl-0 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_CITY_LBL" translate-default="City" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left ng-scope"></label>
+                                                    <label translate="BANK_STATE_LBL" translate-default="State" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center ng-scope"></label>
+                                                </div>
+                                                <div class="clearfix row row_height_30">
+                                                    <div class="pl-0 float-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox col-lg-12 col-sm-12 col-md-12 ng-invalid ng-invalid-required ng-touched ng-dirty ng-valid-mask ng-valid-parse form-control"
+                                                            data-ng-model="efinOwner.shippingAddress.zip" ng-required="!efinOwner.shippingAddress.zip && efinOwner.sameAsEfinOwner==false"
+                                                            tax-mask="99999" tax-mask-use-view-value="true" cmn-zip-lookup
+                                                            cmn-zip-lookup-city="'efinOwner.shippingAddress.city'"
+                                                            cmn-zip-lookup-state="'efinOwner.shippingAddress.state'" value="{{efinOwner.shippingAddress.zip}}"
+                                                            ng-disabled="efinOwner.sameAsEfinOwner == true" />
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="efinOwner.shippingAddress.city" value="{{efinOwner.shippingAddress.city}}"
+                                                            ng-disabled="efinOwner.sameAsEfinOwner == true" ng-pattern="/^[A-Za-z ]{2,22}$/"
+                                                            name="ownerShippingAddressCity" ng-required="!efinOwner.shippingAddress.city &&  efinOwner.sameAsEfinOwner==false|| form.efinOwnerTabForm.ownerShippingAddressCity.$error.pattern"
+                                                            popover-placement="right" popover-trigger="focus" popover="{{(form.efinOwnerTabForm.ownerShippingAddressCity.$error.pattern && form.efinOwnerTabForm.ownerShippingAddressCity.$invalid) ? 'This field can contain Alphabets and spaces.Text-limit is 2 to 22 characters.' : ''}}" />
+                                                    </div>
+                                                    <div class="float-right ml-auto padding_r_0  col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <input type="text" class="newusertextbox float-right ml-auto col-lg-16 col-sm-16 col-md-16 ng-pristine ng-untouched ng-invalid ng-invalid-required form-control"
+                                                            data-ng-model="efinOwner.shippingAddress.state" value="{{efinOwner.shippingAddress.state}}"
+                                                            ng-disabled="efinOwner.sameAsEfinOwner == true" ng-pattern="/^[A-Za-z]{2}$/"
+                                                            name="efinownerShippingaddressState" ng-required="!efinOwner.shippingAddress.state && efinOwner.sameAsEfinOwner==false || form.efinOwnerTabForm.efinownerShippingaddressState.$error.pattern"
+                                                            popover-placement="right" ng-pattern="/^[A-Za-z]{2}$/"
+                                                            popover-trigger="focus" popover="{{(form.efinOwnerTabForm.efinownerShippingaddressState.$error.pattern && form.efinOwnerTabForm.efinownerShippingaddressState.$invalid) ? 'This field can contain Alphabets.Text must be 2 characters.' : ''}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!-- Business Owner - End -->
+                        <!-- Bank - Start -->
+                        <tab heading="Bank" active="activeTab.bankTab" data-ng-click="tabChangeView('bankTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.bankTabForm">
+                                    <div class="col-24">
+                                    <div class="clearfix row">
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_NAMEOFBANK_LBL" translate-default="Bank Name"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_ROUTINGNUMBER_LBL" translate-default="Routing Number"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_CONFIROUTINGNUMBER_LBL" translate-default="Confirm Routing Number"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_ACCOUNTNUMBER_LBL" translate-default="Account Number"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_CONFIACCOUNTNUMBER_LBL" translate-default="Confirm Account"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_CHECKINGSAVINGACCOUNT_LBL" translate-default="Type of Account"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_NAMEONACCOUNT_LBL" translate-default="Name on account"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="BANK_NAMEONACCOUNT_LBL" translate-default="Check Printing Preference"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-18 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="text" name="tpgBankNameOfBank" class="newusertextbox form-control"
+                                                        data-ng-model="bank.bankName" ng-required="!bank.bankName" value="{{bank.bankName}}" />
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <input type="text" name="tpgBankRoutingNumber" class="newusertextbox form-control"
+                                                    data-ng-model="bank.routingNumber" ng-required="!bank.routingNumber"
+                                                    tax-mask="999999999" tax-mask-use-view-value="true" value="{{bank.routingNumber}}" />
+                                            </div>
+
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="text" name="tpgBankConfiRoutingNumber" class="newusertextbox form-control"
+                                                        ng-focus="matchRoutingNumber(form.bankTabForm.tpgBankConfiRoutingNumber,true)"
+                                                        ng-blur="matchRoutingNumber(form.bankTabForm.tpgBankConfiRoutingNumber)"
+                                                        data-ng-model="tpgForm.confiRoutingNumber" i-match="bank.routingNumber"
+                                                        ng-required="form.bankTabForm.tpgBankConfiRoutingNumber.$error.iMatch || !tpgForm.confiRoutingNumber"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.bankTabForm.tpgBankConfiRoutingNumber.$error.iMatch && form.bankTabForm.tpgBankConfiRoutingNumber.$invalid) ? 'Routing Number does not match.' : ''}}"
+                                                        tax-mask="999999999" tax-mask-use-view-value="true" value="{{tpgForm.confiRoutingNumber}}" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row row_height_30 popover_wrap">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="text" name="tpgBankAccountNumber" class="newusertextbox form-control"
+                                                        data-ng-model="bank.accountNumber" ng-required="!bank.accountNumber || form.bankTabForm.tpgBankAccountNumber.$error.pattern"
+                                                        value="{{bank.accountNumber}}" popover-placement="right" ng-pattern="/^[A-Za-z0-9\-]{4,17}$/"
+                                                        popover-trigger="focus" popover="{{form.bankTabForm.tpgBankAccountNumber.$invalid ? 'This field can contain Alphabets and numbers or Special 
+                                                    characters like spaces - .Text must be of 17 characters.' : ''}}" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="text" name="tpgBankConfiAccountNumber" class="newusertextbox form-control"
+                                                        ng-focus="matchAccountNumber(form.bankTabForm.tpgBankConfiAccountNumber,true)"
+                                                        ng-blur="matchAccountNumber(form.bankTabForm.tpgBankConfiAccountNumber)"
+                                                        data-ng-model="tpgForm.confiAccountNumber" i-match="bank.accountNumber"
+                                                        ng-required="form.bankTabForm.tpgBankConfiAccountNumber.$error.iMatch || !tpgForm.confiAccountNumber"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.bankTabForm.tpgBankConfiAccountNumber.$error.iMatch && form.bankTabForm.tpgBankConfiAccountNumber.$invalid) ? 'Account Number does not match.' : ''}}"
+                                                        value="{{tpgForm.confiAccountNumber}}" />
+                                                </div>
+                                            </div>
+                                            <div class="row bank">
+                                                <div class="clearfix">
+                                                    <select class="custom_input_ddl float-left" name="tpgBankAccountType"
+                                                        data-ng-model="bank.accountType" ng-required="!bank.accountType">
+                                                        <option value="C">Checking</option>
+                                                        <option value="S">Savings</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="text" name="tpgBankNameOnAccount" ng-pattern="/^[A-Za-z0-9 \\-\\.\\,\\&\\+\\/]{2,35}$/"
+                                                        popover-trigger="blur" popover="{{form.bankTabForm.tpgBankNameOnAccount.$invalid ? 'This field can contain Alphabets and numbers or Special 
+                                                    characters like spaces - , . & + / .Text must be of 2 to 35 characters.' : ''}}"
+                                                        class="newusertextbox form-control" data-ng-model="bank.nameOnAccount"
+                                                        ng-required="!bank.nameOnAccount || form.bankTabForm.tpgBankNameOnAccount.$error.pattern"
+                                                        value="{{bank.nameOnAccount}}" />
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <button class="custom_input_dark float-left margin_right_5" data-ng-class="{'active':bank.checkPrintingPreference == 'B'}"
+                                                    data-ng-model="bank.checkPrintingPreference" data-ng-click="bank.checkPrintingPreference = 'B'"></button>
+                                                <span class="float-left" translate="PRINT_CHECK_LBL" translate-default="Bank Print Check"></span>
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5 ml-5"
+                                                    data-ng-class="{'active':bank.checkPrintingPreference == 'S'}"
+                                                    data-ng-model="bank.checkPrintingPreference" data-ng-click="bank.checkPrintingPreference = 'S'"></button>
+                                                <span class="float-left" translate="SITE_CHECK_LBL" translate-default="Site Print Check"></span>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                    
+                                                <span class="float-left col-5" translate="PRINT_CHECK_LBL"
+                                                    translate-default="(TPG will print and mail the check to the taxpayer)"></span>
+                                               
+                                                <span class="float-right col-5" translate="SITE_CHECK_LBL"
+                                                    translate-default="(You will print checks in your office)"></span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!-- Bank Tab- End -->
+                        <!-- User Setup Tab - Start -->
+                        <tab heading="User Setup" active="activeTab.userSetupTab" data-ng-click="tabChangeView('userSetupTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.userSetupTabForm">
+                                    <div class="col-24">
+                                    <div class="clearfix row">
+                                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                            <div class="row row_height_30">
+                                                <label translate="EPSBANK_USENAME_LBL" translate-default="User Name"></label>
+                                            </div>
+
+                                            <div class="row row_height_30">
+                                                <label translate="EPSBANK_NEWPASSWORED_LBL" translate-default="New Password"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="EPSBANK_CONFIRMPASSWORD_LBL" translate-default="Confirm Password"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="EPSBANK_SELECTQUESTION_LBL" translate-default="Security Question"></label>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <label translate="EPSBANK_ANSWER_LBL" nextandprevviewmap translate-default="Answer"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-20 col-md-12 col-sm-12 col-xs-12 clearfix">
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="text" class="newusertextbox form-control" name="tpgBankUserSetupUserName"
+                                                        data-ng-model="userSetUp.userName" ng-required="!userSetUp.userName"
+                                                        maxlength="20" value="{{userSetUp.userName}}" />
+                                                </div>
+                                            </div>
+                                            <!--popover start-->
+                                            <div class="clearfix">
+                                                <div name="passworedPopover" data-ng-show="isPasswordError && form.userSetupTabForm.tpgBankUserSetupPass.$error.pattern">
+                                                    <div class="popover popover_block usersetupnewpass_left" data-ng-class="{ 'left': (headerNav.screenWidth < 801 || (headerNav.screenWidth >= 980 && headerNav.screenWidth <= 1279)) ,'right':((headerNav.screenWidth >= 801 && headerNav.screenWidth < 980) || headerNav.screenWidth >= 1280) }">
+                                                        <div class="arrow"></div>
+                                                        <div class="popover-inner">
+                                                            <div class="popover-content text-danger">
+                                                                <label translate="EPSBANK_INVALIDPASSWORD_LBL" class="line_height_20"
+                                                                    translate-default="Password must contain at least one lowercase letter,one uppercase,and one digit. And must be a minimum length of 8."></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--popover end-->
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="password" class="newusertextbox form-control" name="tpgBankUserSetupPass"
+                                                        data-ng-model="userSetUp.password" ng-required="!userSetUp.password || form.userSetupTabForm.tpgBankUserSetupPass.$error.pattern"
+                                                        ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+.{7,30}$/" maxlength="30"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.userSetupTabForm.tpgBankUserSetupPass.$error.pattern && form.userSetupTabForm.tpgBankUserSetupPass.$invalid) ? 'Password must contain at least one lowercase letter,one uppercase,and one digit. And must be a minimum length of 8.' : ''}}"
+                                                        value="{{userSetUp.password}}" />
+                                                    <div class="progress" style="width:170px;">
+                                                        <div class="progress-bar" data-ng-class="{'progress-bar-success':passwordStrength.type === 'strong', 'progress-bar-warning': passwordStrength.type === 'ok', 'progress-bar-danger': passwordStrength.type === 'weak'}"
+                                                            aria-valuenow="{{ passwordStrength.score }}" aria-valuemin="0"
+                                                            aria-valuemax="100" style="width:{{ passwordStrength.score }}%"></div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--popover start-->
+                                            <!-- <div class="clearfix">
+                                                <div name="passworedPopover" data-ng-show="confirmPassError && !(isPasswordError && form.userSetupTabForm.tpgBankUserSetupPass.$error.pattern)">
+                                                    <div class="popover popover_block usersetuppass_left" data-ng-class="{ 'left': headerNav.screenWidth < 801 ,'right':headerNav.screenWidth >= 801 }">
+                                                        <div class="arrow"></div>
+                                                        <div class="popover-inner">
+                                                            <div class="popover-content">
+                                                                <label translate="EPSBANK_PASSWORDNOTMATCH_LBL" translate-default="Password does not match."></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!--popover end-->
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="password" class="newusertextbox form-control" name="tpgBankUserSetupConfirmPass"
+                                                        data-ng-focus="matchPasswored(form.userSetupTabForm.tpgBankUserSetupConfirmPass,true)"
+                                                        data-ng-blur="matchPasswored(form.userSetupTabForm.tpgBankUserSetupConfirmPass)"
+                                                        data-ng-model="userSetUp.confirmPass" i-match="userSetUp.password"
+                                                        ng-required="form.userSetupTabForm.tpgBankUserSetupConfirmPass.$error.iMatch ||  !userSetUp.confirmPass"
+                                                        popover-placement="right" popover-trigger="focus" popover="{{(form.userSetupTabForm.tpgBankUserSetupConfirmPass.$error.iMatch && form.userSetupTabForm.tpgBankUserSetupConfirmPass.$invalid) ? 'Password does not match.' : ''}}"
+                                                        value="{{userSetUp.confirmPass}}" />
+                                                </div>
+                                            </div>
+                                            <div class="row row_height_32 bank">
+                                                <select data-ng-model="userSetUp.securityQuestion" class="custom_input_ddl"
+                                                    name="tpgBankUserSetupSecurityQue" ng-required="!userSetUp.securityQuestion">
+                                                    <option value="MothersMaidenName">What is your Mother's Maiden Name?</option>
+                                                    <option value="NameOfFirstPet">What is the name of your first pet?</option>
+                                                    <option value="Highschool">What high school did you attend?</option>
+                                                    <option value="NameOfOldestChild">What is the name of your oldest
+                                                        child?</option>
+                                                    <option value="FathersMiddleName">What is your Father's middle name?</option>
+                                                </select>
+                                            </div>
+                                            <div class="row row_height_30">
+                                                <div class="popover_wrap float-left">
+                                                    <input type="text" class="newusertextbox form-control" name="tpgBankUserSetupSecurityAns"
+                                                        data-ng-model="userSetUp.securityAnswer" ng-required="!userSetUp.securityAnswer || form.userSetupTabForm.tpgBankUserSetupSecurityAns.$error.pattern"
+                                                        ng-pattern="/^[A-Za-z0-9 \-]{2,25}$/" popover-placement="right"
+                                                        popover-trigger="focus" popover="{{(form.userSetupTabForm.tpgBankUserSetupSecurityAns.$error.pattern && form.userSetupTabForm.tpgBankUserSetupSecurityAns.$invalid) ? 'This field can contain Alphabets, Number, Spaces or Dashes.Text-limit is up to 2 to 25 characters.' : ''}}"
+                                                        value="{{userSetUp.securityAnswer}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div>
+                                            <div class="row row_height_30 margin_left_4 padding_bottom_10 padding_top_10">
+                                                <button class="custom_input_dark float-left margin_right_5 " data-ng-class="{'active':userSetUp.spanishMaterial == true}"
+                                                    data-ng-model="userSetUp.spanishMaterial" data-ng-click="userSetUp.spanishMaterial = !userSetUp.spanishMaterial"></button>
+                                                <span class="float-left margin_right_5" translate="EPSBANK_SPANISHMATERIAL_LBL"
+                                                    translate-default="Would you like to receive translated materials, if available, for your Spanish clients?"></span>
+                                            </div>
+
+                                            <div class="row row_height_30 margin_left_4 padding_bottom_10">
+                                                <button class="custom_input_dark float-left margin_right_5 " data-ng-class="{'active':userSetUp.newsLetter == 1}"
+                                                    data-ng-model="userSetUp.newsLetter" data-ng-click="userSetUp.newsLetter == 1 ? userSetUp.newsLetter = 0 : userSetUp.newsLetter = 1"></button>
+                                                <span class="float-left margin_right_5" translate="EPSBANK_NEWSLETTER_LBL"
+                                                    translate-default="Receive News Letter from the bank"></span>
+                                            </div>
+
+                                            <div class="row row_height_30 margin_left_4 padding_bottom_10">
+                                                <button class="custom_input_dark float-left margin_right_5 " data-ng-class="{'active':userSetUp.priorityMail == 1}"
+                                                    data-ng-model="userSetUp.priorityMail" data-ng-click="userSetUp.priorityMail == 1 ? userSetUp.priorityMail = 0 : userSetUp.priorityMail = 1"></button>
+                                                <span class="float-left margin_right_5" translate="EPSBANK_PRIORITYMAIL_LBL"
+                                                    translate-default="Receive priority mail from the bank and IRS"></span>
+                                            </div>
+
+                                            <div class="row row_height_30 margin_left_4 padding_bottom_10">
+                                                <button class="custom_input_dark float-left margin_right_5 " data-ng-class="{'active':userSetUp.notifications == 1}"
+                                                    data-ng-model="userSetUp.notifications" data-ng-click="userSetUp.notifications == 1 ? userSetUp.notifications = 0 : userSetUp.notifications = 1"></button>
+                                                <span class="float-left margin_right_5" translate="EPSBANK_NOTIFICATIONS_LBL"
+                                                    translate-default="Receive notifications when any funding happens"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                        <!-- User Setup Tab - End -->
+                        <!-- Consent Tab - Start -->
+                        <tab heading="Consent" active="activeTab.consentTab" data-ng-click="tabChangeView('consentTab')">
+                            <div class="tab_border clearfix p-3">
+                                <form name="form.consentTabForm">
+                                    <div class="row col-lg-22 col-md-24 col-sm-24">
+                                        <div class="clearfix padding_left_5 padding_top_5">
+                                            <div class="row">
+                                                <button class="custom_input_dark float-left margin_right_5 margin_left_5"
+                                                    data-ng-class="{'active':consent.financialServiceAgreement == 'Y' , 'no-clicking':consent.isClicked != true}"
+                                                    data-ng-model="consent.financialServiceAgreement" ng-required="!consent.financialServiceAgreement==true"
+                                                    data-ng-click="consent.financialServiceAgreement == 'Y' ? consent.financialServiceAgreement = undefined : consent.financialServiceAgreement = 'Y'"></button>
+                                                <span class="float-left margin_right_5" translate="EPSBANK_IAGREETOTHE_LBL"
+                                                    translate-default="ERO has read, understands, and agrees to the"></span>
+                                                <a class="cursor_pointer" translate='EPSBANK_FINANCIALAGREEMENT_LBL'
+                                                    translate-default='[Santa Barbara Tax Products Group Financial Services Agreement].'
+                                                    href="{{getURLToDownloadPDF('FINANCIAL_SERVICES_AGREEMENT');}}" target="_blank"
+                                                    ng-click="consent.isClicked = true" download></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </tab>
+                    </div>
+                </tabset>
+                <div class=" col-lg-24 col-md-24 col-sm-24">
+                        <form name="form.commonAction">
+                            <hr class="light_line">
+                            <div class="float-right ml-auto">
+                                <button class="btn btn-outline-primary ng-scope" data-ng-disabled="activeTab.tpgProgramTab==true"
+                                    data-ng-click="changeView('previous')">
+                                    <span translate="BANK_PREVIUOS_SPAN" translate-default="Previous"></span>
+                                </button>
+                                <button class="btn btn-outline-primary ng-scope" data-ng-disabled="form[formName].$invalid"
+                                    data-ng-click="changeView('next')" data-ng-hide="activeTab.consentTab==true">
+                                    <span translate="BANK_NEXT_SPAN" translate-default="Next"></span>
+                                </button>
+                                <!-- Temporary this button is readonly (no-clicking) class is applied -->
+                                <button class="btn btn-outline-primary ng-scope" data-ng-disabled="ssnEinMatched == true"
+                                    data-ng-show="activeTab.consentTab==true" ng-click="validateFormToSave(form)"
+                                    data-ng-class="{'no-clicking': !userCan('CAN_SAVE_BANK') || checkForSpeacialState('addOnTransmitterFee') || checkForSpeacialState('serviceBureauFee') || isChangeData() || isBothEFINSame == true}">
+                                    <span translate="BANK_SAVE_SPAN" translate-default="Save"></span>
+                                </button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

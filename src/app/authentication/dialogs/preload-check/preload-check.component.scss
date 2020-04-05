@@ -1,0 +1,26 @@
+.full_page_height.browser_support {
+    min-height: 100vh;
+    height: auto;
+    padding-top: 16%;
+}
+
+.border-right { border-right: 1px solid #cacaca; }
+.small-text { font-size: 14px; color: #000; }
+
+/********* Browser support modal Starts ********/
+
+.browser-support-modal .modal-title { display: inline-block; width: 100%;}
+.browser-support-modal .modal-title img { float:left; height: 24px; width: auto; margin-right: 10px; }
+.browser-support-modal .modal-title span { font-size: 24px; line-height: 110%; float: left; font-family: arial; }
+.browser-support-modal-title-text { font-size: 18px; line-height: 24px; font-family: arial; color: #000; }
+.browser-support-modal .left-bold-text { font-size: 22px; font-weight: bold; line-height: 30px; font-family: arial; margin: 0; color: #858585; }
+.browser-support-modal .right-side-icons { display: inline-block; margin-right: 15px; }
+.browser-support-modal .right-side-icons:last-child { margin-right:0px; }
+.browser-support-modal .right-side-icons img.browser-icon { width: 64px; height: auto; }
+.browser-download-btn { padding: 0px !important; background: transparent; color: #848484; transition: all 0.5s ease; }
+.browser-download-btn:hover {background: #ebebeb; color: #848484; }
+.browser-download-btn span { font-size: 14px; padding: 5px 10px !important; display: inline-block; font-family: arial; }
+.browser-support-modal-footer { font-size: 16px; line-height: 26px; color: #000; font-weight: bold; }
+.browser-support-modal-footer a { border-bottom: 2px solid #337ab7; font-family: arial; background: #005074; padding: 6px 20px; border-radius: 5px; color: #fff; display: inline-block; }
+.vertical-align-middle { display: flex; vertical-align: middle; align-items: center; }
+/********* Browser support modal Ends ********/

@@ -1,0 +1,7 @@
+.modal-md {
+    width: 950px;
+}
+@media(max-width:768px)
+    {
+        .modal-md { width: 90vw; }          
+    }

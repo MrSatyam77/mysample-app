@@ -1,0 +1,35 @@
+﻿<h3 class="text-left" style="margin-left: 2%;">
+    <span translate="APPOINTMENT_LIST_HEADER" translate-default="Appointment List"></span>
+    <span class="homerotate"><i class="fas fa-redo float-right cursor_pointer" style="font-size: 14px; margin-right: 2%;" data-ng-click="manualRefreshList();refreshStart=true;" data-ng-class="{'rotate':refreshStart,'no-clicking':!userCan('CAN_LIST_CALENDAR')}"></i></span>
+
+</h3>
+<div class="tile-appoinment-inner_left">
+    <i class="fas fa-calendar-alt color_gray" style="margin-top: 35%;"></i>
+</div>
+<h5 class="padding_7 margin_right_6" style="cursor:default;">
+    <span translate="APPOINTMENT_TODAYS_LBL" translate_default="Today's Upcoming Appointments"></span>
+</h5>
+<div class="tile-appoinment-inner_right">
+    <div data-ng-repeat="appointment in appointmentList.appointment| orderBy:'start'| limitTo:4" data-ng-show="appointmentList.appointment.length!==0">
+        <span class="span box-shadow-outset" data-ng-class="{'no-clicking disabled':!userCan('CAN_OPEN_CALENDAR')}" data-ng-click="edit(appointment.id)">
+            <span class="float-left">{{appointment.subject}}</span>
+            <span class="float-right">{{toDate(appointment.start)| date:'h:mm a'}}</span>
+        </span>
+    </div>
+    <span class="tile-appoinment-tile-inner_right_appoinment_innermsg" data-ng-show="appointmentList.appointment == undefined || appointmentList.appointment.length == 0"><span translate="APPOINTMENT_NOTODAYMSG" translate-default="You have no appointment scheduled for today."></span></span>
+</div>
+<h5 class=" margin_right_6 cursor_pointer" >
+    <span class="float-left padding_5" translate="APPOINTMENT_TOMORROWS_LBL" translate_default="Tomorrow's Appointment" data-ng-class="{'no-clicking disabled':!userCan('CAN_LIST_CALENDAR')}" data-ng-click="viewTomorrow()"></span><span class="float-right tile-todos-inner-notification_square_table padding_7" style="margfin-right: 2%;">{{appointmentList.tomorrowsAppointment}}</span>
+</h5>
+
+
+
+<div class="tile-appoinment-tile_footer">
+    <div class="float-left margin_left_9 tile-appoinment-box-shadow-outset" data-ng-class="{'no-clicking disabled':!userCan('CAN_CREATE_CALENDAR') || !isOnline}" data-ng-click="newAppointment();">
+        <i class="fa fa-long-arrow-right float-left margin_top_4"></i> <span translate="APPOINTMENT_NEW_LBL" translate_default="New Appointment"></span>
+    </div>
+
+    <div class="float-right appoinment_lg tablet_left margin_right_9 xs_left tile-appoinment-box-shadow-outset" data-ng-click="openCalender()" data-ng-class="{'no-clicking disabled':!userCan('CAN_LIST_CALENDAR')}">
+        <i class="fa fa-long-arrow-right float-left margin_top_5"></i> <span style="float: left; margin-top: 1%;" translate="APPOINTMENT_SCHEDULER_LBL" translate_default="Appointment Scheduler"></span>
+    </div>
+</div>

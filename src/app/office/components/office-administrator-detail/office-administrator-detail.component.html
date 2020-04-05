@@ -1,0 +1,14 @@
+<address>
+  <div class="row mb-3" *ngFor="let admin of filteredAdminUsers" [hidden]="!admin.firstName && !admin.lastName">
+    <div class="col-auto text-center"><span><i class="fa fa-user text-primary"></i></span></div>
+    <div class="col"><span class="d-block">{{admin.firstName}} {{admin.lastName}}</span></div>
+  </div>
+  <div *ngIf="adminUsers.length > 6 && filteredAdminUsers.length > 0">
+    <div class="row mb-3" *ngIf="filteredAdminUsers.length > 6" style="cursor: pointer;">
+      <div class="col-auto"><span class="d-block text-primary" (click)="filterAdminUsers(5)">Show Less</span></div>
+    </div>
+    <div class="row mb-3" *ngIf="filteredAdminUsers.length <= 6" style="cursor: pointer;">
+      <div class="col-auto"><span class="d-block text-primary" (click)="filterAdminUsers()">Show More</span></div>
+    </div>
+  </div>
+</address>

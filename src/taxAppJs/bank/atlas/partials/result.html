@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="taxAppJs/bank/eps/css/eps.css" rel="stylesheet" />
+    <link href="taxAppJs/common/css/Styles.css" rel="stylesheet" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">	
+</head>
+<body>
+	 
+    <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+        <section class="page_title_wrap title_height_40 clearfix">
+            <span class="page_title_lg ng-binding title_height_40">
+                <span class="page_title_lg ng-binding" translate="MANAGEEINEDIT_ADD_HEADER" translate-default="Atlas"></span>
+            </span>
+        </section>
+        <div class="inner_padding_15  clearfix static_form_wrap allowScrollSync"    style="overflow-y:auto">
+            <!--tax estimator tab start-->
+            <div class="clearfix" id="tax_estimator_tab">
+            	<!-- Error List  -->
+	            <div class="clearfix">		
+					<div data-ng-if="errorList != undefined && errorList.length > 0">
+						<div data-ng-repeat="error in errorList" class="text-danger_normal">
+							{{error.errorMessage}}
+						</div>
+					</div>
+					<div data-ng-if="adminUserName != undefined && adminUserName != '' && adminPassword != undefined && adminPassword != ''">
+						<div class="row col-lg-24 col-md-24 col-sm-24 col-xs-24">
+							<span translate="ATLAS_RESULT_SUCCESSMESSAGE1_LABEL" translate-default="Thank you for submitting your information."></span>							
+						</div>
+						<div class="row col-lg-24 col-md-24 col-sm-24 col-xs-24">
+							<span translate="ATLAS_RESULT_SUCCESSMESSAGE2_LABEL" translate-default="To complete your enrollment please log into your"></span>
+							<a href="https://atlas.ntslink.com/eaccount/" target="_blank">ATLAS eAccount</a>
+							<span translate="ATLAS_RESULT_SUCCESSMESSAGE3_LABEL" translate-default="with the credentials provided below and complete your ERO application and compliance."></span>
+						</div>						
+						<div class="row col-lg-24 col-md-24 col-sm-24 col-xs-24">
+							<p translate="ATLAS_RESULT_SUCCESSMESSAGE4_LABEL" translate-default="You must also provide proof of a valid EFIN. You may provide this by entering your IRS e-services username and password into your ERO application. Otherwise, you must upload your IRS EFIN Acceptance Letter or a copy of the approved EFIN summary page from your eServices account; provided by the IRS."></p>
+						</div>
+						<div class="row col-lg-24 col-md-24 col-sm-24 col-xs-24"><span translate="ATLAS_RESULT_SUCCESSMESSAGE_USERNAME_LABEL" translate-default="Username"></span> : {{adminUserName}}</div>			
+						<div class="row col-lg-24 col-md-24 col-sm-24 col-xs-24"><span translate="ATLAS_RESULT_SUCCESSMESSAGE_PASSWORD_LABEL" translate-default="Password"></span> : {{adminPassword}}</div>
+						<div class="row col-lg-24 col-md-24 col-sm-24 col-xs-24">
+							<span translate="ATLAS_RESULT_SUCCESSMESSAGE5_LABEL" translate-default="If you have any questions, you may contact Atlas Financial Services at 877.314.4367 or"></span>
+							<a href="/manage/support/email/Bank Products"><span translate="COMMON_WRITETOUS_LABEL" translate-default="write to us."></span></a>
+						</div>
+					</div>		
+				</div>
+				  <div class="row col-lg-24 col-md-24 col-sm-24">
+				<hr class="light_line">
+                <div class="float-right">
+					<button type="button" class="btn btn-outline-primary" data-ng-click="backToAtlas()" data-ng-if="errorList != undefined && errorList.length > 0" >
+						<span translate="ATLAS_RESULT_BACK_BUTTON" translate-default="Back"></span>
+					</button>
+					<button type="button" class="btn btn-outline-primary" data-ng-click="done()" data-ng-if="adminUserName != undefined && adminUserName != '' && adminPassword != undefined && adminPassword != ''">
+						<span translate="ATLAS_RESULT_DONE_BUTTON" translate-default="Done"></span>
+					</button>	
+				</div>  
+				</div>              
+            </div>
+        </div>
+        </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+</html>

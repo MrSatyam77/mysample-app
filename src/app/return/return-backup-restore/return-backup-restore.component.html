@@ -1,0 +1,40 @@
+<div class="bg-white border clearfix">
+  <section class="page_title_wrap title_height_40 clearfix">
+    <span class="page_title_lg title_height_40">
+      <span class="page_title_lg">
+        <span *ngIf="option === 'backup'">Backup Returns</span>
+        <span *ngIf="option === 'restore'">Restore Returns</span>
+      </span>
+      <div class="row float-right d-none d-md-block">
+        <button class="btn btn-outline-primary margin_left_5 pl-2" (click)="gotoHome()">Back
+          To Dashboard</button>
+        <i *ngIf="option === 'backup'" class="m-2 refresh-loader fas fa-redo float-right color_gray font_size_14 cursor_pointer"
+          [ngClass]="{'rotate':refreshStart}" (click)="manuallyRefresh()"></i>
+      </div>
+    </span>
+  </section>
+
+  <div class="clearfix">
+    <ul class="nav custom-line-tab bg-primary-light">
+      <li class="nav-item" [class.tab-current]="option === 'backup'">
+        <a class="nav-link" [class.active]="option === 'backup'" (click)="option = 'backup'" data-toggle="tab">Backup
+          Return </a>
+      </li>
+      <li class="nav-item" [class.tab-current]="option === 'restore'">
+        <a class="nav-link" [class.active]="option === 'restore'" (click)="option = 'restore'" data-toggle="tab">Restore
+          Return</a>
+      </li>
+    </ul>
+  
+    <!-- Tab panes -->
+    <div class="tab-content border-0">
+      <div class="tab-pane" [class.active]="option === 'backup'" *ngIf="option === 'backup'">
+        <app-backup-return #backupreturn ></app-backup-return>
+      </div>
+      <div class="tab-pane" [class.active]="option === 'restore'" *ngIf="option === 'restore'">
+        <app-restore-return></app-restore-return>
+      </div>
+    </div>
+  </div>
+</div>
+

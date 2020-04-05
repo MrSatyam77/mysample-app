@@ -1,0 +1,656 @@
+<div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24">
+  <form name="form.returnWorkspaceTabForm" novalidate>
+    <div class="row">
+      <div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24">
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-8 col-sm-8 col-md-8 col-xl-10 col-lg-10': isAdmin}">
+            <label class="font_bold ng-scope m-0">Settings</label>
+          </div>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngIf="isAdmin">
+            <label class="font_bold ng-scope m-0">Applicable To</label>
+          </div>
+          <div [ngClass]="{'col-lg-6 col-8 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}">
+            <label class="font_bold ng-scope m-0">Options
+              <i class="fa fa-exclamation-circle text-danger ml-2 cursor_pointer" placement="right" container="body"
+                tooltipClass="error" [ngbPopover]="popContentPreferenceSettings" *ngIf="!isAdmin"></i>
+              <ng-template #popContentPreferenceSettings>
+                <label *ngIf="!isAdmin && view.user">
+                  Please contact your Admin to modify this setting.
+                </label>
+                <label *ngIf="!isAdmin && (view.customer || view.office)">
+                  Settings that cannot be modified here can be modified by navigating to <a class="text-bold"
+                    [routerLink]="['/preferences/admin/return-workspace']"><b>Admin Settings</b></a> in the Menu on
+                  the left side of the screen.
+                </label>
+              </ng-template>
+            </label>
+          </div>
+          <div class="col clearfix" *ngIf="!isAdmin">
+            <label class="font_bold ng-scope m-0 right-text">To be set by</label>
+          </div>
+        </div>
+
+        <!-- Price List -->
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Default Price List
+              <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['pricelist'].tooltip" (click)='informationLineHelp("pricelist")'></i></span>
+            </label>
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4 border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.priceList.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.priceList">
+              <div class="col-24 col-sm-24 col-xl-24 col-lg-24 col-md-24">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.priceList.rightModel"
+                  (click)="updatRole(role.id,'priceList') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.priceList.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.priceList.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('priceList', 'dropdown', lookup.priceList)"
+              *ngIf="returnWorkspacePreferences.priceList.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office
+            </button>
+            <div class="dropdown"
+              *ngIf="returnWorkspacePreferences.priceList.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <button type="button" class="btn btn-outline-primary dropdown-toggle ng-binding"
+                data-toggle="dropdown">{{returnWorkspacePreferences.priceList.value | displayText:lookup.priceList}}</button>
+              <div class="dropdown-menu" style="cursor: pointer;"
+                [hidden]="!(lookup.priceList && lookup.priceList.length > 1)">
+                <a class="dropdown-item" *ngFor="let price of lookup.priceList"
+                  (click)="returnWorkspacePreferences.priceList.value = price.id;">{{price.name}}</a>
+              </div>
+            </div>
+
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.priceList.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Default Preparer
+              <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['defaultpreparer'].tooltip"
+                  (click)='informationLineHelp("defaultpreparer")'></i></span>
+            </label>
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4 border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.defaultPreparer.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.defaultPreparer">
+              <div class="col-24 col-xl-24 col-sm-24 col-lg-24 col-md-24">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.defaultPreparer.rightModel"
+                  (click)="updatRole(role.id,'defaultPreparer') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.defaultPreparer.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.defaultPreparer.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('defaultPreparer', 'dropdown', lookup.preparerList)"
+              *ngIf="returnWorkspacePreferences.defaultPreparer.rightModel === 1 && officeList && officeList.length > 1 ">Configure
+              Office</button>
+            <div class="dropdown"
+              *ngIf="returnWorkspacePreferences.defaultPreparer.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <button type="button" class="btn btn-outline-primary dropdown-toggle ng-binding"
+                data-toggle="dropdown">{{returnWorkspacePreferences.defaultPreparer.value | displayText:lookup.preparerList}}</button>
+              <div class="dropdown-menu" style="cursor: pointer;"
+                [hidden]="!(lookup.preparerList && lookup.preparerList.length > 1)">
+                <a class="dropdown-item" *ngFor="let preparer of lookup.preparerList"
+                  (click)="returnWorkspacePreferences.defaultPreparer.value = preparer.id;">{{preparer.name}}</a>
+              </div>
+            </div>
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.defaultPreparer.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+        <!-- Auto Save EIN Preference -->
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Auto-save EIN in EIN library for W2, 1099, and other similar
+              forms?
+              <span> <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['saveein'].tooltip" (click)='informationLineHelp("saveein")'></i></span>
+            </label>
+
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4  border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoSaveEIN.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.autoSaveEIN">
+              <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24 ">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.autoSaveEIN.rightModel"
+                  (click)="updatRole(role.id,'autoSaveEIN') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoSaveEIN.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.autoSaveEIN.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('autoSaveEIN','radioButton',lookup.yesNoLookup)"
+              *ngIf="returnWorkspacePreferences.autoSaveEIN.rightModel === 1 && officeList && officeList.length > 1 ">Configure
+              Office</button>
+            <div class="checkbox-xs"
+              *ngIf="returnWorkspacePreferences.autoSaveEIN.rightModel !== 1 || (officeList && officeList.length === 1) ">
+              <div class="d-inline-block mr-3" *ngFor="let item of lookup.yesNoLookup">
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                  [class.active]="returnWorkspacePreferences.autoSaveEIN.value == item.id"
+                  (click)="returnWorkspacePreferences.autoSaveEIN.value = item.id"></button>
+                <span class="">{{item.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoSaveEIN.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+        <!-- Password Protected Printing Preference -->
+        <div>
+          <div class="row py-3 border-bottom">
+            <div class=""
+              [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+              <label class="float-left font-weight-bold">Would you like to password protect returns when printing?
+                <span> <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                    [title]="lineHelp['passwordprotect'].tooltip"
+                    (click)='informationLineHelp("passwordprotect")'></i></span>
+              </label>
+
+            </div>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4  border-t-dotted"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel === 2))"
+              *ngIf="isAdmin">
+              <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.passwordProtectedReturn">
+                <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24 ">
+                  <button type="button" class="custom_input_dark float-left margin_right_5"
+                    [class.active]="role.id === returnWorkspacePreferences.passwordProtectedReturn.rightModel"
+                    (click)="updatRole(role.id,'passwordProtectedReturn'); returnWorkspacePreferences.passwordType.value = role.id"></button>
+                  <span class="float-left">{{role.name}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel === 2))"
+              *ngIf="(isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel !== 2) || !isAdmin">
+              <button class="btn btn-outline-primary"
+                (click)="openConfigurationDialog('passwordProtectedReturn','passwordProtected',lookup.yesNoLookup)"
+                *ngIf="returnWorkspacePreferences.passwordProtectedReturn.rightModel === 1 && officeList && officeList.length > 1">Configure
+                Office</button>
+              <div class="checkbox-xs"
+                *ngIf="returnWorkspacePreferences.passwordProtectedReturn.rightModel !== 1 || (officeList && officeList.length === 1)">
+                <div class="d-inline-block mr-3" *ngFor="let item of lookup.yesNoLookup">
+                  <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                    [class.active]="returnWorkspacePreferences.passwordProtectedReturn.value == item.id"
+                    (click)="returnWorkspacePreferences.passwordProtectedReturn.value = item.id"></button>
+                  <span class="float-left">{{item.name}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col" *ngIf="!isAdmin">
+              <span class="right-text">
+                <div
+                  *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel === 2)) else isUsers">
+                  Administrator
+                </div>
+                <ng-template #isUsers>
+                  User
+                </ng-template>
+              </span>
+            </div>
+          </div>
+
+          <div class="row py-3 border-bottom" *ngIf="returnWorkspacePreferences.passwordProtectedReturn.value === true">
+            <div class=""
+              [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+              <label class="float-left font-weight-bold">Select Password Type</label>
+              <!-- <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer" (click)='informationLineHelp("selectpassword")'></i> -->
+            </div>
+            <!-- <div class="col-lg-3 col-md-4 col-sm-4 clearfix border-t-dotted">
+
+            </div> -->
+            <div class="col-lg-8 col-md-8 col-sm-8 col-8 col-xl-8 clearfix border-t-dotted"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel === 2))">
+              <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="returnWorkspacePreferences.passwordType.value === 'default'"
+                  (click)="returnWorkspacePreferences.passwordType.value = 'default'"></button>
+                <span class="float-left">Default</span>
+              </div>
+            </div>
+            <div class="col clearfix"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel === 2))">
+              <div class="">
+                <b>Note:</b> The default password is a combination of the first four letters of the taxpayer’s first
+                name or
+                the company name (for business returns) and the last four numbers of the SSN/ITIN or EIN.
+              </div>
+            </div>
+          </div>
+
+          <div class="row py-3 border-bottom" *ngIf="returnWorkspacePreferences.passwordProtectedReturn.value === true">
+            <div class=""
+              [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+
+            </div>
+            <!-- <div class="col-lg-3 col-md-4 col-sm-4 clearfix border-t-dotted">
+
+            </div> -->
+            <div class="col-8 col-xl-4 col-lg-4 col-md-8 col-sm-8 clearfix border-t-dotted"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel === 2))">
+              <div class="clearfix margin_left_1 margin_top_4 checkbox-xs">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="returnWorkspacePreferences.passwordType.value === 'custom'"
+                  (click)="returnWorkspacePreferences.passwordType.value = 'custom'"></button>
+                <span class="float-left">Custom</span>
+              </div>
+            </div>
+            <div class="col clearfix"
+              [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.passwordProtectedReturn.rightModel === 2))">
+              <div class="">
+                <b>Note:</b> You will be prompted to enter a desired password for each print request.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Wrap Text
+              <span> <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['wraptext'].tooltip" (click)='informationLineHelp("wraptext")'></i></span>
+            </label>
+
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4  border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.wrapText.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.wrapText">
+              <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24 ">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.wrapText.rightModel"
+                  (click)="updatRole(role.id,'wrapText') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.wrapText.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.wrapText.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('wrapText','radioButton',lookup.yesNoLookup)"
+              *ngIf="returnWorkspacePreferences.wrapText.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office
+            </button>
+            <div class="checkbox-xs"
+              *ngIf="returnWorkspacePreferences.wrapText.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <div class="d-inline-block mr-3" *ngFor="let item of lookup.yesNoLookup">
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                  [class.active]="returnWorkspacePreferences.wrapText.value == item.id"
+                  (click)="returnWorkspacePreferences.wrapText.value = item.id"></button>
+                <span class="float-left">{{item.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.wrapText.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Confirmation Dialog
+              <span> <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['confirmationdailog'].tooltip"
+                  (click)='informationLineHelp("confirmationdailog")'></i></span>
+            </label>
+
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4  border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.doNotAskforConfirmDlg.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.doNotAskforConfirmDlg">
+              <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24 ">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.doNotAskforConfirmDlg.rightModel"
+                  (click)="updatRole(role.id,'doNotAskforConfirmDlg') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.doNotAskforConfirmDlg.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.doNotAskforConfirmDlg.rightModel !== 2) || !isAdmin">
+            <div class="clearfix margin_left_1 margin_top_4 checkbox-xs"
+              *ngIf="returnWorkspacePreferences.doNotAskforConfirmDlg.rightModel !== 1">
+              <button type="button" class="custom_input_dark float-left margin_right_5"
+                [class.active]="returnWorkspacePreferences.doNotAskforConfirmDlg.value"
+                (click)="returnWorkspacePreferences.doNotAskforConfirmDlg.value = !returnWorkspacePreferences.doNotAskforConfirmDlg.value"></button>
+              <span class="float-left">Do not ask again</span>
+            </div>
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.wrapText.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Auto add state return based on:
+              <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['addstate'].tooltip" (click)='informationLineHelp("addstate")'></i></span>
+            </label>
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4  border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoAddState.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.autoAddState">
+              <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24 ">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.autoAddState.rightModel"
+                  (click)="updatRole(role.id,'autoAddState') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoAddState.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.autoAddState.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('autoAddState','radioButton', lookup.autoAddState)"
+              *ngIf="returnWorkspacePreferences.autoAddState.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office
+            </button>
+            <div class="clearfix margin_left_1 margin_top_4 checkbox-xs"
+              *ngIf="returnWorkspacePreferences.autoAddState.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <div class="clearfix mb-2" *ngFor="let autoAddStateFor of lookup.autoAddState">
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                  [class.active]="returnWorkspacePreferences.autoAddState.value.tag == autoAddStateFor.id"
+                  (click)="updateAutoAddStatePreferences(autoAddStateFor.id)"></button>
+                <span class="">{{autoAddStateFor.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoAddState.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+
+        <!-- Auto Save Occupation -->
+        <!-- <div class="row py-3 border-bottom">
+          <div class="" [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10': isAdmin}">
+            <label class="float-left font-weight-bold">Occupation Library auto save</label>
+          </div>
+          <div class="col-lg-4 border-t-dotted" [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoSaveOccupation.rightModel === 2))" *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.autoSaveOccupation">
+              <div class="col-lg-24 col-md-24">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.autoSaveOccupation.rightModel"
+                  (click)="updatRole(role.id,'autoSaveOccupation') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col clearfix" [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.autoSaveOccupation.rightModel === 2))" *ngIf="(isAdmin && returnWorkspacePreferences.autoSaveOccupation.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('autoSaveOccupation','radioButton',lookup.yesNoLookup)"
+              *ngIf="returnWorkspacePreferences.autoSaveOccupation.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office</button>
+            <div class="checkbox-xs"
+              *ngIf="returnWorkspacePreferences.autoSaveOccupation.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <div class="d-inline-block mr-3" *ngFor="let item of lookup.yesNoLookup">
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                  [class.active]="returnWorkspacePreferences.autoSaveOccupation.value == item.id"
+                  (click)="returnWorkspacePreferences.autoSaveOccupation.value = item.id"></button>
+                <span class="">{{item.name}}</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="row py-3 border-bottom">
+          <div class="" [class.col-lg-12]="!isAdmin" [class.col-lg-10]="isAdmin">
+            <label class="float-left font-weight-bold">Client Letter</label>
+            <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer" [title]="lineHelp['clientletter'].tooltip"
+              (click)='informationLineHelp("clientletter")'></i>
+          </div>
+          <div class="col-lg-4 border-t-dotted" [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.clientLetter.rightModel === 2))" *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.clientLetter">
+              <div class="col-lg-24 col-md-24">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.clientLetter.rightModel"
+                  (click)="updatRole(role.id,'clientLetter') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col clearfix" [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.clientLetter.rightModel === 2))"  *ngIf="(isAdmin && returnWorkspacePreferences.autoSaveOccupation.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('clientLetter', 'dropdown', lookup.clientLetterList)"
+              *ngIf="returnWorkspacePreferences.clientLetter.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office
+            </button>
+            <div class="dropdown"
+              *ngIf="returnWorkspacePreferences.clientLetter.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <button type="button" class="btn btn-outline-primary dropdown-toggle ng-binding"
+                data-toggle="dropdown">{{returnWorkspacePreferences.clientLetter.value | displayText:lookup.clientLetterList}}</button>
+              <div class="dropdown-menu" style="cursor: pointer;"
+                [hidden]="!(lookup.clientLetterList && lookup.clientLetterList.length > 1)">
+                <a class="dropdown-item" *ngFor="let clientLetter of lookup.clientLetterList"
+                  (click)="returnWorkspacePreferences.clientLetter.value = clientLetter.id;">{{clientLetter.name}}</a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="row py-3 border-bottom">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Print Packet
+              <span> <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['printpacket'].tooltip" (click)='informationLineHelp("printpacket")'></i></span>
+            </label>
+
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4  border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.printPacket.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.printPacket">
+              <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24 ">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.printPacket.rightModel"
+                  (click)="updatRole(role.id,'printPacket') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.printPacket.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.printPacket.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openPrintPacketConfigurationDialog('printPacket', 'route', '/manage/printPackets', 'Edit Settings')"
+              *ngIf="returnWorkspacePreferences.printPacket.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office
+            </button>
+            <div class="dropdown"
+              *ngIf="returnWorkspacePreferences.printPacket.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <div>
+                <button class="btn btn-outline-primary"
+                  (click)="goToPrintPacketSettings(returnWorkspacePreferences.printPacket.rightModel)">Edit
+                  Settings</button>
+              </div>
+            </div>
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.wrapText.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+
+        <!-- <div class="row py-3 border-bottom">
+          <div class="" [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10': isAdmin}">
+            <label class="float-left font-weight-bold">E-File Transmission Dialog</label>
+          </div>
+          <div class="col-lg-4 border-t-dotted" [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.eFileTransmissionDialogue.rightModel === 2))" *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.eFileTransmissionDialogue">
+              <div class="col-lg-24 col-md-24">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.eFileTransmissionDialogue.rightModel"
+                  (click)="updatRole(role.id,'eFileTransmissionDialogue') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col clearfix" [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.eFileTransmissionDialogue.rightModel === 2))"  *ngIf="(isAdmin && returnWorkspacePreferences.eFileTransmissionDialogue.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('eFileTransmissionDialogue','radioButton',lookup.yesNoLookup)"
+              *ngIf="returnWorkspacePreferences.eFileTransmissionDialogue.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office</button>
+            <div class="checkbox-xs"
+              *ngIf="returnWorkspacePreferences.eFileTransmissionDialogue.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <div class="d-inline-block mr-3" *ngFor="let item of lookup.yesNoLookup">
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                  [class.active]="returnWorkspacePreferences.eFileTransmissionDialogue.value == item.id"
+                  (click)="returnWorkspacePreferences.eFileTransmissionDialogue.value = item.id"></button>
+                <span class="">{{item.name}}</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="row py-3 border-bottom" *ngIf="betaOnly() == true">
+          <div class=""
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col-10 col-sm-10 col-md-10 col-xl-10 col-lg-10': isAdmin}">
+            <label class="float-left font-weight-bold">Auto update the Return Status to E-Filed when a return is Transmitted to the
+              IRS/AtState/Bank ?
+              <span> <i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['returnStatus'].tooltip" (click)='informationLineHelp("returnStatus")'></i></span>
+            </label>
+
+          </div>
+          <div class="col-8 col-sm-8 col-md-8 col-lg-4 col-xl-4  border-t-dotted"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.returnStatus.rightModel === 2))"
+            *ngIf="isAdmin">
+            <div class="row pb-2" *ngFor="let role of returnWorkspaceRoleConfiguration.returnStatus">
+              <div class="col-24 col-sm-24 col-md-24 col-lg-24 col-xl-24 ">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === returnWorkspacePreferences.returnStatus.rightModel"
+                  (click)="updatRole(role.id,'returnStatus') "></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix" [ngClass]="{'col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.returnStatus.rightModel === 2))"
+            *ngIf="(isAdmin && returnWorkspacePreferences.returnStatus.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('returnStatus','radioButton',lookup.yesNoLookup)"
+              *ngIf="returnWorkspacePreferences.returnStatus.rightModel === 1 && officeList && officeList.length > 1">Configure
+              Office
+            </button>
+            <div class="checkbox-xs"
+              *ngIf="returnWorkspacePreferences.returnStatus.rightModel !== 1 || (officeList && officeList.length === 1)">
+              <div class="d-inline-block mr-3" *ngFor="let item of lookup.yesNoLookup">
+                <button type="button" class="custom_input_dark float-left margin_right_5 margin_bottom_5"
+                  [class.active]="returnWorkspacePreferences.returnStatus.value == item.id"
+                  (click)="returnWorkspacePreferences.returnStatus.value = item.id"></button>
+                <span class="float-left">{{item.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && returnWorkspacePreferences.wrapText.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24 py-3 clearfix">
+        <div class="float-right">
+          <button class="btn btn btn-outline-primary mr-2" (click)="savePreferences(true)">Save</button>
+          <button class="btn btn btn-outline-primary" (click)="gotoHome()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

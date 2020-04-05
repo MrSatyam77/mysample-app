@@ -1,0 +1,32 @@
+<form [formGroup]="contractContactForm">
+  <div class="form-group row">
+    <label for="firstName" class="col-sm-8 col-form-label">First Name</label>
+    <div class="col-sm-16">
+      <input type="text" class="form-control" id="firstName" formControlName="firstName">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="lastName" class="col-sm-8 col-form-label">Last Name</label>
+    <div class="col-sm-16">
+      <input type="text" class="form-control" id="lastName" formControlName="lastName">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-8 col-form-label">Email</label>
+    <div class="col-sm-16">
+      <input type="text" class="form-control" id="email" formControlName="email">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="phoneNo" class="col-sm-8 col-form-label">Telephone</label>
+    <div class="col-sm-16">
+      <input type="text" class="form-control" id="phoneNo" formControlName="phoneNo" mask="(000) 000-0000">
+    </div>
+  </div>
+  <div class="col float-right border-top pt-3 p-0">
+    <div class="float-right">
+      <button type="submit" class="btn btn-outline-primary" (click)="save()" [disabled]="!contractContactForm.valid">Save</button>
+      <button type="button" class="btn btn-outline-primary ml-2" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</form>

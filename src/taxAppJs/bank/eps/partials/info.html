@@ -1,0 +1,61 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="taxAppJs/bank/eps/css/eps.css" rel="stylesheet" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">	
+    <style type="text/css">
+        .progress {
+            height: 5px !important;
+            margin-bottom: 0px !important;
+            margin-top: 5px;
+            background: none repeat scroll 0 0 transparent !important;
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important; position:absolute;
+        }
+
+        .popover-content {
+            padding: 6px 16px !important;
+        }
+
+        .margin-top_minus_10 {
+            margin-top: -10px;
+        }
+        .line_height_20 {
+            line-height:20px!important;
+        }
+    </style>
+</head>
+<body>
+     
+    	<!-- 2014 Year Start -->
+    	<div data-ng-if="taxYear=='2014'" data-ng-include="'taxAppJs/bank/eps/partials/info-2014.html'"></div>
+        <!-- 2014 Year End -->
+        
+        <!-- 2015 Year Start -->
+   		<div data-ng-if="taxYear=='2015'" data-ng-include="'taxAppJs/bank/eps/partials/info-2015.html'"></div>
+   		<!-- 2015 Year End -->
+
+        <!--2016 Year Start -->
+        <div data-ng-if="taxYear == '2016'" data-ng-include="'taxAppJs/bank/eps/partials/info-2016.html'"></div>
+        <!-- <div data-ng-if="betaOnly() == false && taxYear == '2019'" >
+            <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+                <section class="page_title_wrap title_height_40 clearfix">
+                    <span class="page_title_lg ng-binding title_height_40">
+                        <span class="page_title_lg ng-binding" translate="EPSBANK_ADD_HEADER" translate-default="EPS"></span>
+                    </span>
+                </section>
+                <div class="text-danger inner_padding_15  clearfix static_form_wrap allowScrollSync"   ng-style="{height:headerNav.screenHeight-106}"  style="overflow-y:auto;">            
+                    <div class="padding_l_r_0">
+                        <span>EPS enrollment for tax year 2019 is under maintenance. Please check back later.</span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!--2016 Year End -->
+        <div data-ng-if="taxYear == '2017'" data-ng-include="'taxAppJs/bank/eps/partials/info-2017.html'"></div>
+        <div data-ng-if="taxYear == '2018'" data-ng-include="'taxAppJs/bank/eps/partials/info-2018.html'"></div>
+        <div data-ng-if="taxYear == '2019'" data-ng-include="'taxAppJs/bank/eps/partials/info-2019.html'"></div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+</html>

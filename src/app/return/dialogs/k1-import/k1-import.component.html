@@ -1,0 +1,27 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h5 class="modal-title">
+      <span>Multiple K-1 data exists, please select from below which you want to import?</span>
+    </h5>
+  </div>
+
+  <div class="modal-body clearfix">
+    <div class="clearfix ml-1">
+      <div class="clearfix">
+        <div class="float-left mb-2 d-block" *ngFor="let obj of k1List">
+          <div class="float-left">
+            <div class="mtpo-custom-checkbox d-inline">
+              <button class="mtpo-checkbox" (click)="obj.isSelected = !obj.isSelected" [ngClass]="{'active': obj.isSelected === true}"></button>
+              <label class="d-inline" for="applyW7">SSN: {{obj.ssn}}, Return Type: {{obj.packageName}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="importK1Data()">Import</button>
+    <button type="button" class="btn btn-outline-primary" (click)="cancel()">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="clearfix border-bottom pb-4 mb-4">
+  <div class="row">
+    <div class="col">
+      <label class="font-weight-bold mb-3">Client Request</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-24">
+      <div class="form-group row">
+        <div class="col-12">
+          <label class="pt-2">Your client will receive the following question set in the MyTAXPortal.</label>
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-outline-primary" [disabled]="switchingQuestionSet"
+            (click)="manageClientQuestion()">Manage
+            Questions</button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-12">
+            <label class="selected-question-label p-2 m-0">{{settings.questionTitle}}</label>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-outline-primary" [disabled]="switchingQuestionSet"
+            (click)="changeQuestionSet()">Change Question
+            Set</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

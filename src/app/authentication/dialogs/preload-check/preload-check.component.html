@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <div class="col-24">
+        <div class="row">
+            <div class="col-1 col-md-1 col-sm-1 col-lg-1 col-xl-1 pl-0">
+                <img src="assets/images/browser_support.png" class="mt-1 mr-2">
+            </div>
+            <div class="col-23 col-md-23 col-sm-23 col-lg-23 col-xl-23 pl-xl-0">
+                <h4 class="modal-title" id="modal-title">Browser Support</h4>
+              
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="vertical-align-middle row">
+        <div class="col-24 col-lg-10 border-right">
+            <div class="col-24">
+                <h2 class="browser-support-modal-title-text">
+                    <span>For the best software experience, please use one of our supported browsers. We recommend using
+                        Google Chrome for optimal performance.</span>
+                </h2>
+            </div>
+            <div class="col-24 py-3">
+                <h2 class="clearfix"><span>Install one of our supported browsers and login to the software to
+                        begin.</span></h2>
+            </div>
+            <div class="col-24 pb-5">
+                <h3 class="browser-support-modal-footer">
+                    <span>Want to be adventurous and continue with your current browser?</span>
+                    <br>
+                    <a class="cursor_pointer margin_top_10" (click)="forceBrowserSupport()">
+                        <span class="blue-btn">Click Here</span>
+                    </a>
+                </h3>
+            </div>
+        </div>
+        <div class="row col-lg-14 col-24 justify-content-center text-center">
+            <div class="right-side-icons pl-3" *ngFor="let support of browserSupportList">
+                <div class="text-center">
+                    <span class="small-text">{{support.os}}</span>
+                </div>
+                <div class="text-center margin_top_10">
+                    <img src="assets/images/{{support.image}}" title="{{support.browser}}" class="browser-icon" />
+                </div>
+                <div class="text-center margin_top_10">
+                    <span>{{support.version}} +</span>
+                </div>
+                <div class="text-center margin_top_15">
+                    <a target="_blank" href="{{support.downloadLink}}"
+                        class="btn btn-outline-primary"><span>Download</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

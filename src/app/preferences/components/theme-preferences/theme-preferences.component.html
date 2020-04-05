@@ -1,0 +1,465 @@
+<div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24">
+  <form name="form.returnWorkspaceTabForm" novalidate>
+    <div class="row">
+      <div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24">
+        <div class="row py-3 border-bottom">
+          <div class="col-lg-8 col-md-8 col-xl-8 col-sm-8 col-8">
+            <label class="font_bold ng-scope m-0">Settings</label>
+          </div>
+          <div class="col-lg-4 col-md-8 col-xl-4 col-sm-8 col-8" *ngIf="isAdmin">
+            <label class="font_bold ng-scope m-0">Applicable To</label>
+          </div>
+          <div class="clearfix"
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col': isAdmin}">
+            <label class="font_bold ng-scope m-0">Options
+              <i class="fa fa-exclamation-circle text-danger ml-2 cursor_pointer" placement="right" container="body"
+                tooltipClass="error" [ngbPopover]="popContentPreferenceSettings" *ngIf="!isAdmin"></i>
+              <ng-template #popContentPreferenceSettings>
+                <label *ngIf="!isAdmin && view.user">
+                  Please contact your Admin to modify this setting.
+                </label>
+                <label *ngIf="!isAdmin && (view.customer || view.office)">
+                  Settings that cannot be modified here can be modified by navigating to <a class="text-bold"
+                    [routerLink]="['/preferences/admin/theme']"><b>Admin Settings</b></a> in the Menu on
+                  the left side of the screen.
+                </label>
+              </ng-template>
+            </label>
+          </div>
+          <div class="col clearfix" *ngIf="!isAdmin">
+            <label class="font_bold ng-scope m-0 right-text">To be set by</label>
+          </div>
+        </div>
+        <!-- Menu Preferences -->
+        <div class="row py-3 border-bottom align-items-center min-height-65">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xl-8 col-8">
+            <label class="float-left font-weight-bold">Theme
+              <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['theme'].tooltip" (click)='informationLineHelp("theme")'></i></span>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-8 col-sm-8 col-xl-4 col-8" *ngIf="isAdmin"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.theme.rightModel === 2))">
+            <div class="row" *ngFor="let role of roleConfiguration.theme">
+              <div class="col-lg-24 col-md-24 col-sm-24 col-xl-24 col-24">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === themePreferences.theme.rightModel"
+                  (click)="themePreferences.theme.rightModel = role.id"></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12 p-0': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.theme.rightModel === 2))"
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col': isAdmin}"
+            *ngIf="(isAdmin && themePreferences.theme.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary"
+              (click)="openConfigurationDialog('theme', 'dropdown', lookup.themeLookup)"
+              *ngIf="themePreferences.theme.rightModel === 1">Configure Office
+            </button>
+            <div class="clearfix p-0 col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12"
+              *ngIf="themePreferences.theme.rightModel !== 1">
+              <!-- <label class="font_bold mr-1">Predefined Templates: </label> -->
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary" *ngFor="let theme of lookup.themeLookup"
+                  [class.active]="themePreferences.theme.value === theme.id"
+                  (click)="themePreferences.theme.value = theme.id;">{{theme.name}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-2 col-xl-2 col-md-2 col-sm-2" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.theme.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+
+        <div class="row py-3 border-bottom align-items-center min-height-65">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xl-8 col-8">
+            <label class="float-left font-weight-bold">Menu Hints
+              <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['menu'].tooltip" (click)='informationLineHelp("menu")'></i></span>
+            </label>
+
+          </div>
+          <div class="col-lg-4 col-md-8 col-xl-4 col-sm-8 col-8" *ngIf="isAdmin"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.menu.rightModel === 2))">
+            <div class="row" *ngFor="let role of roleConfiguration.menu">
+              <div class="col-lg-24 col-md-24 col-xl-24 col-24 col-sm-24">
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === themePreferences.menu.rightModel"
+                  (click)="themePreferences.menu.rightModel = role.id"></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix p-0"
+            [ngClass]="{'col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12': !isAdmin, 'col': isAdmin}"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.menu.rightModel === 2))"
+            *ngIf="(isAdmin && themePreferences.menu.rightModel !== 2) || !isAdmin">
+            <button class="btn btn-outline-primary" (click)="openConfigurationDialog('menu', 'dropdown', lookup.menu)"
+              *ngIf="themePreferences.menu.rightModel === 1">Configure Office
+            </button>
+
+            <div class="clearfix col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12 p-0"
+              *ngIf="themePreferences.menu.rightModel !== 1">
+              <!-- <label class="font_bold mr-1">Predefined Templates: </label> -->
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary" *ngFor="let menuItem of lookup.menu"
+                  [class.active]="themePreferences.menu.value === menuItem.id"
+                  (click)="themePreferences.menu.value = menuItem.id;">{{menuItem.name}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-2 col-xl-2 col-md-2 col-sm-2" *ngIf="!isAdmin">
+            <span class="right-text">
+              <div
+                *ngIf="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.menu.rightModel === 2)) else isUsers">
+                Administrator
+              </div>
+              <ng-template #isUsers>
+                User
+              </ng-template>
+            </span>
+          </div>
+        </div>
+
+        <!-- COLOR PREFERENCES - FORM FIELDS-->
+        <div class="row py-3 border-bottom align-items-center min-height-65">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xl-8 col-8">
+            <label class="float-left font-weight-bold">Forms Fields
+              <!-- <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['performReview'].tooltip" (click)='informationLineHelp("menu")'></i></span> -->
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-8 col-xl-4 col-sm-8 col-8" *ngIf="isAdmin"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.performReview.rightModel === 2))">
+            <div class="row" *ngFor="let role of roleConfiguration.formFields">
+              <div class="col-lg-24 col-md-24 col-xl-24 col-24 col-sm-24">
+                <!-- [class.active]="role.id === colorPreferences.reject.rightModel" -->
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === colorPreferences.reject.rightModel"
+                  (click)="applyRightModel('formFields', role.id)"></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12 p-0">
+            <!-- <label class="font_bold mr-1">Predefined Templates: </label> -->
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-primary" *ngFor="let menu of lookup.menu"
+                [class.active]="selectedSoftware === menu.id" (click)="loadDefaultColor(menu.id)">{{menu.name}}</button>
+            </div>
+          </div>
+          <div class="col-lg-2 col-2 col-xl-2 col-md-2 col-sm-2" *ngIf="!isAdmin">
+            <span class="right-text">
+              User
+            </span>
+          </div>
+
+          <div class="clearfix offset-1 col-23">
+            <div class="row">
+              <div class="clearfix pt-1 col">
+                <label class="font_bold float-left text-primary">
+                  {{isAdmin ? 'Customization' : 'Preview'}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <!--Normal START -->
+          <div class="clearfix offset-2 col-22">
+            <div class="row">
+              <div class="clearfix pt-1"
+                [ngClass]="{'col-lg-3 col-6 col-xl-3 col-md-3 col-sm-6': isAdmin,'col-lg-4 col-6 col-xl-6 col-md-3 col-sm-6': !isAdmin}">
+                <label class="float-left">Normal</label>
+              </div>
+              <div class="pt-1 col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0" *ngIf="isAdmin">
+                <span class="color-picker-wrap" [style.background]="colorPreferences.normal.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.normal.value"
+                  (colorPickerChange)="selectPredefinedSettings()"></span>
+              </div>
+              <div class="col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6 pt-1" *ngIf="isAdmin">
+                <div class="row pt-2">
+                  <div class="col-12 col-xl-12 col-sm-12 col-lg-12 col-md-12" *ngFor="let settings of formSettings">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="settings.id === colorPreferences.normal.settings"
+                      (click)="colorPreferences.normal.settings = settings.id; selectPredefinedSettings();"></button>
+                    <span class="float-left">{{settings.name}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6" [ngClass]="{'pl-1 ml-4': !isAdmin, 'pl-0 ml-5':isAdmin}">
+                <input id="normalColor" type="FormFields" disabled [class.modernTheme]="selectedTheme === 'modern'"
+                  class="form-control outline_none" value="Sample Text" [ngStyle]="getStyle('normal')" />
+              </div>
+            </div>
+          </div>
+          <!--Normal END -->
+
+          <!--Required START -->
+          <div class="clearfix offset-2 col-22 mt-2">
+            <div class="row">
+              <div class="clearfix pt-1"
+                [ngClass]="{'col-lg-3 col-6 col-xl-3 col-md-3 col-sm-6': isAdmin,'col-lg-4 col-6 col-xl-6 col-md-3 col-sm-6': !isAdmin}">
+                <label class="float-left">Required</label>
+              </div>
+              <div class="pt-1 col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0" *ngIf="isAdmin">
+                <!--  -->
+                <span class="color-picker-wrap" [style.background]="colorPreferences.required.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.required.value"
+                  (colorPickerChange)="selectPredefinedSettings()"></span>
+              </div>
+              <div class="col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6 pt-1" *ngIf="isAdmin">
+                <div class="row pt-2">
+                  <div class="col-12 col-xl-12 col-sm-12 col-lg-12 col-md-12" *ngFor="let settings of formSettings">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="settings.id === colorPreferences.required.settings"
+                      (click)="colorPreferences.required.settings = settings.id; selectPredefinedSettings();"></button>
+                    <span class="float-left">{{settings.name}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6" [ngClass]="{'pl-1 ml-4': !isAdmin, 'pl-0 ml-5':isAdmin}">
+                <input id="normalColor" type="FormFields" disabled [class.modernTheme]="selectedTheme === 'modern'"
+                  class="form-control outline_none" value="Sample Text" [ngStyle]="getStyle('required')" />
+              </div>
+            </div>
+          </div>
+          <!--Required END -->
+
+          <!--Calculated START -->
+          <div class="clearfix offset-2 col-22 mt-2">
+            <div class="row">
+              <div class="clearfix pt-1"
+                [ngClass]="{'col-lg-3 col-6 col-xl-3 col-md-3 col-sm-6': isAdmin,'col-lg-4 col-6 col-xl-6 col-md-3 col-sm-6': !isAdmin}">
+                <label class="float-left">Calculated</label>
+              </div>
+              <div class="pt-1 col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0" *ngIf="isAdmin">
+                <!--  -->
+                <span class="color-picker-wrap" [style.background]="colorPreferences.calculated.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.calculated.value"
+                  (colorPickerChange)="selectPredefinedSettings()"></span>
+              </div>
+              <div class="col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6 pt-1" *ngIf="isAdmin">
+                <div class="row pt-2">
+                  <div class="col-12 col-xl-12 col-sm-12 col-lg-12 col-md-12" *ngFor="let settings of formSettings">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="settings.id === colorPreferences.calculated.settings"
+                      (click)="colorPreferences.calculated.settings = settings.id; selectPredefinedSettings();"></button>
+                    <span class="float-left">{{settings.name}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6" [ngClass]="{'pl-1 ml-4': !isAdmin, 'pl-0 ml-5':isAdmin}">
+                <input id="normalColor" type="FormFields" disabled [class.modernTheme]="selectedTheme === 'modern'"
+                  class="form-control outline_none" value="Sample Text" [ngStyle]="getStyle('calculated')" />
+              </div>
+            </div>
+          </div>
+          <!--Calculated END -->
+
+          <!--Overriden START -->
+          <div class="clearfix offset-2 col-22 mt-2">
+            <div class="row">
+              <div class="clearfix pt-1"
+                [ngClass]="{'col-lg-3 col-6 col-xl-3 col-md-3 col-sm-6': isAdmin,'col-lg-4 col-6 col-xl-6 col-md-3 col-sm-6': !isAdmin}">
+                <label class="float-left">Overriden</label>
+              </div>
+              <div class="pt-1 col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0" *ngIf="isAdmin">
+                <!--  -->
+                <span class="color-picker-wrap" [style.background]="colorPreferences.overriden.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.overriden.value"
+                  (colorPickerChange)="selectPredefinedSettings()"></span>
+              </div>
+              <div class="col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6 pt-1" *ngIf="isAdmin">
+                <div class="row pt-2">
+                  <div class="col-12 col-xl-12 col-sm-12 col-lg-12 col-md-12" *ngFor="let settings of formSettings">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="settings.id === colorPreferences.overriden.settings"
+                      (click)="colorPreferences.overriden.settings = settings.id; selectPredefinedSettings();"></button>
+                    <span class="float-left">{{settings.name}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6" [ngClass]="{'pl-1 ml-4': !isAdmin, 'pl-0 ml-5':isAdmin}">
+                <input id="normalColor" type="FormFields" disabled [class.modernTheme]="selectedTheme === 'modern'"
+                  class="form-control outline_none" value="Sample Text" [ngStyle]="getStyle('overriden')" />
+              </div>
+            </div>
+          </div>
+          <!--Overriden END -->
+
+          <!--Estimated START -->
+          <div class="clearfix offset-2 col-22 mt-2">
+            <div class="row">
+              <div class="clearfix pt-1"
+                [ngClass]="{'col-lg-3 col-6 col-xl-3 col-md-3 col-sm-6': isAdmin,'col-lg-4 col-6 col-xl-6 col-md-3 col-sm-6': !isAdmin}">
+                <label class="float-left">Estimated</label>
+              </div>
+              <div class="pt-1 col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0" *ngIf="isAdmin">
+                <!--  -->
+                <span class="color-picker-wrap" [style.background]="colorPreferences.estimated.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.estimated.value"
+                  (colorPickerChange)="selectPredefinedSettings()"></span>
+              </div>
+              <div class="col-lg-6 col-6 col-xl-6 col-md-6 col-sm-6 pt-1" *ngIf="isAdmin">
+                <div class="row pt-2">
+                  <div class="col-12 col-xl-12 col-sm-12 col-lg-12 col-md-12" *ngFor="let settings of formSettings">
+                    <button type="button" class="custom_input_dark float-left margin_right_5"
+                      [class.active]="settings.id === colorPreferences.estimated.settings"
+                      (click)="colorPreferences.estimated.settings = settings.id; selectPredefinedSettings();"></button>
+                    <span class="float-left">{{settings.name}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6" [ngClass]="{'pl-1 ml-4': !isAdmin, 'pl-0 ml-5':isAdmin}">
+                <input id="normalColor" type="FormFields" disabled [class.modernTheme]="selectedTheme === 'modern'"
+                  class="form-control outline_none" value="Sample Text" [ngStyle]="getStyle('estimated')" />
+              </div>
+            </div>
+          </div>
+          <!--Estimated END -->
+        </div>
+
+        <!-- COLOR PREFERENCES - PERFORM REVIEW-->
+        <div class="row py-3 border-bottom align-items-center min-height-65" *ngIf="isAdmin">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xl-8 col-8">
+            <label class="float-left font-weight-bold">Perform Review
+              <!-- <span class="cursor_pointer"><i class="pl-2 fa fa-info-circle text-silver-light cursor_pointer"
+                  [title]="lineHelp['performReview'].tooltip" (click)='informationLineHelp("menu")'></i></span> -->
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-8 col-xl-4 col-sm-8 col-8" *ngIf="isAdmin"
+            [class.no-clicking]="(view.user && isAdmin) || !(isAdmin || (!isAdmin && themePreferences.performReview.rightModel === 2))">
+            <div class="row" *ngFor="let role of roleConfiguration.performReview">
+              <div class="col-lg-24 col-md-24 col-xl-24 col-24 col-sm-24">
+                <!-- [class.active]="role.id === colorPreferences.reject.rightModel" -->
+                <button type="button" class="custom_input_dark float-left margin_right_5"
+                  [class.active]="role.id === colorPreferences.reject.rightModel"
+                  (click)="applyRightModel('performReview', role.id)"></button>
+                <span class="float-left">{{role.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix col-lg-12 col-12 col-xl-12 col-md-12 col-sm-12"></div>
+          <div class="col-lg-2 col-2 col-xl-2 col-md-2 col-sm-2" *ngIf="!isAdmin">
+            <span class="right-text">
+              User
+            </span>
+          </div>
+          <div class="clearfix offset-1 col-23">
+            <div class="row">
+              <div class="clearfix pt-1 col">
+                <label class="font_bold float-left text-primary">
+                  {{isAdmin ? 'Customization' : 'Preview'}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix offset-2 col-5">
+            <div class="row py-3">
+              <!-- REJECT -->
+              <div class="clearfix col-lg-13 col-13 col-xl-13 col-md-13 col-sm-13">
+                <label class="float-left">Reject</label>
+              </div>
+              <div class="clearfix col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0">
+                <span class="color-picker-wrap" [style.background]="colorPreferences.reject.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.reject.value"></span>
+              </div>
+            </div>
+            <!-- Reject End -->
+            <!-- reject -->
+
+            <!-- warning -->
+            <div class="row py-3">
+              <div class="clearfix col-lg-13 col-13 col-xl-13 col-md-13 col-sm-13">
+                <label class="float-left">Warning</label>
+              </div>
+              <div class="clearfix col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0">
+                <span class="color-picker-wrap" [style.background]="colorPreferences.warning.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.warning.value"></span>
+              </div>
+            </div>
+            <!-- info -->
+            <div class="py-3 row">
+              <div class="clearfix col-lg-13 col-13 col-xl-13 col-md-13 col-sm-13">
+                <label class="float-left">Info</label>
+              </div>
+              <div class="clearfix col-lg-1 col-6 col-xl-1 col-md-6 col-sm-6 pl-0">
+                <span class="color-picker-wrap" [style.background]="colorPreferences.info.value"
+                  [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+                  [(colorPicker)]="colorPreferences.info.value"></span>
+              </div>
+            </div>
+          </div>
+          <div class="offset-1 col-24 col-md-16 col-xl-16 col-lg-16">
+            <div class="clearfix table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td>
+                      <button class="btn" [style.color]="colorPreferences.reject.value"
+                        style.border="1px solid {{colorPreferences.reject.value}}">Reject</button>
+                    </td>
+                    <td [style.color]="colorPreferences.reject.value">Reject</td>
+                    <td [style.color]="colorPreferences.reject.value">Client Information Sheet
+                    </td>
+                    <td [style.color]="colorPreferences.reject.value">
+                      Required information has not been entered.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button class="btn" [style.color]="colorPreferences.warning.value"
+                        style.border="1px solid {{colorPreferences.warning.value}}">Overridden</button>
+                    </td>
+                    <td [style.color]="colorPreferences.warning.value">Warning</td>
+                    <td [style.color]="colorPreferences.warning.value">Client Information Sheet
+                    </td>
+                    <td [style.color]="colorPreferences.warning.value">Calculated value is overridden - please review
+                      for
+                      accuracy.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button class="btn" [style.color]="colorPreferences.info.value"
+                        style.border="1px solid {{colorPreferences.info.value}}">Info</button>
+                    </td>
+                    <td [style.color]="colorPreferences.info.value">Info</td>
+                    <td [style.color]="colorPreferences.info.value">Client Information Sheet
+                    </td>
+                    <td [style.color]="colorPreferences.info.value">
+                      Sample Text.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--perform review table end-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-24 col-md-24 col-lg-24 col-xl-24 col-sm-24 py-3 padding_l_0 clearfix py-3 clearfix p-0">
+      <small class="my-auto p-0">*ProSeries, ATX, TaxWise, and CrossLink are trademarks or registered trademarks of
+        their respective
+        holders. Use of these marks does not imply any affiliation with or endorsement by them.</small>
+      <div class="float-right">
+        <button class="btn btn btn-outline-primary mr-2" (click)="savePreferences(true)">Save</button>
+        <button class="btn btn btn-outline-primary" (click)="gotoHome()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>

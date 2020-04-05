@@ -1,0 +1,27 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		<span translate="REQUIREDPRIVILEGES_LBL" translate-default="Required Privileges"></span>
+	</h4>
+</div>
+<div class="modal-body clearfix">
+	<div class="form-group input-group-lg row_height_30">
+		<div class="col-lg-24 col-sm-24 col-md-24 col-xs-24">			
+            <span translate="REQUIREDPRIVILEGES_MSG_START" translate-default="The user role "></span>
+			<span class="font_bold">{{userLocationData.role.name}}</span>	
+            <span translate="REQUIREDPRIVILEGES_MSG_END" translate-default=' does not have the rights to perform this action. The privileges below are necessary to complete the desired action.'></span>
+		</div>
+		<div data-ng-repeat="category in requiredPrivileges track by $index" class="col-lg-24 col-sm-24 col-md-24 col-xs-24">
+			<div  class="col-lg-24 col-sm-24 col-md-24 col-xs-24 float-left margin_top_10">
+				<label class="font_bold">{{::category.name}}</label>
+				<ul>
+					<li data-ng-repeat="privilege in category.privileges" class="padding_top_5 col-lg-8 col-sm-8 col-md-8 col-xs-8 float-left">{{::privilege.displayText}}</li>
+				</ul>
+			</div>
+		</div>		
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="REQUIREDPRIVILEGES_CLOSE" translate-default="Close"></span></button>		
+</div>
+</div>

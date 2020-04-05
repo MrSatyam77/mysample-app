@@ -1,0 +1,75 @@
+<div class="bg-white border">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg title_height_40">
+        <span class="page_title_lg">
+          <span *ngIf="!id">Add Role</span>
+          <span *ngIf="id">Edit Role</span>
+        </span>
+      </span>
+    </section>
+  </div>
+  <form [formGroup]="roleForm">
+    <div class="col-24 col-lg-24 col-xl-24 col-md-24 col-sm-24 inner_padding_15">
+      <div *ngIf="rowData">
+        <div *ngIf="rowData.isPredefined">
+          <span class="text-danger">This is a predefined role. You can not edit or delete this role.</span>
+        </div>
+      </div>
+      <div class="row pt-2">
+        <div class="col-4 col-lg-4 col-xl-4 col-md-4 col-sm-4">
+          Name
+        </div>
+        <div class="col-6 col-lg-6 col-xl-6 col-md-6 col-sm-6">
+          <input type="text" formControlName="name" class="form-control" />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4 col-lg-4 col-xl-4 col-md-4 col-sm-4">
+          Description
+        </div>
+        <div class="col-6 col-lg-6 col-xl-6 col-md-6 col-sm-6">
+          <textarea class="form-control textarea" formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4 col-lg-4 col-xl-4 col-md-4 col-sm-4">
+          Privileges
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-24 col-lg-24 col-xl-24 col-md-24 col-sm-24">
+          <div *ngFor="let category of categoryList">
+            <div class="row col-lg-24 col-sm-24 col-md-24 col-xs-24 pt-2 margin_bottom_5 margin_top_5 font_bold clearfix">
+              {{category}}</div>
+            <div class="row col-lg-24 col-sm-24 col-md-24 col-xs-24">
+              <ng-template ngFor let-privilage [ngForOf]="role.privilageList" let-i=index>
+                <div *ngIf="privilage.category === category"
+                  class="priviledges col-lg-6 col-sm-6 col-md-6 col-xs-6 clearfix">
+                  <div class="mtpo-custom-checkbox d-inline pt-2" [ngClass]="{'no-clicking disabled': (rowData && rowData.isPredefined) }">
+                    <button class="mtpo-checkbox" (click)="privilage.isSelected = !privilage.isSelected;"
+                      [ngClass]="{'active': privilage.isSelected === true}"></button>
+                    <label class="d-inline">{{privilage.displayText}}</label>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="light_line">
+    <div class="row mt-3 mb-3">
+      <div class="col-24 col-lg-24 col-xl-24 col-md-24 col-sm-24">
+        <div class="float-right">
+          <button class="btn btn-outline-primary mr-2"  [disabled]="!roleForm.valid || !userCan('CAN_SAVE_ROLE') || (rowData && rowData.isPredefined)"
+            (click)="save()">Save</button>
+          <button class="btn btn-outline-primary mr-2" (click)="cancel()">Cancel</button>
+          <button class="btn btn-outline-primary" (click)="remove()"
+            [disabled]="!id || !userCan('CAN_REMOVE_ROLE') || (rowData && rowData.isPredefined)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

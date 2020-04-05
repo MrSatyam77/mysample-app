@@ -1,0 +1,35 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+	<div class="modal-header dialog-header-confirm">
+		<h4 class="modal-title">
+			<span translate="CUSTOMRETURNSTATUS_DLG_TEXT0" translate-default="Proforma Return Status"></span>
+		</h4>
+	</div>
+	<div class="modal-body clearfix">
+		<form name="newReturnStatusForm">
+
+
+			<div class="col-lg-24 col-sm-24 col-md-24 margin_top_15 padding_l_r_0 ">
+				<div class="col-lg-24 col-sm-24 col-md-24 padding_l_r_0 clearfix">
+
+
+					<div data-ng-show="isError == false">
+						<span translate="PROFORMA_MESSAGE" translate-default="Prior year return exists. Do you want to proforma the information?"><span>
+					</div>
+					<div data-ng-show="isError == true">
+						<span translate="PROFORMA_ERRORMESSAGE" translate-default="Proforma for a prior year return was unsuccessfull. Do you want to create a new return ?"><span>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-primary" data-ng-show="isProcessing==false" data-ng-click="proformaOrNewReturn()"><span
+			 translate="RENEWALNOTIFICATION_DLG_BTN_OK" translate-default="Yes"></span></button>
+		<button type="button" class="btn btn-outline-primary no-clicking" data-ng-show="isProcessing==true"><span translate="DIALOG_PROCESSING"
+			 translate-default="Processing..."></span></button>
+		<button type="button" class="btn btn-outline-primary" data-ng-click="close()" data-ng-class="{'no-clicking' : isProcessing}"><span
+			 translate="RENEWALNOTIFICATION_DLG_BTN_CANCEL" translate-default="No"></span></button>
+	</div>
+</div>

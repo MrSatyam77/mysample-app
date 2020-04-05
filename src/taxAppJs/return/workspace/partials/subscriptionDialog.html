@@ -1,0 +1,31 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title" translate="RETURNSUBSCRIPTION_UPGRADETITLE_HEADER" translate-default="Upgrade your License">
+        </h4>
+    </div>
+    <div class="modal-body clearfix">
+        <ng-form name="nameDialog" role="form">
+            <div class="form-group input-group-lg row_height_30">
+                <div ng-if="!bankProducts">
+                    <div> <span translate="RETURNSUBSCRIPTION_FILENOTAVAILABLE_SPAN" translate-default="The E-File feature is not available with the"></span>
+                    <span>{{licenseName}}</span>
+                    <span translate="RETURNSUBSCRIPTION_FILENOTAVAILABLE_SPAN" translate-default="license."></span>
+                    </div>
+                    <div> <span translate="RETURNSUBSCRIPTION_YOUNEEDUPGRADE_SPAN" translate-default="Please upgrade to use the E-File feature."></span></div>
+                </div>
+                <div ng-if="bankProducts">
+                    <div> <span translate="RETURNSUBSCRIPTION_BANK_SPAN" translate-default="The financial product enrollment feature is not available with " ></span>
+                    <span>{{licenseName}}</span>
+                    <span translate="RETURNSUBSCRIPTION_BANK_SPAN" translate-default=" license."></span>
+                    </div>
+                    <div> <span translate="RETURNSUBSCRIPTION_YOUNEEDMONTHORANNUAL_SPAN_BANK" translate-default="To complete the enrollment process please upgrade your license by clicking on the Upgrade button below."></span></div>
+                </div>
+            </div>
+        </ng-form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()"><span translate="RETURNSUBSCRIPTION_CANCEL_SPAN" translate-default="Cancel"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="subscribe()" data-ng-if="hasCustomerId == true && hasFeature('SUBSCRIPTION')"><span translate="RETURNSUBSCRIPTION_UPGRADE_SPAN" translate-default="Upgrade"></span></button>
+        <button type="button" class="btn btn-outline-primary" data-ng-click="close()" data-ng-if="hasCustomerId != true"><span translate="RETURNSUBSCRIPTION_OK_SPAN" translate-default="Ok"></span></button>
+    </div>
+</div>

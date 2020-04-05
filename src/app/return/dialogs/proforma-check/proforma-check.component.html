@@ -1,0 +1,25 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+  <div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title">
+      <span>Proforma Return Status</span>
+    </h4>
+  </div>
+  <div class="modal-body clearfix">
+    <div class="col-lg-24 col-sm-24 col-md-24 pl-0 pr-0 ">
+      <div class="col-lg-24 col-sm-24 col-md-24 pl-0 pr-0 clearfix">
+        <div *ngIf="isError === false">
+          <span>Prior year return exists. Do you want to proforma the information?</span>
+        </div>
+        <div *ngIf="isError === true">
+          <span>Proforma for a prior year return was unsuccessfull. Do you want to create a new return ?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" *ngIf="isProcessing===false" (click)="proformaOrNewReturn()">Yes</button>
+    <button type="button" class="btn btn-outline-primary no-clicking" *ngIf="isProcessing===true">Processing...</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()" [disabled]="isProcessing === true">No</button>
+  </div>
+</div>

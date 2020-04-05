@@ -1,0 +1,44 @@
+<div class="col-24 p-0 bg-white border">
+  <div class="col-lg-24 col-md-24 col-sm-24 padding_l_r_0">
+    <section class="page_title_wrap title_height_40 clearfix">
+      <span class="page_title_lg ng-binding title_height_40">
+        <span class="page_title_lg ng-binding ng-scope">Instant Form View Devices</span>
+        <div class="row float-right mt-2">
+          <button class="btn btn-outline-primary pl-2 mr-3" (click)="backToHomeScreen()">Back
+            To Dashboard</button>
+        </div>
+      </span>
+    </section>
+  </div>
+  <!-- <section class="page_title_wrap title_height_40 clearfix">
+    <span class="page_title_lg ng-binding title_height_40">
+      <span class="page_title_lg ng-binding ng-scope">Instant Form View Devices</span>
+    </span>
+  </section> -->
+  <div class="clearfix">
+    <!-- Nav tabs -->
+    <ul class="nav custom-line-tab ">
+      <li class="nav-item" [class.tab-current]="option === 'trusted-device'">
+        <a class="nav-link" [class.active]="option === 'trusted-device'" (click)="changeTab('trusted-device')"
+          data-toggle="tab" data-target="#trusteddevice">Trusted Devices</a>
+      </li>
+      <li class="nav-item" [class.tab-current]="option === 'authorize-device'">
+        <a class="nav-link" [class.active]="option === 'authorize-device'" (click)="changeTab('authorize-device')"
+          data-toggle="tab" data-target="#authorizedevice">Authorize Devices</a>
+      </li>
+
+    </ul>
+
+
+    <div class="tab-content border-0">
+      <div class="tab-pane" id="trusteddevice" [class.active]="option === 'trusted-device'">
+        <app-trusted-device-list>
+        </app-trusted-device-list>
+      </div>
+      <div class="tab-pane" id="authorizedevice" [class.active]="option === 'authorize-device'">
+        <app-authorize-device-list>
+        </app-authorize-device-list>
+      </div>
+    </div>
+  </div>
+</div>

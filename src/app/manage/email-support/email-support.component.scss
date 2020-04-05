@@ -1,0 +1,72 @@
+:host ::ng-deep .ql-container {
+    height: 400px !important;
+}
+:host ::ng-deep .ng-invalid > .ql-container{
+    border:1px solid #ff0000 !important; 
+}
+
+.file-upload-box {
+    background: #ECECEC;
+    padding: 0px 0px 0px 0px;
+    width: 100%;
+    position: relative;
+    border: 1px solid #D7EBF5;
+    padding: 15px;
+    // height: 100%;
+}
+
+.file-upload-box .add-papper-input-wrap .form_linebar .form_label {
+    padding-right: 30px;
+}
+
+.file-upload-box .upload-ui {
+    position: relative;
+    border: 2px dashed #95989A;
+    padding: 10px;
+    // height: 100%;
+}
+
+.file-upload-box .upload-ui .upload-pdf-icon {
+    margin-bottom: 0px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    // height: 100%;
+}
+
+.file-upload-box .upload-ui .upload-pdf-icon input {
+    opacity: 0;
+    position: absolute;
+}
+
+.file-upload-box .upload-ui .upload-pdf-icon .select_btn_ui {
+    font-size: 16px;
+    background: #E1E1E1;
+    padding: 9px 10px;
+    min-width: 320px;
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.file-upload-box .upload-ui .upload-pdf-txt {
+    text-align: center;
+}
+
+.upload-details{
+    height: 325px;
+    overflow-y: auto;
+}
+
+.ql-toolbar.ql-snow{
+    background-color: #f8f9fa !important;
+}
+
+  /* progress bar css */
+.progressbar_wrapper{position: relative; float: left; width: 100%; margin-bottom: 0px;}
+.white_box_wrapper mat-progress-bar{position: absolute; width: 100%; right: 0; left: 0; top: 0; border-radius: 25px;}
+.white_box_wrapper .mat-progress-bar{height: 14px;}
+.mat-progress-bar-fill::after{background-color: #005074;}
+.progressbar_wrapper .progress{margin-bottom: 0px !important;}
+.progress-bar{background-color: #000;}
+/* progress bar css */

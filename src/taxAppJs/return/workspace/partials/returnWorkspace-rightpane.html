@@ -1,0 +1,119 @@
+﻿﻿<div class="inner_col_third" data-ng-class="{'inner_collapse_right':headerNav.collapseRightPane==true,'inner_collapse_right_animation':headerNav.applyRightAnimation==true,'inner_collapse_right_remove':headerNav.collapseRightPane==false}">
+    <div class="inner_col_third_wrapper" style="overflow-y:hidden;">     
+        <div id="accordion" class="my-accordion">
+            <!--training start-->
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" data-target="#training">
+                        <span>Training</span>
+                        <span>({{trainingDataList.length}})</span>
+                        <span class="accordion-right-icon-wrap accordion-refresh" data-ng-click="rightPane.rightPaneFirstAccordionOpen=true;manuallyRefreshTraining();firstRefreshStart=true;$event.stopPropagation()"
+                            data-ng-class="{'rotate':firstRefreshStart}"></span>
+                    </a>
+                </div>
+                <div id="training" class="collapse show" data-parent="#accordion">
+                    <div class="card-body" style="overflow:auto;" data-ng-style="{height:headerNav.screenHeight-{{::deductHieght}} +'px'}">
+                        <training-widget></training-widget>
+                    </div>
+                </div>
+            </div>
+            <!--training end-->
+
+            <!--notes start-->
+            <div class="card" is-open="rightPane.rightpanesecondaccordionopen">
+                <div class="card-header">
+                    <a class="collapsed card-link" data-toggle="collapse" data-target="#notes">
+                        <span>Notes</span>
+                        <span>({{(formReturnNoteDataList|filter:{type:'form'}|filter:{returnId:returnId}|filter:{docName:docName}).length+(formReturnNoteDataList|filter:{type:'return'}|filter:{returnId:returnId}).length+preparerNoteDataList.length}})</span>
+                        <span class="accordion-right-icon-wrap accordion-refresh" data-ng-class="{'no-clicking disabled':!userCan('CAN_LIST_CLIENTNOTE'),'rotate':secondRefreshStart}"
+                            data-ng-click="rightPane.rightpanesecondaccordionopen=true;manuallyRefreshNote();secondRefreshStart=true;$event.stopPropagation()">
+                        </span>
+                    </a>
+                </div>
+                <div id="notes" class="collapse" data-parent="#accordion">
+                    <div class="card-body" style="overflow:auto;" data-ng-style="{height:headerNav.screenHeight-{{::deductHieght}} +'px'}">
+                        <notes></notes>
+                    </div>
+                </div>
+            </div>
+            <!--notes end-->
+
+            <!--documents start-->
+            <div class="card" is-open="rightPane.rightpanethirdaccordionopen">
+                <div class="card-header">
+                    <a class="collapsed card-link" data-toggle="collapse" data-target="#documents">
+                        <span>Documents</span>
+                        <span>({{(documentList|filter:{type:'form'}|filter:{returnId:documentReturnId}|filter:{docIndex:docIndex}).length+(documentList|filter:{type:'return'}|filter:{returnId:documentReturnId}).length}})</span>
+                        <span data-ng-show="maxStorageSize">({{availableDocumentSize}}
+                            of {{availableMaxStorageSize}} used)</span>
+                        <span class="accordion-right-icon-wrap accordion-refresh" data-ng-click="rightPane.rightpanethirdaccordionopen=true;manuallyRefreshDocument();thirdRefreshStart=true;$event.stopPropagation()"
+                            data-ng-class="{'rotate':thirdRefreshStart,'no-clicking':!isOnline}"></span>
+
+                    </a>
+                </div>
+                <div id="documents" class="collapse" data-parent="#accordion">
+                    <div class="card-body" style="overflow:auto;" data-ng-style="{height:headerNav.screenHeight-{{::deductHieght}} +'px'}" data-ng-class="{'offline_future_wrap':!isOnline}">
+                        <documents></documents>
+                    </div>
+                </div>
+            </div>
+            <!--documents end-->
+
+            <!-- quick return summary start-->
+            <div class="card" is-open="rightPane.rightpanefourthaccordionopen">
+                <div class="card-header">
+                    <a class="collapsed card-link" data-toggle="collapse" data-target="#completesummary">
+                        <span>E-File Status / Quick Return Summary</span>
+                        <span class="accordion-right-icon-wrap accordion-refresh" data-ng-disabled="!userCan('CAN_OPEN_RETURN')"
+                            data-ng-click="rightPane.rightpanefourthaccordionopen=true;getReturnStummary();fourthRefreshStart=true;$event.stopPropagation()"
+                            data-ng-class="{'rotate':fourthRefreshStart,'no-clicking':!isOnline}"></span>
+                    </a>
+                </div>
+                <div id="completesummary" class="collapse" data-parent="#accordion">
+                    <div class="card-body sidebar-table-data" style="overflow:auto;" data-ng-style="{height:headerNav.screenHeight-{{::deductHieght}} +'px'}" data-ng-class="{'offline_future_wrap':!isOnline}">
+                        <complete-summary></complete-summary>
+                    </div>
+                </div>
+            </div>
+            <!-- quick return summary end-->
+
+
+            <!-- Line Help start-->
+            <div class="card" is-open="rightPane.rightpanefifthaccordionopen">
+                <div class="card-header">
+                    <a class="collapsed card-link" data-toggle="collapse" data-target="#linehelp">
+                        <span>Line Help</span>
+                    </a>
+                </div>
+                <div id="linehelp" class="collapse" data-parent="#accordion">
+                    <div class="card-body" style="overflow:auto;" data-ng-style="{height:headerNav.screenHeight-{{::deductHieght}} +'px'}">
+                        <line-help-widget></line-help-widget>
+                    </div>
+                </div>
+            </div>
+            <!-- Line Help end-->
+
+            <!-- client portal start -->
+            <div class="card" is-open="rightPane.rightpanesixthaccordionopen" ng-if="client.packageName === '1040' && taxYear === '2018' && userCan('CAN_VIEW_CLIENT_QUE') && isClientPortalFeatureEnable == true">
+                <div class="card-header">
+                    <a class="collapsed card-link" data-ng-click="markQuestionReqViewed()" data-toggle="collapse"
+                        data-target="#clientportal">
+                        <span>MyTAXPortal</span>
+                        <span class="accordion-right-icon-wrap accordion-refresh" data-ng-click="rightPane.rightpanesixthaccordionopen=true;sixthRefreshStart=true;getQuesAnsForReturnBySSN();$event.stopPropagation()"
+                            data-ng-class="{'rotate':sixthRefreshStart}"><i class="fas fa-redo float-right right_panel_refresh_icon"></i></span>
+
+                    </a>
+                </div>
+                <div id="clientportal" class="collapse" data-parent="#accordion">
+                    <div class="card-body" style="overflow:auto;" data-ng-style="{height:headerNav.screenHeight-{{::deductHieght}} +'px'}">
+                        <client-portal-ques-ans></client-portal-ques-ans>
+                    </div>
+                </div>
+            </div>
+            <!-- client portal end -->
+
+        </div>
+
+
+    </div>
+</div>

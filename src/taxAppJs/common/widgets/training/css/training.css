@@ -1,0 +1,14 @@
+﻿/*training panel css start*/
+.video_area { min-height:400px; overflow-y:auto;height:auto;}
+.video_wrap { padding:10px; padding-bottom:8px; border:1px solid #dfdfdf; border-bottom:3px solid #dfdfdf;}
+.video_wrap_without_padding {border:1px solid #dfdfdf; border-bottom:3px solid #dfdfdf;}
+.video_wrap_without_padding:hover{ background:#F5F5F5;}
+.video_player_without_padding {margin-bottom:0px;}
+.video_player_without_padding img{width:100%;}
+.back_video{background-image: url("/return/workspace/images/back_video.png");}
+.video_wrap:hover{ background:#F5F5F5;}
+.video_player {margin-bottom:5px;}
+.video_player img {width:100%;}
+.video_title {color:#555555; font-weight: bold; /*padding:2px 10px;*/}
+.video_txt_info {color:#8f8f8f;word-wrap:break-word;}
+/*training panel css end*/

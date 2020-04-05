@@ -1,0 +1,46 @@
+﻿.right_bar_heading{ background: none repeat scroll 0 0 #fbfbfb;border: 1px solid #cdcdcd;padding: 5px;margin-top: 5px;font-size: 20px;margin-bottom: 5px;}
+.Perform_Review {border:1px solid #e5e5e5;display:block; position:absolute; bottom:0px; left:0px; width:100%; min-height:0px; box-shadow:0px 0px 2px rgba(0, 0, 0, 0.1)}
+.Perform_Review .p_header {font-size:20px; background:#fbfbfb; border-bottom:1px solid #e0e0e0; color:#333; padding:7px 0px 3px 15px;}
+.Perform_Review .main_content {padding:15px;overflow-y:auto;}
+.Perform_Review .errormsg {padding-top:13px;}
+.Perform_Review i{color:#666; cursor:pointer;}
+.Perform_Review .main_content{overflow-y:auto}
+#scroll {width: 100%;  border-spacing: 0;margin-bottom:0;}
+#scroll th,#scroll td,#scroll tr,#scroll thead { display: block; }
+#scroll tbody { display: block; height:400px; }
+#scroll thead tr {
+        /* fallback */
+    width:100%;
+    /* minus scroll bar width */
+    /*width: -webkit-calc(100% - 16px);
+    width:    -moz-calc(100% - 16px);
+    width:         calc(100% - 16px);*/
+}
+
+#scroll th{}
+#scroll thead tr th:first-child{width:60% !important;}
+#scroll thead tr th:first-child + th {width:20% !important;}
+#scroll thead tr th:first-child + th + th{width:20% !important;}
+
+.vertical_center_formload{position:absolute; left:0px; right:0px; top:100px; bottom:0px; margin:auto; height:29px; width:240px;}
+#scroll tr:after {content: ' '; display: block; visibility: hidden; clear: both;}
+#scroll tbody {min-height:100px; overflow-y: auto; overflow-x: auto;}/* height:320px; */
+    #scroll tbody tr {border-bottom:1px solid #dddddd;    }
+#scroll tbody td{ min-height:52px; float:left; border-bottom:none !important;}
+#scroll thead th {float: left;}
+.height_31{height:31px;}
+.otherservice {
+    padding: 10px;
+    border: 1px solid #dddedf;
+    float: left;
+    overflow-y: auto;
+    max-height: 530px;
+    width: auto;
+    min-width: 100%;
+}
+@media all and  (-ms-high-contrast: active),(-ms-high-contrast: none){
+    .searchfilter{padding-bottom:1px !important;}
+}
+@-moz-document url-prefix(){
+    .searchfilter{padding-bottom:2px !important;}
+} 

@@ -1,0 +1,30 @@
+<div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333333;">
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title">
+		<span translate="RENEWALNOTIFICATION_DLG_HEADERTEXT" translate-default="2015 MyTAXPrepOffice Special Offer"></span>
+	</h4>
+</div>
+<div class="modal-body clearfix">	
+	<div class="form-group input-group-lg row_height_30">
+		<div class="margin_bottom_10">
+			<span translate="RENEWALNOTIFICATION_DLG_TEXT0" translate-default="Take advantage of this special offer!"></span>
+		</div>
+		<div>
+			The early renewal pricing of {{ price | currency}} for our annual license will increase after {{expirationDate}}. Act now by clicking
+<!-- 			<span translate="RENEWALNOTIFICATION_DLG_TEXT1" translate-default=" $159.95 for our annual license will increase after {{expirationDate}}. Act now by clicking"  translate-values="{ expirationDate: expirationDate, price : price }"></span> -->
+			<span class="font_bold" translate="RENEWALNOTIFICATION_DLG_TEXT2" translate-default="Buy Now"></span>
+			<span translate="RENEWALNOTIFICATION_DLG_TEXT3" translate-default="below to take advantage of this remarkable opportunity.... just our way of saying Thank You."></span>
+		 </div>
+		 
+		 <div class="margin_top_10">
+		 	<span translate="RENEWALNOTIFICATION_DLG_TEXTEND" translate-default="- The MyTAXPrepOffice Team"></span>
+		 </div>
+	</div>	
+</div>
+<div class="modal-footer">
+	<div class="float-left margin_top_7"><button class="custom_input_dark float-left margin_right_5" data-ng-model="is2015DialogSkipped" data-ng-class="{'active':is2015DialogSkipped}" data-ng-click="is2015DialogSkipped = !is2015DialogSkipped"></button>Do not show this message again</div>		 	
+	<button ng-show="isProcessing==false" type="button" class="btn btn-outline-primary btn-red" data-ng-click="renewNow()"><span translate="RENEWALNOTIFICATION_DLG_BTN_BUYNOW" translate-default="Buy Now"></span></button>
+	<button ng-show="isProcessing==true" type="button" class="btn btn-outline-primary no-clicking"><span translate="DIALOG_SAVING" translate-default="Redirecting..."></span></button>	
+	<button type="button" class="btn btn-outline-primary" ng-class="{'no-clicking':isProcessing==true}" data-ng-click="skipNow()"><span translate="RENEWALNOTIFICATION_DLG_BTN_SKIPNOW" translate-default="Skip"></span></button>	
+</div>
+</div>

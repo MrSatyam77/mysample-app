@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">	
+</head>
+<body>
+<!-- Header -->
+         
+   <div class="inner_col_second clearfix" data-ng-class="{'inner_strech_right':headerNav.collapseRightPane==true,'inner_strech_right_animation':headerNav.applyRightAnimation==true,'inner_strech_right_remove':headerNav.collapseRightPane==false}">
+       <!-- <section class="page_title_wrap title_height_40 clearfix">
+           <span class="page_title_lg ng-binding" translate="MANAGEPRICELISTLIST_HEADER" translate-default="Price List"></span>
+       </section> -->
+       <div class="inner_padding_15 clearfix allowScrollSync"    ng-style="{height:headerNav.screenHeight-106}"  style="overflow-y:auto;" >
+           <div ng-cloak>
+               <div class="row col-lg-24 col-md-24 col-xl-24 col-sm-24 padding_l_r_0">
+                   <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="input-group">
+                       <!-- This will filter $data in ng-repeat instead of in Grid. -->
+                       <input type="text" class="form-control cus-forminput" placeholder="Filter by Any Value" ng-model="searchField" value="{{searchField}}" />
+                       <div class="input-group-append" data-ng-if="searchField.length">
+                            <span class="input-group-text cursor_pointer" data-ng-click="clearSearch()"> <i
+                                    class="fa fa-times"></i></span>
+                        </div>
+                    </div>
+                   </div>
+                   <div class="col-lg-3 col-md-10 col-sm-10 col-xs-margin_top_10 pl-0">
+                       <button class="btn btn-outline-primary" translate="MANAGEPRICELISTLIST_NEW_BTN" translate-default="New" data-ng-click="createNewPriceList()" data-ng-disabled="!userCan('CAN_CREATE_PRICELIST')"></button>
+                       <button class="btn btn-outline-primary" translate="MANAGEPRICELISTLIST_DELETE_BTN" translate-default="Delete" data-ng-click="deletePriceList()" data-ng-disabled="!userCan('CAN_REMOVE_PRICELIST')"></button>
+                   </div>
+               </div>
+               <div class="clearfix custom-table table-responsive margin_top_15 padding_l_r_0">
+                   <table ng-table="priceListGrid" class="table">
+                       <tr data-ng-repeat="priceList in $data" data-ng-click="">
+                           <td data-title="'NAME'" sortable="'name'" >
+                               <div class="float-left">
+                               	   <button class="custom_input_dark float-left margin_right_5" data-ng-model="priceList.isSelected" data-ng-class="{'active':priceList.isSelected, 'no-clicking disabled':!userCan('CAN_OPEN_PRICELIST')}" data-ng-disabled="!userCan('CAN_OPEN_PRICELIST')" data-ng-click="priceList.isSelected =! priceList.isSelected"></button>
+                                   <!-- <input type="checkbox" data-ng-model="priceList.isSelected" class="float-left" /> -->
+                                   <a  data-ng-click="editPriceList(priceList.id);" data-ng-class="{'no-clicking disabled':!userCan('CAN_OPEN_PRICELIST')}" class="margin_left_3">{{priceList.name}}</a>
+                               </div>
+                           </td>
+
+                           <td data-title="'DESCRIPTION'" sortable="'description'">
+                               <div class="float-left">
+                                   {{priceList.description}}
+                               </div>
+                           </td>
+
+                           <td data-title="'ACTIONS'">
+                                <!-- <div class="dropdown" dropdown="">
+                                    <button class="btn btn-outline-primary dropdown-toggle" dropdown-toggle="" type="button" id="typeFilter" data-toggle="dropdown">
+                                    <i class="fas fa-cog padding_right_5"></i> <span class="caret font_size_12"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="typeFilter">
+                                        <li class="dropdown-item"> <a  data-ng-click="deletePriceList(priceList.id);" data-ng-class="{'no-clicking disabled': !userCan('CAN_REMOVE_PRICELIST')}">
+                                                <span translate="PRICELIST_DELETE_LBL" translate-default="Delete"></span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item"> <a  data-ng-click="markAsDefault(priceList.id);">
+                                                <span translate="PRICELIST_MARKDEFAULT_LBL" translate-default="Mark As Default"></span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item"> <a  data-ng-click="exportList('pdf',priceList.priceListData);">
+                                                <span translate="PRINT_PRICELIST_LBL" translate-default="Print Price List Forms"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-outline-primary dropdown-toggle" id="typeFilter" data-toggle="dropdown">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item"  data-ng-click="deletePriceList(priceList.id);" data-ng-class="{'no-clicking disabled': !userCan('CAN_REMOVE_PRICELIST')}" translate="PRICELIST_DELETE_LBL" translate-default="Delete"></a>
+                                      <a class="dropdown-item"  data-ng-click="markAsDefault(priceList.id);" translate="PRICELIST_MARKDEFAULT_LBL" translate-default="Mark As Default"></a>
+                                      <a class="dropdown-item"  data-ng-click="exportList('pdf',priceList.priceListData);" translate="PRINT_PRICELIST_LBL" translate-default="Print Price List Forms"></a>
+                                    </div>
+                                  </div>
+                           </td>
+                       </tr>
+                   </table>
+               </div>
+           </div>
+       </div>
+        </div>
+    <!-- <div data-ng-include="'taxAppJs/common/rightSidebar/partials/rightSidebar.html'"></div> -->
+</body>
+</html>

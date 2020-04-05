@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="taxAppJs/return/workspace/css/returnWorkspace.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <!--  Recalculate loading bar start -->
+    <div ng-show="isRecalculateReturn || isSplitReturn">
+        <div class="loading_background"></div>
+        <div class="loading_text">
+            <div id="fountainTextG">
+                <!--<span class="float-left" translate="RETUWORKSPC_RECALCULATRETUN_LOADING" translate-default="Recalculating"></span>
+					<div id="fountainTextG_1" class="fountainTextG">.</div>
+					<div id="fountainTextG_2" class="fountainTextG">.</div>
+					<div id="fountainTextG_3" class="fountainTextG">.</div>-->
+                <div data-ng-show="isRecalculateReturn">
+                    <img src="taxAppJs/return/workspace/images/calculator_bg.gif" width="80" />
+                </div>
+                <div data-ng-show="isSplitReturn">
+                    <img src="taxAppJs/return/workspace/images/split.gif" width="80" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Recalculate loading bar End -->
+    <!-- Header -->
+    <calculator-widget data-ng-if="isOpenCalculator === true"></calculator-widget>
+
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- Left side column. contains the logo and sidebar -->
+        <!--data-ng-style="{height:headerNav.screenHeight-48+'px'}"-->
+        <aside class="col_first sidebar-offcanvas" data-ng-class="{'collapse-left':headerNav.collapseLeftPane==true,'collapse-left_animation':headerNav.applyLeftAnimation==true,'collapse-left_remove':headerNav.applyRightAnimation==false}"
+            data-ng-style="{height:headerNav.screenHeight-56+'px'}">
+            <data-ng-include src="'taxAppJs/return/workspace/partials/returnWorkspace-leftpane.html'"></data-ng-include>
+        </aside>
+
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="col_second clearfix" data-ng-class="{'strech_left':headerNav.collapseLeftPane==true,'strech_left_animation':headerNav.applyLeftAnimation==true,'strech_right':headerNav.collapseRightPane==true,'strech_right_animation':headerNav.applyRightAnimation==true,'strech_right_remove':headerNav.applyRightAnimation==true,'strech_left_remove':headerNav.applyLeftAnimation==true}">
+
+            <div class="col_second_inner">
+                <!-- Main content -->
+                <!-- Tool bar - It will include html of returnWorkspace-toolbar.html-->
+                <section class="img_btn_wrap" id="returnWorkspacetoolbar" data-ng-include="'taxAppJs/return/workspace/partials/returnWorkspace-toolbar.html'"></section>
+                <!-- Toolbar - End -->
+                <!-- Content Header (Page header) -->
+                <section class="page_title_wrap clearfix" id="returnWorkspacepagetitle">
+                    <!-- <span class="page_title_lg">Client Information Sheet</span>
+                <span class="width_full">(2014)</span>
+                <div class="float-right width_full_20 margin_top_7 text-right clearfix">Cristofer Nicolus Schweinstieger</div>
+                <div class="width_full float-left clearfix">
+                    <div class="width_full_80 float-left">For State Purpose Only</div>
+                    <div class="float-right width_full_20 text-right">1111-11-11114</div>
+                </div> -->
+                    <tax-form-header ng-show="formScope.currentForm"></tax-form-header>
+                    <div class="loadingStop vertical_center_formload" data-ng-class="{loadingStart:formLoading}">
+                        <div id="squaresWaveG">
+                            <div id="squaresWaveG_1" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_2" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_3" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_4" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_5" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_6" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_7" class="squaresWaveG"></div>
+                            <div id="squaresWaveG_8" class="squaresWaveG"></div>
+                        </div>
+                    </div>
+
+                </section>
+                <!--form content start from here-->
+                <!--combine two section for resizable panel-->
+                <!--data-ng-style="{height:headerNav.screenHeight-146+'px'}"-->
+                <section ui-layout class="layout-mock" id="returnWorkspaceformlayout"  style="position:relative;"
+                    data-ng-style="{height:(isIOS == true) ? headerNav.screenHeight+149+'px' : headerNav.screenHeight-195+'px'}"> <!-- : headerNav.screenHeight-toolbarHeight-returnTitle-65+'px' -->                    
+                    <section class="north-back stretch content allowScrollSync" ng-class="{height_full: !bottomPanelFlag}">
+                        <div class="col-lg-24 col-sm-24 col-md-24">
+                            <div class="fullWorkspace" data-ng-class="{'returnWorkspacePreferenceLabel':userSettings.preferences.returnWorkspace.wrapText != true}">
+                                <!-- Forms  -->
+                                <!-- taxform is the id used to scroll top when new form loaded -->
+                                <!-- Note:id of tax-form is needed so don't remove -->
+                                <tax-form ng-hide="formLoading" id="taxform"></tax-form>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- <div style='overflow:hidden;' ng-hide="!bottomPanelFlag"> -->
+                    <section id="step12" data-ng-show="bottomPanelFlag" class="Perform_Review south-back stretch" id="returnWorkspace">
+                        <span>
+                            <data-ng-include src="'taxAppJs/return/workspace/partials/returnWorkspace-erc.html'">
+                            </data-ng-include>
+                        </span>
+                    </section>
+                    <!-- </div> -->
+                </section>
+
+            </div>
+
+
+        </aside>
+
+
+        
+            <!--remove col third div from here and include in common right panel widget for making it common for all the right panels-->
+            <data-ng-include src="'taxAppJs/return/workspace/partials/returnWorkspace-rightpane.html'"></data-ng-include>
+            <!--remove col third div from here and include in common right panel widget for making it common for all the right panels-->
+        
+
+
+    </div>
+</body>
+
+</html>
