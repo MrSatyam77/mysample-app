@@ -1,0 +1,1 @@
+This project is Angular 9 project I am using technology is Angular 9,Typescript,AG-Grid,Kendo-UI,Material-angular,SCSS,Bootstrap 4 and HTML.If you can run this project please install node module using npm i command and run ng s.
